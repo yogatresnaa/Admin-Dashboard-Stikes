@@ -1,0 +1,34 @@
+/* .list-group a:hover {
+  background-color: rgb(10, 102, 177);
+  border-radius: 5px;
+  color: white;
+}
+.list-group {
+  cursor: pointer;
+} */
+
+/* .admin {
+  text-align: center;
+}
+.menu-nav {
+  list-style: none;
+  padding: 30px;
+  line-height: 30px;
+}
+
+.navigation ul li {
+  cursor: pointer;
+}
+
+.navigation ul li .dropdown-menu {
+  display: none;
+}
+
+.navigation ul li:hover .dropdown-menu {
+  display: inline;
+  flex-direction: column;
+} */
+
+.brand-name {
+  padding: 10px;
+}
