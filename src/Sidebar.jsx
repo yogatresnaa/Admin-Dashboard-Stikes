@@ -120,7 +120,7 @@ function Sidebar() {
                   {toggle3 === true ? <FaAngleUp /> : <FaAngleDown />}
                 </Navbar.Toggle>
               </a>
-              <ul className='nav collapse ms-2  flex-column justify-content-end   ' id="submenu3" data-bs-parent='#parentM'>
+              <ul className='nav collapse ms-2  flex-column justify-content-end  column-wrapper ' id="submenu3" data-bs-parent='#parentM'>
                 <li className='nav-item '>
                   <a className='nav-link text-white' href='#' aria-current='page'>
                     Pembayaran Siswa

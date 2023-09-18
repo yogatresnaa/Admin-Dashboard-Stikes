@@ -34,6 +34,6 @@
 }
 
 
-.column-wrapper.show{
- display: block !important; 
+.column-wrapper{
+  flex-wrap:nowrap;
 }
