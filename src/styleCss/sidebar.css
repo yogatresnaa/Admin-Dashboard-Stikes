@@ -32,3 +32,8 @@
 .nav-item {
   cursor: pointer;
 }
+
+
+.column-wrapper{
+  flex-wrap:nowrap;
+}
