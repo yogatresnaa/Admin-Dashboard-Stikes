@@ -37,3 +37,7 @@
 .column-wrapper{
   flex-wrap:nowrap;
 }
+
+.link{
+  text-decoration: none;
+  }

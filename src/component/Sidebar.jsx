@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/js/dist/dropdown';
 import 'bootstrap/js/dist/collapse';
-import { LinkContainer } from 'react-router-bootstrap';
 import { FaUserGraduate, FaAngleDown, FaAngleUp, FaUniversity, FaRegMoneyBillAlt, FaRegCreditCard, FaRegKeyboard } from 'react-icons/fa';
 import { BsFillMortarboardFill } from 'react-icons/bs';
 import Navbar from 'react-bootstrap/Navbar';
@@ -64,12 +63,12 @@ function Sidebar() {
 
           <hr className='text-white d-none d-sm-block'></hr>
           <ul className='nav nav-pills flex' id='parentM'>
-            <LinkContainer to='/'>
+            <Link className='link' to='/'>
               <li className='nav-item nav-link text-white  my-1'>
                 <FaRegKeyboard />
                 <span className='ms-2'>Dashboard</span>
               </li>
-            </LinkContainer>
+            </Link>
             <li className='nav-item my-3' onClick={toggleNav}>
               <a href='#submenu' className='nav-link text-white' data-bs-toggle='collapse' aria-current='page'>
                 <FaUserGraduate />
@@ -112,13 +111,13 @@ function Sidebar() {
                   </a>
                 </li>
 
-                <LinkContainer to='/kelulusan'>
+                <Link className='link'  to='/kelulusan'>
                   <li className='nav-item nav-link text-white m-2'>Kelulusan</li>
-                </LinkContainer>
+                </Link>
 
-                <LinkContainer to='/alumni'>
+                <Link className='link' to='/alumni'>
                   <li className='nav-item nav-link text-white m-2'>Alumni</li>
-                </LinkContainer>
+                </Link>
               </ul>
             </li>
 
