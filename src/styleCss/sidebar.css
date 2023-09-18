@@ -32,3 +32,8 @@
 .brand-name {
   padding: 10px;
 }
+
+
+.column-wrapper.show{
+ display: block !important; 
+}
