@@ -144,7 +144,7 @@ function Sidebar() {
                     </Navbar.Toggle>
                   </a>
 
-                  <ul className='nav collapse multi-collapse ms-2 flex-column justify-content-end  ' id='submenu4' data-bs-parent='#submenu5'>
+                  <ul className='nav collapse multi-collapse ms-2 flex-column justify-content-end column-wrapper ' id='submenu4' data-bs-parent='#submenu5'>
                     <li className='nav-item '>
                       <a className='nav-link text-white' href='#' aria-current='page'>
                         Akun Biaya
@@ -174,7 +174,7 @@ function Sidebar() {
                   {toggle5 === true ? <FaAngleUp /> : <FaAngleDown />}
                 </Navbar.Toggle>
               </a>
-              <ul className='nav collapse itemku ms-2 flex-column justify-content-end  ' id='submenu5' data-bs-parent='#parentM'>
+              <ul className='nav collapse itemku ms-2 flex-column justify-content-end column-wrapper  ' id='submenu5' data-bs-parent='#parentM'>
                 <li className='nav-item '>
                   <a className='nav-link text-white' href='#' aria-current='page'>
                     Saldo Awal
