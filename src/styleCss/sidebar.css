@@ -29,6 +29,6 @@
   flex-direction: column;
 } */
 
-.brand-name {
-  padding: 10px;
+.nav-item {
+  cursor: pointer;
 }
