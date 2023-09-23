@@ -64,7 +64,7 @@ function Sidebar() {
 
           <hr className='text-white d-none d-sm-block'></hr>
           <ul className='nav nav-pills flex' id='parentM'>
-            <LinkContainer to='/'>
+            <LinkContainer to='/admin'>
               <li className='nav-item nav-link text-white  my-1'>
                 <FaRegKeyboard />
                 <span className='ms-2'>Dashboard</span>
@@ -112,11 +112,11 @@ function Sidebar() {
                   </a>
                 </li>
 
-                <LinkContainer to='/kelulusan'>
+                <LinkContainer to='/admin/kelulusan'>
                   <li className='nav-item nav-link text-white m-2'>Kelulusan</li>
                 </LinkContainer>
 
-                <LinkContainer to='/alumni'>
+                <LinkContainer to='/admin/alumni'>
                   <li className='nav-item nav-link text-white m-2'>Alumni</li>
                 </LinkContainer>
               </ul>
