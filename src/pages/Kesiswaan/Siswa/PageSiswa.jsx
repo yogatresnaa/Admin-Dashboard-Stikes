@@ -1,5 +1,5 @@
 import React from 'react';
-import TableSiswa from '../../Kesiswaan/TableSiswa';
+import TableSiswa from './components/TableSiswa';
 
 function PageSiswa() {
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import TableTahunAjaran from '../../Akademik/TableTahunAjaran';
+import TableTahunAjaran from './components/TableTahunAjaran';
 
 function PageTahunAjaran() {
   return (

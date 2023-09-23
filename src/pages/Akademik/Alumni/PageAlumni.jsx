@@ -1,5 +1,5 @@
 import React from 'react';
-import TableAlumni from '../../Akademik/TableAlumni';
+import TableAlumni from './components/TableAlumni';
 
 function PageAlumni() {
   return (

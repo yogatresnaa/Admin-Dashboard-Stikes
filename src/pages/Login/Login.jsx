@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Col, Row, Form, FormGroup, Label, Input,Button } from 'reactstrap';
+import { Col, Row, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import './styles/login.css';
 import AutoTyping from '../../component/Text/AutoTyping';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -15,13 +15,13 @@ function Login() {
             <div className='left-wrapper' >
                 <div className='login-title'>
 
-            <AutoTyping text="Welcome Back . ." delay={300}/>
+                    <AutoTyping text="Welcome Back . ." delay={300} />
                 </div>
             </div>
             <div className='right-wrapper'>
                 <div className='right__inner-wrapper'>
                     <h1 className='login-subtitle'>
-                   Login
+                        Login
                     </h1>
                     <div className='form-wrapper'>
                         <Form>

@@ -4,14 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styleCss/style.css';
 import Homepage from './Homepage';
-import TableKelas from '../component/Pages/Kesiswaan/PageKelas';
-import TableSiswa from '../component/Kesiswaan/TableSiswa';
-import PageAlumni from '../component/Pages/Akademik/PageAlumni';
-import PageKelulusan from '../component/Pages/Akademik/PageKelulusan';
-import PageTahunAjaran from '../component/Pages/Akademik/PageTahunAjaran';
-import PageDashboard from '../component/Pages/Pagedashboard';
+import TableKelas from './Kesiswaan/Kelas/PageKelas';
+import TableSiswa from './Kesiswaan/Siswa/components/TableSiswa';
+import PageAlumni from './Akademik/Alumni/PageAlumni';
+import PageKelulusan from './Akademik/Kelulusan/PageKelulusan';
+import PageTahunAjaran from './Akademik/TahunAjaran/PageTahunAjaran';
+import PageDashboard from './Dashboard/PageDashboard';
 import LoginPage from './Login/Login';
-import Dashboard from '../component/Dashboard/Dashboard';
+import Dashboard from './Dashboard/components/Dashboard';
 
 function AppRoutes() {
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import TableKelulusan from '../../Akademik/TableKelulusan';
+import TableKelulusan from './components/TableKelulusan';
 
 function PageKelulusan() {
   return (
