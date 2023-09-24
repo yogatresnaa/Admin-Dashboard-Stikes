@@ -33,11 +33,14 @@
   cursor: pointer;
 }
 
-
-.column-wrapper{
-  flex-wrap:nowrap;
+.column-wrapper {
+  flex-wrap: nowrap;
 }
 
-.link{
+.link {
   text-decoration: none;
-  }
+}
+.color:hover {
+  background-color: rgb(132, 132, 240);
+  border-radius: 3px;
+}
