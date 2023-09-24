@@ -13,15 +13,19 @@ function Login() {
         <div className="container-login">
 
             <div className='left-wrapper' >
-                <div className='login-title'>
-
-                    <AutoTyping text="Welcome Back . ." delay={300} />
+                <div className="logo-wrapper">
+                    <img src="./src/assets/images/logo.jpeg" alt="" />
                 </div>
+
             </div>
             <div className='right-wrapper'>
                 <div className='right__inner-wrapper'>
+                    <div className='login-title mb-3'>
+
+                        <AutoTyping text="Welcome Back . ." delay={300} />
+                    </div>
                     <h1 className='login-subtitle'>
-                        Login
+                       Silahkan Login terlebih dahulu
                     </h1>
                     <div className='form-wrapper'>
                         <Form>
