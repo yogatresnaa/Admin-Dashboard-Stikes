@@ -1,12 +1,17 @@
 import React from 'react';
 import TableKelas from '../../Kesiswaan/TableKelas';
+import AddAction from '../../../component/ActionButton/AcctionAddButoon';
 
 function PageKelas() {
   return (
     <>
-      <div>
-        <h1>INI PAGE Kelas</h1>
-        <TableKelas />
+      <div className='page-kelas'>
+        <h3>Kelas List</h3>
+
+        <div className='table-kelas'>
+          <AddAction />
+          <TableKelas />
+        </div>
       </div>
     </>
   );
