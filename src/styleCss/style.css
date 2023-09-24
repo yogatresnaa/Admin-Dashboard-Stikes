@@ -1,9 +1,29 @@
-@import './sidebar.css';
-@import '../component/Akademik/akademik.css';
 
+@import './sidebar.css';
+@import '../pages/Akademik/akademik.css';
+@import url('https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,700;0,900;1,100;1,600&family=Quicksand:wght@300;400;700&display=swap');
+
+@font-face {
+  font-family:'Poppins-Light';
+  src: url('../assets/fonts/poppins/Poppins-Light.ttf')  format('ttf');
+}
+@font-face {
+  font-family:'Poppins-Medium';
+  src: url('../assets/fonts/poppins/Poppins-Medium.ttf')  format('ttf');
+}
+@font-face {
+  font-family:'Poppins-Bold';
+  src: url('../assets/fonts/poppins/Poppins-Bold.ttf')  format('ttf');
+}
+
+
+:root {
+  --main: #39b699;
+}
 * {
   padding: 0px;
-  margin: 0px;
+  margin: 0px ;
+  box-sizing: border-box;
 }
 
 .containerApp {
