@@ -75,7 +75,7 @@ function Sidebar() {
         <div className='list-group list-group-flush min-vh-100'>
           <hr className='text-white d-none d-sm-block'></hr>
           <ul className='nav nav-pills flex' id='parentM'>
-            <Link className='link' to='/'>
+            <Link className='link' to='/admin'>
               <li className='nav-item nav-link text-white  my-1'>
                 <FaRegKeyboard />
                 <span className='ms-2'>Dashboard</span>
@@ -91,10 +91,10 @@ function Sidebar() {
                 </Navbar.Toggle>
               </a>
               <ul className='nav collapse ms-1 flex-column justify-content-end column-wrapper ' id='submenu' data-bs-parent='#parentM'>
-                <Link to='/kelas' className='link color'>
+                <Link to='kelas' className='link color'>
                   <li className='nav-item nav-link text-white'>Kelas</li>
                 </Link>
-                <Link to='/siswa' className='link color'>
+                <Link to='siswa' className='link color'>
                   <li className='nav-item nav-link text-white'>Siswa</li>
                 </Link>
               </ul>
@@ -109,12 +109,15 @@ function Sidebar() {
                 </Navbar.Toggle>
               </a>
               <ul className='nav collapse ms-2 flex-column justify-content-end column-wrapper ' id='submenu1' data-bs-parent='#parentM'>
-                <Link className='link color' to='/kelulusan'>
-                  <li className='nav-item nav-link text-white '>Kelulusan</li>
+                <Link className='link' to='/admin/tahun-ajaran'>
+                  <li className='nav-item nav-link text-white m-2'>Tahun Ajaran</li>
+                </Link>
+                <Link className='link' to='/admin/kelulusan'>
+                  <li className='nav-item nav-link text-white m-2'>Kelulusan</li>
                 </Link>
 
-                <Link className='link color' to='/alumni'>
-                  <li className='nav-item nav-link text-white'>Alumni</li>
+                <Link className='link' to='/admin/alumni'>
+                  <li className='nav-item nav-link text-white m-2'>Alumni</li>
                 </Link>
               </ul>
             </li>
@@ -138,7 +141,6 @@ function Sidebar() {
                       {toggle4 === true ? <FaAngleUp /> : <FaAngleDown />}
                     </Navbar.Toggle>
                   </a>
-
                   <ul className='nav collapse multi-collapse ms-2 flex-column justify-content-end column-wrapper ' id='submenu4' data-bs-parent='#submenu5'>
                     <Link className='link color' to='/alumni'>
                       <li className='nav-item nav-link text-white'>Akun Biaya</li>
@@ -156,7 +158,7 @@ function Sidebar() {
             </li>
 
             <li className='nav-item text-white my-2'>
-              <a href='#submenu5' className='nav-link text-white' onClick={toggleNav5} data-bs-toggle='collapse' aria-current='page'>
+              <a href='#submenu6' className='nav-link text-white' onClick={toggleNav5} data-bs-toggle='collapse' aria-current='page'>
                 <FaRegCreditCard />
                 <span className='ms-2 text-white'>Kas Bank</span>
                 <Navbar.Toggle aria-controls='responsive-navbar-nav' className='ms-2'>
