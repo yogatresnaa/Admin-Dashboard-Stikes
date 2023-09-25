@@ -1,0 +1,9 @@
+.menu-select {
+  width: 40%;
+  margin: 30px;
+  display: flex;
+}
+
+.select-prodi {
+  margin-left: 10px;
+}

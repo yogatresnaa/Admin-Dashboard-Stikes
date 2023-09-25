@@ -4,6 +4,7 @@ import 'bootstrap/js/dist/dropdown';
 import 'bootstrap/js/dist/collapse';
 import { FaUserGraduate, FaAngleDown, FaAngleUp, FaUniversity, FaRegMoneyBillAlt, FaRegCreditCard, FaRegKeyboard, FaRegEdit } from 'react-icons/fa';
 import { BsFillMortarboardFill } from 'react-icons/bs';
+import { FaCircleMinus } from 'react-icons/fa6';
 import Navbar from 'react-bootstrap/Navbar';
 
 function Sidebar() {
@@ -66,13 +67,13 @@ function Sidebar() {
 
   return (
     <>
-      <div className='bg-dark text-white min-vh-100'>
+      <div className='bg text-white min-vh-100'>
         <div className='brand-name'>
           <FaUniversity className='me-3 fs-1' />
           <span className=' fs-5'>STIKES</span>
         </div>
         <hr className='text-black' />
-        <div className='list-group list-group-flush min-vh-100'>
+        <div className='list-group list-group-flush min-vh-100 '>
           <hr className='text-white d-none d-sm-block'></hr>
           <ul className='nav nav-pills flex' id='parentM'>
             <Link className='link' to='/admin'>
@@ -92,10 +93,14 @@ function Sidebar() {
               </a>
               <ul className='nav collapse ms-1 flex-column justify-content-end column-wrapper ' id='submenu' data-bs-parent='#parentM'>
                 <Link to='kelas' className='link color'>
-                  <li className='nav-item nav-link text-white'>Kelas</li>
+                  <li className='nav-item nav-link text-white m-1'>
+                    <FaCircleMinus /> Kelas
+                  </li>
                 </Link>
                 <Link to='siswa' className='link color'>
-                  <li className='nav-item nav-link text-white'>Siswa</li>
+                  <li className='nav-item nav-link text-white m-1'>
+                    <FaCircleMinus /> Siswa
+                  </li>
                 </Link>
               </ul>
             </li>
@@ -109,15 +114,21 @@ function Sidebar() {
                 </Navbar.Toggle>
               </a>
               <ul className='nav collapse ms-2 flex-column justify-content-end column-wrapper ' id='submenu1' data-bs-parent='#parentM'>
-                <Link className='link' to='/admin/tahun-ajaran'>
-                  <li className='nav-item nav-link text-white m-2'>Tahun Ajaran</li>
+                <Link className='link link color' to='/admin/tahun-ajaran'>
+                  <li className='nav-item nav-link text-white m-1'>
+                    <FaCircleMinus /> Tahun Ajaran
+                  </li>
                 </Link>
-                <Link className='link' to='/admin/kelulusan'>
-                  <li className='nav-item nav-link text-white m-2'>Kelulusan</li>
+                <Link className='link link color' to='/admin/kelulusan'>
+                  <li className='nav-item nav-link text-white m-1'>
+                    <FaCircleMinus /> Kelulusan
+                  </li>
                 </Link>
 
-                <Link className='link' to='/admin/alumni'>
-                  <li className='nav-item nav-link text-white m-2'>Alumni</li>
+                <Link className='link link color' to='/admin/alumni'>
+                  <li className='nav-item nav-link text-white m-1'>
+                    <FaCircleMinus /> Alumni
+                  </li>
                 </Link>
               </ul>
             </li>
@@ -131,10 +142,12 @@ function Sidebar() {
                 </Navbar.Toggle>
               </a>
               <ul className='nav collapse ms-2  flex-column justify-content-end  column-wrapper ' id='submenu3' data-bs-parent='#parentM'>
-                <Link className='link color' to='/alumni'>
-                  <li className='nav-item nav-link text-white'>Pembayaran Siswa</li>
+                <Link className='link color' to='/#'>
+                  <li className='nav-item nav-link text-white m-1'>
+                    <FaCircleMinus /> Pembayaran Siswa
+                  </li>
                 </Link>
-                <li className='nav-item'>
+                <li className='nav-item m-1'>
                   <a href='#submenu4' className='nav-link text-white' id='submenu5' onClick={toggleNav4} data-bs-toggle='collapse' aria-current='page'>
                     Setingan Pembayaran
                     <Navbar.Toggle aria-controls='responsive-navbar-nav' className='ms-2'>
@@ -143,14 +156,20 @@ function Sidebar() {
                   </a>
                   <ul className='nav collapse multi-collapse ms-2 flex-column justify-content-end column-wrapper ' id='submenu4' data-bs-parent='#submenu5'>
                     <Link className='link color' to='/alumni'>
-                      <li className='nav-item nav-link text-white'>Akun Biaya</li>
+                      <li className='nav-item nav-link text-white m-1'>
+                        <FaCircleMinus /> Akun Biaya
+                      </li>
                     </Link>
                     <Link className='link color' to='/alumni'>
-                      <li className='nav-item nav-link text-white'>Pos Bayar</li>
+                      <li className='nav-item nav-link text-white m-1'>
+                        <FaCircleMinus /> Pos Bayar
+                      </li>
                     </Link>
 
                     <Link className='link color' to='/alumni'>
-                      <li className='nav-item nav-link text-white'>Jenis Bayar</li>
+                      <li className='nav-item nav-link text-white m-1'>
+                        <FaCircleMinus /> Jenis Bayar
+                      </li>
                     </Link>
                   </ul>
                 </li>
@@ -160,38 +179,46 @@ function Sidebar() {
             <li className='nav-item text-white my-2'>
               <a href='#submenu6' className='nav-link text-white' onClick={toggleNav5} data-bs-toggle='collapse' aria-current='page'>
                 <FaRegCreditCard />
-                <span className='ms-2 text-white'>Kas Bank</span>
+                <span className='ms-2 text-white'>Kas Bank&nbsp;</span>
                 <Navbar.Toggle aria-controls='responsive-navbar-nav' className='ms-2'>
                   {toggle5 === true ? <FaAngleUp /> : <FaAngleDown />}
                 </Navbar.Toggle>
               </a>
-              <ul className='nav collapse itemku ms-2 flex-column justify-content-end column-wrapper  ' id='submenu5' data-bs-parent='#parentM'>
+              <ul className='nav collapse itemku ms-2 flex-column justify-content-end column-wrapper  ' id='submenu6' data-bs-parent='#parentM'>
                 <Link className='link color' to='/saldo-awal'>
-                  <li className='nav-item nav-link text-white'>Saldo Awal</li>
+                  <li className='nav-item nav-link text-white m-1'>
+                    <FaCircleMinus /> Saldo Awal
+                  </li>
                 </Link>
                 <Link className='link color' to='/saldo-keluar'>
-                  <li className='nav-item nav-link text-white'>Saldo Keluar</li>
+                  <li className='nav-item nav-link text-white m-1'>
+                    <FaCircleMinus /> Saldo Keluar
+                  </li>
                 </Link>
 
                 <Link className='link color' to='/kas-masuk'>
-                  <li className='nav-item nav-link text-white'>Kas Masuk</li>
+                  <li className='nav-item nav-link text-white m-1'>
+                    <FaCircleMinus /> Kas Masuk
+                  </li>
                 </Link>
 
                 <Link className='link color' to='/transfer-kas'>
-                  <li className='nav-item nav-link text-white'>Transfer Kas</li>
+                  <li className='nav-item nav-link text-white m-1'>
+                    <FaCircleMinus /> Transfer Kas
+                  </li>
                 </Link>
               </ul>
             </li>
 
             <li className='nav-item text-white my-1'>
-              <a href='#submenu6' className='nav-link text-white' onClick={toggleNav6} data-bs-toggle='collapse' aria-current='page'>
+              <a href='#submenu7' className='nav-link text-white' onClick={toggleNav6} data-bs-toggle='collapse' aria-current='page'>
                 <FaRegEdit />
-                <span className='ms-2 text-white'>Laporan</span>
+                <span className='ms-2 text-white'>Laporan &nbsp;</span>
                 <Navbar.Toggle aria-controls='responsive-navbar-nav' className='ms-2'>
                   {toggle6 === true ? <FaAngleUp /> : <FaAngleDown />}
                 </Navbar.Toggle>
               </a>
-              <ul className='nav collapse ms-2  flex-column justify-content-end  column-wrapper ' id='submenu6' data-bs-parent='#parentM'>
+              <ul className='nav collapse ms-2  flex-column justify-content-end  column-wrapper ' id='submenu7' data-bs-parent='#parentM'>
                 <li className='nav-item'>
                   <a href='#submenu4' className='nav-link text-white' id='submenu5' onClick={toggleNav7} data-bs-toggle='collapse' aria-current='page'>
                     Laporan Pembayaran
@@ -202,24 +229,32 @@ function Sidebar() {
 
                   <ul className='nav collapse multi-collapse ms-2 flex-column justify-content-end column-wrapper ' id='submenu4' data-bs-parent='#submenu5'>
                     <Link className='link color' to='/per-kelas'>
-                      <li className='nav-item nav-link text-white'>Per.Kelas</li>
+                      <li className='nav-item nav-link text-white m-1'>
+                        <FaCircleMinus /> Per.Kelas
+                      </li>
                     </Link>
                     <Link className='link color' to='/per-tanggal'>
-                      <li className='nav-item nav-link text-white'>Per.Tanggal</li>
+                      <li className='nav-item nav-link text-white m-1'>
+                        <FaCircleMinus /> Per.Tanggal
+                      </li>
                     </Link>
 
                     <Link className='link color' to='/tagihan-mahasiswa'>
-                      <li className='nav-item nav-link text-white'>Tagihan Mahasiswa</li>
+                      <li className='nav-item nav-link text-white m-1'>
+                        <FaCircleMinus /> Tagihan Mahasiswa
+                      </li>
                     </Link>
 
                     <Link className='link color' to='/rekap-pembayaran'>
-                      <li className='nav-item nav-link text-white'>Rekap Pembayaran</li>
+                      <li className='nav-item nav-link text-white m-1'>
+                        <FaCircleMinus /> Rekap Pembayaran
+                      </li>
                     </Link>
                   </ul>
                 </li>
 
                 <li className='nav-item'>
-                  <a href='#submenu8' className='nav-link text-white' id='submenu7' onClick={toggleNav8} data-bs-toggle='collapse' aria-current='page'>
+                  <a href='#submenu8' className='nav-link text-white' id='submenu5' onClick={toggleNav8} data-bs-toggle='collapse' aria-current='page'>
                     Laporan Keuagan
                     <Navbar.Toggle aria-controls='responsive-navbar-nav' className='ms-2'>
                       {toggle8 === true ? <FaAngleUp /> : <FaAngleDown />}
@@ -228,10 +263,14 @@ function Sidebar() {
 
                   <ul className='nav collapse multi-collapse ms-2 flex-column justify-content-end column-wrapper ' id='submenu8' data-bs-parent='#submenu7'>
                     <Link className='link color' to='/lap-jurnal'>
-                      <li className='nav-item nav-link text-white'>Laporan Jurnal</li>
+                      <li className='nav-item nav-link text-white m-1'>
+                        <FaCircleMinus /> Laporan Jurnal
+                      </li>
                     </Link>
                     <Link className='link color' to='/lap-kas-bank'>
-                      <li className='nav-item nav-link text-white'>Laporan Kas Bank</li>
+                      <li className='nav-item nav-link text-white m-1'>
+                        <FaCircleMinus /> Laporan Kas Bank
+                      </li>
                     </Link>
                   </ul>
                 </li>

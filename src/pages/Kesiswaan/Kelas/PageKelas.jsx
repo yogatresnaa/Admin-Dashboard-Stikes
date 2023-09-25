@@ -1,6 +1,8 @@
 import React from 'react';
 import TableKelas from './components/TableKelas';
 import AddAction from '../../../component/ActionButton/AcctionAddButoon';
+import SelectBasicExample from '../../../component/ActionButton/SelectMenu';
+import ShowDataEnteris from '../../../component/ActionButton/showEntries';
 
 function PageKelas() {
   return (
@@ -10,6 +12,8 @@ function PageKelas() {
 
         <div className='table-kelas'>
           <AddAction />
+          <SelectBasicExample />
+          <ShowDataEnteris />
           <TableKelas />
         </div>
       </div>
