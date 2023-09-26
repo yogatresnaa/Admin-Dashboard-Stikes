@@ -3,6 +3,7 @@ import TableKelas from './components/TableKelas';
 import AddAction from '../../../component/ActionButton/AcctionAddButoon';
 import SelectBasicExample from '../../../component/ActionButton/SelectMenu';
 import ShowDataEnteris from '../../../component/ActionButton/showEntries';
+import SearchInput from '../../../component/ActionButton/SearchInput';
 
 function PageKelas() {
   return (
@@ -13,7 +14,11 @@ function PageKelas() {
         <div className='table-kelas'>
           <AddAction />
           <SelectBasicExample />
-          <ShowDataEnteris />
+          <div className='search'>
+            <ShowDataEnteris />
+            <SearchInput />
+          </div>
+
           <TableKelas />
         </div>
       </div>

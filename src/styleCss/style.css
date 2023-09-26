@@ -1,7 +1,7 @@
 @import './sidebar.css';
 @import '../pages/Akademik/akademik.css';
 @import url('https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,700;0,900;1,100;1,600&family=Quicksand:wght@300;400;700&display=swap');
-@import './pagesCss/pageKelas.css';
+@import '../pages/Kesiswaan/Kelas/css/pageKelas.css';
 @import '../component/ActionButton/css/SelectMenu.css';
 @import '../component/ActionButton/css/ShowDataEntries.css';
 
