@@ -1,0 +1,22 @@
+.page-siswa {
+  padding: 5px;
+  margin: 10px;
+}
+
+.table-siswa {
+  width: 90%;
+  padding: 20px;
+  margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.select {
+  display: flex;
+  margin: 10px;
+}
+
+.search-siswa {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid rgb(9, 24, 224) 1px;
+}

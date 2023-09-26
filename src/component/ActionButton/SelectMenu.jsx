@@ -10,7 +10,7 @@ function SelectBasicExample() {
         <Form className='menu-select'>
           <div className=' d-flex'>
             <Form.Select>
-              <option>---- Pilih Prodi ----</option>
+              <option>Pilih Prodi</option>
               <option value='1'>One</option>
               <option value='2'>Two</option>
               <option value='3'>Three</option>

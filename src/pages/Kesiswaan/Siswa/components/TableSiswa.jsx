@@ -1,10 +1,12 @@
 import React from 'react';
+import DataTable from 'react-data-table-component';
+import { columns, data } from '../templateColumSiswa';
 
 function TableSiswa() {
   return (
     <>
       <div>
-        <h1>ini Komponent Table Siswa</h1>
+        <DataTable columns={columns} data={data} selectableRows pagination />;
       </div>
     </>
   );
