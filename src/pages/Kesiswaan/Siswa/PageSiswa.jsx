@@ -6,6 +6,7 @@ import SearchInput from '../../../component/ActionButton/SearchInput';
 import SelectBasicExample from '../../../component/ActionButton/SelectMenu';
 import SelectUnitKelas from '../../../component/ActionButton/SelectUnitKelas';
 import SelectStatusMahasiswa from '../../../component/ActionButton/SelectStatusMahasiswa';
+import MenuBarPageMahasiswa from '../../../component/ActionButton/MenuBarPageMahasiswa';
 
 function PageSiswa() {
   return (
@@ -13,7 +14,11 @@ function PageSiswa() {
       <div className='page-siswa'>
         <h1>INI PAGE SISWA</h1>
         <div className='table-siswa'>
-          <AddAction />
+          <div className='menu-bar'>
+            <AddAction />
+            <MenuBarPageMahasiswa />
+          </div>
+
           <div className='select'>
             <SelectUnitKelas />
             <SelectStatusMahasiswa />

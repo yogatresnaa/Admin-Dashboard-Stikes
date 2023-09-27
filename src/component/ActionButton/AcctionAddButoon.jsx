@@ -5,10 +5,12 @@ import { FaRegCalendarPlus } from 'react-icons/fa';
 function AddAction() {
   return (
     <>
-      <Button variant='primary'>
-        <FaRegCalendarPlus />
-        &ensp; Tambah
-      </Button>
+      <div>
+        <Button variant='primary'>
+          <FaRegCalendarPlus />
+          &ensp; Tambah
+        </Button>
+      </div>
     </>
   );
 }
