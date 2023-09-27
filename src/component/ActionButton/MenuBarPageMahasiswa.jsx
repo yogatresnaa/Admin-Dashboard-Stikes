@@ -13,7 +13,7 @@ function MenuBarPageMahasiswa() {
           </Button>
         </div>
         <div>
-          <Button variant='primary' className='text-white item1 text-right'>
+          <Button variant='primary' className='text-white item1 '>
             <FaUpload />
             &ensp; Upload Siswa
           </Button>
