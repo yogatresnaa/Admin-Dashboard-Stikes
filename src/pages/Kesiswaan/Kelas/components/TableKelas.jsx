@@ -16,6 +16,8 @@ function TableKelas() {
         <FaRegEdit />
       </Button>
       <Button
+        variant='info'
+        className='text-white'
         color='danger'
         size='sm'
         onClick={() => {
