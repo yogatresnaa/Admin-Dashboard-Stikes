@@ -13,8 +13,6 @@
 .menu-bar {
   margin: 5px;
   padding: 5px;
-  display: flex;
-  justify-content: space-around;
   width: 70%;
 }
 

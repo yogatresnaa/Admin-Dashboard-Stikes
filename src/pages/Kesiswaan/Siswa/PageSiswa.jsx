@@ -15,7 +15,7 @@ function PageSiswa() {
         <h1>INI PAGE SISWA</h1>
         <div className='table-siswa'>
           <div className='menu-bar'>
-            <AddAction />
+            {/* <AddAction /> */}
             <MenuBarPageMahasiswa />
           </div>
 
