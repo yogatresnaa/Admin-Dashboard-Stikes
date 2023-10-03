@@ -6,6 +6,7 @@ const options = (token) => ({
   
   // auth
   export const loginUser = (body) => Axios.post(`${URL_BASE}/auth/login`, body);
+  export const logoutUser = (body) => Axios.post(`${URL_BASE}/auth/logout`, body);
   export const registerUser = (body) => Axios.post(`${URL_BASE}/auth/register`, body);
 
   

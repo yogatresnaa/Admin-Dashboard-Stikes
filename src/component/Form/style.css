@@ -1,0 +1,42 @@
+.error-wrapper {
+    padding: 1px 8px;
+    margin: 2px 0;
+    align-items: center;
+    display: block;
+    width: inherit;
+    position: relative;
+ 
+ 
+   
+   
+    border-radius: 5px;
+    background-color: white;
+}
+.error-wrapper span {
+    color: white;
+    font-size: 0.8em;
+
+}
+
+.error-wrapper.show span {
+    color: white;
+    font-size: 0.8em;
+
+}
+.error-wrapper.show {
+
+  background-color: #EE5B5B;
+
+}
+
+.password-wrapper {
+    position: relative;
+    display: flex;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
