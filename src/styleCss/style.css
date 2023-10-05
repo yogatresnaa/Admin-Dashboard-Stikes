@@ -4,6 +4,7 @@
 @import '../pages/Kesiswaan/Kelas/css/pageKelas.css';
 @import '../component/ActionButton/css/index.css';
 @import '../pages/Kesiswaan/Siswa/css/pagesiswa.css';
+@import '../pages/Akademik/TahunAjaran/css/TahunAjaran.css';
 
 @font-face {
   font-family: 'Poppins-Light';
@@ -39,5 +40,15 @@
 .content {
   width: 85%;
   background-color: white;
-  margin-left: 230px;
+  margin-left: 228px;
+}
+
+.nav-bar {
+  width: 100%;
+  background-color: #39b699;
+  position: fixed;
+}
+.nav-bar h2 {
+  color: white;
+  padding: 5px;
 }

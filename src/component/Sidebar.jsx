@@ -69,7 +69,7 @@ function Sidebar() {
     <>
       <div className='bg text-white min-vh-100'>
         <div className='brand-name'>
-          <FaUniversity className='me-3 fs-1' />
+          <img src='./src/assets/images/logo.jpeg' className=' me-3 fs-1' />
           <span className=' fs-5'>STIKES</span>
         </div>
         <hr className='text-black' />

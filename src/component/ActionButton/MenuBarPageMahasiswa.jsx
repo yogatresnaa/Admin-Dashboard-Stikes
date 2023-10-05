@@ -18,12 +18,6 @@ function MenuBarPageMahasiswa() {
             &ensp; Upload Siswa
           </Button>
         </div>
-        <div>
-          <Button variant='primary' className='text-white item1'>
-            <FaMobileScreen />
-            &ensp;Kontak Wali Murid
-          </Button>
-        </div>
 
         <div>
           <Button variant='primary' className='text-white item1'>

@@ -1,9 +1,4 @@
-.page-siswa {
-  padding: 5px;
-  margin: 10px;
-}
-
-.table-siswa {
+.table-ajaran {
   width: 90%;
   padding: 20px;
   margin-left: auto;
@@ -12,18 +7,7 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.menu-bar {
-  margin: 5px;
-  padding: 5px;
-  width: 70%;
-}
-
-.select {
-  display: flex;
-  margin: 10px;
-}
-
-.search-siswa {
+.search {
   display: flex;
   justify-content: space-between;
   border-bottom: solid rgb(9, 24, 224) 1px;

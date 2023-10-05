@@ -18,13 +18,11 @@ function PageSiswa() {
             {/* <AddAction /> */}
             <MenuBarPageMahasiswa />
           </div>
-
           <div className='select'>
             <SelectUnitKelas />
             <SelectStatusMahasiswa />
             <SelectBasicExample />
           </div>
-
           <div className='search-siswa'>
             <ShowDataEnteris />
             <SearchInput />

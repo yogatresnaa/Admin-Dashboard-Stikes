@@ -9,8 +9,7 @@ function PageKelas() {
   return (
     <>
       <div className='page-kelas'>
-        <h3>Kelas List</h3>
-
+        <span> PAGE PRODI</span>
         <div className='table-kelas'>
           <AddAction />
           <SelectBasicExample />
@@ -18,7 +17,6 @@ function PageKelas() {
             <ShowDataEnteris />
             <SearchInput />
           </div>
-
           <TableKelas />
         </div>
       </div>
