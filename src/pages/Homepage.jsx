@@ -4,8 +4,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styleCss/style.css';
 import Sidebar from '../component/Sidebar';
+import {axiosInterceptorDispatch} from '../utils/http';
+import { useEffect } from 'react';
+import { useDispatch} from 'react-redux';
 
 function Homepage() {
+  const dispatch=useDispatch()
+  useEffect(()=>{
+    
+    axiosInterceptorDispatch(dispatch)
+  },[])
   return (
 
       <div className='containerApp'>
@@ -20,5 +28,6 @@ function Homepage() {
  
   );
 }
+
 
 export default Homepage;

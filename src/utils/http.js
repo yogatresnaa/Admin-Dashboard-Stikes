@@ -1,9 +1,32 @@
 
+import Axios from 'axios'
+
+
+const URL_BASE='http://localhost:5000'
 const options = (token) => ({
     headers: { Authorization: `Bearer ${token}` },
     timeout: 15000,
   });
-  
+
+
+
+  let dispatch;
+  export const axiosInterceptorDispatch=(useDispatch)=>{
+    dispatch=useDispatch;
+
+  }
+ 
+ 
+  Axios.interceptors.response.use(response=>response,
+    error=>{
+      console.log(error)
+      if(error.response.data.status==401){
+        return Promise.reject(error);
+      //    handle refresh token dan error
+      }
+      return Promise.reject(error);
+
+  })
   // auth
   export const loginUser = (body) => Axios.post(`${URL_BASE}/auth/login`, body);
   export const logoutUser = (body) => Axios.post(`${URL_BASE}/auth/logout`, body);

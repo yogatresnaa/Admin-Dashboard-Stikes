@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
-import { REHYDRATE } from "redux-persist";
+import { REHYDRATE } from 'redux-persist/lib/constants';
+import dataUser from "./authReducer";
 
 
-const combinedReducers=combineReducers({authState:''})
+const combinedReducers=combineReducers({authState:dataUser})
 const rootReducer=(state,action)=>{
     if(action.type===REHYDRATE){
+        console.log(action.payload)
         state=action.payload;
     }
     return combinedReducers(state,action)
