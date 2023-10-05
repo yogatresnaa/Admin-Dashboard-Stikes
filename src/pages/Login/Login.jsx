@@ -42,8 +42,16 @@ function Login() {
     }
     useEffect(()=>{
         if(dataUser.isFulfilled){
-            navigate('/')
-            
+            toast.success(dataUser.message,{
+                theme:'colored'
+            })
+            const timeout=setTimeout(()=>{
+                navigate('/')
+            },3000)
+            return ()=>{
+                clearTimeout(timeout)
+            }
+          
         }
     },[dataUser.isFulfilled,navigate])
 
