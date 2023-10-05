@@ -12,7 +12,7 @@ function PageSiswa() {
   return (
     <>
       <div className='page-siswa'>
-        <h1>INI PAGE SISWA</h1>
+        <span>PAGE SISWA</span>
         <div className='table-siswa'>
           <div className='menu-bar'>
             {/* <AddAction /> */}

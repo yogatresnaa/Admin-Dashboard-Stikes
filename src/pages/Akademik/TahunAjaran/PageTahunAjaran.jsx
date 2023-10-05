@@ -8,7 +8,7 @@ function PageTahunAjaran() {
   return (
     <>
       <div className='tahun-ajaran'>
-        <span>Tahun Ajaran</span>
+        <span>PAGE TAHUN AJARAN</span>
         <div className='table-ajaran'>
           <AddAction />
           <div className='search'>

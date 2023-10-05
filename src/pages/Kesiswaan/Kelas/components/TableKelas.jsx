@@ -1,4 +1,6 @@
 import React from 'react';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import DataTable from 'react-data-table-component';
 import Button from 'react-bootstrap/Button';
 import { FaRegTrashAlt, FaRegEdit } from 'react-icons/fa';
@@ -6,26 +8,35 @@ import { FaRegTrashAlt, FaRegEdit } from 'react-icons/fa';
 function TableKelas() {
   const renderActionButton = (row) => (
     <div className='d-flex gap-1'>
-      <Button
-        color='warning'
-        size='sm'
-        onClick={() => {
-          onClickEditHandler(row);
-        }}
-        id={row.ID}>
-        <FaRegEdit />
-      </Button>
-      <Button
-        variant='info'
-        className='text-white'
-        color='danger'
-        size='sm'
-        onClick={() => {
-          onClickDeleteHandler(row);
-        }}
-        id={row.ID}>
-        <FaRegTrashAlt />
-      </Button>
+      <OverlayTrigger overlay={<Tooltip id='tooltip-disabled'>Edit</Tooltip>}>
+        <span className='d-inline-block'>
+          <Button
+            color='warning'
+            size='sm'
+            onClick={() => {
+              onClickEditHandler(row);
+            }}
+            id={row.ID}>
+            <FaRegEdit />
+          </Button>
+        </span>
+      </OverlayTrigger>
+
+      <OverlayTrigger overlay={<Tooltip id='tooltip-disabled'>Hapus</Tooltip>}>
+        <span className='d-inline-block'>
+          <Button
+            variant='info'
+            className='text-white'
+            color='danger'
+            size='sm'
+            onClick={() => {
+              onClickDeleteHandler(row);
+            }}
+            id={row.ID}>
+            <FaRegTrashAlt />
+          </Button>
+        </span>
+      </OverlayTrigger>
     </div>
   );
   const columns = [
