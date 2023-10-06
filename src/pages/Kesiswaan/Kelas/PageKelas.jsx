@@ -1,25 +1,63 @@
-import React from 'react';
-import TableKelas from './components/TableKelas';
-import AddAction from '../../../component/ActionButton/AcctionAddButoon';
-import SelectBasicExample from '../../../component/ActionButton/SelectMenu';
-import ShowDataEnteris from '../../../component/ActionButton/showEntries';
-import SearchInput from '../../../component/ActionButton/SearchInput';
+import React, { useEffect, useMemo } from "react";
+import TableKelas from "./components/TableKelas";
+import AddAction from "../../../component/ActionButton/AcctionAddButoon";
+import SelectBasicExample from "../../../component/ActionButton/SelectMenu";
+import ShowDataEnteris from "../../../component/ActionButton/showEntries";
+import SearchInput from "../../../component/ActionButton/SearchInput";
+import useRequest from "../../../customHooks/useRequest";
+import { getAllKelas } from "../../../utils/http";
+import { useSelector } from "react-redux";
 
 function PageKelas() {
+  const {
+    data: dataKelas,
+    setData: setDataKelas,
+    getData: getDataKelas,
+    isLoading: isLoadingKelas,
+    setIsLoading: setIsLoadingKelas,
+    resetPaginationToggle,
+    filterText,
+    setResetPaginationToggle,
+    onChangeFilterText
+  } = useRequest({ isFetch: true });
+  const dataUser = useSelector(({ authState }) => authState.data);
+
+  useEffect(() => {
+    getDataKelas(() => getAllKelas(dataUser.token));
+  }, []);
+
+  const subHeaderComponent=useMemo(()=>{
+    const onClearHandler = () => {
+      if (filterText) {
+        setFilterText('');
+        setResetPaginationToggle(!resetPaginationToggle);
+      }
+    };
+
+    return (
+      <SearchInput filterText={filterText} setFilterText={onChangeFilterText} />
+    )
+  })
   return (
     <>
-      <div className='page-kelas'>
+      <div className="page-kelas">
         <h3>Kelas List</h3>
 
-        <div className='table-kelas'>
+        <div className="table-kelas">
           <AddAction />
           <SelectBasicExample />
-          <div className='search'>
+          <div className="search">
             <ShowDataEnteris />
-            <SearchInput />
+         
           </div>
 
-          <TableKelas />
+          <TableKelas
+            data={filterText.length>0?
+              dataKelas.filter:dataKelas.data}
+            subHeaderComponent={subHeaderComponent}
+            resetPaginationToggle={resetPaginationToggle}
+            isLoading={isLoadingKelas}
+          />
         </div>
       </div>
     </>

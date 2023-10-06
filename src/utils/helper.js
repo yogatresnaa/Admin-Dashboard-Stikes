@@ -1,4 +1,5 @@
-export const requestWrapper=(fn,toast,navigate=null)=>async()=>{
+/*
+export const    requestWrapper=(fn,toast,navigate=null)=>async()=>{
     try {
        const response= await fn();
        
@@ -6,6 +7,29 @@ export const requestWrapper=(fn,toast,navigate=null)=>async()=>{
        toast.success(response.data.message,{
             theme:'colored'
        })
+       if(navigate!==null){
+        navigate()
+       }
+   } catch (error) {
+ 
+        toast.error(error.response.data.message,{
+            theme:'colored'
+        })
+        
+    }
+
+}
+*/
+export const requestWrapper=async(fn,toast,navigate=null)=>{
+    try {
+       const response= await fn();
+       
+       if(response.data.status==200 ||response.data.status==201 ){
+            console.log('aa')
+           toast.success(response.data.message,{
+                theme:'colored'
+           })
+       }
        if(navigate!==null){
         navigate()
        }
