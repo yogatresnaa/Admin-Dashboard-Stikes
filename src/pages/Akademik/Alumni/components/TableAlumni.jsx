@@ -3,70 +3,96 @@ import DataTable from 'react-data-table-component';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import { FaUnlockAlt, FaRegEdit, FaPrint } from 'react-icons/fa';
+import { FaRegEye } from 'react-icons/fa6';
 
 function TableAlumni() {
+  const ActionButton = (row) => (
+    <div className='d-flex gap-1'>
+      <OverlayTrigger overlay={<Tooltip id='tooltip-disabled'>Edit</Tooltip>}>
+        <span className='d-inline-block'>
+          <Button
+            color='secondary'
+            size='sm'
+            onClick={() => {
+              onClickDetailShowHandler(row);
+            }}
+            id={row.ID}>
+            <FaRegEdit />
+          </Button>
+        </span>
+      </OverlayTrigger>
+
+      <OverlayTrigger overlay={<Tooltip id='tooltip-disabled'>Lihat</Tooltip>}>
+        <span className='d-inline-block'>
+          <Button
+            color='secondary'
+            variant='dark'
+            size='sm'
+            onClick={() => {
+              onClickDetailShowHandler(row);
+            }}
+            id={row.ID}>
+            <FaRegEye />
+          </Button>
+        </span>
+      </OverlayTrigger>
+    </div>
+  );
   const columns = [
     {
       name: 'NO',
       selector: (row) => row.no,
     },
     {
-      name: 'Kode Akun',
-      selector: (row) => row.KodeAkun,
+      name: 'NIS',
+      selector: (row) => row.NIS,
     },
     {
-      name: 'Keterangan',
-      selector: (row) => row.Keterangan,
+      name: 'Nama',
+      selector: (row) => row.Nama,
     },
     {
-      name: 'Jenis Akun',
-      selector: (row) => row.JenisAkun,
+      name: 'Unit',
+      selector: (row) => row.Unit,
     },
     {
-      name: 'Kategori',
-      selector: (row) => row.Kategori,
+      name: 'Prodi',
+      selector: (row) => row.Prodi,
     },
-    {
-      name: 'Semester',
-      selector: (row) => row.Semester,
-    },
-
     {
       name: 'Aksi',
-      // cell: (row) => ActionButton(row),
-      // ignoreRowClick: true,
-      // allowOverflow: true,
-      // button: true,
-      // width: '200px',
+      cell: (row) => ActionButton(row),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+      width: '250px',
     },
   ];
   const data = [
     {
       id: 1,
       no: '1',
-      KodeAkun: '2021',
-      Keterangan: 'ok',
-      JenisAkun: 'a',
-      Kategori: 'ya',
-      Semester: '2',
+      NIS: '2021',
+      Nama: 'ok',
+      Unit: 'a',
+      Prodi: 'ya',
     },
     {
       id: 2,
       no: '2',
-      KodeAkun: '2033',
-      Keterangan: 'ok',
-      JenisAkun: 'A',
-      Kategori: 'ya',
-      Semester: '1',
+      NIS: '2021',
+      Nama: 'ok',
+      Unit: 'a',
+      Prodi: 'ya',
     },
     {
       id: 3,
       no: '3',
-      KodeAkun: '433',
-      Keterangan: 'ok',
-      JenisAkun: 'A',
-      Kategori: 'ya',
-      Semester: '5',
+      NIS: '2021',
+      Nama: 'ok',
+      Unit: 'a',
+      Prodi: 'ya',
     },
   ];
   return (

@@ -69,8 +69,9 @@ function Sidebar() {
     <>
       <div className='bg text-white min-vh-100'>
         <div className='brand-name images'>
+          {/* <FaUniversity className='me-3 fs-1' /> */}
           <img src='./src/assets/images/logo.png' className=' me-1 fs-1' />
-          <span className='fs-3'>STIKES</span>
+          <span className='fs-3'>Admin</span>
         </div>
         <hr className='text-black' />
         <div className='list-group list-group-flush min-vh-100 '>
@@ -86,7 +87,7 @@ function Sidebar() {
             <li className='nav-item my-2' onClick={toggleNav}>
               <a href='#submenu' className='nav-link text-white' data-bs-toggle='collapse' aria-current='page'>
                 <FaUserGraduate />
-                <span className='ms-2'>Kesiswaan</span>
+                <span className='ms-2'>Manajemen Data</span>
                 <Navbar.Toggle aria-controls='responsive-navbar-nav' className='ms-2'>
                   {toggle1 === true ? <FaAngleUp /> : <FaAngleDown />}
                 </Navbar.Toggle>
@@ -94,12 +95,18 @@ function Sidebar() {
               <ul className='nav collapse ms-1 flex-column justify-content-end column-wrapper ' id='submenu' data-bs-parent='#parentM'>
                 <Link to='kelas' className='link color'>
                   <li className='nav-item nav-link text-white m-1'>
+                    <FaCircleMinus /> Program Studi
+                  </li>
+                </Link>
+
+                <Link to='kelas' className='link color'>
+                  <li className='nav-item nav-link text-white m-1'>
                     <FaCircleMinus /> Kelas
                   </li>
                 </Link>
                 <Link to='siswa' className='link color'>
                   <li className='nav-item nav-link text-white m-1'>
-                    <FaCircleMinus /> Siswa
+                    <FaCircleMinus /> Mahasiswa
                   </li>
                 </Link>
               </ul>
