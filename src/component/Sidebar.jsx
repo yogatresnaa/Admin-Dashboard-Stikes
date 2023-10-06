@@ -68,9 +68,9 @@ function Sidebar() {
   return (
     <>
       <div className='bg text-white min-vh-100'>
-        <div className='brand-name'>
-          <img src='./src/assets/images/logo.jpeg' className=' me-3 fs-1' />
-          <span className=' fs-5'>STIKES</span>
+        <div className='brand-name images'>
+          <img src='./src/assets/images/logo.png' className=' me-1 fs-1' />
+          <span className='fs-3'>STIKES</span>
         </div>
         <hr className='text-black' />
         <div className='list-group list-group-flush min-vh-100 '>

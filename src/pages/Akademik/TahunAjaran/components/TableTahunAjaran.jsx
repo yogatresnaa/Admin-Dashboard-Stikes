@@ -119,7 +119,7 @@ function TableTahunAjaran() {
   return (
     <>
       <div>
-        <DataTable columns={columns} data={data} pagination />;
+        <DataTable title='Tahun Ajaran' columns={columns} data={data} pagination />;
       </div>
     </>
   );
