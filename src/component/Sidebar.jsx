@@ -6,6 +6,7 @@ import { FaUserGraduate, FaAngleDown, FaAngleUp, FaUniversity, FaRegMoneyBillAlt
 import { BsFillMortarboardFill } from 'react-icons/bs';
 import { FaCircleMinus } from 'react-icons/fa6';
 import Navbar from 'react-bootstrap/Navbar';
+import './css/sidebar.css'
 
 function Sidebar() {
   const [toggle1, setToggle1] = React.useState(false);
@@ -67,13 +68,13 @@ function Sidebar() {
 
   return (
     <>
-      <div className='bg text-white min-vh-100'>
+      <div className='bg text-white min-vh-100 sidebar-wrapper'>
         <div className='brand-name'>
           <FaUniversity className='me-3 fs-1' />
           <span className=' fs-5'>STIKES</span>
         </div>
-        <hr className='text-black' />
-        <div className='list-group list-group-flush min-vh-100 '>
+      
+        <div className='list-group list-group-flush '>
           <hr className='text-white d-none d-sm-block'></hr>
           <ul className='nav nav-pills flex' id='parentM'>
             <Link className='link' to='/admin'>
@@ -278,20 +279,7 @@ function Sidebar() {
             </li>
           </ul>
         </div>
-        <div className='dropdown open'>
-          <a className='btn border-none dropdown-toggle text-white' type='button' id='triggerId' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-            <i className='bi bi-person fs-4 text-white'></i>
-            <span className='fs-4 ms-3 text-white'>Admin</span>
-          </a>
-          <div className='dropdown-menu' aria-labelledby='triggerId'>
-            <a className='dropdown-item' href='#'>
-              Action
-            </a>
-            <a className='dropdown-item disabled' href='#'>
-              Disabled action
-            </a>
-          </div>
-        </div>
+
       </div>
     </>
   );

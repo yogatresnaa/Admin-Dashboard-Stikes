@@ -3,7 +3,7 @@ import { Col, Row, Form, FormGroup, Label, Input, Button } from "reactstrap";
 import "./styles/login.css";
 
 import AutoTyping from "../../component/Text/AutoTyping";
-
+import logo from '../../assets/images/logo.jpeg'
 import ErrorComponent from "../../component/Form/ErrorComponent";
 import FormComponent from "../../component/Form/FormComponent";
 import { Formik } from "formik";
@@ -57,7 +57,7 @@ function Login() {
       <ToastContainer />
       <div className="left-wrapper">
         <div className="logo-wrapper">
-          <img src="./src/assets/images/logo.jpeg" alt="" />
+          <img src={logo} alt="" />
         </div>
       </div>
       <div className="right-wrapper">

@@ -168,7 +168,7 @@ function TableKelas({ data,
   ];
   */
   return (
-    <>
+  
       <div>
         <DataTable
           columns={columns}
@@ -183,7 +183,7 @@ function TableKelas({ data,
         />
         ;
       </div>
-    </>
+ 
   );
 }
 

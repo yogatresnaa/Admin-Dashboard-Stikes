@@ -3,12 +3,12 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { FaSearch } from 'react-icons/fa';
 
-function SelectBasicExample() {
+function SelectProdi() {
   return (
     <>
       <div>
         <Form className='menu-select'>
-          <div className=' d-flex'>
+          <div className='d-flex'>
             <Form.Select>
               <option>Pilih Prodi</option>
               <option value='1'>One</option>
@@ -25,4 +25,4 @@ function SelectBasicExample() {
   );
 }
 
-export default SelectBasicExample;
+export default SelectProdi;

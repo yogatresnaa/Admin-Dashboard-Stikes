@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import TableKelas from "./components/TableKelas";
 import AddAction from "../../../component/ActionButton/AcctionAddButoon";
-import SelectBasicExample from "../../../component/ActionButton/SelectMenu";
+import SelectProdi from "../../../component/ActionButton/SelectProdi";
 import ShowDataEnteris from "../../../component/ActionButton/showEntries";
 import SearchInput from "../../../component/ActionButton/SearchInput";
 import useRequest from "../../../customHooks/useRequest";
@@ -39,13 +39,13 @@ function PageKelas() {
     )
   })
   return (
-    <>
+ 
       <div className="page-kelas">
-        <h3>Kelas List</h3>
+        <h3>Kelas <span style={{fontSize:"0.8em",color:'gray'}}>List</span></h3>
 
         <div className="table-kelas">
           <AddAction />
-          <SelectBasicExample />
+          <SelectProdi />
           <div className="search">
             <ShowDataEnteris />
          
@@ -58,9 +58,10 @@ function PageKelas() {
             resetPaginationToggle={resetPaginationToggle}
             isLoading={isLoadingKelas}
           />
+          
         </div>
       </div>
-    </>
+
   );
 }
 

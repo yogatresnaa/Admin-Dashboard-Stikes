@@ -3,7 +3,7 @@ import TableSiswa from './components/TableSiswa';
 import AddAction from '../../../component/ActionButton/AcctionAddButoon';
 import ShowDataEnteris from '../../../component/ActionButton/showEntries';
 import SearchInput from '../../../component/ActionButton/SearchInput';
-import SelectBasicExample from '../../../component/ActionButton/SelectMenu';
+import SelectBasicExample from '../../../component/ActionButton/SelectProdi';
 import SelectUnitKelas from '../../../component/ActionButton/SelectUnitKelas';
 import SelectStatusMahasiswa from '../../../component/ActionButton/SelectStatusMahasiswa';
 import MenuBarPageMahasiswa from '../../../component/ActionButton/MenuBarPageMahasiswa';
