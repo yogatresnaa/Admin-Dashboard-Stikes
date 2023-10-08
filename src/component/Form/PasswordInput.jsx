@@ -7,7 +7,7 @@ import ErrorComponent from './ErrorComponent';
 
 export default function PasswordInput({ handler,value,text,error }){
     const [isVisible, setIsVisible] = useState(false)
-   console.log(error)
+ 
     return (
         <FormGroup>
         <Label for="password">

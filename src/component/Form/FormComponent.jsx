@@ -4,7 +4,7 @@ import { Col, Row, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import ErrorComponent from './ErrorComponent';
 
 export default function FormComponent({ id, name, placeholder, type, handler,value,text,error }) {
-    console.log(error[name])
+   
     return (
     <FormGroup>
         <Label for={id}>

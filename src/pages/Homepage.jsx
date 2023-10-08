@@ -5,8 +5,15 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styleCss/style.css';
 import Sidebar from '../component/Sidebar';
 import NavBar from '../component/NavBar';
+import { axiosInterceptorDispatch } from '../utils/http';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 function Homepage() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    axiosInterceptorDispatch(dispatch);
+  }, []);
   return (
     <div className='containerApp'>
       <div className='sidebar'>
