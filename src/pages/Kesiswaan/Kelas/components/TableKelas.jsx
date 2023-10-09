@@ -163,11 +163,11 @@ function TableKelas({ data, subHeaderComponent, resetPaginationToggle, isLoading
   ];
   */
   return (
-    <>
+  
       <div>
         <DataTable columns={columns} data={data} pagination subHeader subHeaderComponent={subHeaderComponent} paginationResetDefaultPage={resetPaginationToggle} progressPending={isLoading} />;
       </div>
-    </>
+ 
   );
 }
 

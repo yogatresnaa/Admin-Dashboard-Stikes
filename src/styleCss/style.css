@@ -31,23 +31,21 @@
 .containerApp {
   display: flex;
   width: 100%;
+  height: 100vh;
 }
 .sidebar {
-  width: 15%;
-  position: fixed;
+  min-width: 210px;
+  width: 100%;
+  max-width: 230px;
+  position: relative;
+  display: flex;
 }
 
 .content {
-  width: 85%;
-  margin-left: 228px;
-}
-
-.nav-bar {
-  width: 100%;
-  background-color: #39b699;
-  position: fixed;
-}
-.nav-bar h2 {
-  color: white;
-  padding: 5px;
+  flex: auto;
+  margin-top: 50px;
+  flex-direction: column;
+  overflow-y: scroll;
+  display: flex;
+  background-color: white;
 }

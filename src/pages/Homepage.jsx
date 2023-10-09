@@ -8,6 +8,7 @@ import NavBar from '../component/NavBar';
 import { axiosInterceptorDispatch } from '../utils/http';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import Header from '../component/Header';
 
 function Homepage() {
   const dispatch = useDispatch();
@@ -19,9 +20,8 @@ function Homepage() {
       <div className='sidebar'>
         <Sidebar />
       </div>
-
+      <Header />
       <div className='content'>
-        <NavBar />
         <Outlet />
       </div>
     </div>

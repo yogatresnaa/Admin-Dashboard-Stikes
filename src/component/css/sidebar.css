@@ -1,0 +1,13 @@
+.sidebar-wrapper {
+    z-index: 20;
+    overflow-y: auto;
+}
+.sidebar-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+.brand-name {
+    display: flex;
+    justify-content: center;
+    height: 80px;
+    align-items: center;
+}
