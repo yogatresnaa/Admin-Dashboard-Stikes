@@ -2,11 +2,11 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { FaRegCalendarPlus } from 'react-icons/fa';
 
-function AddAction() {
+function AddAction({onClickHandler}) {
   return (
    
       <div>
-        <Button variant='primary'>
+        <Button variant='dark' onClick={onClickHandler}>
           <FaRegCalendarPlus />
           &ensp; Tambah
         </Button>
