@@ -37,36 +37,34 @@ export default function useRequest() {
   }, [filterText]);
 
   const getData = async (fn) => {
-    requestWrapper(
+   await requestWrapper(
       async () => {
         const response = await fn();
         setData((prevState) => ({ ...prevState, data: response.data.data }));
         return response;
       },
+      null,
       functionType.GET,
       toast,
       null
     );
   };
-  const sendData = async (fn) => {
-    requestWrapper(
+  const sendData = async (fn,cb) => {
+   await requestWrapper(
       async () => {
         const response = await fn();
     
         // setData((prevState) => ({ ...prevState, data: response.data.data }));
         return response;
       },
-      getData(),
+      ()=>getData(cb),
       functionType.POST,
       toast,
       null
     );
   };
 
-  const onClickEditHandler=(item)=>{
-    setDataDetail(item);
-   setIsOpenModalEdit(!isOpenModalEdit)
-  }
+ 
 
   return {
     isLoading,
@@ -75,16 +73,10 @@ export default function useRequest() {
     getData,
     data,
     setData,
-    resetPaginationToggle,
     filterText,
     dataDetail,
     setDataDetail,
     onChangeFilterText,
-    onClickEditHandler,
-    isOpenModalTambah,
-    setIsOpenModalTambah,
-    isOpenModalEdit,
-    setIsOpenModalEdit,
-    setResetPaginationToggle,
+    
   };
 }

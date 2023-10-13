@@ -6,12 +6,14 @@ import ShowDataEnteris from "../../../component/ActionButton/showEntries";
 import SearchInput from "../../../component/ActionButton/SearchInput";
 
 import useRequest from "../../../customHooks/useRequest";
-import { getAllKelas, postKelas } from "../../../utils/http";
+import { getAllKelas, postKelas, putKelas } from "../../../utils/http";
 import { useSelector } from "react-redux";
 import ModalForm from "./components/FormModal";
 import { kelasInitialValues } from "../../../utils/initialValues";
 import { kelasSchema } from "../../../utils/schema";
 import { ToastContainer } from "react-toastify";
+import { kelasModel } from "../../../models/kelasModel";
+import useTable from "../../../customHooks/useTable";
 
 function PageKelas() {
   const {
@@ -19,20 +21,21 @@ function PageKelas() {
     setData: setDataKelas,
     sendData: sendDataKelas,
     setDataDetail: setDataDetailKelas,
-    onClickEditHandler: onClickEditHandler,
     dataDetail: dataDetailKelas,
     getData: getDataKelas,
     isLoading: isLoadingKelas,
     setIsLoading: setIsLoadingKelas,
-    resetPaginationToggle,
     filterText,
-    setResetPaginationToggle,
     onChangeFilterText,
+  } = useRequest();
+  const {
+    setIsOpenModalTambah,
     isOpenModalEdit,
     isOpenModalTambah,
-    setIsOpenModalTambah,
+    resetPaginationToggle,
+    setResetPaginationToggle,
     setIsOpenModalEdit,
-  } = useRequest({ isFetch: true });
+  } = useTable();
 
   const dataUser = useSelector(({ authState }) => authState.data);
 
@@ -41,6 +44,11 @@ function PageKelas() {
     getDataKelas(() => getAllKelas(dataUser.token));
   }, []);
 
+  const onClickEditHandler = (item) => {
+    console.log(item);
+    setDataDetailKelas(item);
+    setIsOpenModalEdit(!isOpenModalEdit);
+  };
   const subHeaderComponent = useMemo(() => {
     const onClearHandler = () => {
       if (filterText) {
@@ -61,7 +69,25 @@ function PageKelas() {
 
   const onSubmitTambahHandler = async (formBody, { resetForm }) => {
     console.log(formBody);
-    await sendDataKelas(() => postKelas(formBody, dataUser.token));
+    await sendDataKelas(
+      () => postKelas(kelasModel.objectToJSON(formBody), dataUser.token),
+      () => getAllKelas(dataUser.token)
+    );
+    setIsOpenModalTambah(!isOpenModalTambah);
+  };
+
+  const onSubmitEditHandler = async (formBody, { resetForm }) => {
+    console.log(formBody);
+    await sendDataKelas(
+      () =>
+        putKelas(
+          formBody.class_id,
+          kelasModel.objectToJSON(formBody),
+          dataUser.token
+        ),
+      () => getAllKelas(dataUser.token)
+    );
+    setIsOpenModalEdit(!isOpenModalEdit);
   };
 
   return (
@@ -101,7 +127,7 @@ function PageKelas() {
           isOpen={isOpenModalEdit}
           btnName="Edit"
           headerName="Edit Kelas"
-          onSubmitHandler={onSubmitTambahHandler}
+          onSubmitHandler={onSubmitEditHandler}
         />
       </div>
     </>

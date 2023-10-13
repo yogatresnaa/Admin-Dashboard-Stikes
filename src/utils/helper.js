@@ -22,8 +22,9 @@ export const    requestWrapper=(fn,toast,navigate=null)=>async()=>{
 
 }
 */
-export const requestWrapper=async(fn,callback=()=>{},type,toast,navigate=null)=>{
+export const requestWrapper=async(fn,callback=null,type,toast,navigate=null)=>{
     try {
+        console.log(callback)
        const response= await fn();
        
        if(response.data.status==200 ||response.data.status==201 ){
@@ -32,7 +33,10 @@ export const requestWrapper=async(fn,callback=()=>{},type,toast,navigate=null)=>
                 theme:'colored'
            })
            //callback getdata again after post / put
-           await callback();
+           if(callback!=null){
+            await callback();
+
+           }
            }
            
        }
@@ -40,14 +44,18 @@ export const requestWrapper=async(fn,callback=()=>{},type,toast,navigate=null)=>
         navigate()
        }
    } catch (error) {
+    if(error){
+        console.log(error)
+
     
-        if(error.response.status==500){
+    
+        if(error.response?.status==500){
             toast.error(error.response.statusText,{
                 theme:'colored'
             })
 
         }
-        else if(error.response.status<500){
+        else if(error.response?.status<500){
             toast.error(error.response.data.message,{
                 theme:'colored'
             })
@@ -59,6 +67,7 @@ export const requestWrapper=async(fn,callback=()=>{},type,toast,navigate=null)=>
             })
 
         }
+    }
         
     }
 
