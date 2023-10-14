@@ -7,27 +7,23 @@ import SearchInput from "../../../component/ActionButton/SearchInput";
 
 import useRequest from "../../../customHooks/useRequest";
 import {
-  deleteKelas,
   deleteTahunAjaran,
-  getAllKelas,
   getAllTahunAjaran,
-  postKelas,
   postTahunAjaran,
-  putKelas,
   putTahunAjaran,
 } from "../../../utils/http";
 import "./css/pageTahunAjaran.css";
 import { useSelector } from "react-redux";
 import ModalForm from "./components/FormModal";
-import { kelasInitialValues, tahunAjaranInitialValues } from "../../../utils/initialValues";
-import { kelasSchema, tahunAjaranSchema } from "../../../utils/schema";
+import { tahunAjaranInitialValues } from "../../../utils/initialValues";
+import { tahunAjaranSchema } from "../../../utils/schema";
 import { ToastContainer } from "react-toastify";
-import { kelasModel, tahunAjaranModel } from "../../../models/models";
+import { tahunAjaranModel } from "../../../models/models";
 import useTable from "../../../customHooks/useTable";
 import { alertConfirmation } from "../../../component/Alert/swalConfirmation";
 import { alertType } from "../../../utils/CONSTANT";
 
-function PageKelas() {
+function PageTahunAjaran() {
   const {
     data: dataTahunAjaran,
     setData: setDataTahunAjaran,
@@ -98,10 +94,48 @@ function PageKelas() {
     setIsEdit(true)
     setIsOpenModalForm(!isOpenModalForm);
   };
+  
+
+  const onSubmitTambahHandler = async (formBody, { resetForm }) => {
+    console.log(formBody);
+    await sendDataTahunAjaran(
+      () => postTahunAjaran(tahunAjaranModel.objectToJSON(formBody), dataUser.token),
+      () => getDataTahunAjaran(()=>getAllTahunAjaran(dataUser.token)),
+      null
+
+    );
+    setIsOpenModalForm(!setIsOpenModalForm);
+  };
+
+  const onSubmitEditHandler = async (formBody, { resetForm }) => {
+    console.log(formBody);
+    await sendDataTahunAjaran(
+      () =>
+        putTahunAjaran(
+          formBody.period_id,
+          tahunAjaranModel.objectToJSON(formBody),
+          dataUser.token
+        ),
+        () => getDataTahunAjaran(()=>getAllTahunAjaran(dataUser.token)),null
+    );
+    setIsOpenModalForm(!isOpenModalForm);
+  };
+  const onSubmitDeleteHandler = async (formBody) => {
+    console.log(formBody);
+    alertConfirmation(alertType.delete, async () => {
+      await sendDataTahunAjaran(
+        () => deleteTahunAjaran(formBody.period_id, dataUser.token),
+        () => getDataTahunAjaran(()=>getAllTahunAjaran(dataUser.token)),
+        null
+      );
+    });
+  };
+
+
   const subHeaderComponent = useMemo(() => {
     const onClearHandler = () => {
       if (filterText) {
-        setFilterText("");
+        onChangeFilterText("");
         setResetPaginationToggle(!resetPaginationToggle);
       }
     };
@@ -116,44 +150,12 @@ function PageKelas() {
     setResetPaginationToggle,
   ]);
 
-  const onSubmitTambahHandler = async (formBody, { resetForm }) => {
-    console.log(formBody);
-    await sendDataTahunAjaran(
-      () => postTahunAjaran(tahunAjaranModel.objectToJSON(formBody), dataUser.token),
-      () => getAllTahunAjaran(dataUser.token)
-    );
-    setIsOpenModalForm(!setIsOpenModalForm);
-  };
-
-  const onSubmitEditHandler = async (formBody, { resetForm }) => {
-    console.log(formBody);
-    await sendDataTahunAjaran(
-      () =>
-        putTahunAjaran(
-          formBody.period_id,
-          tahunAjaranModel.objectToJSON(formBody),
-          dataUser.token
-        ),
-      () => getAllTahunAjaran(dataUser.token)
-    );
-    setIsOpenModalForm(!isOpenModalForm);
-  };
-  const onSubmitDeleteHandler = async (formBody) => {
-    console.log(formBody);
-    alertConfirmation(alertType.delete, async () => {
-      await sendDataTahunAjaran(
-        () => deleteTahunAjaran(formBody.period_id, dataUser.token),
-        () => getAllTahunAjaran(dataUser.token)
-      );
-    });
-  };
-
   return (
     <>
       <ToastContainer />
       <div className="page-content">
         <h3>
-          Kelas <span style={{ fontSize: "0.8em", color: "gray" }}>List</span>
+          Tahun Ajaran <span style={{ fontSize: "0.8em", color: "gray" }}>List</span>
         </h3>
 
         <div className="table-content">
@@ -193,4 +195,4 @@ function PageKelas() {
   );
 }
 
-export default PageKelas;
+export default PageTahunAjaran;

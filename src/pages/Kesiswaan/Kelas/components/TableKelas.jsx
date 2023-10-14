@@ -2,7 +2,7 @@ import React from "react";
 import DataTable from "react-data-table-component";
 import Button from "react-bootstrap/Button";
 import { FaRegTrashAlt, FaRegEdit } from "react-icons/fa";
-
+import { Tooltip } from 'react-tooltip'
 function TableKelas({
   data,
   subHeaderComponent,
@@ -18,6 +18,8 @@ function TableKelas({
       <Button
         color="warning"
         size="sm"
+        data-tooltip-id="my-tooltip" data-tooltip-content="Ubah"
+
         onClick={() => {
          console.log('ubah')
           onClickEditHandler(row);
@@ -31,6 +33,8 @@ function TableKelas({
         className="text-white"
         color="danger"
         size="sm"
+        data-tooltip-id="my-tooltip" data-tooltip-content="Hapus"
+
         onClick={() => {
           onClickDeleteHandler(row);
         }}
@@ -77,7 +81,8 @@ function TableKelas({
         paginationResetDefaultPage={resetPaginationToggle}
         progressPending={isLoading}
       />
-      
+      <Tooltip id="my-tooltip" />
+
     </div>
   );
 }

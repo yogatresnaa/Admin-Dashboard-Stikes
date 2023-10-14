@@ -90,7 +90,7 @@ function PageKelas() {
   const subHeaderComponent = useMemo(() => {
     const onClearHandler = () => {
       if (filterText) {
-        setFilterText("");
+        onChangeFilterText("");
         setResetPaginationToggle(!resetPaginationToggle);
       }
     };
@@ -109,7 +109,9 @@ function PageKelas() {
     console.log(formBody);
     await sendDataKelas(
       () => postKelas(kelasModel.objectToJSON(formBody), dataUser.token),
-      () => getAllKelas(dataUser.token)
+      () => getDataKelas(()=>getAllKelas(dataUser.token)),
+      null
+
     );
     setIsOpenModalForm(!setIsOpenModalForm);
   };
@@ -123,7 +125,7 @@ function PageKelas() {
           kelasModel.objectToJSON(formBody),
           dataUser.token
         ),
-      () => getAllKelas(dataUser.token)
+        () => getDataKelas(()=>getAllKelas(dataUser.token)),null
     );
     setIsOpenModalForm(!isOpenModalForm);
   };
@@ -132,7 +134,8 @@ function PageKelas() {
     alertConfirmation(alertType.delete, async () => {
       await sendDataKelas(
         () => deleteKelas(formBody.class_id, dataUser.token),
-        () => getAllKelas(dataUser.token)
+        () => getDataKelas(()=>getAllKelas(dataUser.token)),
+        null
       );
     });
   };
@@ -163,7 +166,7 @@ function PageKelas() {
           toggle={() => setIsOpenModalForm(!isOpenModalForm)}
           isOpen={isOpenModalForm}
           btnName={isEdit?"Edit":"Tambah"}
-          headerName={isEdit?"Edit":"Tambah Kelas"}
+          headerName={isEdit?"Edit Kelas":"Tambah Kelas"}
           onSubmitHandler={isEdit?onSubmitEditHandler:onSubmitTambahHandler}
         />
         {/* <ModalForm

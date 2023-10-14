@@ -5,47 +5,88 @@ import { functionType } from "../utils/CONSTANT";
 
 export default function useRequest() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingPost, setIsLoadingPost] = useState(false);
   const [data, setData] = useState({ data: [], filter: [] });
   const [dataDetail, setDataDetail] = useState(null);
   const [filterText, setFilterText] = useState("");
-  const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
-  const [isOpenModalTambah, setIsOpenModalTambah] = useState(false);
-  const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
-
   const onChangeFilterText = (e) => {
     setFilterText(e.target.value);
   };
 
-
   const getData = async (fn) => {
-   await requestWrapper(
-      async () => {
-        const response = await fn();
+    try {
+      setIsLoading(true)
+  
+      const response = await fn();
+
+      if (response.data.status == 200 || response.data.status == 201) {
         setData((prevState) => ({ ...prevState, data: response.data.data }));
-        return response;
-      },
-      null,
-      functionType.GET,
-      toast,
-      null
-    );
-  };
-  const sendData = async (fn,cb) => {
-   await requestWrapper(
-      async () => {
-        const response = await fn();
-    
-        // setData((prevState) => ({ ...prevState, data: response.data.data }));
-        return response;
-      },
-      ()=>getData(cb),
-      functionType.POST,
-      toast,
-      null
-    );
+      }
+    } catch (error) {
+      if (error) {
+        console.log(error);
+
+        if (error.response?.status == 500) {
+          toast.error(error.response.statusText, {
+            theme: "colored",
+          });
+        } else if (error.response?.status < 500) {
+          toast.error(error.response.data.message, {
+            theme: "colored",
+          });
+        } else {
+          toast.error("Oops Something wrong", {
+            theme: "colored",
+          });
+        }
+      }
+    }
+    finally{
+      setIsLoading(false)
+
+    }
   };
 
- 
+  const sendData = async (fn, callback=null,navigate=null) => {
+    try {
+      setIsLoadingPost(true);
+      const response = await fn();
+
+      if (response.data.status == 200 || response.data.status == 201) {
+        toast.success(response.data.message, {
+          theme: "colored",
+        });
+        //callback getdata again after post / put
+        if (callback != null) {
+          await callback();
+        }
+      }
+      if (navigate !== null) {
+        navigate();
+      }
+    } catch (error) {
+      if (error) {
+        console.log(error);
+
+        if (error.response?.status == 500) {
+          toast.error(error.response.statusText, {
+            theme: "colored",
+          });
+        } else if (error.response?.status < 500) {
+          toast.error(error.response.data.message, {
+            theme: "colored",
+          });
+        } else {
+          toast.error("Oops Something wrong", {
+            theme: "colored",
+          });
+        }
+      }
+    }
+    finally{
+      setIsLoadingPost(false)
+    }
+  };
 
   return {
     isLoading,
@@ -55,9 +96,9 @@ export default function useRequest() {
     data,
     setData,
     filterText,
+    setFilterText,
     dataDetail,
     setDataDetail,
     onChangeFilterText,
-    
   };
 }

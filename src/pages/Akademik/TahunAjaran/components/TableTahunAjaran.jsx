@@ -2,7 +2,7 @@ import React from "react";
 import DataTable from "react-data-table-component";
 import Button from "react-bootstrap/Button";
 import { FaRegTrashAlt, FaRegEdit } from "react-icons/fa";
-
+import { Tooltip } from 'react-tooltip'
 function TableTahunAjaran({
   data,
   subHeaderComponent,
@@ -17,6 +17,7 @@ function TableTahunAjaran({
       <Button
         color="warning"
         size="sm"
+        data-tooltip-id="my-tooltip" data-tooltip-content="Ubah"
         onClick={() => {
           console.log("ubah");
           onClickEditHandler(row);
@@ -29,6 +30,7 @@ function TableTahunAjaran({
         variant="info"
         className="text-white"
         color="danger"
+        data-tooltip-id="my-tooltip" data-tooltip-content="Hapus"
         size="sm"
         onClick={() => {
           onClickDeleteHandler(row);
@@ -40,8 +42,8 @@ function TableTahunAjaran({
     </div>
   );
   const renderStatus = (row) => (
-    <div className="d-flex gap-1 align-items-center">
-      <div className={`status ${row.period_status==0 ? "not-active":"active"}`}>
+    <div className="d-flex align-items-center justify-content-center">
+      <div className={`status ${row.period_status==0 ? "not-active":"active"} `} >
         {row.period_status==1?"Aktif":"Tidak Aktif"}
       </div>
     </div>
@@ -68,13 +70,14 @@ function TableTahunAjaran({
       name: "Status",
       cell: (row) => renderStatus(row),
       sortable: true,
+      
     },
 
     {
       name: "Aksi",
       cell: (row) => renderActionButton(row),
 
-      width: "200px",
+     
     },
   ];
 
@@ -89,6 +92,7 @@ function TableTahunAjaran({
         paginationResetDefaultPage={resetPaginationToggle}
         progressPending={isLoading}
       />
+      <Tooltip id="my-tooltip" />
     </div>
   );
 }

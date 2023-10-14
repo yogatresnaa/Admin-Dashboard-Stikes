@@ -21,10 +21,12 @@
 :root {
   --main: #39b699;
 }
+
 * {
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif !important;
 }
 
 .containerApp {

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import '../styleCss/style.css';
+
 import Homepage from './Homepage';
 import TableKelas from './Kesiswaan/Kelas/PageKelas';
 import PageSiswa from './Kesiswaan/Siswa/PageSiswa';
