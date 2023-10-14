@@ -44,25 +44,25 @@ export const getKelasById = (id, token) => Axios.get(`${URL_BASE}/kelas/${id}`, 
 export const getKelasByProdi = (id, token) => Axios.get(`${URL_BASE}/kelas/program-studi/${id}`, options(token));
 export const postKelas = (body, token) => Axios.post(`${URL_BASE}/kelas`, body, options(token));
 export const putKelas = (id, body, token) => Axios.put(`${URL_BASE}/kelas/${id}`, body, options(token));
-export const deleteKelas = (id, body, token) => Axios.delete(`${URL_BASE}/kelas/${id}`, options(token));
+export const deleteKelas = (id, token) => Axios.delete(`${URL_BASE}/kelas/${id}`, options(token));
 
 
 export const getAllTahunAjaran = (token) => Axios.get(`${URL_BASE}/tahun-ajaran`, options(token));
 export const getTahunAjaranById = (id, token) => Axios.get(`${URL_BASE}/tahun-ajaran/${id}`, options(token));
 export const postTahunAjaran = (body, token) => Axios.post(`${URL_BASE}/tahun-ajaran`, body, options(token));
 export const putTahunAjaran = (id, body, token) => Axios.put(`${URL_BASE}/tahun-ajaran/${id}`, body, options(token));
-export const deleteTahunAjaran = (id, body, token) => Axios.delete(`${URL_BASE}/tahun-ajaran/${id}`, options(token));
+export const deleteTahunAjaran = (id, token) => Axios.delete(`${URL_BASE}/tahun-ajaran/${id}`, options(token));
 
 
 export const getAllStatusSiswa = (token) => Axios.get(`${URL_BASE}/status-siswa`, options(token));
 export const getStatusSiswaById = (id, token) => Axios.get(`${URL_BASE}/status-siswa/${id}`, options(token));
 export const postStatusSiswa = (body, token) => Axios.post(`${URL_BASE}/status-siswa`, body, options(token));
 export const putStatusSiswa = (id, body, token) => Axios.put(`${URL_BASE}/status-siswa/${id}`, body, options(token));
-export const deleteStatusSiswa = (id, body, token) => Axios.delete(`${URL_BASE}/status-siswa/${id}`, options(token));
+export const deleteStatusSiswa = (id, token) => Axios.delete(`${URL_BASE}/status-siswa/${id}`, options(token));
 
 export const getAllSiswa = (token) => Axios.get(`${URL_BASE}/siswa`, options(token));
 export const getAllSiswaByQuery = (query,token) => Axios.get(`${URL_BASE}/siswa${query}`, options(token));
 export const getSiswaById = (id, token) => Axios.get(`${URL_BASE}/siswa/${id}`, options(token));
 export const postSiswa = (body, token) => Axios.post(`${URL_BASE}/siswa`, body, options(token));
 export const putSiswa = (id, body, token) => Axios.put(`${URL_BASE}/siswa/${id}`, body, options(token));
-export const deleteSiswa = (id, body, token) => Axios.delete(`${URL_BASE}/siswa/${id}`, options(token));
+export const deleteSiswa = (id, token) => Axios.delete(`${URL_BASE}/siswa/${id}`, options(token));
