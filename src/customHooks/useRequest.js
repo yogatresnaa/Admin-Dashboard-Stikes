@@ -1,51 +1,104 @@
-import { useCallback, useEffect, useState } from "react"
-import { requestWrapper } from "../utils/helper"
-import { toast } from "react-toastify"
+import { useCallback, useEffect, useState } from "react";
+import { requestWrapper } from "../utils/helper";
+import { toast } from "react-toastify";
+import { functionType } from "../utils/CONSTANT";
 
+export default function useRequest() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingPost, setIsLoadingPost] = useState(false);
+  const [data, setData] = useState({ data: [], filter: [] });
+  const [dataDetail, setDataDetail] = useState(null);
+  const [filterText, setFilterText] = useState("");
+  const onChangeFilterText = (e) => {
+    setFilterText(e.target.value);
+  };
 
-export default function useRequest({isFetch}){
-    const [isLoading,setIsLoading]= useState(false)
-    const [data,setData]= useState({data:[],filter:[]})
-    const [filterText,setFilterText]= useState('')
-    const [resetPaginationToggle,setResetPaginationToggle]= useState(false)
+  const getData = async (fn) => {
+    try {
+      setIsLoading(true)
+  
+      const response = await fn();
 
-    const onChangeFilterText=(e)=>{
-        setFilterText(e.target.value)
-    }
+      if (response.data.status == 200 || response.data.status == 201) {
+        setData((prevState) => ({ ...prevState, data: response.data.data }));
+      }
+    } catch (error) {
+      if (error) {
+        console.log(error);
 
-    useEffect(()=>{
-        console.log(filterText)
-
-        if(filterText!==''){
-            
-
-            setData(prevState=>({...prevState,filter:prevState.data.filter(item=>{
-                if(item.nama.toString().toLowerCase().includes(filterText.toString().toLowerCase()))return true
-                return false;
-            })}))
-        
+        if (error.response?.status == 500) {
+          toast.error(error.response.statusText, {
+            theme: "colored",
+          });
+        } else if (error.response?.status < 500) {
+          toast.error(error.response.data.message, {
+            theme: "colored",
+          });
+        } else {
+          toast.error("Oops Something wrong", {
+            theme: "colored",
+          });
         }
-    },[filterText])
-
-    const getData=async(fn)=>{
-        requestWrapper(async()=>{
-
-            const response= await fn();
-            setData((prevState)=>({...prevState,data:response.data.data}))
-            return response;
-        },toast,null
-        );
+      }
     }
-    const sendData=async(fn)=>{
-        requestWrapper(async()=>{
+    finally{
+      setIsLoading(false)
 
-            const response= await fn();
-            setData((prevState)=>({...prevState,data:response.data.data}))
-            return response;
-        },toast,null
-        );
     }
+  };
 
+  const sendData = async (fn, callback=null,navigate=null) => {
+    try {
+      setIsLoadingPost(true);
+      const response = await fn();
 
-    return{isLoading,setIsLoading,sendData,getData,data,setData,resetPaginationToggle,filterText,onChangeFilterText,setResetPaginationToggle}
+      if (response.data.status == 200 || response.data.status == 201) {
+        toast.success(response.data.message, {
+          theme: "colored",
+        });
+        //callback getdata again after post / put
+        if (callback != null) {
+          await callback();
+        }
+      }
+      if (navigate !== null) {
+        navigate();
+      }
+    } catch (error) {
+      if (error) {
+        console.log(error);
+
+        if (error.response?.status == 500) {
+          toast.error(error.response.statusText, {
+            theme: "colored",
+          });
+        } else if (error.response?.status < 500) {
+          toast.error(error.response.data.message, {
+            theme: "colored",
+          });
+        } else {
+          toast.error("Oops Something wrong", {
+            theme: "colored",
+          });
+        }
+      }
+    }
+    finally{
+      setIsLoadingPost(false)
+    }
+  };
+
+  return {
+    isLoading,
+    setIsLoading,
+    sendData,
+    getData,
+    data,
+    setData,
+    filterText,
+    setFilterText,
+    dataDetail,
+    setDataDetail,
+    onChangeFilterText,
+  };
 }

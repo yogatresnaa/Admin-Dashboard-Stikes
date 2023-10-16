@@ -1,6 +1,6 @@
 import React from 'react';
 import TableKelas from '../../Kesiswaan/TableKelas';
-import AddAction from '../../../component/ActionButton/AcctionAddButoon';
+import AddAction from '../../ActionButton/AcctionAddButoon';
 
 function PageKelas() {
   return (

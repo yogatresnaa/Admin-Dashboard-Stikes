@@ -1,7 +1,7 @@
 @import './sidebar.css';
 @import '../pages/Akademik/akademik.css';
 @import url('https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,700;0,900;1,100;1,600&family=Quicksand:wght@300;400;700&display=swap');
-@import '../pages/Kesiswaan/Kelas/css/pageKelas.css';
+@import '../pages/css/common-table.css';
 @import '../component/ActionButton/css/index.css';
 @import '../pages/Kesiswaan/Siswa/css/pagesiswa.css';
 @import '../pages/Kesiswaan/ProgramStudi/css/Prodi.css';
@@ -23,10 +23,12 @@
 :root {
   --main: #39b699;
 }
+
 * {
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif !important;
 }
 
 .containerApp {

@@ -9,44 +9,41 @@ function Header() {
   const [isClick, setIsClick] = useState(false);
 
   useEffect(() => {
-    console.log(isShow)
-  
+    console.log(isShow);
+
     const windowClickEvent = (e) => {
-      
-   
-   
-      if (isShow && dropdownRef.current && !dropdownRef.current.contains(e.target) ) {
+      if (
+        isShow &&
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target)
+      ) {
         // console.log(dropdownRef);
-        console.log('ini')
-        
+        console.log("ini");
+
         setIsShow(false);
-        e.stopPropagation(); 
-      
-     
+        e.stopPropagation();
       }
-    
     };
     if (isShow) {
-   
-      document.addEventListener('mouseup', windowClickEvent);
-
+      document.addEventListener("mouseup", windowClickEvent);
     }
 
     return () => {
-      document.removeEventListener('mouseup', windowClickEvent);
+      document.removeEventListener("mouseup", windowClickEvent);
     };
-
   }, [isShow]);
 
   const onShowDropdown = (e) => {
-   
-   setIsShow(!isShow)
-   e.stopPropagation(); 
-      
-  }
+    setIsShow(!isShow);
+    e.stopPropagation();
+  };
   return (
     <>
-      <div className="header-wrapper" onClick={onShowDropdown} disabled={isShow}>
+      <div
+        className="header-wrapper"
+        onClick={onShowDropdown}
+        disabled={isShow}
+      >
         <div className="profile-wrapper">
           <img src={logo} alt="" />
           <p>dwiky</p>

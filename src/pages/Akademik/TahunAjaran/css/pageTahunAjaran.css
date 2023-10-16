@@ -1,0 +1,18 @@
+@import '../../../../component//ActionButton/css/SearchInput.css';
+
+.status {
+  padding: 4px;
+  background-color: transparent;
+  border-radius: 4px;
+  width: 100%;
+ 
+
+}
+.status.active {
+  background-color: #4C9A2A;
+  color: white;
+}
+.status.not-active {
+  background-color: #ED2939;
+  color: white;
+}

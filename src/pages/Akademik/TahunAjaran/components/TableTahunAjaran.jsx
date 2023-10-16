@@ -1,127 +1,79 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
 import Button from 'react-bootstrap/Button';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
-import { FaRegTrashAlt, FaRegEdit, FaCheck } from 'react-icons/fa';
-import { FaRegEye } from 'react-icons/fa6';
-
-function TableTahunAjaran() {
-  const ActionButton = (row) => (
-    <div className='d-flex gap-1'>
-      <OverlayTrigger overlay={<Tooltip id='tooltip-disabled'>Edit</Tooltip>}>
-        <span className='d-inline-block'>
-          <Button
-            color='secondary'
-            size='sm'
-            onClick={() => {
-              onClickDetailShowHandler(row);
-            }}
-            id={row.ID}>
-            <FaRegEdit />
-          </Button>
-        </span>
-      </OverlayTrigger>
-
-      <OverlayTrigger overlay={<Tooltip id='tooltip-disabled'>Hapus</Tooltip>}>
-        <span className='d-inline-block'>
-          <Button
-            color='secondary'
-            className='text-white'
-            size='sm'
-            variant='info'
-            onClick={() => {
-              onClickDetailShowHandler(row);
-            }}
-            id={row.ID}>
-            <FaRegTrashAlt />
-          </Button>
-        </span>
-      </OverlayTrigger>
-
-      <OverlayTrigger overlay={<Tooltip id='tooltip-disabled'>Aktifkan</Tooltip>}>
-        <span className='d-inline-block'>
-          <Button
-            color='secondary'
-            variant='success'
-            size='sm'
-            onClick={() => {
-              onClickDetailShowHandler(row);
-            }}
-            id={row.ID}>
-            <FaCheck />
-          </Button>
-        </span>
-      </OverlayTrigger>
-    </div>
-  );
-
-  const statusActionButton = (row) => (
+import { FaRegTrashAlt, FaRegEdit } from 'react-icons/fa';
+import { Tooltip } from 'react-tooltip';
+function TableTahunAjaran({ data, subHeaderComponent, resetPaginationToggle, isLoading, onClickEditHandler, onClickDeleteHandler }) {
+  console.log(data);
+  const renderActionButton = (row) => (
     <div className='d-flex gap-1'>
       <Button
-        color='secondary'
+        color='warning'
         size='sm'
+        data-tooltip-id='my-tooltip'
+        data-tooltip-content='Ubah'
         onClick={() => {
-          onClickDetailShowHandler(row);
+          console.log('ubah');
+          onClickEditHandler(row);
         }}
         id={row.ID}>
-        Aktif
+        <FaRegEdit />
+      </Button>
+      <Button
+        variant='info'
+        className='text-white'
+        color='danger'
+        data-tooltip-id='my-tooltip'
+        data-tooltip-content='Hapus'
+        size='sm'
+        onClick={() => {
+          onClickDeleteHandler(row);
+        }}
+        id={row.ID}>
+        <FaRegTrashAlt />
       </Button>
     </div>
   );
-
+  const renderStatus = (row) => (
+    <div className='d-flex align-items-center justify-content-center'>
+      <div className={`status ${row.period_status == 0 ? 'not-active' : 'active'} `}>{row.period_status == 1 ? 'Aktif' : 'Tidak Aktif'}</div>
+    </div>
+  );
   const columns = [
     {
       name: 'NO',
-      selector: (row) => row.no,
+      selector: (row, index) => index + 1,
+      sortable: true,
+    },
+    {
+      name: 'ID Periode',
+      selector: (row) => row.period_id,
+      sortable: true,
+      omit: true,
     },
     {
       name: 'Tahun Ajaran',
-      selector: (row) => row.TahunAjaran,
+      selector: (row) => `${row.period_start}/${row.period_end}`,
+      sortable: true,
     },
+
     {
       name: 'Status',
-      cell: (row) => statusActionButton(row),
-      ignoreRowClick: true,
-      allowOverflow: true,
-      button: true,
-      width: '250px',
+      cell: (row) => renderStatus(row),
+      sortable: true,
     },
 
     {
       name: 'Aksi',
-      cell: (row) => ActionButton(row),
-      ignoreRowClick: true,
-      allowOverflow: true,
-      button: true,
-      width: '200px',
-    },
-  ];
-
-  const data = [
-    {
-      id: 1,
-      no: '1',
-      TahunAjaran: '2021',
-    },
-    {
-      id: 2,
-      no: '2',
-      TahunAjaran: '2021',
-    },
-    {
-      id: 3,
-      no: '3',
-      TahunAjaran: '2021',
+      cell: (row) => renderActionButton(row),
     },
   ];
 
   return (
-    <>
-      <div>
-        <DataTable title='Tahun Ajaran' columns={columns} data={data} pagination />;
-      </div>
-    </>
+    <div>
+      <DataTable columns={columns} data={data} pagination subHeader subHeaderComponent={subHeaderComponent} paginationResetDefaultPage={resetPaginationToggle} progressPending={isLoading} />
+      <Tooltip id='my-tooltip' />
+    </div>
   );
 }
 
