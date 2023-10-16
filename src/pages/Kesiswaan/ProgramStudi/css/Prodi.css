@@ -1,6 +1,4 @@
-@import '../../../../component//ActionButton/css/SearchInput.css';
-
-.page-kelas {
+.page-prodi {
   padding: 5px;
   margin: 10px;
   flex: auto;
@@ -9,12 +7,7 @@
   height: 3000px;
 }
 
-.table-kelas {
+.table-prodi {
   padding: 20px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
-.search {
-  display: flex;
-  justify-content: space-between;
 }

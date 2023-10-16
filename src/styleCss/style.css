@@ -4,6 +4,7 @@
 @import '../pages/Kesiswaan/Kelas/css/pageKelas.css';
 @import '../component/ActionButton/css/index.css';
 @import '../pages/Kesiswaan/Siswa/css/pagesiswa.css';
+@import '../pages/Kesiswaan/ProgramStudi/css/Prodi.css';
 @import '../pages/Akademik/TahunAjaran/css/TahunAjaran.css';
 
 @font-face {

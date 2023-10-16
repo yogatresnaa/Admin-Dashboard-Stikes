@@ -95,7 +95,7 @@ function Sidebar() {
                 </Navbar.Toggle>
               </a>
               <ul className='nav collapse ms-1 flex-column justify-content-end column-wrapper ' id='submenu' data-bs-parent='#parentM'>
-                <Link to='kelas' className='link color'>
+                <Link to='prodi' className='link color'>
                   <li className='nav-item nav-link text-white m-1'>
                     <FaCircleMinus /> Program Studi
                   </li>

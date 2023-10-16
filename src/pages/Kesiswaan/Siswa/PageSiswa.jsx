@@ -12,7 +12,9 @@ function PageSiswa() {
   return (
     <>
       <div className='page-siswa'>
-        <span>PAGE SISWA</span>
+        <h3>
+          Mahasiswa <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>
+        </h3>
         <div className='table-siswa'>
           <div className='menu-bar'>
             {/* <AddAction /> */}
