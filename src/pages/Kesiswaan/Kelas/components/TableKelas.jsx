@@ -11,6 +11,7 @@ function TableKelas({
   onClickEditHandler,
   onClickDeleteHandler,
 
+
 }) {
 
   const renderActionButton = (row) => (

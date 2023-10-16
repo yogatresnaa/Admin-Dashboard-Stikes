@@ -5,7 +5,7 @@ import { functionType } from "../utils/CONSTANT";
 
 export default function useRequest() {
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingPost, setIsLoadingPost] = useState(false);
+  const [isLoadingSendData, setIsLoadingSendData] = useState(false);
   const [data, setData] = useState({ data: [], filter: [] });
   const [dataDetail, setDataDetail] = useState(null);
   const [filterText, setFilterText] = useState("");
@@ -49,7 +49,9 @@ export default function useRequest() {
 
   const sendData = async (fn, callback=null,navigate=null) => {
     try {
-      setIsLoadingPost(true);
+      
+      setIsLoadingSendData(true);
+      console.log(isLoadingSendData)
       const response = await fn();
 
       if (response.data.status == 200 || response.data.status == 201) {
@@ -84,7 +86,7 @@ export default function useRequest() {
       }
     }
     finally{
-      setIsLoadingPost(false)
+      setIsLoadingSendData(false)
     }
   };
 
@@ -99,6 +101,7 @@ export default function useRequest() {
     setFilterText,
     dataDetail,
     setDataDetail,
+    isLoadingSendData,
     onChangeFilterText,
   };
 }

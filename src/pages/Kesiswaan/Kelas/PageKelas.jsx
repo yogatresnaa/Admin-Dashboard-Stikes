@@ -33,6 +33,7 @@ function PageKelas() {
     getData: getDataKelas,
     isLoading: isLoadingKelas,
     setIsLoading: setIsLoadingKelas,
+    isLoadingSendData:isLoadingSendDataKelas,
     filterText,
     onChangeFilterText,
   } = useRequest();
@@ -166,6 +167,7 @@ function PageKelas() {
           toggle={() => setIsOpenModalForm(!isOpenModalForm)}
           isOpen={isOpenModalForm}
           btnName={isEdit?"Edit":"Tambah"}
+          isLoadingSendData={isLoadingSendDataKelas}
           headerName={isEdit?"Edit Kelas":"Tambah Kelas"}
           onSubmitHandler={isEdit?onSubmitEditHandler:onSubmitTambahHandler}
         />

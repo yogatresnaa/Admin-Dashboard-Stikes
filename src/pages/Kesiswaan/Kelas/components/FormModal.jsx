@@ -12,6 +12,7 @@ export default function ModalForm({
   kelasSchema: schema,
   btnName,
   headerName,
+  isLoadingSendData,
  
 }) {
   return (
@@ -47,6 +48,7 @@ export default function ModalForm({
                 btnName={btnName}
                 errors={errors}
                 values={values}
+                isLoadingSendData={isLoadingSendData}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
               />
