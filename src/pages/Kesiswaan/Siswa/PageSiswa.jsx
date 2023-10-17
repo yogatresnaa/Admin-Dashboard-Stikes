@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import TableSiswa from './components/TableSiswa';
+import useTable from '../../../customHooks/useTable';
+import useRequest from '../../../customHooks/useRequest';
 import AddAction from '../../../component/ActionButton/AcctionAddButoon';
 import ShowDataEnteris from '../../../component/ActionButton/showEntries';
 import SearchInput from '../../../component/ActionButton/SearchInput';
@@ -9,6 +11,32 @@ import SelectStatusMahasiswa from '../../../component/ActionButton/SelectStatusM
 import MenuBarPageMahasiswa from '../../../component/ActionButton/MenuBarPageMahasiswa';
 
 function PageSiswa() {
+  const {
+    data: dataKelas,
+    setData: setDataKelas,
+    sendData: sendDataKelas,
+    setDataDetail: setDataDetailKelas,
+    dataDetail: dataDetailKelas,
+    getData: getDataKelas,
+    isLoading: isLoadingKelas,
+    setIsLoading: setIsLoadingKelas,
+    filterText,
+    onChangeFilterText,
+  } = useRequest();
+
+  const { setIsOpenModalTambah, isOpenModalEdit, isOpenModalTambah, resetPaginationToggle, setResetPaginationToggle, setIsOpenModalEdit, isOpenModalForm, setIsOpenModalForm, isEdit, setIsEdit } = useTable();
+
+  const subHeaderComponent = useMemo(() => {
+    const onClearHandler = () => {
+      if (filterText) {
+        onChangeFilterText('');
+        setResetPaginationToggle(!resetPaginationToggle);
+      }
+    };
+
+    return <SearchInput filterText={filterText} setFilterText={onChangeFilterText} />;
+  }, [filterText, onChangeFilterText, resetPaginationToggle, setResetPaginationToggle]);
+
   return (
     <>
       <div className='page-siswa'>
@@ -27,9 +55,8 @@ function PageSiswa() {
           </div>
           <div className='search-siswa'>
             <ShowDataEnteris />
-            <SearchInput />
           </div>
-          <TableSiswa />
+          <TableSiswa data={filterText.length > 0 ? dataKelas.filter : dataKelas.data} subHeaderComponent={subHeaderComponent} resetPaginationToggle={resetPaginationToggle} isLoading={isLoadingKelas} />
         </div>
       </div>
     </>

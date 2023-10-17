@@ -7,26 +7,26 @@ function MenuBarPageMahasiswa() {
     <>
       <div className='menuBar'>
         <div>
-          <Button variant='primary' className='text-white item1'>
+          <Button variant='dark' className='text-white item1'>
             <FaRegCalendarPlus />
             &ensp; Tambah
           </Button>
         </div>
         <div>
-          <Button variant='primary' className='text-white item1 '>
+          <Button variant='dark' className='text-white item1 '>
             <FaUpload />
             &ensp; Upload Siswa
           </Button>
         </div>
 
         <div>
-          <Button variant='primary' className='text-white item1'>
+          <Button variant='dark' className='text-white item1'>
             &ensp; Export Xls
           </Button>
         </div>
 
         <div>
-          <Button variant='primary' className='text-white item1'>
+          <Button variant='dark' className='text-white item1'>
             <FaRegFilePdf />
             &ensp; Cetak Pdf
           </Button>

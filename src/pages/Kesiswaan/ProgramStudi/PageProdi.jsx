@@ -42,7 +42,6 @@ function PageProdi({ data }) {
 
       <div className='table-prodi'>
         <AddAction />
-
         <TableProdi data={filterText.length > 0 ? dataProdi.filter : dataProdi.data} subHeaderComponent={subHeaderComponent} resetPaginationToggle={resetPaginationToggle} isLoading={isLoadingProdi} />
       </div>
     </div>

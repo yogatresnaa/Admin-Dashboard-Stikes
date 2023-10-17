@@ -53,7 +53,6 @@ function TableKelas({ data, subHeaderComponent, resetPaginationToggle, isLoading
     {
       name: 'Aksi',
       cell: (row) => renderActionButton(row),
-
       width: '200px',
     },
   ];
