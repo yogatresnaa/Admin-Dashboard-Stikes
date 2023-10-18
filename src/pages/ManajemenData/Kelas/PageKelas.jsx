@@ -59,7 +59,7 @@ function PageKelas() {
 
 
   useEffect(() => {
-    console.log(filterText);
+    
 
     if (filterText !== "") {
       setDataKelas((prevState) => ({
@@ -75,6 +75,7 @@ function PageKelas() {
           return false;
         }),
       }));
+     
     }
   }, [filterText]);
 

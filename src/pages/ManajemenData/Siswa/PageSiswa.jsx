@@ -96,7 +96,7 @@ const onCLickFilterSubmit=()=>{
         ...prevState,
         filter: prevState.data.filter((item) => {
           if (
-            item.class_name
+            item.student_nis
               .toString()
               .toLowerCase()
               .includes(filterText.toString().toLowerCase())

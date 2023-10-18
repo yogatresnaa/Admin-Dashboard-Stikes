@@ -32,7 +32,11 @@ function Login() {
   });
 
   const onSubmitHandler = async (formBody, { resetForm }) => {
-    await requestWrapper(() => dispatch(loginUserActionCreator(formBody)), toast);
+    const newFormBody={
+      user_email:formBody.email,
+      user_password:formBody.password,
+    }
+    await requestWrapper(() => dispatch(loginUserActionCreator(newFormBody)), toast);
   };
   useEffect(() => {
     if (dataUser.isFulfilled) {
