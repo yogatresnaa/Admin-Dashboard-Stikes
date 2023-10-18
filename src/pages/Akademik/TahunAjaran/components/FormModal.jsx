@@ -12,6 +12,7 @@ export default function ModalForm({
   schema,
   btnName,
   headerName,
+  isLoadingSendData,
  
 }) {
   return (
@@ -50,6 +51,7 @@ export default function ModalForm({
                 setFieldValue={setFieldValue}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
+                isLoadingSendData={isLoadingSendData}
               />
             </ModalBody>
           </Modal>

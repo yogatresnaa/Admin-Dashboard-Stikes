@@ -28,6 +28,7 @@ function PageTahunAjaran() {
     getData: getDataTahunAjaran,
     isLoading: isLoadingTahunAjaran,
     setIsLoading: setIsLoadingTahunAjaran,
+    isLoadingSendData: isLoadingSendDataTahunAjaran,
     filterText,
     onChangeFilterText,
   } = useRequest();
@@ -132,6 +133,7 @@ function PageTahunAjaran() {
           schema={tahunAjaranSchema}
           toggle={() => setIsOpenModalForm(!isOpenModalForm)}
           isOpen={isOpenModalForm}
+          isLoadingSendData={isLoadingSendDataTahunAjaran}
           btnName={isEdit ? 'Edit' : 'Tambah'}
           headerName={isEdit ? 'Edit Tahun Ajaran' : 'Tambah Tahun Ajaran'}
           onSubmitHandler={isEdit ? onSubmitEditHandler : onSubmitTambahHandler}

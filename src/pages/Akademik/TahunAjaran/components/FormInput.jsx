@@ -4,6 +4,7 @@ import FormComponent from "../../../../component/Form/FormComponent";
 import DatePicker from "react-datepicker";
 import { FormGroup } from "reactstrap";
 import ErrorComponent from "../../../../component/Form/ErrorComponent";
+import Loader from "../../../../component/Loader/Loader";
 
 export default function FormInput({
   handleSubmit,
@@ -12,6 +13,7 @@ export default function FormInput({
   handleChange,
   btnName,
   setFieldValue,
+  isLoadingSendData,
 }) {
   console.log(values.period_status);
   return (
@@ -72,26 +74,29 @@ export default function FormInput({
       </FormGroup>
 
       <FormGroup>
-        <Label for="period_status" >
-          Periode Akhir
-        </Label>
-        <Input 
-        type="select"
-        value={values.period_status}
-        onChange={handleChange('period_status')}>
+        <Label for="period_status">Periode Akhir</Label>
+        <Input
+          type="select"
+          value={values.period_status}
+          onChange={handleChange("period_status")}
+        >
           <option value="0">Tidak Aktif</option>
           <option value="1">Aktif</option>
+        </Input>
 
-          </Input>
-      
-        <ErrorComponent text={errors.period_status} error={errors.period_status} />
+        <ErrorComponent
+          text={errors.period_status}
+          error={errors.period_status}
+        />
       </FormGroup>
 
-
-
-      <Button color="primary" className="button-login" onClick={handleSubmit}>
-        {btnName}
-      </Button>
+      {isLoadingSendData ? (
+        <Loader />
+      ) : (
+        <Button color="primary" className="button-login" onClick={handleSubmit}>
+          {btnName}
+        </Button>
+      )}
     </Form>
   );
 }
