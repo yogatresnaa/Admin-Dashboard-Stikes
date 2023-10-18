@@ -5,7 +5,7 @@ import { FaCalendarPlus } from 'react-icons/fa';
 function AddAction({ onClickHandler }) {
   return (
     <div>
-      <Button variant='dark' className='d-flex text-white align-items-center' onClick={onClickHandler}>
+      <Button size='sm' variant='dark' className='d-flex text-white align-items-center' onClick={onClickHandler}>
         <FaCalendarPlus />
         &ensp; Tambah
       </Button>

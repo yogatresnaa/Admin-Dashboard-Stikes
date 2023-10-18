@@ -9,6 +9,23 @@ import Navbar from 'react-bootstrap/Navbar';
 import logo from '../assets/images/logo.png'; // with import
 import './css/sidebar.css';
 
+const ManajmenData = [
+  {
+    id: 1,
+    to: 'program-studi',
+    name: 'Program Studi',
+  },
+  {
+    id: 2,
+    to: 'kelas',
+    name: 'Kelas',
+  },
+  {
+    id: 3,
+    to: 'siswa',
+    name: 'Siswa',
+  },
+];
 function Sidebar() {
   const [toggle1, setToggle1] = React.useState(false);
   const [toggle2, setToggle2] = React.useState(false);
@@ -70,10 +87,11 @@ function Sidebar() {
   return (
     <>
       <div className='bg text-white min-vh-100 sidebar-wrapper'>
-        <div className='brand-name images'>
+        <div className='brand-name'>
+          <div className='brand-name__image-wrapper'>
+            <img src={logo} className=' me-1 fs-1' />
+          </div>
           {/* <FaUniversity className='me-3 fs-1' /> */}
-          <img src={logo} className=' me-1 fs-1' />
-          <span className='fs-3'>Admin</span>
         </div>
 
         <div className='list-group list-group-flush '>
@@ -95,22 +113,13 @@ function Sidebar() {
                 </Navbar.Toggle>
               </a>
               <ul className='nav collapse ms-1 flex-column justify-content-end column-wrapper ' id='submenu' data-bs-parent='#parentM'>
-                <Link to='prodi' className='link color'>
-                  <li className='nav-item nav-link text-white m-1'>
-                    <FaCircleMinus /> Program Studi
-                  </li>
-                </Link>
-
-                <Link to='kelas' className='link color'>
-                  <li className='nav-item nav-link text-white m-1'>
-                    <FaCircleMinus /> Kelas
-                  </li>
-                </Link>
-                <Link to='siswa' className='link color'>
-                  <li className='nav-item nav-link text-white m-1'>
-                    <FaCircleMinus /> Mahasiswa
-                  </li>
-                </Link>
+                {ManajmenData.map((item) => (
+                  <Link to={item.to} className='link color' key={item.id}>
+                    <li className='nav-item nav-link text-white m-1'>
+                      <FaCircleMinus /> {item.name}
+                    </li>
+                  </Link>
+                ))}
               </ul>
             </li>
 

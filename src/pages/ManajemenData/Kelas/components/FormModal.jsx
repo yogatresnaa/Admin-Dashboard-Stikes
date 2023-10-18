@@ -9,7 +9,7 @@ export default function ModalForm({
   toggle,
   initialValues,
   onSubmitHandler,
-  kelasSchema: schema,
+  schema,
   btnName,
   headerName,
   isLoadingSendData,

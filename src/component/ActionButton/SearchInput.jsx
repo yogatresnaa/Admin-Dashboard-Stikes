@@ -5,7 +5,7 @@ function SearchInput({filterText,setFilterText}) {
   return (
     <>
       <div className='input-search'>
-        <Form.Control type='text' placeholder='Search...' value={filterText} onChange={setFilterText} />
+        <Form.Control size='sm' type='text' placeholder='Search...' value={filterText} onChange={setFilterText} />
       </div>
     </>
   );

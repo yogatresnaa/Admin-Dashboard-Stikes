@@ -1,21 +1,20 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import { FaSearch } from 'react-icons/fa';
 
-function SelectUnitKelas() {
+function SelectUnitKelas({data,onProdiFilterChange,value}) {
+  
   return (
     <>
-      <div>
-        <Form className='menu-kelas'>
-          <div className='d-flex'>
-            <Form.Select>
-              <option>Pilih Unit Kelas</option>
-              <option value='1'>One</option>
-              <option value='2'>Two</option>
-              <option value='3'>Three</option>
+            <Form.Select size="sm" onChange={onProdiFilterChange} value={value} name='class_id'>
+              <option value=''>Semua</option>
+              {data.length>0 && data.map((item,index)=>(
+              <option value={item.class_id} key={index}>{item.class_name}</option>
+              ))}
+              
             </Form.Select>
-          </div>
-        </Form>
-      </div>
+    
     </>
   );
 }

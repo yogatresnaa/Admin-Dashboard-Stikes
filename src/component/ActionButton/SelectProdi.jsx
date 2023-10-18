@@ -3,24 +3,19 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { FaSearch } from 'react-icons/fa';
 
-function SelectProdi() {
+function SelectProdi({data,onProdiFilterChange,value}) {
+  
   return (
     <>
-      <div>
-        <Form className='menu-select'>
-          <div className='d-flex'>
-            <Form.Select>
-              <option>Pilih Prodi</option>
-              <option value='1'>One</option>
-              <option value='2'>Two</option>
-              <option value='3'>Three</option>
+       
+            <Form.Select size="sm" onChange={onProdiFilterChange} value={value} name='majors_id'>
+              <option value=''>Semua</option>
+              {data.length>0 && data.map((item,index)=>(
+              <option value={item.majors_id} key={index}>{item.majors_name}</option>
+              ))}
+              
             </Form.Select>
-          </div>
-          <Button className='select-prodi'>
-            <FaSearch /> Search
-          </Button>
-        </Form>
-      </div>
+    
     </>
   );
 }

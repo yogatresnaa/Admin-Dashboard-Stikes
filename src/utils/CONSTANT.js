@@ -10,3 +10,9 @@ export const alertType={
     add:"Tambah",
     update:'Ubah',
 }
+
+export const statusSiswa=[
+    "Tidak Aktif",
+    "Aktif",
+    "Tamat",
+]

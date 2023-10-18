@@ -19,6 +19,7 @@
     "esbuild": "^0.19.5",
     "formik": "^2.4.5",
     "prop-types": "^15.8.1",
+    "query-string": "^8.1.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-data-table-component": "^7.5.4",

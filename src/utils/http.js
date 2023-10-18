@@ -60,7 +60,7 @@ export const postStatusSiswa = (body, token) => Axios.post(`${URL_BASE}/status-s
 export const putStatusSiswa = (id, body, token) => Axios.put(`${URL_BASE}/status-siswa/${id}`, body, options(token));
 export const deleteStatusSiswa = (id, token) => Axios.delete(`${URL_BASE}/status-siswa/${id}`, options(token));
 
-export const getAllSiswa = (token) => Axios.get(`${URL_BASE}/siswa`, options(token));
+export const getAllSiswa = (query,token) => Axios.get(`${URL_BASE}/siswa?${query}`, options(token));
 export const getAllSiswaByQuery = (query,token) => Axios.get(`${URL_BASE}/siswa${query}`, options(token));
 export const getSiswaById = (id, token) => Axios.get(`${URL_BASE}/siswa/${id}`, options(token));
 export const postSiswa = (body, token) => Axios.post(`${URL_BASE}/siswa`, body, options(token));

@@ -1,21 +1,20 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import { FaSearch } from 'react-icons/fa';
 
-function SelectStatusMahasiswa() {
+function SelectStatusMahasiswa({data,onProdiFilterChange,value}) {
+  
   return (
     <>
-      <div>
-        <Form className='menu-status'>
-          <div className='d-flex'>
-            <Form.Select>
-              <option>Status</option>
-              <option value='1'>Aktif</option>
-              <option value='2'>Tidak Aktif</option>
-              <option value='3'>Tamat</option>
+            <Form.Select size="sm" onChange={onProdiFilterChange} value={value} name='status'>
+              <option value=''>Semua</option>
+              {data.length>0 && data.map((item,index)=>(
+              <option value={index} key={index}>{item}</option>
+              ))}
+              
             </Form.Select>
-          </div>
-        </Form>
-      </div>
+    
     </>
   );
 }
