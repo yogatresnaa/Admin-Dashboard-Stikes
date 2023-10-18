@@ -6,6 +6,7 @@
 @import '../pages/Kesiswaan/Siswa/css/pagesiswa.css';
 @import '../pages/Kesiswaan/ProgramStudi/css/Prodi.css';
 @import '../pages/Akademik/TahunAjaran/css/TahunAjaran.css';
+@import '../pages/notFound/css/notfound.css';
 
 @font-face {
   font-family: 'Poppins-Light';

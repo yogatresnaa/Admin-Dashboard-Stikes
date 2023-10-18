@@ -9,6 +9,7 @@ import PageAlumni from './Akademik/Alumni/PageAlumni';
 import PageKelulusan from './Akademik/Kelulusan/PageKelulusan';
 import PageTahunAjaran from './Akademik/TahunAjaran/PageTahunAjaran';
 import PageDashboard from './Dashboard/PageDashboard';
+import PageNotFound from './notFound/PageNotFound';
 import LoginPage from './Login/Login';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -33,6 +34,7 @@ function AppRoutes() {
             <Route path='alumni' element={<PageAlumni />} />
             <Route path='kelulusan' element={<PageKelulusan />} />
             <Route path='tahun-ajaran' element={<PageTahunAjaran />} />
+            <Route path='not-found' element={<PageNotFound />} />
             <Route path='' element={<Dashboard />} />
           </Route>
         </Routes>
