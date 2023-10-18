@@ -28,7 +28,7 @@
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif !important;
+  font-family: 'Poppins', sans-serif !important;
 }
 
 .containerApp {
@@ -37,7 +37,7 @@
   height: 100vh;
 }
 .sidebar {
-  min-width: 210px;
+  min-width: 276px;
   width: 100%;
   max-width: 230px;
   position: relative;
