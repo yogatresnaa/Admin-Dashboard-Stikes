@@ -33,7 +33,7 @@ export const requestWrapper = async (
     console.log(callback);
     const response = await fn();
 
-    if (response.data.status == 200 || response.data.status == 201) {
+    if (response.data?.status == 200 || response.data?.status == 201) {
       if (type == functionType.POST) {
         toast.success(response.data.message, {
           theme: "colored",

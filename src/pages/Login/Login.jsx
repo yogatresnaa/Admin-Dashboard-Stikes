@@ -36,7 +36,7 @@ function Login() {
       user_email:formBody.email,
       user_password:formBody.password,
     }
-    await requestWrapper(() => dispatch(loginUserActionCreator(newFormBody)), toast);
+    await requestWrapper(() => dispatch(loginUserActionCreator(newFormBody)),null,null,toast,null);
   };
   useEffect(() => {
     if (dataUser.isFulfilled) {
@@ -44,7 +44,7 @@ function Login() {
         theme: 'colored',
       });
       const timeout = setTimeout(() => {
-        navigate('/');
+        navigate('/admin');
       }, 3000);
       return () => {
         clearTimeout(timeout);
