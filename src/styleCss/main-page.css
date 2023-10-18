@@ -1,0 +1,49 @@
+.title {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.subtitle {
+    color: var(--main);
+    font-size: 18px;
+    font-weight: 400;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
+.card-item {
+    border: 0.3px solid lightgray;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.8s all ease;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.card-item>p {
+    font-size: 18px;
+}
+
+.card-item>svg,
+.card-item>p {
+    color: var(--main);
+    transition: 0.8s all ease;
+}
+
+.card-item:hover {
+    border: 0.3px solid var(--main);
+    background-color: var(--main);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.card-item:hover>svg,
+.card-item:hover>p {
+    color: white;
+}
+@media only screen and (min-width: 992px) {
+    .card-item {
+        width: 300px;
+    }
+  }

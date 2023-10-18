@@ -10,3 +10,15 @@ export const tahunAjaranInitialValues={
     period_status:'',
 
 }
+export const prodiInitialValues={
+    majors_id:'',
+    majors_name:'',
+    majors_short_name:'',
+
+}
+export const siswaInitialValues={
+    majors_id:'',
+    majors_name:'',
+    majors_short_name:'',
+
+}

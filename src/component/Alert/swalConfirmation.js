@@ -12,11 +12,7 @@ export const alertConfirmation=async (message,callback)=>{
       }).then(async(result) => {
         if (result.isConfirmed) {
             await callback()
-          Swal.fire(
-            'Deleted!',
-            'Berhasil',
-            'success'
-          )
+          
         }
       })
 }

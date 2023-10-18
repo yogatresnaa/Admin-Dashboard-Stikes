@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component";
 import Button from "react-bootstrap/Button";
 import { FaRegTrashAlt, FaRegEdit } from "react-icons/fa";
 import { Tooltip } from 'react-tooltip'
-function TableKelas({
+function TableProgramStudi({
   data,
   subHeaderComponent,
   resetPaginationToggle,
@@ -15,7 +15,7 @@ function TableKelas({
 }) {
 
   const renderActionButton = (row) => (
-    <div className="d-flex gap-1">
+    <div className='d-flex gap-1'>
       <Button
         color="warning"
         size="sm"
@@ -25,8 +25,7 @@ function TableKelas({
          console.log('ubah')
           onClickEditHandler(row);
         }}
-        id={row.ID}
-      >
+        id={row.ID}>
         <FaRegEdit />
       </Button>
       <Button
@@ -39,32 +38,37 @@ function TableKelas({
         onClick={() => {
           onClickDeleteHandler(row);
         }}
-        id={row.ID}
-      >
+        id={row.ID}>
         <FaRegTrashAlt />
       </Button>
     </div>
   );
   const columns = [
     {
-      name: "NO",
+      name: 'NO',
       selector: (row, index) => index + 1,
       sortable: true,
     },
     {
-      name: "ID Kelas",
-      selector: (row) => row.class_id,
+      name: "ID Prodi",
+      selector: (row) => row.majors_id,
       sortable: true,
     },
     {
-      name: "Nama Kelas",
-      selector: (row) => row.class_name,
+      name: "Nama Prodi",
+      selector: (row) => row.majors_name,
+      sortable: true,
+    },
+   
+    {
+      name: "Nama Pendek Prodi",
+      selector: (row) => row.majors_short_name,
       sortable: true,
     },
    
   
     {
-      name: "Aksi",
+      name: 'Aksi',
       cell: (row) => renderActionButton(row),
   
       width: "200px",
@@ -88,4 +92,4 @@ function TableKelas({
   );
 }
 
-export default TableKelas;
+export default TableProgramStudi;

@@ -6,8 +6,27 @@ import { FaUserGraduate, FaAngleDown, FaAngleUp, FaUniversity, FaRegMoneyBillAlt
 import { BsFillMortarboardFill } from 'react-icons/bs';
 import { FaCircleMinus } from 'react-icons/fa6';
 import Navbar from 'react-bootstrap/Navbar';
-import './css/sidebar.css'
+import logo from '../assets/images/logo.png'; // with import
+import './css/sidebar.css';
 
+
+const ManajmenData=[
+  {
+    id:1,
+    to:'program-studi',
+    name:'Program Studi'
+  },
+  {
+    id:2,
+    to:'kelas',
+    name:'Kelas'
+  },
+  {
+    id:3,
+    to:'siswa',
+    name:'Siswa'
+  }
+]
 function Sidebar() {
   const [toggle1, setToggle1] = React.useState(false);
   const [toggle2, setToggle2] = React.useState(false);
@@ -70,10 +89,14 @@ function Sidebar() {
     <>
       <div className='bg text-white min-vh-100 sidebar-wrapper'>
         <div className='brand-name'>
-          <FaUniversity className='me-3 fs-1' />
-          <span className=' fs-5'>STIKES</span>
+          <div className='brand-name__image-wrapper'>
+
+          <img src={logo} className=' me-1 fs-1' />
+          </div>
+          {/* <FaUniversity className='me-3 fs-1' /> */}
+         
         </div>
-      
+
         <div className='list-group list-group-flush '>
           <hr className='text-white d-none d-sm-block'></hr>
           <ul className='nav nav-pills flex' id='parentM'>
@@ -87,22 +110,22 @@ function Sidebar() {
             <li className='nav-item my-2' onClick={toggleNav}>
               <a href='#submenu' className='nav-link text-white' data-bs-toggle='collapse' aria-current='page'>
                 <FaUserGraduate />
-                <span className='ms-2'>Kesiswaan</span>
+                <span className='ms-2'>Manajemen Data</span>
                 <Navbar.Toggle aria-controls='responsive-navbar-nav' className='ms-2'>
                   {toggle1 === true ? <FaAngleUp /> : <FaAngleDown />}
                 </Navbar.Toggle>
               </a>
               <ul className='nav collapse ms-1 flex-column justify-content-end column-wrapper ' id='submenu' data-bs-parent='#parentM'>
-                <Link to='kelas' className='link color'>
+                {ManajmenData.map(item=>(
+                <Link to={item.to} className='link color' key={item.id}>
                   <li className='nav-item nav-link text-white m-1'>
-                    <FaCircleMinus /> Kelas
+                    <FaCircleMinus /> {item.name}
                   </li>
                 </Link>
-                <Link to='siswa' className='link color'>
-                  <li className='nav-item nav-link text-white m-1'>
-                    <FaCircleMinus /> Siswa
-                  </li>
-                </Link>
+
+                ))}
+
+              
               </ul>
             </li>
 
@@ -279,7 +302,6 @@ function Sidebar() {
             </li>
           </ul>
         </div>
-
       </div>
     </>
   );

@@ -2,8 +2,8 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Homepage from './Homepage';
-import TableKelas from './Kesiswaan/Kelas/PageKelas';
-import PageSiswa from './Kesiswaan/Siswa/PageSiswa';
+import TableKelas from './ManajemenData/Kelas/PageKelas';
+import PageSiswa from './ManajemenData/Siswa/PageSiswa';
 import PageAlumni from './Akademik/Alumni/PageAlumni';
 import PageKelulusan from './Akademik/Kelulusan/PageKelulusan';
 import PageTahunAjaran from './Akademik/TahunAjaran/PageTahunAjaran';
@@ -17,6 +17,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '../redux/store';
 import MainPage from './MainPage';
+import PageProgramStudi from './ManajemenData/ProgramStudi/PageProgramStudi';
 function AppRoutes() {
 
   return (
@@ -32,6 +33,7 @@ function AppRoutes() {
             <Route path='siswa' element={<PageSiswa />} />
             <Route path='alumni' element={<PageAlumni />} />
             <Route path='kelulusan' element={<PageKelulusan />} />
+            <Route path='program-studi' element={<PageProgramStudi />} />
             <Route path='tahun-ajaran' element={<PageTahunAjaran />} />
             <Route path='' element={<Dashboard />} />
           </Route>

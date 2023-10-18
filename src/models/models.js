@@ -12,3 +12,17 @@ export const tahunAjaranModel = {
   }),
 
 };
+export const prodiModel = {
+  objectToJSON: (body) => ({
+    majors_name: body.majors_name,
+    majors_short_name: body.majors_short_name,
+  }),
+
+};
+export const siswaModel = {
+  objectToJSON: (body) => ({
+    majors_name: body.majors_name,
+    majors_short_name: body.majors_short_name,
+  }),
+
+};
