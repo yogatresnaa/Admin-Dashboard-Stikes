@@ -44,7 +44,7 @@ function Login() {
         theme: 'colored',
       });
       const timeout = setTimeout(() => {
-        navigate('/');
+        navigate('/admin');
       }, 3000);
       return () => {
         clearTimeout(timeout);
