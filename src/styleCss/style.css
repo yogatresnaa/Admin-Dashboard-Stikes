@@ -36,7 +36,7 @@
 .sidebar {
   min-width: 210px;
   width: 100%;
-  max-width: 230px;
+  max-width: 260px;
   position: relative;
   display: flex;
 }

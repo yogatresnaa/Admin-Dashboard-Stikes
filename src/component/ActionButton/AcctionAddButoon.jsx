@@ -1,15 +1,15 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import { FaCalendarPlus } from "react-icons/fa";
+import { FaCalendarPlus } from 'react-icons/fa';
 
-function AddAction({onClickHandler}) {
+function AddAction({ onClickHandler }) {
   return (
     <div>
-    <Button size='sm' variant='dark' className='d-flex text-white align-items-center' onClick={onClickHandler}>
-      <FaCalendarPlus />
-      &ensp; Tambah
-    </Button>
-  </div>
+      <Button size='sm' variant='dark' className='d-flex text-white align-items-center' onClick={onClickHandler}>
+        <FaCalendarPlus />
+        &ensp; Tambah
+      </Button>
+    </div>
   );
 }
 

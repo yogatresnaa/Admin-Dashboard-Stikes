@@ -1,27 +1,22 @@
-import React, { useEffect, useMemo, useState } from "react";
-import TableKelas from "./components/TableKelas";
-import AddAction from "../../../component/ActionButton/AcctionAddButoon";
-import SelectProdi from "../../../component/ActionButton/SelectProdi";
-import ShowDataEnteris from "../../../component/ActionButton/showEntries";
-import SearchInput from "../../../component/ActionButton/SearchInput";
+import React, { useEffect, useMemo, useState } from 'react';
+import TableKelas from './components/TableKelas';
+import AddAction from '../../../component/ActionButton/AcctionAddButoon';
+import SelectProdi from '../../../component/ActionButton/SelectProdi';
+import ShowDataEnteris from '../../../component/ActionButton/showEntries';
+import SearchInput from '../../../component/ActionButton/SearchInput';
 
-import useRequest from "../../../customHooks/useRequest";
-import {
-  deleteKelas,
-  getAllKelas,
-  postKelas,
-  putKelas,
-} from "../../../utils/http";
-import "./css/pageKelas.css";
-import { useSelector } from "react-redux";
-import ModalForm from "./components/FormModal";
-import { kelasInitialValues } from "../../../utils/initialValues";
-import { kelasSchema } from "../../../utils/schema";
-import { ToastContainer } from "react-toastify";
-import { kelasModel } from "../../../models/models";
-import useTable from "../../../customHooks/useTable";
-import { alertConfirmation } from "../../../component/Alert/swalConfirmation";
-import { alertType } from "../../../utils/CONSTANT";
+import useRequest from '../../../customHooks/useRequest';
+import { deleteKelas, getAllKelas, postKelas, putKelas } from '../../../utils/http';
+import './css/pageKelas.css';
+import { useSelector } from 'react-redux';
+import ModalForm from './components/FormModal';
+import { kelasInitialValues } from '../../../utils/initialValues';
+import { kelasSchema } from '../../../utils/schema';
+import { ToastContainer } from 'react-toastify';
+import { kelasModel } from '../../../models/models';
+import useTable from '../../../customHooks/useTable';
+import { alertConfirmation } from '../../../component/Alert/swalConfirmation';
+import { alertType } from '../../../utils/CONSTANT';
 
 function PageKelas() {
   const {
@@ -33,22 +28,11 @@ function PageKelas() {
     getData: getDataKelas,
     isLoading: isLoadingKelas,
     setIsLoading: setIsLoadingKelas,
-    isLoadingSendData:isLoadingSendDataKelas,
+    isLoadingSendData: isLoadingSendDataKelas,
     filterText,
     onChangeFilterText,
   } = useRequest();
-  const {
-    setIsOpenModalTambah,
-    isOpenModalEdit,
-    isOpenModalTambah,
-    resetPaginationToggle,
-    setResetPaginationToggle,
-    setIsOpenModalEdit,
-    isOpenModalForm,
-    setIsOpenModalForm,
-    isEdit,
-    setIsEdit,
-  } = useTable();
+  const { setIsOpenModalTambah, isOpenModalEdit, isOpenModalTambah, resetPaginationToggle, setResetPaginationToggle, setIsOpenModalEdit, isOpenModalForm, setIsOpenModalForm, isEdit, setIsEdit } = useTable();
 
   const dataUser = useSelector(({ authState }) => authState.data);
 
@@ -57,21 +41,14 @@ function PageKelas() {
     getDataKelas(() => getAllKelas(dataUser.token));
   }, []);
 
-
   useEffect(() => {
     
 
-    if (filterText !== "") {
+    if (filterText !== '') {
       setDataKelas((prevState) => ({
         ...prevState,
         filter: prevState.data.filter((item) => {
-          if (
-            item.class_name
-              .toString()
-              .toLowerCase()
-              .includes(filterText.toString().toLowerCase())
-          )
-            return true;
+          if (item.class_name.toString().toLowerCase().includes(filterText.toString().toLowerCase())) return true;
           return false;
         }),
       }));
@@ -79,41 +56,33 @@ function PageKelas() {
     }
   }, [filterText]);
 
-  const onClickTambahHandler=()=>{
+  const onClickTambahHandler = () => {
     setIsOpenModalForm(!isOpenModalForm);
-    setIsEdit(false)
-  }
+    setIsEdit(false);
+  };
   const onClickEditHandler = (item) => {
     console.log(item);
     setDataDetailKelas(item);
-    setIsEdit(true)
+    setIsEdit(true);
     setIsOpenModalForm(!isOpenModalForm);
   };
   const subHeaderComponent = useMemo(() => {
     const onClearHandler = () => {
       if (filterText) {
-        onChangeFilterText("");
+        onChangeFilterText('');
         setResetPaginationToggle(!resetPaginationToggle);
       }
     };
 
-    return (
-      <SearchInput filterText={filterText} setFilterText={onChangeFilterText} />
-    );
-  }, [
-    filterText,
-    onChangeFilterText,
-    resetPaginationToggle,
-    setResetPaginationToggle,
-  ]);
+    return <SearchInput filterText={filterText} setFilterText={onChangeFilterText} />;
+  }, [filterText, onChangeFilterText, resetPaginationToggle, setResetPaginationToggle]);
 
   const onSubmitTambahHandler = async (formBody, { resetForm }) => {
     console.log(formBody);
     await sendDataKelas(
       () => postKelas(kelasModel.objectToJSON(formBody), dataUser.token),
-      () => getDataKelas(()=>getAllKelas(dataUser.token)),
+      () => getDataKelas(() => getAllKelas(dataUser.token)),
       null
-
     );
     setIsOpenModalForm(!setIsOpenModalForm);
   };
@@ -121,13 +90,9 @@ function PageKelas() {
   const onSubmitEditHandler = async (formBody, { resetForm }) => {
     console.log(formBody);
     await sendDataKelas(
-      () =>
-        putKelas(
-          formBody.class_id,
-          kelasModel.objectToJSON(formBody),
-          dataUser.token
-        ),
-        () => getDataKelas(()=>getAllKelas(dataUser.token)),null
+      () => putKelas(formBody.class_id, kelasModel.objectToJSON(formBody), dataUser.token),
+      () => getDataKelas(() => getAllKelas(dataUser.token)),
+      null
     );
     setIsOpenModalForm(!isOpenModalForm);
   };
@@ -136,7 +101,7 @@ function PageKelas() {
     alertConfirmation(alertType.delete, async () => {
       await sendDataKelas(
         () => deleteKelas(formBody.class_id, dataUser.token),
-        () => getDataKelas(()=>getAllKelas(dataUser.token)),
+        () => getDataKelas(() => getAllKelas(dataUser.token)),
         null
       );
     });
@@ -145,13 +110,13 @@ function PageKelas() {
   return (
     <>
       <ToastContainer />
-      <div className="page-content">
+      <div className='page-content'>
         <h3>
-          Kelas <span style={{ fontSize: "0.8em", color: "gray" }}>List</span>
+          Kelas <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>
         </h3>
 
-        <div className="table-content">
-          <AddAction onClickHandler={ onClickTambahHandler} />
+        <div className='table-content'>
+          <AddAction onClickHandler={onClickTambahHandler} />
 
           <TableKelas
             data={filterText.length > 0 ? dataKelas.filter : dataKelas.data}
@@ -163,14 +128,14 @@ function PageKelas() {
           />
         </div>
         <ModalForm
-          initialValues={isEdit?dataDetailKelas:kelasInitialValues}
+          initialValues={isEdit ? dataDetailKelas : kelasInitialValues}
           schema={kelasSchema}
           toggle={() => setIsOpenModalForm(!isOpenModalForm)}
           isOpen={isOpenModalForm}
-          btnName={isEdit?"Edit":"Tambah"}
+          btnName={isEdit ? 'Edit' : 'Tambah'}
           isLoadingSendData={isLoadingSendDataKelas}
-          headerName={isEdit?"Edit Kelas":"Tambah Kelas"}
-          onSubmitHandler={isEdit?onSubmitEditHandler:onSubmitTambahHandler}
+          headerName={isEdit ? 'Edit Kelas' : 'Tambah Kelas'}
+          onSubmitHandler={isEdit ? onSubmitEditHandler : onSubmitTambahHandler}
         />
         {/* <ModalForm
           initialValues={

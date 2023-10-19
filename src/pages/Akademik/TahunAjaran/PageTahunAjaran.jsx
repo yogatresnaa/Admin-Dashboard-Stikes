@@ -1,27 +1,22 @@
-import React, { useEffect, useMemo, useState } from "react";
-import TableTahunAjaran from "./components/TableTahunAjaran";
-import AddAction from "../../../component/ActionButton/AcctionAddButoon";
-import SelectProdi from "../../../component/ActionButton/SelectProdi";
-import ShowDataEnteris from "../../../component/ActionButton/showEntries";
-import SearchInput from "../../../component/ActionButton/SearchInput";
+import React, { useEffect, useMemo, useState } from 'react';
+import TableTahunAjaran from './components/TableTahunAjaran';
+import AddAction from '../../../component/ActionButton/AcctionAddButoon';
+import SelectProdi from '../../../component/ActionButton/SelectProdi';
+import ShowDataEnteris from '../../../component/ActionButton/showEntries';
+import SearchInput from '../../../component/ActionButton/SearchInput';
 
-import useRequest from "../../../customHooks/useRequest";
-import {
-  deleteTahunAjaran,
-  getAllTahunAjaran,
-  postTahunAjaran,
-  putTahunAjaran,
-} from "../../../utils/http";
-import "./css/pageTahunAjaran.css";
-import { useSelector } from "react-redux";
-import ModalForm from "./components/FormModal";
-import { tahunAjaranInitialValues } from "../../../utils/initialValues";
-import { tahunAjaranSchema } from "../../../utils/schema";
-import { ToastContainer } from "react-toastify";
-import { tahunAjaranModel } from "../../../models/models";
-import useTable from "../../../customHooks/useTable";
-import { alertConfirmation } from "../../../component/Alert/swalConfirmation";
-import { alertType } from "../../../utils/CONSTANT";
+import useRequest from '../../../customHooks/useRequest';
+import { deleteTahunAjaran, getAllTahunAjaran, postTahunAjaran, putTahunAjaran } from '../../../utils/http';
+import './css/pageTahunAjaran.css';
+import { useSelector } from 'react-redux';
+import ModalForm from './components/FormModal';
+import { tahunAjaranInitialValues } from '../../../utils/initialValues';
+import { tahunAjaranSchema } from '../../../utils/schema';
+import { ToastContainer } from 'react-toastify';
+import { tahunAjaranModel } from '../../../models/models';
+import useTable from '../../../customHooks/useTable';
+import { alertConfirmation } from '../../../component/Alert/swalConfirmation';
+import { alertType } from '../../../utils/CONSTANT';
 
 function PageTahunAjaran() {
   const {
@@ -37,18 +32,7 @@ function PageTahunAjaran() {
     filterText,
     onChangeFilterText,
   } = useRequest();
-  const {
-    setIsOpenModalTambah,
-    isOpenModalEdit,
-    isOpenModalTambah,
-    resetPaginationToggle,
-    setResetPaginationToggle,
-    setIsOpenModalEdit,
-    isOpenModalForm,
-    setIsOpenModalForm,
-    isEdit,
-    setIsEdit,
-  } = useTable();
+  const { setIsOpenModalTambah, isOpenModalEdit, isOpenModalTambah, resetPaginationToggle, setResetPaginationToggle, setIsOpenModalEdit, isOpenModalForm, setIsOpenModalForm, isEdit, setIsEdit } = useTable();
 
   const dataUser = useSelector(({ authState }) => authState.data);
 
@@ -57,53 +41,38 @@ function PageTahunAjaran() {
     getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token));
   }, []);
 
-
   useEffect(() => {
     console.log(filterText);
 
-    if (filterText !== "") {
+    if (filterText !== '') {
       setDataTahunAjaran((prevState) => ({
         ...prevState,
         filter: prevState.data.filter((item) => {
-          if (
-            item.period_start
-              .toString()
-              .toLowerCase()
-              .includes(filterText.toString().toLowerCase())
-          )
-            return true;
-          if (
-            item.period_end
-              .toString()
-              .toLowerCase()
-              .includes(filterText.toString().toLowerCase())
-          )
-            return true;
+          if (item.period_start.toString().toLowerCase().includes(filterText.toString().toLowerCase())) return true;
+          if (item.period_end.toString().toLowerCase().includes(filterText.toString().toLowerCase())) return true;
           return false;
         }),
       }));
     }
   }, [filterText]);
 
-  const onClickTambahHandler=()=>{
+  const onClickTambahHandler = () => {
     setIsOpenModalForm(!isOpenModalForm);
-    setIsEdit(false)
-  }
+    setIsEdit(false);
+  };
   const onClickEditHandler = (item) => {
     console.log(item);
     setDataDetailTahunAjaran(item);
-    setIsEdit(true)
+    setIsEdit(true);
     setIsOpenModalForm(!isOpenModalForm);
   };
-  
 
   const onSubmitTambahHandler = async (formBody, { resetForm }) => {
     console.log(formBody);
     await sendDataTahunAjaran(
       () => postTahunAjaran(tahunAjaranModel.objectToJSON(formBody), dataUser.token),
-      () => getDataTahunAjaran(()=>getAllTahunAjaran(dataUser.token)),
+      () => getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token)),
       null
-
     );
     setIsOpenModalForm(!setIsOpenModalForm);
   };
@@ -111,13 +80,9 @@ function PageTahunAjaran() {
   const onSubmitEditHandler = async (formBody, { resetForm }) => {
     console.log(formBody);
     await sendDataTahunAjaran(
-      () =>
-        putTahunAjaran(
-          formBody.period_id,
-          tahunAjaranModel.objectToJSON(formBody),
-          dataUser.token
-        ),
-        () => getDataTahunAjaran(()=>getAllTahunAjaran(dataUser.token)),null
+      () => putTahunAjaran(formBody.period_id, tahunAjaranModel.objectToJSON(formBody), dataUser.token),
+      () => getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token)),
+      null
     );
     setIsOpenModalForm(!isOpenModalForm);
   };
@@ -126,41 +91,33 @@ function PageTahunAjaran() {
     alertConfirmation(alertType.delete, async () => {
       await sendDataTahunAjaran(
         () => deleteTahunAjaran(formBody.period_id, dataUser.token),
-        () => getDataTahunAjaran(()=>getAllTahunAjaran(dataUser.token)),
+        () => getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token)),
         null
       );
     });
   };
 
-
   const subHeaderComponent = useMemo(() => {
     const onClearHandler = () => {
       if (filterText) {
-        onChangeFilterText("");
+        onChangeFilterText('');
         setResetPaginationToggle(!resetPaginationToggle);
       }
     };
 
-    return (
-      <SearchInput filterText={filterText} setFilterText={onChangeFilterText} />
-    );
-  }, [
-    filterText,
-    onChangeFilterText,
-    resetPaginationToggle,
-    setResetPaginationToggle,
-  ]);
+    return <SearchInput filterText={filterText} setFilterText={onChangeFilterText} />;
+  }, [filterText, onChangeFilterText, resetPaginationToggle, setResetPaginationToggle]);
 
   return (
     <>
       <ToastContainer />
-      <div className="page-content">
+      <div className='page-content'>
         <h3>
-          Tahun Ajaran <span style={{ fontSize: "0.8em", color: "gray" }}>List</span>
+          Tahun Ajaran <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>
         </h3>
 
-        <div className="table-content">
-          <AddAction onClickHandler={ onClickTambahHandler} />
+        <div className='table-content'>
+          <AddAction onClickHandler={onClickTambahHandler} />
 
           <TableTahunAjaran
             data={filterText.length > 0 ? dataTahunAjaran.filter : dataTahunAjaran.data}
@@ -172,14 +129,14 @@ function PageTahunAjaran() {
           />
         </div>
         <ModalForm
-          initialValues={isEdit?dataDetailTahunAjaran:tahunAjaranInitialValues}
+          initialValues={isEdit ? dataDetailTahunAjaran : tahunAjaranInitialValues}
           schema={tahunAjaranSchema}
           toggle={() => setIsOpenModalForm(!isOpenModalForm)}
           isOpen={isOpenModalForm}
           isLoadingSendData={isLoadingSendDataTahunAjaran}
-          btnName={isEdit?"Edit":"Tambah"}
-          headerName={isEdit?"Edit Tahun Ajaran":"Tambah Tahun Ajaran"}
-          onSubmitHandler={isEdit?onSubmitEditHandler:onSubmitTambahHandler}
+          btnName={isEdit ? 'Edit' : 'Tambah'}
+          headerName={isEdit ? 'Edit Tahun Ajaran' : 'Tambah Tahun Ajaran'}
+          onSubmitHandler={isEdit ? onSubmitEditHandler : onSubmitTambahHandler}
         />
         {/* <ModalForm
           initialValues={

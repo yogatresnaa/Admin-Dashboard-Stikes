@@ -1,0 +1,15 @@
+.not-found {
+  width: 50%;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 300px;
+}
+
+.not-found h1 {
+  text-align: center;
+}
+
+.not-found h3 {
+  text-align: center;
+}

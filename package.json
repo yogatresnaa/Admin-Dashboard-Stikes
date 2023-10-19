@@ -16,6 +16,7 @@
     "bootstrap": "^5.3.1",
     "bootstrap-icons": "^1.10.5",
     "dotenv": "^16.3.1",
+    "esbuild": "^0.19.5",
     "formik": "^2.4.5",
     "prop-types": "^15.8.1",
     "query-string": "^8.1.0",
