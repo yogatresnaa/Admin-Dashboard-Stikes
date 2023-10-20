@@ -7,7 +7,7 @@ import PageSiswa from './ManajemenData/Siswa/PageSiswa';
 import PageAlumni from './Akademik/Alumni/PageAlumni';
 import PageKelulusan from './Akademik/Kelulusan/PageKelulusan';
 import PageTahunAjaran from './Akademik/TahunAjaran/PageTahunAjaran';
-import PageNotFound from './NotFound/PageNotFound';
+import PageNotFound from './NotFound/PageNoFound';
 // import PageDashboard from './Dashboard/PageDashboard';
 import LoginPage from './Login/Login';
 import 'react-toastify/dist/ReactToastify.css';
