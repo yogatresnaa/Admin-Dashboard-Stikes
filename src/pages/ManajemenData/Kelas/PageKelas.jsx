@@ -33,7 +33,7 @@ function PageKelas() {
     getData: getDataKelas,
     isLoading: isLoadingKelas,
     setIsLoading: setIsLoadingKelas,
-    isLoadingSendData:isLoadingSendDataKelas,
+    isLoadingSendData: isLoadingSendDataKelas,
     filterText,
     onChangeFilterText,
   } = useRequest();
@@ -53,40 +53,38 @@ function PageKelas() {
   const dataUser = useSelector(({ authState }) => authState.data);
 
   useEffect(() => {
-    console.log('a');
     getDataKelas(() => getAllKelas(dataUser.token));
   }, []);
 
+  console.log("render");
+  // useEffect(() => {
 
-  useEffect(() => {
-    
+  //   if (filterText !== "") {
+  //     setDataKelas((prevState) => ({
+  //       ...prevState,
+  //       filter: prevState.data.filter((item) => {
+  //         if (
+  //           item.class_name
+  //             .toString()
+  //             .toLowerCase()
+  //             .includes(filterText.toString().toLowerCase())
+  //         )
+  //           return true;
+  //         return false;
+  //       }),
+  //     }));
 
-    if (filterText !== "") {
-      setDataKelas((prevState) => ({
-        ...prevState,
-        filter: prevState.data.filter((item) => {
-          if (
-            item.class_name
-              .toString()
-              .toLowerCase()
-              .includes(filterText.toString().toLowerCase())
-          )
-            return true;
-          return false;
-        }),
-      }));
-     
-    }
-  }, [filterText]);
+  //   }
+  // }, [filterText]);
 
-  const onClickTambahHandler=()=>{
+  const onClickTambahHandler = () => {
     setIsOpenModalForm(!isOpenModalForm);
-    setIsEdit(false)
-  }
+    setIsEdit(false);
+  };
   const onClickEditHandler = (item) => {
     console.log(item);
     setDataDetailKelas(item);
-    setIsEdit(true)
+    setIsEdit(true);
     setIsOpenModalForm(!isOpenModalForm);
   };
   const subHeaderComponent = useMemo(() => {
@@ -111,11 +109,13 @@ function PageKelas() {
     console.log(formBody);
     await sendDataKelas(
       () => postKelas(kelasModel.objectToJSON(formBody), dataUser.token),
-      () => getDataKelas(()=>getAllKelas(dataUser.token)),
+      () => {
+        getDataKelas(() => getAllKelas(dataUser.token));
+        setIsOpenModalForm(!isOpenModalForm);
+      },
       null
-
     );
-    setIsOpenModalForm(!setIsOpenModalForm);
+  
   };
 
   const onSubmitEditHandler = async (formBody, { resetForm }) => {
@@ -127,21 +127,27 @@ function PageKelas() {
           kelasModel.objectToJSON(formBody),
           dataUser.token
         ),
-        () => getDataKelas(()=>getAllKelas(dataUser.token)),null
+      () => {
+        getDataKelas(() => getAllKelas(dataUser.token));
+        setIsOpenModalForm(!isOpenModalForm);
+      },
+      null
     );
-    setIsOpenModalForm(!isOpenModalForm);
   };
   const onSubmitDeleteHandler = async (formBody) => {
     console.log(formBody);
     alertConfirmation(alertType.delete, async () => {
       await sendDataKelas(
         () => deleteKelas(formBody.class_id, dataUser.token),
-        () => getDataKelas(()=>getAllKelas(dataUser.token)),
+        () => getDataKelas(() => getAllKelas(dataUser.token)),
         null
       );
     });
   };
 
+  const dataFiltered = useMemo(()=>dataKelas.data.filter((item) =>(
+    item.class_name.toString().toLowerCase().includes(filterText.toLocaleLowerCase()))),[filterText,dataKelas.data]
+  );
   return (
     <>
       <ToastContainer />
@@ -151,10 +157,10 @@ function PageKelas() {
         </h3>
 
         <div className="table-content">
-          <AddAction onClickHandler={ onClickTambahHandler} />
+          <AddAction onClickHandler={onClickTambahHandler} />
 
           <TableKelas
-            data={filterText.length > 0 ? dataKelas.filter : dataKelas.data}
+            data={filterText.length > 0 ? dataFiltered : dataKelas.data}
             subHeaderComponent={subHeaderComponent}
             resetPaginationToggle={resetPaginationToggle}
             isLoading={isLoadingKelas}
@@ -163,14 +169,14 @@ function PageKelas() {
           />
         </div>
         <ModalForm
-          initialValues={isEdit?dataDetailKelas:kelasInitialValues}
+          initialValues={isEdit ? dataDetailKelas : kelasInitialValues}
           schema={kelasSchema}
           toggle={() => setIsOpenModalForm(!isOpenModalForm)}
           isOpen={isOpenModalForm}
-          btnName={isEdit?"Edit":"Tambah"}
+          btnName={isEdit ? "Edit" : "Tambah"}
           isLoadingSendData={isLoadingSendDataKelas}
-          headerName={isEdit?"Edit Kelas":"Tambah Kelas"}
-          onSubmitHandler={isEdit?onSubmitEditHandler:onSubmitTambahHandler}
+          headerName={isEdit ? "Edit Kelas" : "Tambah Kelas"}
+          onSubmitHandler={isEdit ? onSubmitEditHandler : onSubmitTambahHandler}
         />
         {/* <ModalForm
           initialValues={

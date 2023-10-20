@@ -12,6 +12,7 @@ function TableSiswa({
   resetPaginationToggle,
   isLoading,
   onClickEditHandler,
+  onClickDetailHandler,
   onClickDeleteHandler,
 
 
@@ -36,7 +37,7 @@ function TableSiswa({
             variant='danger'
             data-tooltip-id="my-tooltip" data-tooltip-content="Lihat"
             onClick={() => {
-              onClickDetailShowHandler(row);
+              onClickDetailHandler(row);
             }}
             id={row.ID}>
             <FaRegEye color='white' />
@@ -45,7 +46,7 @@ function TableSiswa({
             color="warning"
             size='sm'
             variant='danger'
-            data-tooltip-id="my-tooltip" data-tooltip-content="Lihat"
+            data-tooltip-id="my-tooltip" data-tooltip-content="Edit"
             onClick={() => {
               onClickDetailShowHandler(row);
             }}

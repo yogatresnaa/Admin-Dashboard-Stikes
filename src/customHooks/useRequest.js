@@ -10,7 +10,7 @@ export default function useRequest() {
   const [dataDetail, setDataDetail] = useState(null);
   const [filterText, setFilterText] = useState("");
   const onChangeFilterText = (e) => {
-    setFilterText(e.target.value);
+   setFilterText(e.target.value);
   };
 
   const getData = async (fn) => {
@@ -49,7 +49,7 @@ export default function useRequest() {
 
   const sendData = async (fn, callback=null,navigate=null) => {
     try {
-      
+      //rerender
       setIsLoadingSendData(true);
       console.log(isLoadingSendData)
       const response = await fn();
@@ -60,6 +60,7 @@ export default function useRequest() {
         });
         //callback getdata again after post / put
         if (callback != null) {
+          //rerender
           await callback();
         }
       }

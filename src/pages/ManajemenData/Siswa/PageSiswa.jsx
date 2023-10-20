@@ -31,6 +31,7 @@ import SelectUnitKelas from "../../../component/ActionButton/SelectUnitKelas";
 import { Button } from "reactstrap";
 import queryString from "query-string";
 import SelectStatusMahasiswa from "../../../component/ActionButton/SelectStatusMahasiswa";
+import DetailModal from "./components/DetailModal";
 
 function PageSiswa() {
   const {
@@ -57,9 +58,7 @@ function PageSiswa() {
    getData:getDataKelas
   } = useRequest();
   const {
-    setIsOpenModalTambah,
-    isOpenModalEdit,
-    isOpenModalTambah,
+
     resetPaginationToggle,
     setResetPaginationToggle,
     setIsOpenModalEdit,
@@ -75,7 +74,9 @@ const [queryFilter,setQueryFilter]=useState({
   status:'',
   majors_id:''
 })
-  const [isSubmitFilter,setIsSubmitFilter]=useState(false)
+  const [isOpenDetailModal,setIsOpenDetailModal]=useState(false)
+
+
   useEffect(() => {
     const query=queryString.stringify(queryFilter);
     getDataSiswa(() => getAllSiswa(query,dataUser.token));
@@ -88,25 +89,7 @@ const onCLickFilterSubmit=()=>{
     getDataSiswa(() => getAllSiswa(query,dataUser.token));
 }
 
-  useEffect(() => {
-    console.log(filterText);
-
-    if (filterText !== "") {
-      setDataSiswa((prevState) => ({
-        ...prevState,
-        filter: prevState.data.filter((item) => {
-          if (
-            item.student_nis
-              .toString()
-              .toLowerCase()
-              .includes(filterText.toString().toLowerCase())
-          )
-            return true;
-          return false;
-        }),
-      }));
-    }
-  }, [filterText]);
+  
 
   const onClickTambahHandler=()=>{
     setIsOpenModalForm(!isOpenModalForm);
@@ -118,6 +101,7 @@ const onCLickFilterSubmit=()=>{
     setIsEdit(true)
     setIsOpenModalForm(!isOpenModalForm);
   };
+  console.log('render')
   const subHeaderComponent = useMemo(() => {
     const onClearHandler = () => {
       if (filterText) {
@@ -136,6 +120,12 @@ const onCLickFilterSubmit=()=>{
     setResetPaginationToggle,
   ]);
 
+
+  const onClickDetailSiswaHandler=(dataDetail)=>{
+    setDataDetailSiswa(dataDetail)
+    setIsOpenDetailModal(true)
+
+  }
   const onSubmitTambahHandler = async (formBody, { resetForm }) => {
     console.log(formBody);
     await sendDataSiswa(
@@ -174,7 +164,11 @@ const onCLickFilterSubmit=()=>{
   const onQueryFilterChange=(e)=>{
 setQueryFilter((prevState)=>({...prevState,[e.target.name]:e.target.value}))
 }
-  
+const dataFiltered = useMemo(()=>dataSiswa.data.filter((item) =>(
+  item.student_nis.toString().toLowerCase().includes(filterText.toLocaleLowerCase())||
+  item.student_full_name.toString().toLowerCase().includes(filterText.toLocaleLowerCase())||
+  item.majors_majors_name.toString().toLowerCase().includes(filterText.toLocaleLowerCase()))),[filterText,dataSiswa.data]
+);
   return (
     <>
       <ToastContainer />
@@ -197,11 +191,13 @@ setQueryFilter((prevState)=>({...prevState,[e.target.name]:e.target.value}))
           </div>
 
           <TableSiswa
-            data={filterText.length > 0 ? dataSiswa.filter : dataSiswa.data}
+            data={filterText.length > 0 ? dataFiltered : dataSiswa.data}
             subHeaderComponent={subHeaderComponent}
             resetPaginationToggle={resetPaginationToggle}
             isLoading={isLoadingSiswa}
             onClickEditHandler={onClickEditHandler}
+            onClickDetailHandler={onClickDetailSiswaHandler}
+
             onClickDeleteHandler={onSubmitDeleteHandler}
           />
         </div>
@@ -212,9 +208,10 @@ setQueryFilter((prevState)=>({...prevState,[e.target.name]:e.target.value}))
           isOpen={isOpenModalForm}
           btnName={isEdit?"Edit":"Tambah"}
           isLoadingSendData={isLoadingSendDataSiswa}
-          headerName={isEdit?"Edit Program Studi":"Tambah Program Studi"}
+          headerName={isEdit?"Edit Siswa":"Tambah Siswa"}
           onSubmitHandler={isEdit?onSubmitEditHandler:onSubmitTambahHandler}
         />
+        <DetailModal data={dataDetailSiswa} isOpen={isOpenDetailModal} toggle={()=>setIsOpenDetailModal(!isOpenDetailModal)} headerName={"Detail"} />
         {/* <ModalForm
           initialValues={
             dataDetailKelas !== null ? dataDetailKelas : kelasInitialValues
