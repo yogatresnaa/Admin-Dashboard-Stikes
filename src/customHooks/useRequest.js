@@ -18,8 +18,9 @@ export default function useRequest() {
       setIsLoading(true)
   
       const response = await fn();
-
+      console.log(response)
       if (response.data.status == 200 || response.data.status == 201) {
+        
         setData((prevState) => ({ ...prevState, data: response.data.data }));
       }
     } catch (error) {

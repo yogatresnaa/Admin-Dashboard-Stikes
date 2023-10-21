@@ -2,7 +2,12 @@ import { Form, Formik } from "formik";
 import FormCheckInput from "react-bootstrap/esm/FormCheckInput";
 import { Button, Modal, ModalBody, ModalHeader } from "reactstrap";
 import FormComponent from "../../../../component/Form/FormComponent";
-import FormInput from "./FormInput";
+import { useState } from "react";
+import FormInputSiswa from "./FormInputSiswa";
+import FormInputSekolah from "./FormInputSekolah";
+import TabComponent from "./TabComponent";
+
+
 
 export default function ModalForm({
   isOpen,
@@ -10,11 +15,28 @@ export default function ModalForm({
   initialValues,
   onSubmitHandler,
   schema,
+  dataProdi,
+  dataKelas,
   btnName,
   headerName,
   isLoadingSendData,
  
 }) {
+  const tabArr=[
+    {
+      id:0,
+      name:'Data Siswa',
+      component:(props)=><FormInputSiswa {...props}/>
+    },
+    {
+      id:1,
+      name:'Data Sekolah',
+      component:(props)=><FormInputSekolah {...props}/>
+  
+    }
+  ]
+  const [tab,setTab]=useState(0);
+console.log(initialValues)
   return (
     <>
       <Formik
@@ -44,14 +66,24 @@ export default function ModalForm({
           >
             <ModalHeader toggle={toggle}>{headerName}</ModalHeader>
             <ModalBody>
-              <FormInput
+              <TabComponent setTab={setTab} tabValue={tab} tabArray={tabArr}/>
+              {tabArr.filter(item=>item.id==tab)[0].component({btnName:btnName,
+                errors:errors,
+                values:values,
+                isLoadingSendData:isLoadingSendData,
+                handleChange:handleChange,
+                dataProdi,
+                dataKelas,
+                handleSubmit:handleSubmit})}
+              
+              {/* <FormInput
                 btnName={btnName}
                 errors={errors}
                 values={values}
                 isLoadingSendData={isLoadingSendData}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
-              />
+              /> */}
             </ModalBody>
           </Modal>
         )}

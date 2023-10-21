@@ -15,7 +15,13 @@ export const prodiSchema=Yup.object().shape({
    
 })
 export const siswaSchema=Yup.object().shape({
-    majors_name:Yup.string().required("Nama Prodi Harus Diisi"),
-    majors_short_name:Yup.string().required("Field Harus Diisi"),
+    student_full_name:Yup.string().required("Nama Siswa Harus Diisi"),
+    student_nis:Yup.string().required("NIS Siswa Harus Diisi"),
+    student_nisn:Yup.string().required("NISN Siswa Harus Diisi"),
+    majors_majors_id:Yup.string().required("Prodi Harus Diisi"),
+    student_born_date:Yup.string().required("Tanggal Lahir Harus Diisi"),
+    student_born_place:Yup.string().required("Tempat Lahir Harus Diisi"),
+    class_class_id:Yup.string().required("Kelas Harus Diisi"),
+    // majors_short_name:Yup.string().required("Field Harus Diisi"),
    
 })

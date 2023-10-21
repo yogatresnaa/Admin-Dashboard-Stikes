@@ -32,6 +32,7 @@ import { Button } from "reactstrap";
 import queryString from "query-string";
 import SelectStatusMahasiswa from "../../../component/ActionButton/SelectStatusMahasiswa";
 import DetailModal from "./components/DetailModal";
+import { dateConvert, dateConvertForDb } from "../../../utils/helper";
 
 function PageSiswa() {
   const {
@@ -43,22 +44,21 @@ function PageSiswa() {
     getData: getDataSiswa,
     isLoading: isLoadingSiswa,
     setIsLoading: setIsLoadingSiswa,
-    isLoadingSendData:isLoadingSendDataSiswa,
+    isLoadingSendData: isLoadingSendDataSiswa,
     filterText,
     onChangeFilterText,
   } = useRequest();
   const {
     data: dataProdi,
     setData: setDataProdi,
-   getData:getDataProdi
+    getData: getDataProdi,
   } = useRequest();
   const {
     data: dataKelas,
     setData: setDataKelas,
-   getData:getDataKelas
+    getData: getDataKelas,
   } = useRequest();
   const {
-
     resetPaginationToggle,
     setResetPaginationToggle,
     setIsOpenModalEdit,
@@ -69,39 +69,40 @@ function PageSiswa() {
   } = useTable();
 
   const dataUser = useSelector(({ authState }) => authState.data);
-const [queryFilter,setQueryFilter]=useState({
-  class_id:'',
-  status:'',
-  majors_id:''
-})
-  const [isOpenDetailModal,setIsOpenDetailModal]=useState(false)
-
+  const [queryFilter, setQueryFilter] = useState({
+    class_id: "",
+    status: "",
+    majors_id: "",
+  });
+  const [isOpenDetailModal, setIsOpenDetailModal] = useState(false);
 
   useEffect(() => {
-    const query=queryString.stringify(queryFilter);
-    getDataSiswa(() => getAllSiswa(query,dataUser.token));
+    const query = queryString.stringify(queryFilter);
+    getDataSiswa(() => getAllSiswa(query, dataUser.token));
     getDataProdi(() => getAllProdi(dataUser.token));
     getDataKelas(() => getAllKelas(dataUser.token));
   }, []);
 
-const onCLickFilterSubmit=()=>{
-   const query=queryString.stringify(queryFilter);
-    getDataSiswa(() => getAllSiswa(query,dataUser.token));
-}
+  const onCLickFilterSubmit = () => {
+    const query = queryString.stringify(queryFilter);
+    getDataSiswa(() => getAllSiswa(query, dataUser.token));
+  };
 
-  
-
-  const onClickTambahHandler=()=>{
+  const onClickTambahHandler = () => {
     setIsOpenModalForm(!isOpenModalForm);
-    setIsEdit(false)
-  }
+    setIsEdit(false);
+  };
   const onClickEditHandler = (item) => {
     console.log(item);
-    setDataDetailSiswa(item);
-    setIsEdit(true)
+    setDataDetailSiswa((prevState) => ({
+      ...prevState,
+      ...item,
+      student_born_date: item.student_born_date=='0000-00-00'?item.student_born_date:dateConvertForDb(item.student_born_date),
+    }));
+    setIsEdit(true);
     setIsOpenModalForm(!isOpenModalForm);
   };
-  console.log('render')
+  console.log("render");
   const subHeaderComponent = useMemo(() => {
     const onClearHandler = () => {
       if (filterText) {
@@ -120,55 +121,82 @@ const onCLickFilterSubmit=()=>{
     setResetPaginationToggle,
   ]);
 
-
-  const onClickDetailSiswaHandler=(dataDetail)=>{
-    setDataDetailSiswa(dataDetail)
-    setIsOpenDetailModal(true)
-
-  }
+  const onClickDetailSiswaHandler = (dataDetail) => {
+    setDataDetailSiswa(dataDetail);
+    setIsOpenDetailModal(true);
+  };
   const onSubmitTambahHandler = async (formBody, { resetForm }) => {
-    console.log(formBody);
+    const query = queryString.stringify(queryFilter);
     await sendDataSiswa(
       () => postSiswa(siswaModel.objectToJSON(formBody), dataUser.token),
-      () => getDataSiswa(()=>getAllSiswa(dataUser.token)),
+      () => {
+        getDataSiswa(() => getAllSiswa(query, dataUser.token));
+        setIsOpenModalForm(!isOpenModalForm);
+      },
       null
-
     );
-    setIsOpenModalForm(!setIsOpenModalForm);
   };
 
   const onSubmitEditHandler = async (formBody, { resetForm }) => {
     console.log(formBody);
+    const query = queryString.stringify(queryFilter);
+
     await sendDataSiswa(
       () =>
         putSiswa(
-          formBody.majors_id,
+          formBody.student_id,
           siswaModel.objectToJSON(formBody),
           dataUser.token
         ),
-        () => getDataSiswa(()=>getAllSiswa(dataUser.token)),null
+      () => {
+        getDataSiswa(() => getAllSiswa(query,dataUser.token));
+        setIsOpenModalForm(!isOpenModalForm);
+      },
+      null
     );
-    setIsOpenModalForm(!isOpenModalForm);
   };
   const onSubmitDeleteHandler = async (formBody) => {
     console.log(formBody);
+    const query = queryString.stringify(queryFilter);
+
     alertConfirmation(alertType.delete, async () => {
       await sendDataSiswa(
-        () => deleteSiswa(formBody.majors_id, dataUser.token),
-        () => getDataSiswa(()=>getAllSiswa(dataUser.token)),
+        () => deleteSiswa(formBody.student_id, dataUser.token),
+        () => {
+          getDataSiswa(() => getAllSiswa(query,dataUser.token));
+          setIsOpenModalForm(!isOpenModalForm);
+        },
         null
       );
     });
   };
 
-  const onQueryFilterChange=(e)=>{
-setQueryFilter((prevState)=>({...prevState,[e.target.name]:e.target.value}))
-}
-const dataFiltered = useMemo(()=>dataSiswa.data.filter((item) =>(
-  item.student_nis.toString().toLowerCase().includes(filterText.toLocaleLowerCase())||
-  item.student_full_name.toString().toLowerCase().includes(filterText.toLocaleLowerCase())||
-  item.majors_majors_name.toString().toLowerCase().includes(filterText.toLocaleLowerCase()))),[filterText,dataSiswa.data]
-);
+  const onQueryFilterChange = (e) => {
+    setQueryFilter((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  console.log(dataSiswa)
+  const dataFiltered = useMemo(
+    () =>
+      dataSiswa.data.filter(
+        (item) =>
+          item.student_nis
+            .toString()
+            .toLowerCase()
+            .includes(filterText.toLocaleLowerCase()) ||
+          item.student_full_name
+            .toString()
+            .toLowerCase()
+            .includes(filterText.toLocaleLowerCase()) ||
+          item.majors_majors_name
+            .toString()
+            .toLowerCase()
+            .includes(filterText.toLocaleLowerCase())
+      ),
+    [filterText, dataSiswa.data]
+  );
   return (
     <>
       <ToastContainer />
@@ -179,15 +207,27 @@ const dataFiltered = useMemo(()=>dataSiswa.data.filter((item) =>(
 
         <div className="table-content">
           <div>
-
-          <AddAction onClickHandler={ onClickTambahHandler} />
+            <AddAction onClickHandler={onClickTambahHandler} />
           </div>
           <div className="d-flex flex-row gap-1 justify-content-start align-items-center mt-2">
-            <SelectProdi data={dataProdi.data} onProdiFilterChange={onQueryFilterChange} value={queryFilter.majors_id}/>
-            <SelectUnitKelas data={dataKelas.data} onProdiFilterChange={onQueryFilterChange} value={queryFilter.class_id}/>
-            <SelectStatusMahasiswa data={statusSiswa} onProdiFilterChange={onQueryFilterChange} value={queryFilter.status}/>
-            <Button size="sm" onClick={onCLickFilterSubmit}>Cari</Button>
-
+            <SelectProdi
+              data={dataProdi.data}
+              onProdiFilterChange={onQueryFilterChange}
+              value={queryFilter.majors_id}
+            />
+            <SelectUnitKelas
+              data={dataKelas.data}
+              onProdiFilterChange={onQueryFilterChange}
+              value={queryFilter.class_id}
+            />
+            <SelectStatusMahasiswa
+              data={statusSiswa}
+              onProdiFilterChange={onQueryFilterChange}
+              value={queryFilter.status}
+            />
+            <Button size="sm" onClick={onCLickFilterSubmit}>
+              Cari
+            </Button>
           </div>
 
           <TableSiswa
@@ -197,21 +237,27 @@ const dataFiltered = useMemo(()=>dataSiswa.data.filter((item) =>(
             isLoading={isLoadingSiswa}
             onClickEditHandler={onClickEditHandler}
             onClickDetailHandler={onClickDetailSiswaHandler}
-
             onClickDeleteHandler={onSubmitDeleteHandler}
           />
         </div>
         <ModalForm
-          initialValues={isEdit?dataDetailSiswa:siswaInitialValues}
+          initialValues={isEdit ? dataDetailSiswa : siswaInitialValues}
           schema={siswaSchema}
           toggle={() => setIsOpenModalForm(!isOpenModalForm)}
           isOpen={isOpenModalForm}
-          btnName={isEdit?"Edit":"Tambah"}
+          btnName={isEdit ? "Edit" : "Tambah"}
+          dataProdi={dataProdi.data}
+          dataKelas={dataKelas.data}
           isLoadingSendData={isLoadingSendDataSiswa}
-          headerName={isEdit?"Edit Siswa":"Tambah Siswa"}
-          onSubmitHandler={isEdit?onSubmitEditHandler:onSubmitTambahHandler}
+          headerName={isEdit ? "Edit Siswa" : "Tambah Siswa"}
+          onSubmitHandler={isEdit ? onSubmitEditHandler : onSubmitTambahHandler}
         />
-        <DetailModal data={dataDetailSiswa} isOpen={isOpenDetailModal} toggle={()=>setIsOpenDetailModal(!isOpenDetailModal)} headerName={"Detail"} />
+        <DetailModal
+          data={dataDetailSiswa}
+          isOpen={isOpenDetailModal}
+          toggle={() => setIsOpenDetailModal(!isOpenDetailModal)}
+          headerName={"Detail"}
+        />
         {/* <ModalForm
           initialValues={
             dataDetailKelas !== null ? dataDetailKelas : kelasInitialValues

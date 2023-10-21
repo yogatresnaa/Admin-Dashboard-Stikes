@@ -26,7 +26,7 @@ function TableSiswa({
             variant='danger'
             data-tooltip-id="my-tooltip" data-tooltip-content="Reset Password"
             onClick={() => {
-              onClickDetailShowHandler(row);
+              onClickDetailHandler(row);
             }}
             id={row.ID}>
             <FaUnlockAlt />
@@ -48,7 +48,7 @@ function TableSiswa({
             variant='danger'
             data-tooltip-id="my-tooltip" data-tooltip-content="Edit"
             onClick={() => {
-              onClickDetailShowHandler(row);
+              onClickEditHandler(row);
             }}
             id={row.ID}>
             <FaRegEdit color='white' />
