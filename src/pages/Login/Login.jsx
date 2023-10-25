@@ -39,7 +39,8 @@ function Login() {
     await requestWrapper(() => dispatch(loginUserActionCreator(newFormBody)),null,null,toast,null);
   };
   useEffect(() => {
-    if (dataUser.isFulfilled) {
+    console.log('aaa')
+    if (dataUser.isFulfilled && dataUser.data.token!==undefined) {
       toast.success(dataUser.message, {
         theme: 'colored',
       });
@@ -50,7 +51,7 @@ function Login() {
         clearTimeout(timeout);
       };
     }
-  }, [dataUser.isFulfilled, dataUser.message, navigate]);
+  }, [dataUser.isFulfilled, dataUser.message, dataUser.data.token, navigate]);
 
   return (
     <div className='container-login'>

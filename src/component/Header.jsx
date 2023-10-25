@@ -3,7 +3,8 @@ import "./css/header.css";
 import logo from "../assets/images/avatar.png"; // with import
 import Button from "react-bootstrap/Button";
 import { AiOutlineLogout } from "react-icons/ai";
-function Header() {
+import { logoutUserActionCreator } from "../redux/actions/authAction";
+function Header({dispatch,token}) {
   const dropdownRef = useRef();
   const [isShow, setIsShow] = useState(false);
   const [isClick, setIsClick] = useState(false);
@@ -37,9 +38,13 @@ function Header() {
     setIsShow(!isShow);
     e.stopPropagation();
   };
+
+  const onClickLogoutHandler = ()=>{
+    dispatch(logoutUserActionCreator(token))
+  }
   return (
     <>
-      <div
+      <header
         className="header-wrapper"
         onClick={onShowDropdown}
         disabled={isShow}
@@ -48,7 +53,7 @@ function Header() {
           <img src={logo} alt="" />
           <p>dwiky</p>
         </div>
-      </div>
+      </header>
       {isShow ? (
         <div ref={dropdownRef} className="dropdown-wrapper">
           <div className="dropdown__profile-wrapper">
@@ -59,7 +64,7 @@ function Header() {
           </div>
           <div className="dropdown__button-wrapper">
             <Button variant="light">Profile</Button>
-            <Button variant="dark">
+            <Button variant="dark" onClick={onClickLogoutHandler}>
               {" "}
               Logout <AiOutlineLogout />
             </Button>

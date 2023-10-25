@@ -1,5 +1,7 @@
 
 import Axios from 'axios'
+import { logoutUserAction } from '../redux/actions/actionsTypes';
+import { logoutUserActionCreator } from '../redux/actions/authAction';
 
 
 const URL_BASE='http://localhost:5000'
@@ -11,8 +13,13 @@ const options = (token) => ({
 
 
   let dispatch;
+  let userState;
   export const axiosInterceptorDispatch=(useDispatch)=>{
     dispatch=useDispatch;
+
+  }
+  export const injectStore=(state)=>{
+    userState=state;
 
   }
  
@@ -21,6 +28,9 @@ const options = (token) => ({
     error=>{
       console.log(error)
       if(error.response.data.status==401){
+        if(error.response.data.message=="JsonWebTokenError"){
+          return dispatch(logoutUserActionCreator(userState.token))
+        }
         return Promise.reject(error);
       //    handle refresh token dan error
       }
@@ -31,6 +41,7 @@ const options = (token) => ({
   export const loginUser = (body) => Axios.post(`${URL_BASE}/auth/login`, body);
   export const logoutUser = (body) => Axios.post(`${URL_BASE}/auth/logout`, body);
   export const registerUser = (body) => Axios.post(`${URL_BASE}/auth/register`, body);
+  export const checkMe = (token) => Axios.get(`${URL_BASE}/auth/me`, options(token));
 
   
 export const getAllProdi = (token) => Axios.get(`${URL_BASE}/program-studi`, options(token));
