@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import TableSiswa from "./components/TableSiswa";
 import AddAction from "../../../component/ActionButton/AcctionAddButoon";
 import SelectProdi from "../../../component/ActionButton/SelectProdi";
 import ShowDataEnteris from "../../../component/ActionButton/showEntries";
 import SearchInput from "../../../component/ActionButton/SearchInput";
-
+import _ from 'lodash'
 import useRequest from "../../../customHooks/useRequest";
 import {
   getAllProdi,
@@ -33,6 +33,8 @@ import queryString from "query-string";
 import SelectStatusMahasiswa from "../../../component/ActionButton/SelectStatusMahasiswa";
 import DetailModal from "./components/DetailModal";
 import { dateConvert, dateConvertForDb } from "../../../utils/helper";
+import ReactToPrint, { useReactToPrint } from "react-to-print";
+import PrintTableSiswaComponent from "./components/PrintTableSiswaTemplate";
 
 function PageSiswa() {
   const {
@@ -75,7 +77,7 @@ function PageSiswa() {
     majors_id: "",
   });
   const [isOpenDetailModal, setIsOpenDetailModal] = useState(false);
-
+  const printComponent = useRef();
   useEffect(() => {
     const query = queryString.stringify(queryFilter);
     getDataSiswa(() => getAllSiswa(query, dataUser.token));
@@ -97,7 +99,10 @@ function PageSiswa() {
     setDataDetailSiswa((prevState) => ({
       ...prevState,
       ...item,
-      student_born_date: item.student_born_date=='0000-00-00'?item.student_born_date:dateConvertForDb(item.student_born_date),
+      student_born_date:
+        item.student_born_date == "0000-00-00"
+          ? item.student_born_date
+          : dateConvertForDb(item.student_born_date),
     }));
     setIsEdit(true);
     setIsOpenModalForm(!isOpenModalForm);
@@ -120,7 +125,9 @@ function PageSiswa() {
     resetPaginationToggle,
     setResetPaginationToggle,
   ]);
-
+  const handlePrint = useReactToPrint({
+    content: () => printComponent.current
+  });
   const onClickDetailSiswaHandler = (dataDetail) => {
     setDataDetailSiswa(dataDetail);
     setIsOpenDetailModal(true);
@@ -149,7 +156,7 @@ function PageSiswa() {
           dataUser.token
         ),
       () => {
-        getDataSiswa(() => getAllSiswa(query,dataUser.token));
+        getDataSiswa(() => getAllSiswa(query, dataUser.token));
         setIsOpenModalForm(!isOpenModalForm);
       },
       null
@@ -163,7 +170,7 @@ function PageSiswa() {
       await sendDataSiswa(
         () => deleteSiswa(formBody.student_id, dataUser.token),
         () => {
-          getDataSiswa(() => getAllSiswa(query,dataUser.token));
+          getDataSiswa(() => getAllSiswa(query, dataUser.token));
           setIsOpenModalForm(!isOpenModalForm);
         },
         null
@@ -177,7 +184,10 @@ function PageSiswa() {
       [e.target.name]: e.target.value,
     }));
   };
-  console.log(dataSiswa)
+
+
+ 
+  console.log(dataSiswa);
   const dataFiltered = useMemo(
     () =>
       dataSiswa.data.filter(
@@ -197,6 +207,7 @@ function PageSiswa() {
       ),
     [filterText, dataSiswa.data]
   );
+
   return (
     <>
       <ToastContainer />
@@ -206,8 +217,9 @@ function PageSiswa() {
         </h3>
 
         <div className="table-content">
-          <div>
+          <div className="d-flex gap-2"> 
             <AddAction onClickHandler={onClickTambahHandler} />
+            <Button  size="sm"color="success" onClick={handlePrint}>Print</Button>
           </div>
           <div className="d-flex flex-row gap-1 justify-content-start align-items-center mt-2">
             <SelectProdi
@@ -269,6 +281,8 @@ function PageSiswa() {
           headerName="Edit Kelas"
           onSubmitHandler={onSubmitEditHandler}
         /> */}
+       
+        <PrintTableSiswaComponent data={dataSiswa.data} ref={printComponent} />
       </div>
     </>
   );
