@@ -35,6 +35,7 @@ function Homepage() {
 
     }
   else{
+    console.log(dataUser.data.token)
       return navigate("/login",{replace:true});
 
   }
@@ -45,7 +46,7 @@ function Homepage() {
       <aside className="sidebar">
         <Sidebar/>
       </aside>
-      <Header  dispatch={dispatch} token={dataUser.data.token}/>
+      <Header  dispatch={dispatch} dataUser={dataUser.data}/>
       <div className="content">
         <Outlet />
       </div>
