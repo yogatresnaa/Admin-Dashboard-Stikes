@@ -13,6 +13,7 @@ function TableSiswa({
   isLoading,
   onClickEditHandler,
   onClickDetailHandler,
+  clearSelectedRows,
   onClickDeleteHandler,
   onSelectableChange=null,
 
@@ -59,7 +60,7 @@ function TableSiswa({
             variant='danger'
             data-tooltip-id="my-tooltip" data-tooltip-content="Print"
             onClick={() => {
-              onClickDetailShowHandler(row);
+              // onClickDetailShowHandler(row);
             }}
             id={row.ID}>
             <FaPrint color='white' />
@@ -151,6 +152,7 @@ function TableSiswa({
         selectableRows
         paginationResetDefaultPage={resetPaginationToggle}
         progressPending={isLoading}
+        clearSelectedRows={clearSelectedRows}
         onSelectedRowsChange={onSelectableChange}
       />
       <Tooltip id="my-tooltip" />
