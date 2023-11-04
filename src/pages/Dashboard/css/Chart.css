@@ -18,6 +18,7 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+
 .Bar-chart {
   padding: 10px;
   width: 600px;
@@ -31,17 +32,34 @@
 .list-data-tarnsaksi {
   display: flex;
   width: 100%;
+  gap: 16px;
+ 
   padding: 5px;
+  margin: 30px 0;
   justify-content: space-between;
 
-  margin-bottom: 20px;
-  margin-top: 20px;
 }
 .transaksi-item {
-  width: 300px;
-  padding: 5px;
+  min-width: 250px;
+  width: 100%;
+  max-width: 300px;
+  padding: 12px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 5px;
-  margin-bottom: 20px;
-  margin-top: 20px;
+  transition: all 0.3s ease;
+
+
+}
+.transaksi-item:hover {
+transform: scale(1.1);
+}
+
+.transaksi-item h3,.transaksi-item p {
+  color:white;
+}
+.transaksi-item h3{
+  font-size: 1.1rem;
+}
+.transaksi-item p {
+  font-size: 0.7  rem;
 }
