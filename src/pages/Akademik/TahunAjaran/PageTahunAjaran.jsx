@@ -1,27 +1,22 @@
-import React, { useEffect, useMemo, useState } from "react";
-import TableTahunAjaran from "./components/TableTahunAjaran";
-import AddAction from "../../../component/ActionButton/AcctionAddButoon";
-import SelectProdi from "../../../component/ActionButton/SelectProdi";
-import ShowDataEnteris from "../../../component/ActionButton/showEntries";
-import SearchInput from "../../../component/ActionButton/SearchInput";
+import React, { useEffect, useMemo, useState } from 'react';
+import TableTahunAjaran from './components/TableTahunAjaran';
+import AddAction from '../../../component/ActionButton/AcctionAddButoon';
+import SelectProdi from '../../../component/ActionButton/SelectProdi';
+import ShowDataEnteris from '../../../component/ActionButton/showEntries';
+import SearchInput from '../../../component/ActionButton/SearchInput';
 
-import useRequest from "../../../customHooks/useRequest";
-import {
-  deleteTahunAjaran,
-  getAllTahunAjaran,
-  postTahunAjaran,
-  putTahunAjaran,
-} from "../../../utils/http";
-import "./css/pageTahunAjaran.css";
-import { useSelector } from "react-redux";
-import ModalForm from "./components/FormModal";
-import { tahunAjaranInitialValues } from "../../../utils/initialValues";
-import { tahunAjaranSchema } from "../../../utils/schema";
-import { ToastContainer } from "react-toastify";
-import { tahunAjaranModel } from "../../../models/models";
-import useTable from "../../../customHooks/useTable";
-import { alertConfirmation } from "../../../component/Alert/swalConfirmation";
-import { alertType } from "../../../utils/CONSTANT";
+import useRequest from '../../../customHooks/useRequest';
+import { deleteTahunAjaran, getAllTahunAjaran, postTahunAjaran, putTahunAjaran } from '../../../utils/http';
+import './css/pageTahunAjaran.css';
+import { useSelector } from 'react-redux';
+import ModalForm from './components/FormModal';
+import { tahunAjaranInitialValues } from '../../../utils/initialValues';
+import { tahunAjaranSchema } from '../../../utils/schema';
+import { ToastContainer } from 'react-toastify';
+import { tahunAjaranModel } from '../../../models/models';
+import useTable from '../../../customHooks/useTable';
+import { alertConfirmation } from '../../../component/Alert/swalConfirmation';
+import { alertType } from '../../../utils/CONSTANT';
 
 function PageTahunAjaran() {
   const {
@@ -37,18 +32,7 @@ function PageTahunAjaran() {
     filterText,
     onChangeFilterText,
   } = useRequest();
-  const {
-    setIsOpenModalTambah,
-    isOpenModalEdit,
-    isOpenModalTambah,
-    resetPaginationToggle,
-    setResetPaginationToggle,
-    setIsOpenModalEdit,
-    isOpenModalForm,
-    setIsOpenModalForm,
-    isEdit,
-    setIsEdit,
-  } = useTable();
+  const { setIsOpenModalTambah, isOpenModalEdit, isOpenModalTambah, resetPaginationToggle, setResetPaginationToggle, setIsOpenModalEdit, isOpenModalForm, setIsOpenModalForm, isEdit, setIsEdit } = useTable();
 
   const dataUser = useSelector(({ authState }) => authState.data);
 
@@ -57,7 +41,24 @@ function PageTahunAjaran() {
     getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token));
   }, []);
 
+<<<<<<< HEAD
   
+=======
+  useEffect(() => {
+    console.log(filterText);
+
+    if (filterText !== '') {
+      setDataTahunAjaran((prevState) => ({
+        ...prevState,
+        filter: prevState.data.filter((item) => {
+          if (item.period_start.toString().toLowerCase().includes(filterText.toString().toLowerCase())) return true;
+          if (item.period_end.toString().toLowerCase().includes(filterText.toString().toLowerCase())) return true;
+          return false;
+        }),
+      }));
+    }
+  }, [filterText]);
+>>>>>>> be7365b3ac4cbacd99b693594cb8a7b38935f657
 
   const onClickTambahHandler = () => {
     setIsOpenModalForm(!isOpenModalForm);
@@ -73,6 +74,7 @@ function PageTahunAjaran() {
   const onSubmitTambahHandler = async (formBody, { resetForm }) => {
     console.log(formBody);
     await sendDataTahunAjaran(
+<<<<<<< HEAD
       () =>
         postTahunAjaran(
           tahunAjaranModel.objectToJSON(formBody),
@@ -82,6 +84,10 @@ function PageTahunAjaran() {
           getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token));
           setIsOpenModalForm(!isOpenModalForm);
         },
+=======
+      () => postTahunAjaran(tahunAjaranModel.objectToJSON(formBody), dataUser.token),
+      () => getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token)),
+>>>>>>> be7365b3ac4cbacd99b693594cb8a7b38935f657
       null
     );
   };
@@ -89,6 +95,7 @@ function PageTahunAjaran() {
   const onSubmitEditHandler = async (formBody, { resetForm }) => {
     console.log(formBody);
     await sendDataTahunAjaran(
+<<<<<<< HEAD
       () =>
         putTahunAjaran(
           formBody.period_id,
@@ -99,6 +106,10 @@ function PageTahunAjaran() {
         getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token));
         setIsOpenModalForm(!isOpenModalForm);
       },
+=======
+      () => putTahunAjaran(formBody.period_id, tahunAjaranModel.objectToJSON(formBody), dataUser.token),
+      () => getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token)),
+>>>>>>> be7365b3ac4cbacd99b693594cb8a7b38935f657
       null
     );
   };
@@ -116,20 +127,13 @@ function PageTahunAjaran() {
   const subHeaderComponent = useMemo(() => {
     const onClearHandler = () => {
       if (filterText) {
-        onChangeFilterText("");
+        onChangeFilterText('');
         setResetPaginationToggle(!resetPaginationToggle);
       }
     };
 
-    return (
-      <SearchInput filterText={filterText} setFilterText={onChangeFilterText} />
-    );
-  }, [
-    filterText,
-    onChangeFilterText,
-    resetPaginationToggle,
-    setResetPaginationToggle,
-  ]);
+    return <SearchInput filterText={filterText} setFilterText={onChangeFilterText} />;
+  }, [filterText, onChangeFilterText, resetPaginationToggle, setResetPaginationToggle]);
 
   const dataFiltered = useMemo(()=>dataTahunAjaran.data.filter((item) =>(
     item.period_start.toString().toLowerCase().includes(filterText.toLocaleLowerCase())||
@@ -139,13 +143,20 @@ function PageTahunAjaran() {
   return (
     <>
       <ToastContainer />
-      <div className="page-content">
+      <div className='page-content'>
         <h3>
+<<<<<<< HEAD
           Tahun Ajaran{" "}
           <span style={{ fontSize: "0.8em", color: "gray" }}>List</span>
         </h3>
 
         <div className="table-content">
+=======
+          Tahun Ajaran <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>
+        </h3>
+
+        <div className='table-content'>
+>>>>>>> be7365b3ac4cbacd99b693594cb8a7b38935f657
           <AddAction onClickHandler={onClickTambahHandler} />
 
           <TableTahunAjaran
@@ -162,15 +173,24 @@ function PageTahunAjaran() {
           />
         </div>
         <ModalForm
+<<<<<<< HEAD
           initialValues={
             isEdit ? dataDetailTahunAjaran : tahunAjaranInitialValues
           }
+=======
+          initialValues={isEdit ? dataDetailTahunAjaran : tahunAjaranInitialValues}
+>>>>>>> be7365b3ac4cbacd99b693594cb8a7b38935f657
           schema={tahunAjaranSchema}
           toggle={() => setIsOpenModalForm(!isOpenModalForm)}
           isOpen={isOpenModalForm}
           isLoadingSendData={isLoadingSendDataTahunAjaran}
+<<<<<<< HEAD
           btnName={isEdit ? "Edit" : "Tambah"}
           headerName={isEdit ? "Edit Tahun Ajaran" : "Tambah Tahun Ajaran"}
+=======
+          btnName={isEdit ? 'Edit' : 'Tambah'}
+          headerName={isEdit ? 'Edit Tahun Ajaran' : 'Tambah Tahun Ajaran'}
+>>>>>>> be7365b3ac4cbacd99b693594cb8a7b38935f657
           onSubmitHandler={isEdit ? onSubmitEditHandler : onSubmitTambahHandler}
         />
         {/* <ModalForm

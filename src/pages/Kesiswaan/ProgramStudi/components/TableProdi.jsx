@@ -2,17 +2,14 @@ import React from 'react';
 import DataTable from 'react-data-table-component';
 import Button from 'react-bootstrap/Button';
 import { FaRegTrashAlt, FaRegEdit } from 'react-icons/fa';
-import { Tooltip } from 'react-tooltip';
-function TableKelas({ data, subHeaderComponent, resetPaginationToggle, isLoading, onClickEditHandler, onClickDeleteHandler }) {
+
+function TableProdi({ data }) {
   const renderActionButton = (row) => (
     <div className='d-flex gap-1'>
       <Button
         color='warning'
         size='sm'
-        data-tooltip-id='my-tooltip'
-        data-tooltip-content='Ubah'
         onClick={() => {
-          console.log('ubah');
           onClickEditHandler(row);
         }}
         id={row.ID}>
@@ -23,8 +20,6 @@ function TableKelas({ data, subHeaderComponent, resetPaginationToggle, isLoading
         className='text-white'
         color='danger'
         size='sm'
-        data-tooltip-id='my-tooltip'
-        data-tooltip-content='Hapus'
         onClick={() => {
           onClickDeleteHandler(row);
         }}
@@ -33,36 +28,43 @@ function TableKelas({ data, subHeaderComponent, resetPaginationToggle, isLoading
       </Button>
     </div>
   );
+
   const columns = [
     {
       name: 'NO',
       selector: (row, index) => index + 1,
-      sortable: true,
     },
     {
-      name: 'ID Kelas',
-      selector: (row) => row.class_id,
-      sortable: true,
+      name: 'Nama Program Keahlian',
+      selector: (row) => row.nama_program_studi,
     },
     {
-      name: 'Nama Kelas',
-      selector: (row) => row.class_name,
-      sortable: true,
+      name: 'Singkatan',
+      selector: (row) => row.singkatan,
+    },
+    {
+      name: 'ID Prodi',
+      selector: (row) => row.id_program_studi,
+    },
+    {
+      name: 'Nama Prodi',
+      selector: (row) => row.nama_prodi,
     },
 
     {
       name: 'Aksi',
       cell: (row) => renderActionButton(row),
+      ignoreRowClick: true,
+      allowOverflow: true,
+
       width: '200px',
     },
   ];
-
   return (
     <div>
-      <DataTable columns={columns} data={data} pagination subHeader subHeaderComponent={subHeaderComponent} paginationResetDefaultPage={resetPaginationToggle} progressPending={isLoading} />
-      <Tooltip id='my-tooltip' />
+      <DataTable title='Movie List' columns={columns} data={data} pagination />;
     </div>
   );
 }
 
-export default TableKelas;
+export default TableProdi;

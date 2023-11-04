@@ -7,10 +7,10 @@ import PageSiswa from './ManajemenData/Siswa/PageSiswa';
 import PageAlumni from './Akademik/Alumni/PageAlumni';
 import PageKelulusan from './Akademik/Kelulusan/PageKelulusan';
 import PageTahunAjaran from './Akademik/TahunAjaran/PageTahunAjaran';
-import PageDashboard from './Dashboard/PageDashboard';
+import PageNotFound from './NotFound/PageNoFound';
+// import PageDashboard from './Dashboard/PageDashboard';
 import LoginPage from './Login/Login';
 import 'react-toastify/dist/ReactToastify.css';
-
 
 import Dashboard from './Dashboard/components/Dashboard';
 import { Provider } from 'react-redux';
@@ -19,7 +19,6 @@ import { store, persistor } from '../redux/store';
 import MainPage from './MainPage';
 import PageProgramStudi from './ManajemenData/ProgramStudi/PageProgramStudi';
 function AppRoutes() {
-
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -35,9 +34,9 @@ function AppRoutes() {
             <Route path='kelulusan' element={<PageKelulusan />} />
             <Route path='program-studi' element={<PageProgramStudi />} />
             <Route path='tahun-ajaran' element={<PageTahunAjaran />} />
+            <Route path='not-found' element={<PageNotFound />} />
             <Route path='' element={<Dashboard />} />
           </Route>
-
         </Routes>
       </PersistGate>
     </Provider>

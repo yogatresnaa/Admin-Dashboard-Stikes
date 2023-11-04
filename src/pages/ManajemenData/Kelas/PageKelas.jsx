@@ -1,27 +1,22 @@
-import React, { useEffect, useMemo, useState } from "react";
-import TableKelas from "./components/TableKelas";
-import AddAction from "../../../component/ActionButton/AcctionAddButoon";
-import SelectProdi from "../../../component/ActionButton/SelectProdi";
-import ShowDataEnteris from "../../../component/ActionButton/showEntries";
-import SearchInput from "../../../component/ActionButton/SearchInput";
+import React, { useEffect, useMemo, useState } from 'react';
+import TableKelas from './components/TableKelas';
+import AddAction from '../../../component/ActionButton/AcctionAddButoon';
+import SelectProdi from '../../../component/ActionButton/SelectProdi';
+import ShowDataEnteris from '../../../component/ActionButton/showEntries';
+import SearchInput from '../../../component/ActionButton/SearchInput';
 
-import useRequest from "../../../customHooks/useRequest";
-import {
-  deleteKelas,
-  getAllKelas,
-  postKelas,
-  putKelas,
-} from "../../../utils/http";
-import "./css/pageKelas.css";
-import { useSelector } from "react-redux";
-import ModalForm from "./components/FormModal";
-import { kelasInitialValues } from "../../../utils/initialValues";
-import { kelasSchema } from "../../../utils/schema";
-import { ToastContainer } from "react-toastify";
-import { kelasModel } from "../../../models/models";
-import useTable from "../../../customHooks/useTable";
-import { alertConfirmation } from "../../../component/Alert/swalConfirmation";
-import { alertType } from "../../../utils/CONSTANT";
+import useRequest from '../../../customHooks/useRequest';
+import { deleteKelas, getAllKelas, postKelas, putKelas } from '../../../utils/http';
+import './css/pageKelas.css';
+import { useSelector } from 'react-redux';
+import ModalForm from './components/FormModal';
+import { kelasInitialValues } from '../../../utils/initialValues';
+import { kelasSchema } from '../../../utils/schema';
+import { ToastContainer } from 'react-toastify';
+import { kelasModel } from '../../../models/models';
+import useTable from '../../../customHooks/useTable';
+import { alertConfirmation } from '../../../component/Alert/swalConfirmation';
+import { alertType } from '../../../utils/CONSTANT';
 
 function PageKelas() {
   const {
@@ -37,18 +32,7 @@ function PageKelas() {
     filterText,
     onChangeFilterText,
   } = useRequest();
-  const {
-    setIsOpenModalTambah,
-    isOpenModalEdit,
-    isOpenModalTambah,
-    resetPaginationToggle,
-    setResetPaginationToggle,
-    setIsOpenModalEdit,
-    isOpenModalForm,
-    setIsOpenModalForm,
-    isEdit,
-    setIsEdit,
-  } = useTable();
+  const { setIsOpenModalTambah, isOpenModalEdit, isOpenModalTambah, resetPaginationToggle, setResetPaginationToggle, setIsOpenModalEdit, isOpenModalForm, setIsOpenModalForm, isEdit, setIsEdit } = useTable();
 
   const dataUser = useSelector(({ authState }) => authState.data);
 
@@ -90,20 +74,13 @@ function PageKelas() {
   const subHeaderComponent = useMemo(() => {
     const onClearHandler = () => {
       if (filterText) {
-        onChangeFilterText("");
+        onChangeFilterText('');
         setResetPaginationToggle(!resetPaginationToggle);
       }
     };
 
-    return (
-      <SearchInput filterText={filterText} setFilterText={onChangeFilterText} />
-    );
-  }, [
-    filterText,
-    onChangeFilterText,
-    resetPaginationToggle,
-    setResetPaginationToggle,
-  ]);
+    return <SearchInput filterText={filterText} setFilterText={onChangeFilterText} />;
+  }, [filterText, onChangeFilterText, resetPaginationToggle, setResetPaginationToggle]);
 
   const onSubmitTambahHandler = async (formBody, { resetForm }) => {
     console.log(formBody);
@@ -151,9 +128,9 @@ function PageKelas() {
   return (
     <>
       <ToastContainer />
-      <div className="page-content">
+      <div className='page-content'>
         <h3>
-          Kelas <span style={{ fontSize: "0.8em", color: "gray" }}>List</span>
+          Kelas <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>
         </h3>
 
         <div className="table-content">
