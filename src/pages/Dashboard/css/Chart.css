@@ -1,0 +1,47 @@
+.card-transaksi {
+  display: flex;
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  width: 90%;
+}
+
+.page-dashboar {
+  display: flex;
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  padding: 0;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.Bar-chart {
+  padding: 10px;
+  width: 600px;
+}
+
+.Line-chart {
+  padding: 10px;
+  width: 600px;
+}
+
+.list-data-tarnsaksi {
+  display: flex;
+  width: 100%;
+  padding: 5px;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.transaksi-item {
+  width: 300px;
+  padding: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
