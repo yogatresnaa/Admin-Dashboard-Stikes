@@ -79,3 +79,4 @@ export const putStatusSiswa = (id, body, token) => Axios.put(`${URL_BASE}/siswa/
 export const deleteSiswa = (id, token) => Axios.delete(`${URL_BASE}/siswa/${id}`, options(token));
 
 export const getAllAlumni = (query,token) => Axios.get(`${URL_BASE}/alumni?${query}`, options(token));
+export const putAlumni = (id,body,token) => Axios.put(`${URL_BASE}/alumni/${id}`,body, options(token));

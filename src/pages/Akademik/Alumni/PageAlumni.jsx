@@ -11,7 +11,7 @@ import {
   putProdi,
   deleteProdi,
   postProdi,
-  putSiswa,
+   putAlumni,
   deleteSiswa,
   postSiswa,
   getAllKelas,
@@ -153,7 +153,7 @@ function PageAlumni() {
 
     await sendDataAlumni(
       () =>
-        putSiswa(
+        putAlumni(
           formBody.student_id,
           siswaModel.objectToJSON(formBody),
           dataUser.token
