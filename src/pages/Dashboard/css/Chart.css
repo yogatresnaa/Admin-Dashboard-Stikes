@@ -1,10 +1,9 @@
 .card-transaksi {
   display: flex;
   justify-content: space-between;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-  width: 90%;
+  margin-top: 16px;
+
+  width: 100%;
 }
 
 .page-dashboar {
@@ -29,20 +28,21 @@
   width: 600px;
 }
 
-.list-data-tarnsaksi {
+.list-data-transaksi {
   display: flex;
   width: 100%;
+  flex: 1;
   gap: 16px;
+ flex-wrap: wrap;
+  padding: 30px 0;
  
-  padding: 5px;
-  margin: 30px 0;
-  justify-content: space-between;
+  justify-content: flex-start;
 
 }
 .transaksi-item {
-  min-width: 250px;
+  min-width: 230px;
   width: 100%;
-  max-width: 300px;
+  max-width: 250px;
   padding: 12px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 5px;
@@ -50,8 +50,15 @@
 
 
 }
+
+
 .transaksi-item:hover {
 transform: scale(1.1);
+}
+.transaksi-item__text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .transaksi-item h3,.transaksi-item p {
@@ -61,5 +68,18 @@ transform: scale(1.1);
   font-size: 1.1rem;
 }
 .transaksi-item p {
-  font-size: 0.7  rem;
+  font-size: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+}
+.transaksi-item__colon {
+  flex: 0.2;
+  display: flex;
+  justify-content: space-between;
+}
+.transaksi-item__key {
+  flex:0.3
+}
+.transaksi-item__value {
+  flex:1
 }

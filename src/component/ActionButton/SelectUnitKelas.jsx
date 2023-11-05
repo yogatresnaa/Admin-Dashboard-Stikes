@@ -7,7 +7,8 @@ function SelectUnitKelas({data,onProdiFilterChange,value,name=null,firstValue=nu
   
   
   return (
-    <>
+    <div className='d-flex flex-column flex-grow-1'>
+     <p style={{fontSize:'0.8rem'}}>Unit Kelas</p>
             <Form.Select id={name} size="sm" onChange={onProdiFilterChange} value={value} name={name||'class_id'}>
               <option value=''>{firstValue?firstValue:"Semua"}</option>
               {data.length>0 && data.map((item,index)=>(
@@ -16,7 +17,7 @@ function SelectUnitKelas({data,onProdiFilterChange,value,name=null,firstValue=nu
               
             </Form.Select>
     
-    </>
+    </div>
   );
 }
 

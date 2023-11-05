@@ -12,7 +12,7 @@ const color=[
 ]
 function ListTransaksi({ dataTransaksi }) {
   return (
-    <div className='list-data-tarnsaksi'>
+    <div className='list-data-transaksi'>
       {dataTransaksi.map((data,index) => (
         <CardTransaksi key={data.id} id={data.id} {...data} color={color[index]} />
       ))}

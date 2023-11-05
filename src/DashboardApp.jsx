@@ -33,7 +33,7 @@ function App() {
             <Route path='/siswa' element={<TableSiswa />} />
             <Route path='/alumni' element={<PageAlumni />} />
             <Route path='/kelulusan' element={<PageKelulusan />} />
-            <Route path='/tahuna-jaran' element={<PageTahunAjaran />} />
+            <Route path='/tahun-ajaran' element={<PageTahunAjaran />} />
             <Route path='/' element={<PageDashboard />} />
           </Routes>
         </div>

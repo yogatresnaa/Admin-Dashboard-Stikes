@@ -286,7 +286,7 @@ function PageKelulusan() {
               onProdiFilterChange={onQueryFilterChange}
               value={queryFilter.status}
             />
-            <Button size="sm" onClick={onCLickFilterSubmit}>
+           <Button size="sm" className="align-self-end" onClick={onCLickFilterSubmit}>
               Cari
             </Button>
           </div>
