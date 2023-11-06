@@ -1,11 +1,11 @@
 import React from 'react';
 import CardTransaksi from './CardTransaksi';
 
-function ListTransaksi({ dataTransaksi }) {
+function ListTransaksi({ dataTransaksi, color }) {
   return (
     <div className='list-data-tarnsaksi'>
-      {dataTransaksi.map((data) => (
-        <CardTransaksi key={data.id} id={data.id} {...data} />
+      {dataTransaksi.map((data, index) => (
+        <CardTransaksi key={data.id} id={data.id} {...data} style={{ backgroundColor: { color } }} />
       ))}
     </div>
   );
