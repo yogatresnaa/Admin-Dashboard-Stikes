@@ -37,24 +37,11 @@ function PageTahunAjaran() {
   const dataUser = useSelector(({ authState }) => authState.data);
 
   useEffect(() => {
-    console.log('a');
+    console.log("a");
     getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token));
   }, []);
 
-  useEffect(() => {
-    console.log(filterText);
-
-    if (filterText !== '') {
-      setDataTahunAjaran((prevState) => ({
-        ...prevState,
-        filter: prevState.data.filter((item) => {
-          if (item.period_start.toString().toLowerCase().includes(filterText.toString().toLowerCase())) return true;
-          if (item.period_end.toString().toLowerCase().includes(filterText.toString().toLowerCase())) return true;
-          return false;
-        }),
-      }));
-    }
-  }, [filterText]);
+  
 
   const onClickTambahHandler = () => {
     setIsOpenModalForm(!isOpenModalForm);
@@ -70,21 +57,34 @@ function PageTahunAjaran() {
   const onSubmitTambahHandler = async (formBody, { resetForm }) => {
     console.log(formBody);
     await sendDataTahunAjaran(
-      () => postTahunAjaran(tahunAjaranModel.objectToJSON(formBody), dataUser.token),
-      () => getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token)),
+      () =>
+        postTahunAjaran(
+          tahunAjaranModel.objectToJSON(formBody),
+          dataUser.token
+        ),
+        () => {
+          getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token));
+          setIsOpenModalForm(!isOpenModalForm);
+        },
       null
     );
-    setIsOpenModalForm(!setIsOpenModalForm);
   };
 
   const onSubmitEditHandler = async (formBody, { resetForm }) => {
     console.log(formBody);
     await sendDataTahunAjaran(
-      () => putTahunAjaran(formBody.period_id, tahunAjaranModel.objectToJSON(formBody), dataUser.token),
-      () => getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token)),
+      () =>
+        putTahunAjaran(
+          formBody.period_id,
+          tahunAjaranModel.objectToJSON(formBody),
+          dataUser.token
+        ),
+      () => {
+        getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token));
+        setIsOpenModalForm(!isOpenModalForm);
+      },
       null
     );
-    setIsOpenModalForm(!isOpenModalForm);
   };
   const onSubmitDeleteHandler = async (formBody) => {
     console.log(formBody);
@@ -108,19 +108,29 @@ function PageTahunAjaran() {
     return <SearchInput filterText={filterText} setFilterText={onChangeFilterText} />;
   }, [filterText, onChangeFilterText, resetPaginationToggle, setResetPaginationToggle]);
 
+  const dataFiltered = useMemo(()=>dataTahunAjaran.data.filter((item) =>(
+    item.period_start.toString().toLowerCase().includes(filterText.toLocaleLowerCase())||
+    item.period_end.toString().toLowerCase().includes(filterText.toLocaleLowerCase()))),[filterText,dataTahunAjaran.data]
+  );
+
   return (
     <>
       <ToastContainer />
       <div className='page-content'>
         <h3>
-          Tahun Ajaran <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>
+          Tahun Ajaran{" "}
+          <span style={{ fontSize: "0.8em", color: "gray" }}>List</span>
         </h3>
 
-        <div className='table-content'>
+        <div className="table-content">
           <AddAction onClickHandler={onClickTambahHandler} />
 
           <TableTahunAjaran
-            data={filterText.length > 0 ? dataTahunAjaran.filter : dataTahunAjaran.data}
+            data={
+              filterText.length > 0
+                ? dataFiltered
+                : dataTahunAjaran.data
+            }
             subHeaderComponent={subHeaderComponent}
             resetPaginationToggle={resetPaginationToggle}
             isLoading={isLoadingTahunAjaran}
@@ -129,13 +139,15 @@ function PageTahunAjaran() {
           />
         </div>
         <ModalForm
-          initialValues={isEdit ? dataDetailTahunAjaran : tahunAjaranInitialValues}
+          initialValues={
+            isEdit ? dataDetailTahunAjaran : tahunAjaranInitialValues
+          }
           schema={tahunAjaranSchema}
           toggle={() => setIsOpenModalForm(!isOpenModalForm)}
           isOpen={isOpenModalForm}
           isLoadingSendData={isLoadingSendDataTahunAjaran}
-          btnName={isEdit ? 'Edit' : 'Tambah'}
-          headerName={isEdit ? 'Edit Tahun Ajaran' : 'Tambah Tahun Ajaran'}
+          btnName={isEdit ? "Edit" : "Tambah"}
+          headerName={isEdit ? "Edit Tahun Ajaran" : "Tambah Tahun Ajaran"}
           onSubmitHandler={isEdit ? onSubmitEditHandler : onSubmitTambahHandler}
         />
         {/* <ModalForm

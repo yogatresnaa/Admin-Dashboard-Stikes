@@ -5,7 +5,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styleCss/style.css";
 import Sidebar from "../component/Sidebar";
 import NavBar from "../component/NavBar";
-import { axiosInterceptorDispatch } from "../utils/http";
+import { axiosInterceptorDispatch, checkMe, injectStore } from "../utils/http";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../component/Header";
@@ -13,24 +13,40 @@ import Header from "../component/Header";
 function Homepage() {
   const dispatch = useDispatch();
 
-  const dataUser = useSelector(({ authState }) => authState.data);
+  const dataUser = useSelector(({ authState }) => authState);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (dataUser.token === undefined) {
-      navigate("/login");
+    if (dataUser?.data.token === undefined && dataUser.isFulfilled) {
+     return navigate("/login",{replace:true});
+     
     } 
   }, [dataUser, navigate]);
 
   useEffect(() => {
     axiosInterceptorDispatch(dispatch);
+    injectStore(dataUser.data)
+    
+    const checkMeCredentials=async(token)=>{
+      await checkMe(token);
+    }
+    if(dataUser.data.token!==undefined){
+      checkMeCredentials(dataUser.data.token)
+
+    }
+  else{
+    console.log(dataUser.data.token)
+      return navigate("/login",{replace:true});
+
+  }
+    
   }, []);
   return (
     <div className="containerApp">
-      <div className="sidebar">
-        <Sidebar />
-      </div>
-      <Header />
+      <aside className="sidebar">
+        <Sidebar/>
+      </aside>
+      <Header  dispatch={dispatch} dataUser={dataUser.data}/>
       <div className="content">
         <Outlet />
       </div>

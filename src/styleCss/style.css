@@ -50,3 +50,9 @@
   display: flex;
   background-color: white;
 }
+
+@media screen {
+	.print-component {
+		display: none;
+	}
+}

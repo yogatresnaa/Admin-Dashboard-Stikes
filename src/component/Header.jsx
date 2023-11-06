@@ -3,7 +3,8 @@ import "./css/header.css";
 import logo from "../assets/images/avatar.png"; // with import
 import Button from "react-bootstrap/Button";
 import { AiOutlineLogout } from "react-icons/ai";
-function Header() {
+import { logoutUserActionCreator } from "../redux/actions/authAction";
+function Header({dispatch,dataUser}) {
   const dropdownRef = useRef();
   const [isShow, setIsShow] = useState(false);
   const [isClick, setIsClick] = useState(false);
@@ -37,29 +38,33 @@ function Header() {
     setIsShow(!isShow);
     e.stopPropagation();
   };
+
+  const onClickLogoutHandler = ()=>{
+    dispatch(logoutUserActionCreator(dataUser.token))
+  }
   return (
     <>
-      <div
+      <header
         className="header-wrapper"
         onClick={onShowDropdown}
         disabled={isShow}
       >
         <div className="profile-wrapper">
           <img src={logo} alt="" />
-          <p>dwiky</p>
+          <p>{dataUser.user_full_name.length>5?`${dataUser.user_full_name.slice(0,5)}...`:dataUser.user_full_name}</p>
         </div>
-      </div>
+      </header>
       {isShow ? (
         <div ref={dropdownRef} className="dropdown-wrapper">
           <div className="dropdown__profile-wrapper">
             <img src={logo} alt="" />
-            <p className="text-nama">Nama</p>
-            <p className="text-role">Admin</p>
-            <p className="text-email">dwi@gmail.com</p>
+            <p className="text-nama">{dataUser.user_full_name}</p>
+            <p className="text-role">{dataUser.user_role_role_id==1?'Admin':'Petugas'}</p>
+            <p className="text-email">{dataUser.user_email}</p>
           </div>
           <div className="dropdown__button-wrapper">
             <Button variant="light">Profile</Button>
-            <Button variant="dark">
+            <Button variant="dark" onClick={onClickLogoutHandler}>
               {" "}
               Logout <AiOutlineLogout />
             </Button>

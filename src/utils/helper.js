@@ -79,3 +79,12 @@ export const requestOnlyWrapper =
       });
     }
   };
+
+  export const dateConvert=(data)=>{
+    const date=new Date(data);
+    return`${date.getDay()} ${date.toLocaleString('id',{month:'long'})} ${date.getFullYear()}`
+  }
+  export const dateConvertForDb=(data)=>{
+    const date=new Date(data);
+    return`${date.getFullYear()}-${(date.getMonth()+1).toString().length<2?`0${date.getMonth()+1}`:date.getMonth()+1}-${date.getDate()}`
+  }

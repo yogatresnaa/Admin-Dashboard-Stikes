@@ -13,14 +13,15 @@ function TableSiswa({
   isLoading,
   onClickEditHandler,
   onClickDetailHandler,
+  clearSelectedRows,
   onClickDeleteHandler,
-
+  onSelectableChange=null,
 
 }) {
   const renderActionButton = (row) => (
     <div className='d-flex gap-1'>
     
-          {/* <Button
+          <Button
             color="danger"
             size='sm'
             variant='danger'
@@ -30,7 +31,7 @@ function TableSiswa({
             }}
             id={row.ID}>
             <FaUnlockAlt />
-          </Button> */}
+          </Button>
           <Button
             color="info"
             size='sm'
@@ -53,17 +54,17 @@ function TableSiswa({
             id={row.ID}>
             <FaRegEdit color='white' />
           </Button>
-          {/* <Button
+          <Button
             color="success"
             size='sm'
             variant='danger'
             data-tooltip-id="my-tooltip" data-tooltip-content="Print"
             onClick={() => {
-              onClickDetailShowHandler(row);
+              // onClickDetailShowHandler(row);
             }}
             id={row.ID}>
             <FaPrint color='white' />
-          </Button> */}
+          </Button>
     
   
     </div>
@@ -106,12 +107,12 @@ function TableSiswa({
   //   </div>
   // );
   const columns = [
-    {
-      name: 'NO',
-      selector: (row, index) => index + 1,
-      sortable: true,
-      width:'70px'
-    },
+    // {
+    //   name: 'NO',
+    //   selector: (row, index) => index + 1,
+    //   sortable: true,
+    //   width:'70px'
+    // },
     {
       name: "NIS",
       selector: (row) => row.student_nis,
@@ -125,21 +126,7 @@ function TableSiswa({
       wrap:true,
     },
    
-    {
-      name: "Prodi",
-      selector: (row) => row.majors_majors_name,
-      sortable: true,
-      width:'150px',
-      wrap:true,
-    },
-   
-    {
-      name: "Kelas",
-      selector: (row) => row.class_class_name,
-      sortable: true,
-      wrap:true,
-    },
-   
+  
     {
       name: "Status",
       cell: (row) => renderStatus(row),
@@ -148,24 +135,25 @@ function TableSiswa({
     },
    
   
-    {
-      name: 'Aksi',
-      cell: (row) => renderActionButton(row),
+    // {
+    //   name: 'Aksi',
+    //   cell: (row) => renderActionButton(row),
   
-      width: "200px",
-    },
+    //   width: "200px",
+    // },
   ];
   
   return (
-    <div>
+    <div >
       <DataTable
         columns={columns}
         data={data}
         pagination
-        subHeader
-        subHeaderComponent={subHeaderComponent}
+        selectableRows
         paginationResetDefaultPage={resetPaginationToggle}
         progressPending={isLoading}
+        clearSelectedRows={clearSelectedRows}
+        onSelectedRowsChange={onSelectableChange}
       />
       <Tooltip id="my-tooltip" />
 

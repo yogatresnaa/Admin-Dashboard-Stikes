@@ -6,7 +6,8 @@ import { FaSearch } from 'react-icons/fa';
 function SelectStatusMahasiswa({data,onProdiFilterChange,value}) {
   
   return (
-    <>
+    <div className='d-flex flex-column flex-grow-1 '>
+      <p style={{fontSize:'0.8rem'}}>Status Mahasiswa</p>
             <Form.Select size="sm" onChange={onProdiFilterChange} value={value} name='status'>
               <option value=''>Semua</option>
               {data.length>0 && data.map((item,index)=>(
@@ -15,7 +16,7 @@ function SelectStatusMahasiswa({data,onProdiFilterChange,value}) {
               
             </Form.Select>
     
-    </>
+    </div>
   );
 }
 

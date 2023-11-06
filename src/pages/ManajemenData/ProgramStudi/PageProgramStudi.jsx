@@ -33,7 +33,7 @@ function PageProgramStudi() {
     getData: getDataProgramStudi,
     isLoading: isLoadingProgramStudi,
     setIsLoading: setIsLoadingProgramStudi,
-    isLoadingSendData:isLoadingSendDataProgramStudi,
+    isLoadingSendData: isLoadingSendDataProgramStudi,
     filterText,
     onChangeFilterText,
   } = useRequest();
@@ -53,39 +53,18 @@ function PageProgramStudi() {
   const dataUser = useSelector(({ authState }) => authState.data);
 
   useEffect(() => {
-    console.log('a');
+    console.log("a");
     getDataProgramStudi(() => getAllProdi(dataUser.token));
   }, []);
 
-
-  useEffect(() => {
-    console.log(filterText);
-
-    if (filterText !== "") {
-      setDataProgramStudi((prevState) => ({
-        ...prevState,
-        filter: prevState.data.filter((item) => {
-          if (
-            item.class_name
-              .toString()
-              .toLowerCase()
-              .includes(filterText.toString().toLowerCase())
-          )
-            return true;
-          return false;
-        }),
-      }));
-    }
-  }, [filterText]);
-
-  const onClickTambahHandler=()=>{
+  const onClickTambahHandler = () => {
     setIsOpenModalForm(!isOpenModalForm);
-    setIsEdit(false)
-  }
+    setIsEdit(false);
+  };
   const onClickEditHandler = (item) => {
     console.log(item);
     setDataDetailProgramStudi(item);
-    setIsEdit(true)
+    setIsEdit(true);
     setIsOpenModalForm(!isOpenModalForm);
   };
   const subHeaderComponent = useMemo(() => {
@@ -110,11 +89,12 @@ function PageProgramStudi() {
     console.log(formBody);
     await sendDataProgramStudi(
       () => postProdi(prodiModel.objectToJSON(formBody), dataUser.token),
-      () => getDataProgramStudi(()=>getAllProdi(dataUser.token)),
+      () => {
+        getDataProgramStudi(() => getAllProdi(dataUser.token));
+        setIsOpenModalForm(!setIsOpenModalForm);
+      },
       null
-
     );
-    setIsOpenModalForm(!setIsOpenModalForm);
   };
 
   const onSubmitEditHandler = async (formBody, { resetForm }) => {
@@ -126,34 +106,46 @@ function PageProgramStudi() {
           prodiModel.objectToJSON(formBody),
           dataUser.token
         ),
-        () => getDataProgramStudi(()=>getAllProdi(dataUser.token)),null
+      () => {
+        getDataProgramStudi(() => getAllProdi(dataUser.token));
+        setIsOpenModalForm(!setIsOpenModalForm);
+      },
+      null
     );
-    setIsOpenModalForm(!isOpenModalForm);
   };
   const onSubmitDeleteHandler = async (formBody) => {
     console.log(formBody);
     alertConfirmation(alertType.delete, async () => {
       await sendDataProgramStudi(
         () => deleteProdi(formBody.majors_id, dataUser.token),
-        () => getDataProgramStudi(()=>getAllProdi(dataUser.token)),
+        () => getDataProgramStudi(() => getAllProdi(dataUser.token)),
         null
       );
     });
   };
-
+  const dataFiltered = useMemo(() =>
+    dataProgramStudi.data.filter(
+      (item) => item.majors_name.toString().toLowerCase().includes(filterText.toLocaleLowerCase())
+    ),[filterText,dataProgramStudi.data]
+  );
   return (
     <>
       <ToastContainer />
       <div className="page-content">
         <h3>
-          Program Studi <span style={{ fontSize: "0.8em", color: "gray" }}>List</span>
+          Program Studi{" "}
+          <span style={{ fontSize: "0.8em", color: "gray" }}>List</span>
         </h3>
 
         <div className="table-content">
-          <AddAction onClickHandler={ onClickTambahHandler} />
+          <AddAction onClickHandler={onClickTambahHandler} />
 
           <TableProgramStudi
-            data={filterText.length > 0 ? dataProgramStudi.filter : dataProgramStudi.data}
+            data={
+              filterText.length > 0
+                ? dataFiltered
+                : dataProgramStudi.data
+            }
             subHeaderComponent={subHeaderComponent}
             resetPaginationToggle={resetPaginationToggle}
             isLoading={isLoadingProgramStudi}
@@ -162,14 +154,14 @@ function PageProgramStudi() {
           />
         </div>
         <ModalForm
-          initialValues={isEdit?dataDetailProgramStudi:prodiInitialValues}
+          initialValues={isEdit ? dataDetailProgramStudi : prodiInitialValues}
           schema={prodiSchema}
           toggle={() => setIsOpenModalForm(!isOpenModalForm)}
           isOpen={isOpenModalForm}
-          btnName={isEdit?"Edit":"Tambah"}
+          btnName={isEdit ? "Edit" : "Tambah"}
           isLoadingSendData={isLoadingSendDataProgramStudi}
-          headerName={isEdit?"Edit Program Studi":"Tambah Program Studi"}
-          onSubmitHandler={isEdit?onSubmitEditHandler:onSubmitTambahHandler}
+          headerName={isEdit ? "Edit Program Studi" : "Tambah Program Studi"}
+          onSubmitHandler={isEdit ? onSubmitEditHandler : onSubmitTambahHandler}
         />
         {/* <ModalForm
           initialValues={

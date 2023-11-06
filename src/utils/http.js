@@ -1,5 +1,7 @@
 
 import Axios from 'axios'
+import { logoutUserAction } from '../redux/actions/actionsTypes';
+import { logoutUserActionCreator } from '../redux/actions/authAction';
 
 
 const URL_BASE='http://localhost:5000'
@@ -11,8 +13,13 @@ const options = (token) => ({
 
 
   let dispatch;
+  let userState;
   export const axiosInterceptorDispatch=(useDispatch)=>{
     dispatch=useDispatch;
+
+  }
+  export const injectStore=(state)=>{
+    userState=state;
 
   }
  
@@ -21,6 +28,9 @@ const options = (token) => ({
     error=>{
       console.log(error)
       if(error.response.data.status==401){
+        if(error.response.data.message=="JsonWebTokenError"){
+          return dispatch(logoutUserActionCreator(userState.token))
+        }
         return Promise.reject(error);
       //    handle refresh token dan error
       }
@@ -31,6 +41,7 @@ const options = (token) => ({
   export const loginUser = (body) => Axios.post(`${URL_BASE}/auth/login`, body);
   export const logoutUser = (body) => Axios.post(`${URL_BASE}/auth/logout`, body);
   export const registerUser = (body) => Axios.post(`${URL_BASE}/auth/register`, body);
+  export const checkMe = (token) => Axios.get(`${URL_BASE}/auth/me`, options(token));
 
   
 export const getAllProdi = (token) => Axios.get(`${URL_BASE}/program-studi`, options(token));
@@ -57,7 +68,6 @@ export const deleteTahunAjaran = (id, token) => Axios.delete(`${URL_BASE}/tahun-
 export const getAllStatusSiswa = (token) => Axios.get(`${URL_BASE}/status-siswa`, options(token));
 export const getStatusSiswaById = (id, token) => Axios.get(`${URL_BASE}/status-siswa/${id}`, options(token));
 export const postStatusSiswa = (body, token) => Axios.post(`${URL_BASE}/status-siswa`, body, options(token));
-export const putStatusSiswa = (id, body, token) => Axios.put(`${URL_BASE}/status-siswa/${id}`, body, options(token));
 export const deleteStatusSiswa = (id, token) => Axios.delete(`${URL_BASE}/status-siswa/${id}`, options(token));
 
 export const getAllSiswa = (query,token) => Axios.get(`${URL_BASE}/siswa?${query}`, options(token));
@@ -65,4 +75,8 @@ export const getAllSiswaByQuery = (query,token) => Axios.get(`${URL_BASE}/siswa$
 export const getSiswaById = (id, token) => Axios.get(`${URL_BASE}/siswa/${id}`, options(token));
 export const postSiswa = (body, token) => Axios.post(`${URL_BASE}/siswa`, body, options(token));
 export const putSiswa = (id, body, token) => Axios.put(`${URL_BASE}/siswa/${id}`, body, options(token));
+export const putStatusSiswa = (id, body, token) => Axios.put(`${URL_BASE}/siswa/status/${id}`, body, options(token));
 export const deleteSiswa = (id, token) => Axios.delete(`${URL_BASE}/siswa/${id}`, options(token));
+
+export const getAllAlumni = (query,token) => Axios.get(`${URL_BASE}/alumni?${query}`, options(token));
+export const putAlumni = (id,body,token) => Axios.put(`${URL_BASE}/alumni/${id}`,body, options(token));

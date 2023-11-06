@@ -39,7 +39,8 @@ export default function ModalForm({
 console.log(initialValues)
   return (
     <>
-      <Formik
+  
+   <Formik
         enableReinitialize
         validateOnBlur={false}
         validateOnChange={false}
