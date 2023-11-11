@@ -29,7 +29,7 @@ function LineChart() {
   };
 
   return (
-    <div className='Line-chart'>
+    <div className='line-chart'>
       <Line data={data} height={300} options={options} />
     </div>
   );

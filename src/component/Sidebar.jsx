@@ -85,7 +85,7 @@ function Sidebar() {
   };
 
   return (
-    <>
+    <div className='sidebar-text'>
       <div className='bg text-white min-vh-100 sidebar-wrapper'>
         <div className='brand-name'>
           <div className='brand-name__image-wrapper'>
@@ -246,7 +246,7 @@ function Sidebar() {
                   </a>
 
                   <ul className='nav collapse multi-collapse ms-2 flex-column justify-content-end column-wrapper ' id='submenu4' data-bs-parent='#submenu5'>
-                    <Link className='link color' to='/per-kelas'>
+                    <Link className='link color' to='/admin/laporan-pembayaran/kelas'>
                       <li className='nav-item nav-link text-white m-1'>
                         <FaCircleMinus /> Per.Kelas
                       </li>
@@ -297,7 +297,7 @@ function Sidebar() {
           </ul>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
