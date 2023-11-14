@@ -40,7 +40,7 @@ function PageKelas() {
     getDataKelas(() => getAllKelas(dataUser.token));
   }, []);
 
-  console.log("render");
+  console.log('render');
   // useEffect(() => {
 
   //   if (filterText !== "") {
@@ -92,18 +92,12 @@ function PageKelas() {
       },
       null
     );
-  
   };
 
   const onSubmitEditHandler = async (formBody, { resetForm }) => {
     console.log(formBody);
     await sendDataKelas(
-      () =>
-        putKelas(
-          formBody.class_id,
-          kelasModel.objectToJSON(formBody),
-          dataUser.token
-        ),
+      () => putKelas(formBody.class_id, kelasModel.objectToJSON(formBody), dataUser.token),
       () => {
         getDataKelas(() => getAllKelas(dataUser.token));
         setIsOpenModalForm(!isOpenModalForm);
@@ -122,9 +116,7 @@ function PageKelas() {
     });
   };
 
-  const dataFiltered = useMemo(()=>dataKelas.data.filter((item) =>(
-    item.class_name.toString().toLowerCase().includes(filterText.toLocaleLowerCase()))),[filterText,dataKelas.data]
-  );
+  const dataFiltered = useMemo(() => dataKelas.data.filter((item) => item.class_name.toString().toLowerCase().includes(filterText.toLocaleLowerCase())), [filterText, dataKelas.data]);
   return (
     <>
       <ToastContainer />
@@ -133,7 +125,7 @@ function PageKelas() {
           Kelas <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>
         </h3>
 
-        <div className="table-content">
+        <div className='table-content'>
           <AddAction onClickHandler={onClickTambahHandler} />
 
           <TableKelas
@@ -150,9 +142,9 @@ function PageKelas() {
           schema={kelasSchema}
           toggle={() => setIsOpenModalForm(!isOpenModalForm)}
           isOpen={isOpenModalForm}
-          btnName={isEdit ? "Edit" : "Tambah"}
+          btnName={isEdit ? 'Edit' : 'Tambah'}
           isLoadingSendData={isLoadingSendDataKelas}
-          headerName={isEdit ? "Edit Kelas" : "Tambah Kelas"}
+          headerName={isEdit ? 'Edit Kelas' : 'Tambah Kelas'}
           onSubmitHandler={isEdit ? onSubmitEditHandler : onSubmitTambahHandler}
         />
         {/* <ModalForm
