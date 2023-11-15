@@ -27,7 +27,7 @@ function BarChart() {
     },
   };
   return (
-    <div className='Bar-chart'>
+    <div className='bar-chart'>
       <Bar data={data} height={300} options={options} />
     </div>
   );

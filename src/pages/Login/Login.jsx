@@ -63,7 +63,7 @@ function Login() {
       </div>
       <div className='right-wrapper'>
         <div className='right__inner-wrapper'>
-          <div className='login-title mb-3'>
+          <div className='login-title mb-1'>
             <AutoTyping text='Welcome Back . .' delay={300} />
           </div>
           <h1 className='login-subtitle'>Silahkan Login terlebih dahulu</h1>
