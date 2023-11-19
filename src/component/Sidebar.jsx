@@ -173,12 +173,12 @@ function Sidebar() {
                     </Navbar.Toggle>
                   </a>
                   <ul className='nav collapse multi-collapse ms-2 flex-column justify-content-end column-wrapper ' id='submenu4' data-bs-parent='#submenu5'>
-                    <Link className='link color' to='/alumni'>
+                    <Link className='link color' to='/admin/akun-biaya'>
                       <li className='nav-item nav-link text-white m-1'>
                         <FaCircleMinus /> Akun Biaya
                       </li>
                     </Link>
-                    <Link className='link color' to='/alumni'>
+                    <Link className='link color' to='/admin/pos-bayar'>
                       <li className='nav-item nav-link text-white m-1'>
                         <FaCircleMinus /> Pos Bayar
                       </li>
