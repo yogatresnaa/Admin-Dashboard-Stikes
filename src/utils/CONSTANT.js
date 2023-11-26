@@ -16,3 +16,13 @@ export const statusSiswa=[
     "Aktif",
     "Tamat",
 ]
+export const accountType=[
+    "Akun Utama",
+    "Sub Akun 1",
+    "Sub Akun 2",
+]
+export const accountCategory=[
+    "#",
+    "Pembayaran",
+    "Keuangan",
+]

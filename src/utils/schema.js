@@ -25,3 +25,22 @@ export const siswaSchema=Yup.object().shape({
     // majors_short_name:Yup.string().required("Field Harus Diisi"),
    
 })
+export const accountCostSchema=Yup.object().shape({
+    account_code:Yup.string().required("Code  Harus Diisi"),
+    account_description:Yup.string().required("Description Harus Diisi"),
+   
+    // majors_short_name:Yup.string().required("Field Harus Diisi"),
+   
+})
+// export const siswaSchema=Yup.object().shape({
+ 
+//     code:Yup.string().required("Kode Harus Diisi"),
+//     // account_type:Yup.string().required("Tipe Akun Harus Diisi"),
+//     account_description:Yup.string().required("Deskripsi Harus Diisi"),
+//     account_note:Yup.string().required("Prodi Harus Diisi"),
+//     account_category:Yup.string().required("Tanggal Lahir Harus Diisi"),
+//     // account_majors_id:Yup.string().required("Tempat Lahir Harus Diisi"),
+//     sekolah_id:Yup.string().required("Kelas Harus Diisi"),
+//     // majors_short_name:Yup.string().required("Field Harus Diisi"),
+   
+// })

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Col, Row, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import ErrorComponent from './ErrorComponent';
 
-export default function FormComponent({ id, name, placeholder, type, handler,value,text,error }) {
+export default function FormComponent({ id, name, placeholder, type, handler,value,text,error,disabled=false }) {
    
     return (
     <FormGroup>
@@ -15,6 +15,7 @@ export default function FormComponent({ id, name, placeholder, type, handler,val
             name={name}
             placeholder={placeholder}
             type={type}
+            disabled={disabled}
             value={value}
             onChange={handler}
             invalid={error[name] !== undefined}
