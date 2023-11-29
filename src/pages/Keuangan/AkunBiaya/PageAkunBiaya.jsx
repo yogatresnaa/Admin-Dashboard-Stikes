@@ -6,17 +6,16 @@ import SelectUnitKelas from "../../../component/ActionButton/SelectUnitKelas";
 import { Button } from "reactstrap";
 import {
   getAllProdi,
-  putProdi,
-  deleteProdi,
-  postProdi,
-  putAlumni,
-  deleteSiswa,
-  postSiswa,
   getAllKelas,
   getAllAlumni,
   getAllAccountCost,
   getCodeAccountCost,
+  postAccountCost,
+  putAccountCost,
+  deleteAccountCost,
 } from "../../../utils/http";
+import { ToastContainer } from 'react-toastify';
+
 import useRequest from "../../../customHooks/useRequest";
 import queryString from "query-string";
 import { useSelector } from "react-redux";
@@ -24,6 +23,9 @@ import useTable from "../../../customHooks/useTable";
 import ModalForm from "./components/FormModal";
 import { accountCostInitialValues } from "../../../utils/initialValues";
 import { accountCostSchema } from "../../../utils/schema";
+import { accountCostModel } from "../../../models/models";
+import { alertConfirmation } from "../../../component/Alert/swalConfirmation";
+import { alertType } from "../../../utils/CONSTANT";
 
 function PageAkunBiaya() {
   const {
@@ -134,27 +136,55 @@ function PageAkunBiaya() {
   //     setIsOpenModalForm(!isOpenModalForm);
   //   };
   const onSubmitTambahHandler = async (formBody, { resetForm }) => {
-    // console.log(formBody);
-    // await sendDataAccountCost(
-    //   () => postKelas(kelasModel.objectToJSON(formBody), dataUser.token),
-    //   () => {
-    //     getDataKelas(() => getAllKelas(dataUser.token));
-    //     setIsOpenModalForm(!isOpenModalForm);
-    //   },
-    //   null
-    // );
+    const newFormBody = {
+      ...formBody,
+      account_note: 0,
+      account_majors_id: 0,
+      sekolah_id: 0,
+      account_type:formBody.account_type+1,
+    };
+    await sendDataAccountCost(
+      () =>
+        postAccountCost(
+          accountCostModel.objectToJSON(newFormBody),
+          dataUser.token
+        ),
+      () => {
+        getDataAccountCost(() => getAllAccountCost(dataUser.token));
+        setIsOpenModalForm(!isOpenModalForm);
+      },
+      null
+    );
   };
 
   const onSubmitEditHandler = async (formBody, { resetForm }) => {
-    // console.log(formBody);
-    // await sendDataKelas(
-    //   () => putKelas(formBody.class_id, kelasModel.objectToJSON(formBody), dataUser.token),
-    //   () => {
-    //     getDataKelas(() => getAllKelas(dataUser.token));
-    //     setIsOpenModalForm(!isOpenModalForm);
-    //   },
-    //   null
-    // );
+    const newFormBody = {
+      ...formBody,
+      
+    };
+    await sendDataAccountCost(
+      () =>
+        putAccountCost(
+          formBody.account_id,
+          accountCostModel.objectToJSON(formBody),
+          dataUser.token
+        ),
+      () => {
+        getDataAccountCost(() => getAllAccountCost(dataUser.token));
+        setIsOpenModalForm(!isOpenModalForm);
+      },
+      null
+    );
+  };
+  const onSubmitDeleteHandler = async (formBody) => {
+    console.log(formBody);
+    alertConfirmation(alertType.delete, async () => {
+      await sendDataAccountCost(
+        () => deleteAccountCost(formBody.account_id, dataUser.token),
+        () => getDataAccountCost(() => getAllAccountCost(dataUser.token)),
+        null
+      );
+    });
   };
   const onQueryFilterChange = (e) => {
     setQueryFilter((prevState) => ({
@@ -198,26 +228,18 @@ function PageAkunBiaya() {
   );
   return (
     <div className="page-content">
+       <ToastContainer />
       <h3>
         Akun Biaya{" "}
         <span style={{ fontSize: "0.8em", color: "gray" }}>List</span>
       </h3>
 
       <div className="table-content">
-        {/* <div className='d-flex flex-row gap-1 justify-content-start align-items-center mt-2'>
-          <SelectProdi data={dataProdi.data} onProdiFilterChange={onQueryFilterChange} value={queryFilter.majors_id} />
-          <SelectUnitKelas data={dataKelas.data} onProdiFilterChange={onQueryFilterChange} value={queryFilter.class_id} />
-          <Button size='sm' className='align-self-end'>
-            {' '}
-            Cari{' '}
-          </Button>
-        </div> */}
-        <SearchInput />
         <TableAkunBiaya
           data={filterText.length > 0 ? dataFiltered : dataAccountCost.data}
           onClickTambahHandler={onClickTambahHandler}
           onClickEditHandler={onClickEditHandler}
-          onClickDeleteHandler={onClickTambahHandler}
+          onClickDeleteHandler={onSubmitDeleteHandler}
           subHeaderComponent={subHeaderComponent}
         />
       </div>

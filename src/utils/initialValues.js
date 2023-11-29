@@ -32,6 +32,8 @@ export const siswaInitialValues={
 export const accountCostInitialValues={
     account_code:'',
     account_description:'',
+    account_category:'',
+
    
    
 

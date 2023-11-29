@@ -1,8 +1,10 @@
 import React from "react";
-import { Button, Form } from "reactstrap";
+import { Button, Form, FormGroup } from "reactstrap";
 import FormComponent from "../../../../component/Form/FormComponent";
 import Loader from "../../../../component/Loader/Loader";
-
+import { categoryArray } from "../../../../utils/CONSTANT";
+import CustomSelect from "../../../../component/Select/CustomSelect";
+import ErrorComponent from "../../../../component/Form/ErrorComponent";
 export default function FormInput({
   handleSubmit,
   values,
@@ -12,7 +14,7 @@ export default function FormInput({
 
   isLoadingSendData,
 }) {
-  console.log(values)
+  console.log(values);
   return (
     <Form
       onSubmit={handleSubmit}
@@ -32,7 +34,7 @@ export default function FormInput({
         handler={handleChange("account_code")}
         value={values.account_code}
       />
-  <FormComponent
+      <FormComponent
         id="account_description"
         name="account_description"
         text="Keterangan"
@@ -42,20 +44,23 @@ export default function FormInput({
         handler={handleChange("account_description")}
         value={values.account_description}
       />
-      {values.account_type>0 &&
-       <FormComponent
-       id="account_category"
-       name="account_category"
-       text="Kategori"
-       placeholder="Masukkan Kategori"
-       type="text"
-       error={errors}
-       handler={handleChange("account_category")}
-       value={values.account_category}
-     />
+      {values.account_type > 0 && (
+        <FormGroup>
+         
+          <CustomSelect
+            data={categoryArray}
+            labelName="Kategori"
+            onChange={handleChange("account_category")}
+            value={values.account_category}
+            name="account_category"
+          />
+          <ErrorComponent
+            text={errors.account_category}
+            error={errors.account_category}
+          />
+        </FormGroup>
+      )}
 
-      }
- 
       {isLoadingSendData ? (
         <Loader />
       ) : (

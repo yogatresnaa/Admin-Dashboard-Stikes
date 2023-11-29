@@ -62,31 +62,38 @@ function TableAkunBiaya({ data, subHeaderComponent, resetPaginationToggle, isLoa
     },
     {
       name: 'Kode Akun',
-      cell: (row) => <p style={row.account_type==0 || row.account_type==1?{fontWeight:'bold'}:{}} >{row.account_code}</p>,
+      selector: (row) => row.account_code,
 
+      cell: (row) => <p style={row.account_type==0 || row.account_type==1?{fontWeight:'bold'}:{}} >{row.account_code}</p>,
+      sortable: true,
     },
     {
       name: 'Keterangan',
       width: '200px',
+      selector: (row) => row.account_description,
+   
       cell: (row) => <p style={row.account_type==0 || row.account_type==1?{fontWeight:'bold'}:{}} >{row.account_description}</p>,
-
+      sortable: true,
     },
     {
       name: 'Jenis Akun',
-      // selector: (row) => accountType[row.account_type],
+      selector: (row) => accountType[row.account_type],
       cell: (row) => <p style={row.account_type==0 || row.account_type==1?{fontWeight:'bold'}:{}} >{accountType[row.account_type]}</p>,
       width: '150px',
+      sortable: true,
     },
     {
       name: 'Kategori',
       selector: (row) => accountCategory[row.account_category],
       width: '150px',
+      sortable: true,
     },
 
     {
       name: 'Unit Sekolah',
       selector: (row) => row.UnitSekolah,
       width: '120px',
+      
     },
 
     {
@@ -98,7 +105,7 @@ function TableAkunBiaya({ data, subHeaderComponent, resetPaginationToggle, isLoa
 
   return (
     <>
-      <DataTable columns={columns} data={data} subHeaderComponent={subHeaderComponent} pagination />
+      <DataTable columns={columns} data={data}pagination subHeader subHeaderComponent={subHeaderComponent} paginationResetDefaultPage={resetPaginationToggle} progressPending={isLoading} />
       <Tooltip id='my-tooltip' />
     </>
   );

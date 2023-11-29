@@ -28,6 +28,7 @@ export const siswaSchema=Yup.object().shape({
 export const accountCostSchema=Yup.object().shape({
     account_code:Yup.string().required("Code  Harus Diisi"),
     account_description:Yup.string().required("Description Harus Diisi"),
+    account_category:Yup.string().required("Kategori Harus Diisi"),
    
     // majors_short_name:Yup.string().required("Field Harus Diisi"),
    
