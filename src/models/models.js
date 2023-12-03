@@ -41,3 +41,14 @@ export const siswaModel = {
     class_class_id: body.class_class_id,
   }),
 };
+
+export const posPayModel = {
+  objectToJSON: (body) => ({
+    account_account_code:body.account_account_code,
+    sekolah_id:body.sekolah_id,
+    account_account_credit:body.account_account_credit,
+    pos_pay_name:body.pos_pay_name,
+    pos_pay_description:body.pos_pay_description,
+   
+  }),
+};

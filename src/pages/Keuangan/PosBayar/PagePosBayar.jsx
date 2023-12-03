@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
-import TableAkunBiaya from "./components/TableAkunBiaya";
+import TableAkunBiaya from "./components/TablePosBayar";
 import SearchInput from "../../../component/ActionButton/SearchInput";
 import SelectProdi from "../../../component/ActionButton/SelectProdi";
 import SelectUnitKelas from "../../../component/ActionButton/SelectUnitKelas";
+import AddAction from "../../../component/ActionButton/AcctionAddButoon";
 import { Button } from "reactstrap";
 import {
   getAllProdi,
@@ -13,33 +14,47 @@ import {
   postAccountCost,
   putAccountCost,
   deleteAccountCost,
+  getAllPosPay,
+  getAllPiutang,
+  getAllAccountCostPay,
+  postPosPay,
 } from "../../../utils/http";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 
 import useRequest from "../../../customHooks/useRequest";
 import queryString from "query-string";
 import { useSelector } from "react-redux";
 import useTable from "../../../customHooks/useTable";
 import ModalForm from "./components/FormModal";
-import { accountCostInitialValues } from "../../../utils/initialValues";
-import { accountCostSchema } from "../../../utils/schema";
-import { accountCostModel } from "../../../models/models";
+import { accountCostInitialValues, posPayInitialValues } from "../../../utils/initialValues";
+import { accountCostSchema, posPaySchema } from "../../../utils/schema";
+import { accountCostModel, posPayModel } from "../../../models/models";
 import { alertConfirmation } from "../../../component/Alert/swalConfirmation";
 import { alertType } from "../../../utils/CONSTANT";
 
-function PageAkunBiaya() {
+function PagePosPay() {
   const {
-    data: dataAccountCost,
-    setData: setDataAccountCost,
-    sendData: sendDataAccountCost,
-    setDataDetail: setDataDetailAccountCost,
-    dataDetail: dataDetailAccountCost,
-    getData: getDataAccountCost,
-    isLoading: isLoadingSiswa,
-    setIsLoading: setIsLoadingAlumni,
-    isLoadingSendData: isLoadingSendDataAccountCost,
+    data: dataPosPay,
+    setData: setDataPosPay,
+    sendData: sendDataPosPay,
+    setDataDetail: setDataDetailPosPay,
+    dataDetail: dataDetailPosPay,
+    getData: getDataPosPay,
+    isLoading: isLoadingPosPay,
+    setIsLoading: setIsLoadingPosPay,
+    isLoadingSendData: isLoadingSendDataPosPay,
     filterText,
     onChangeFilterText,
+  } = useRequest();
+  const {
+    data: dataPiutang,
+    getData: getDataPiutang,
+    isLoading: isLoadingPiutang,
+  } = useRequest();
+  const {
+    data: dataAccountCost,
+    getData: getDataAccountCost,
+    isLoading: isLoadingAccountCost,
   } = useRequest();
   const {
     data: dataCode,
@@ -82,14 +97,14 @@ function PageAkunBiaya() {
 
   useEffect(() => {
     const query = queryString.stringify(queryFilter);
-    getDataAccountCost(() => getAllAccountCost(dataUser.token));
+    getDataPosPay(() => getAllPosPay(dataUser.token));
     getDataProdi(() => getAllProdi(dataUser.token));
     getDataKelas(() => getAllKelas(dataUser.token));
   }, []);
 
   const onCLickFilterSubmit = () => {
     const query = queryString.stringify(queryFilter);
-    getDataAccountCost(() => getAllAccountCost(dataUser.token));
+    getDataPosPay(() => getAllPosPay(dataUser.token));
   };
 
   const onClickTambahHandler = async (row) => {
@@ -100,7 +115,8 @@ function PageAkunBiaya() {
     };
     setAccountType(row.account_type);
 
-    await getDataCode(() => getCodeAccountCost(body, dataUser.token));
+    await getDataPiutang(() => getAllPiutang(dataUser.token));
+    await getDataAccountCost(() => getAllAccountCostPay(dataUser.token));
     setIsOpenModalForm(true);
     setIsEdit(false);
   };
@@ -114,7 +130,7 @@ function PageAkunBiaya() {
 
     console.log(item);
     await getDataCode(() => getCodeAccountCost(body, dataUser.token));
-    setDataDetailAccountCost(item);
+    setDataDetailPosPay(item);
     setIsEdit(true);
     setIsOpenModalForm(!isOpenModalForm);
   };
@@ -138,19 +154,16 @@ function PageAkunBiaya() {
   const onSubmitTambahHandler = async (formBody, { resetForm }) => {
     const newFormBody = {
       ...formBody,
-      account_note: 0,
-      account_majors_id: 0,
       sekolah_id: 0,
-      account_type:formBody.account_type+1,
     };
-    await sendDataAccountCost(
+    await sendDataPosPay(
       () =>
-        postAccountCost(
-          accountCostModel.objectToJSON(newFormBody),
+        postPosPay(
+          posPayModel.objectToJSON(newFormBody),
           dataUser.token
         ),
       () => {
-        getDataAccountCost(() => getAllAccountCost(dataUser.token));
+        getDataPosPay(() => getAllPosPay(dataUser.token));
         setIsOpenModalForm(!isOpenModalForm);
       },
       null
@@ -160,9 +173,8 @@ function PageAkunBiaya() {
   const onSubmitEditHandler = async (formBody, { resetForm }) => {
     const newFormBody = {
       ...formBody,
-      
     };
-    await sendDataAccountCost(
+    await sendDataPosPay(
       () =>
         putAccountCost(
           formBody.account_id,
@@ -170,7 +182,7 @@ function PageAkunBiaya() {
           dataUser.token
         ),
       () => {
-        getDataAccountCost(() => getAllAccountCost(dataUser.token));
+        getDataPosPay(() => getAllPosPay(dataUser.token));
         setIsOpenModalForm(!isOpenModalForm);
       },
       null
@@ -179,9 +191,9 @@ function PageAkunBiaya() {
   const onSubmitDeleteHandler = async (formBody) => {
     console.log(formBody);
     alertConfirmation(alertType.delete, async () => {
-      await sendDataAccountCost(
+      await sendDataPosPay(
         () => deleteAccountCost(formBody.account_id, dataUser.token),
-        () => getDataAccountCost(() => getAllAccountCost(dataUser.token)),
+        () => getDataPosPay(() => getAllPosPay(dataUser.token)),
         null
       );
     });
@@ -213,30 +225,30 @@ function PageAkunBiaya() {
 
   const dataFiltered = useMemo(
     () =>
-      dataAccountCost.data.filter(
+      dataPosPay.data.filter(
         (item) =>
-          item.account_code
+          item.account_account_code
             .toString()
             .toLowerCase()
             .includes(filterText.toLocaleLowerCase()) ||
-          item.account_description
+          item.pos_pay_description
             .toString()
             .toLowerCase()
             .includes(filterText.toLocaleLowerCase())
       ),
-    [filterText, dataAccountCost.data]
+    [filterText, dataPosPay.data]
   );
   return (
     <div className="page-content">
-       <ToastContainer />
+      <ToastContainer />
       <h3>
-        Akun Biaya{" "}
-        <span style={{ fontSize: "0.8em", color: "gray" }}>List</span>
+        Pos Bayar <span style={{ fontSize: "0.8em", color: "gray" }}>List</span>
       </h3>
 
       <div className="table-content">
+        <AddAction onClickHandler={onClickTambahHandler} />
         <TableAkunBiaya
-          data={filterText.length > 0 ? dataFiltered : dataAccountCost.data}
+          data={filterText.length > 0 ? dataFiltered : dataPosPay.data}
           onClickTambahHandler={onClickTambahHandler}
           onClickEditHandler={onClickEditHandler}
           onClickDeleteHandler={onSubmitDeleteHandler}
@@ -244,29 +256,19 @@ function PageAkunBiaya() {
         />
       </div>
       <ModalForm
-        initialValues={
-          isEdit
-            ? {
-                ...dataDetailAccountCost,
-                account_code: dataCode.data.code,
-                account_type: accountType,
-              }
-            : {
-                ...accountCostInitialValues,
-                account_code: dataCode.data.code,
-                account_type: accountType,
-              }
-        }
-        schema={accountCostSchema(accountType>0)}
+        initialValues={isEdit ? dataDetailPosPay:posPayInitialValues}
+        schema={posPaySchema}
         toggle={() => setIsOpenModalForm(!isOpenModalForm)}
         isOpen={isOpenModalForm}
-        isLoadingSendData={isLoadingSendDataAccountCost}
+        dataAccountCost={dataAccountCost.data}
+        dataPiutang={dataPiutang.data}
+        isLoadingSendData={isLoadingSendDataPosPay}
         btnName={isEdit ? "Edit" : "Tambah"}
-        headerName={isEdit ? "Edit Akun BIaya" : "Tambah Akun Biaya"}
+        headerName={isEdit ? "Edit Tahun Ajaran" : "Tambah Tahun Ajaran"}
         onSubmitHandler={isEdit ? onSubmitEditHandler : onSubmitTambahHandler}
       />
     </div>
   );
 }
 
-export default PageAkunBiaya;
+export default PagePosPay;

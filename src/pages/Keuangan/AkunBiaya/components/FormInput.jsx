@@ -53,6 +53,8 @@ export default function FormInput({
             onChange={handleChange("account_category")}
             value={values.account_category}
             name="account_category"
+            optionValue='id'
+            optionName='name'
           />
           <ErrorComponent
             text={errors.account_category}

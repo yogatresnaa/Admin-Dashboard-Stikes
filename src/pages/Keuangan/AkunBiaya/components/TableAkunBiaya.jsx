@@ -55,9 +55,11 @@ function TableAkunBiaya({ data, subHeaderComponent, resetPaginationToggle, isLoa
   );
   const columns = [
     {
-      name: 'NO',
-      selector: (row, index) => index + 1,
+       name: 'No. ',
+      cell: (row, index) => index+1,
       sortable: true,
+      selector:  (row, index) => index+1,
+
       width: '80px',
     },
     {
