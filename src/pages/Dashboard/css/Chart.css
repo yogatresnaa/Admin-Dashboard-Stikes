@@ -57,6 +57,7 @@
   border-radius: 5px;
   transition: all 0.3s ease;
   cursor: pointer;
+  z-index: 3;
 
 
 
@@ -64,7 +65,7 @@
 
 
 .transaksi-item:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .transaksi-item__text {

@@ -18,6 +18,8 @@ import {
   getAllPiutang,
   getAllAccountCostPay,
   postPosPay,
+  deletePosPay,
+  putPosPay,
 } from "../../../utils/http";
 import { ToastContainer } from "react-toastify";
 
@@ -109,10 +111,10 @@ function PagePosPay() {
 
   const onClickTambahHandler = async (row) => {
     console.log(row);
-    const body = {
-      account_code: row.account_code,
-      account_type: row.account_type + 1,
-    };
+    // const body = {
+    //   account_code: row.account_code,
+    //   account_type: row.account_type + 1,
+    // };
     setAccountType(row.account_type);
 
     await getDataPiutang(() => getAllPiutang(dataUser.token));
@@ -122,14 +124,16 @@ function PagePosPay() {
   };
 
   const onClickEditHandler = async (item) => {
-    const body = {
-      account_code: item.account_code,
-      account_type: item.account_type + 1,
-    };
+    // const body = {
+    //   account_code: item.account_code,
+    //   account_type: item.account_type + 1,
+    // };
     setAccountType(item.account_type);
 
-    console.log(item);
-    await getDataCode(() => getCodeAccountCost(body, dataUser.token));
+    await getDataPiutang(() => getAllPiutang(dataUser.token));
+    await getDataAccountCost(() => getAllAccountCostPay(dataUser.token));
+    // console.log(item);
+    // await getDataCode(() => getCodeAccountCost(body, dataUser.token));
     setDataDetailPosPay(item);
     setIsEdit(true);
     setIsOpenModalForm(!isOpenModalForm);
@@ -171,14 +175,12 @@ function PagePosPay() {
   };
 
   const onSubmitEditHandler = async (formBody, { resetForm }) => {
-    const newFormBody = {
-      ...formBody,
-    };
+   
     await sendDataPosPay(
       () =>
-        putAccountCost(
-          formBody.account_id,
-          accountCostModel.objectToJSON(formBody),
+        putPosPay(
+          formBody.pos_pay_id,
+          posPayModel.objectToJSON(formBody),
           dataUser.token
         ),
       () => {
@@ -192,7 +194,7 @@ function PagePosPay() {
     console.log(formBody);
     alertConfirmation(alertType.delete, async () => {
       await sendDataPosPay(
-        () => deleteAccountCost(formBody.account_id, dataUser.token),
+        () => deletePosPay(formBody.pos_pay_id, dataUser.token),
         () => getDataPosPay(() => getAllPosPay(dataUser.token)),
         null
       );

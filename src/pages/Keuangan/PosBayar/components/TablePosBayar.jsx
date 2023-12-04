@@ -21,50 +21,34 @@ function TableAkunBiaya({
   const renderActionButton = (row) => (
     <div className="d-flex gap-1">
       <Button
-        color="success"
-        variant="success"
-        size="sm"
+        variant="warning"
+        className="text-white"
+        color="danger"
         data-tooltip-id="my-tooltip"
-        data-tooltip-content="Tambah"
+        data-tooltip-content="Ubah"
+        size="sm"
         onClick={() => {
-          onClickTambahHandler(row);
+          onClickEditHandler(row);
         }}
         id={row.ID}
       >
-        <FaRegPlusSquare />
+        <FaRegEdit />
       </Button>
-      {row.account_type > 0 && (
-        <Button
-          variant="warning"
-          className="text-white"
-          color="danger"
-          data-tooltip-id="my-tooltip"
-          data-tooltip-content="Ubah"
-          size="sm"
-          onClick={() => {
-            onClickEditHandler(row);
-          }}
-          id={row.ID}
-        >
-          <FaRegEdit />
-        </Button>
-      )}
-      {row.account_type > 1 && (
-        <Button
-          variant="danger"
-          className="text-white"
-          color="danger"
-          data-tooltip-id="my-tooltip"
-          data-tooltip-content="Hapus"
-          size="sm"
-          onClick={() => {
-            onClickDeleteHandler(row);
-          }}
-          id={row.ID}
-        >
-          <FaRegTrashAlt />
-        </Button>
-      )}
+
+      <Button
+        variant="danger"
+        className="text-white"
+        color="danger"
+        data-tooltip-id="my-tooltip"
+        data-tooltip-content="Hapus"
+        size="sm"
+        onClick={() => {
+          onClickDeleteHandler(row);
+        }}
+        id={row.ID}
+      >
+        <FaRegTrashAlt />
+      </Button>
     </div>
   );
   const columns = [
@@ -79,7 +63,6 @@ function TableAkunBiaya({
       selector: (row) => row.account_code_description,
       sortable: true,
       width: "250px",
-
     },
     {
       name: "Akun Piutang",
@@ -87,7 +70,7 @@ function TableAkunBiaya({
       selector: (row) => row.account_code_credit_description,
       sortable: true,
     },
-   
+
     {
       name: "Nama POS",
       selector: (row) => row.pos_pay_name,
@@ -101,7 +84,6 @@ function TableAkunBiaya({
       sortable: true,
     },
 
-   
     {
       name: "Aksi",
       cell: (row) => renderActionButton(row),

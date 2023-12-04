@@ -95,4 +95,7 @@ export const getAllPiutang = (token) => Axios.get(`${URL_BASE}/piutang`, options
 //pos bayar
 export const postPosPay = (body, token) => Axios.post(`${URL_BASE}/pos-pay`, body, options(token));
 export const getAllPosPay = (token) => Axios.get(`${URL_BASE}/pos-pay`, options(token));
+export const deletePosPay = (id, token) => Axios.delete(`${URL_BASE}/pos-pay/${id}`,  options(token));
+export const putPosPay = (id,body, token) => Axios.put(`${URL_BASE}/pos-pay/${id}`, body, options(token));
+
 // export const putAlumni = (id,body,token) => Axios.put(`${URL_BASE}/alumni/${id}`,body, options(token));

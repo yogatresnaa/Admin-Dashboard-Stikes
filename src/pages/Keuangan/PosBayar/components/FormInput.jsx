@@ -67,17 +67,7 @@ export default function FormInput({
         handler={handleChange("pos_pay_name")}
         value={values.pos_pay_name}
       />
-      <FormComponent
-        id="account_description"
-        name="account_description"
-        text="Keterangan"
-        placeholder="Masukkan keterangan"
-        type="text"
-        error={errors}
-        handler={handleChange("account_description")}
-        value={values.account_description}
-      />
-    
+     
       <FormComponent
         id="pos_pay_description"
         name="pos_pay_description"
