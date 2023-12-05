@@ -39,6 +39,10 @@ function AppRoutes() {
             <Route path='tahun-ajaran' element={<PageTahunAjaran />} />
             <Route path='laporan-pembayaran/kelas' element={<PageLaporanPembayaranKelas />} />
             <Route path='not-found' element={<PageNotFound />} />
+
+            <Route path='akun-biaya' element={<PageAkunBiaya />} />
+            <Route path='pos-bayar' element={<PagePosBayar />} />
+
             <Route path='' element={<PageDashboard />} />
           </Route>
         </Routes>
