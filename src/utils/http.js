@@ -80,3 +80,22 @@ export const deleteSiswa = (id, token) => Axios.delete(`${URL_BASE}/siswa/${id}`
 
 export const getAllAlumni = (query,token) => Axios.get(`${URL_BASE}/alumni?${query}`, options(token));
 export const putAlumni = (id,body,token) => Axios.put(`${URL_BASE}/alumni/${id}`,body, options(token));
+
+//akun biaya
+export const postAccountCost = (body, token) => Axios.post(`${URL_BASE}/account-cost`, body, options(token));
+export const putAccountCost = (id,body, token) => Axios.put(`${URL_BASE}/account-cost/${id}`, body, options(token));
+export const deleteAccountCost = (id, token) => Axios.delete(`${URL_BASE}/account-cost/${id}`,  options(token));
+export const getCodeAccountCost = (body,token) => Axios.post(`${URL_BASE}/account-cost/code`,body, options(token));
+export const getAllAccountCost = (token) => Axios.get(`${URL_BASE}/account-cost`, options(token));
+export const getAllAccountCostPay = (token) => Axios.get(`${URL_BASE}/account-cost/pos-pay`, options(token));
+
+//piutang
+export const getAllPiutang = (token) => Axios.get(`${URL_BASE}/piutang`, options(token));
+
+//pos bayar
+export const postPosPay = (body, token) => Axios.post(`${URL_BASE}/pos-pay`, body, options(token));
+export const getAllPosPay = (token) => Axios.get(`${URL_BASE}/pos-pay`, options(token));
+export const deletePosPay = (id, token) => Axios.delete(`${URL_BASE}/pos-pay/${id}`,  options(token));
+export const putPosPay = (id,body, token) => Axios.put(`${URL_BASE}/pos-pay/${id}`, body, options(token));
+
+// export const putAlumni = (id,body,token) => Axios.put(`${URL_BASE}/alumni/${id}`,body, options(token));

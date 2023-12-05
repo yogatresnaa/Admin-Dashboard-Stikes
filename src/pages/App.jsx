@@ -8,8 +8,13 @@ import PageAlumni from './Akademik/Alumni/PageAlumni';
 import PageKelulusan from './Akademik/Kelulusan/PageKelulusan';
 import PageTahunAjaran from './Akademik/TahunAjaran/PageTahunAjaran';
 import PageNotFound from './NotFound/PageNoFound';
+<<<<<<< HEAD
 import PagePosBayar from './Keuangan/PagePosBayar';
 import PageAkunBiaya from './Keuangan/PageAkunBiaya';
+=======
+import PagePosBayar from './Keuangan/PosBayar/PagePosBayar';
+import PageAkunBiaya from './Keuangan/AkunBiaya/PageAkunBiaya';
+>>>>>>> 9b3bf8273ef473511ba54a01ed720cd2ab0b081f
 // import PageDashboard from './Dashboard/PageDashboard';
 import LoginPage from './Login/Login';
 import 'react-toastify/dist/ReactToastify.css';
@@ -38,6 +43,10 @@ function AppRoutes() {
             <Route path='program-studi' element={<PageProgramStudi />} />
             <Route path='tahun-ajaran' element={<PageTahunAjaran />} />
             <Route path='laporan-pembayaran/kelas' element={<PageLaporanPembayaranKelas />} />
+
+            <Route path='pos-bayar' element={<PagePosBayar />} />
+            <Route path='akun-biaya' element={<PageAkunBiaya />} />
+
             <Route path='not-found' element={<PageNotFound />} />
 
             <Route path='akun-biaya' element={<PageAkunBiaya />} />

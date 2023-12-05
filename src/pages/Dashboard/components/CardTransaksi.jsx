@@ -5,7 +5,7 @@ function CardTransaksi({ title, toDay, thisMonth, thisYear, color, icon }) {
   console.log('aaa')
 
   return (
-    <div className="transaksi-item d-flex align-items-center gap-2" style={{ border: `3px solid ${color}` }}>
+    <div className="transaksi-item d-flex align-items-center gap-2" style={{ borderLeft: `5px solid ${color}` }}>
       {icon}
       <div className="transaksi-item__text w-100">
 

@@ -29,3 +29,22 @@ export const siswaInitialValues={
     class_class_id:'',
 
 }
+
+export const accountCostInitialValues={
+    account_code:'',
+    account_description:'',
+    account_category:'',
+
+}
+export const posPayInitialValues={
+    pos_pay_id:'',
+    account_account_code:'',
+    account_account_credit:'',
+    pos_pay_name:'',
+    pos_pay_description:'',
+
+
+   
+   
+
+}
