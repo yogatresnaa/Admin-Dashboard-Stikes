@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
-import TableAkunBiaya from "./components/TablePosBayar";
+import TableAkunBiaya from "./components/TablePaymentType";
 import SearchInput from "../../../component/ActionButton/SearchInput";
 import SelectProdi from "../../../component/ActionButton/SelectProdi";
 import SelectUnitKelas from "../../../component/ActionButton/SelectUnitKelas";
@@ -20,6 +20,11 @@ import {
   postPosPay,
   deletePosPay,
   putPosPay,
+  getAllPaymentType,
+  putPaymentType,
+  postPaymentType,
+  deletePaymentType,
+  getAllTahunAjaran,
 } from "../../../utils/http";
 import { ToastContainer } from "react-toastify";
 
@@ -28,35 +33,35 @@ import queryString from "query-string";
 import { useSelector } from "react-redux";
 import useTable from "../../../customHooks/useTable";
 import ModalForm from "./components/FormModal";
-import { accountCostInitialValues, posPayInitialValues } from "../../../utils/initialValues";
-import { accountCostSchema, posPaySchema } from "../../../utils/schema";
-import { accountCostModel, posPayModel } from "../../../models/models";
+import { accountCostInitialValues, paymentTypeInitialValues, posPayInitialValues } from "../../../utils/initialValues";
+import { accountCostSchema, paymentTypeSchema, posPaySchema } from "../../../utils/schema";
+import { accountCostModel, paymentTypeModel, posPayModel } from "../../../models/models";
 import { alertConfirmation } from "../../../component/Alert/swalConfirmation";
 import { alertType } from "../../../utils/CONSTANT";
 
 function PageJenisBayar() {
   const {
-    data: dataPosPay,
-    setData: setDataPosPay,
-    sendData: sendDataPosPay,
-    setDataDetail: setDataDetailPosPay,
-    dataDetail: dataDetailPosPay,
-    getData: getDataPosPay,
-    isLoading: isLoadingPosPay,
-    setIsLoading: setIsLoadingPosPay,
-    isLoadingSendData: isLoadingSendDataPosPay,
+    data: dataPaymentType,
+    setData: setDataPaymentType,
+    sendData: sendDataPaymentType,
+    setDataDetail: setDataDetailPaymentType,
+    dataDetail: dataDetailPaymentType,
+    getData: getDataPaymentType,
+    isLoading: isLoadingPaymentType,
+    setIsLoading: setIsLoadingPaymentType,
+    isLoadingSendData: isLoadingSendDataPaymentType,
     filterText,
     onChangeFilterText,
   } = useRequest();
   const {
-    data: dataPiutang,
-    getData: getDataPiutang,
-    isLoading: isLoadingPiutang,
+    data: dataTahunAjaran,
+    getData: getDataTahunAjaran,
+    isLoading: isLoadinTahunAjaran,
   } = useRequest();
   const {
-    data: dataAccountCost,
-    getData: getDataAccountCost,
-    isLoading: isLoadingAccountCost,
+    data: dataPosPay,
+    getData: getDataPosPay,
+    isLoading: isLoadingPosPay,
   } = useRequest();
   const {
     data: dataCode,
@@ -97,44 +102,38 @@ function PageJenisBayar() {
   const [accountType, setAccountType] = useState(0);
   //  const printComponent = useRef();
 
+
+  const fetchAllOptions = async () => {
+    await getDataPaymentType(() => getAllPaymentType(dataUser.token));
+    await getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token));
+
+  }
   useEffect(() => {
-    const query = queryString.stringify(queryFilter);
+    fetchAllOptions();
     getDataPosPay(() => getAllPosPay(dataUser.token));
-    getDataProdi(() => getAllProdi(dataUser.token));
-    getDataKelas(() => getAllKelas(dataUser.token));
   }, []);
 
   const onCLickFilterSubmit = () => {
     const query = queryString.stringify(queryFilter);
-    getDataPosPay(() => getAllPosPay(dataUser.token));
+    getDataPaymentType(() => getAllPaymentType(dataUser.token));
   };
 
   const onClickTambahHandler = async (row) => {
     console.log(row);
-    // const body = {
-    //   account_code: row.account_code,
-    //   account_type: row.account_type + 1,
-    // };
-    setAccountType(row.account_type);
 
-    await getDataPiutang(() => getAllPiutang(dataUser.token));
-    await getDataAccountCost(() => getAllAccountCostPay(dataUser.token));
+
+    await fetchAllOptions();
     setIsOpenModalForm(true);
     setIsEdit(false);
   };
 
   const onClickEditHandler = async (item) => {
-    // const body = {
-    //   account_code: item.account_code,
-    //   account_type: item.account_type + 1,
-    // };
-    setAccountType(item.account_type);
 
-    await getDataPiutang(() => getAllPiutang(dataUser.token));
-    await getDataAccountCost(() => getAllAccountCostPay(dataUser.token));
+    await fetchAllOptions();
+
     // console.log(item);
     // await getDataCode(() => getCodeAccountCost(body, dataUser.token));
-    setDataDetailPosPay(item);
+    setDataDetailPaymentType(item);
     setIsEdit(true);
     setIsOpenModalForm(!isOpenModalForm);
   };
@@ -159,15 +158,16 @@ function PageJenisBayar() {
     const newFormBody = {
       ...formBody,
       sekolah_id: 0,
+      payment_mode: 'TETAP'
     };
-    await sendDataPosPay(
+    await sendDataPaymentType(
       () =>
-        postPosPay(
-          posPayModel.objectToJSON(newFormBody),
+        postPaymentType(
+          paymentTypeModel.objectToJSON(newFormBody),
           dataUser.token
         ),
       () => {
-        getDataPosPay(() => getAllPosPay(dataUser.token));
+        getDataPaymentType(() => getAllPaymentType(dataUser.token));
         setIsOpenModalForm(!isOpenModalForm);
       },
       null
@@ -175,16 +175,16 @@ function PageJenisBayar() {
   };
 
   const onSubmitEditHandler = async (formBody, { resetForm }) => {
-   
-    await sendDataPosPay(
+
+    await sendDataPaymentType(
       () =>
-        putPosPay(
-          formBody.pos_pay_id,
-          posPayModel.objectToJSON(formBody),
+        putPaymentType(
+          formBody.payment_id,
+          paymentTypeModel.objectToJSON(formBody),
           dataUser.token
         ),
       () => {
-        getDataPosPay(() => getAllPosPay(dataUser.token));
+        getDataPaymentType(() => getAllPaymentType(dataUser.token));
         setIsOpenModalForm(!isOpenModalForm);
       },
       null
@@ -193,9 +193,9 @@ function PageJenisBayar() {
   const onSubmitDeleteHandler = async (formBody) => {
     console.log(formBody);
     alertConfirmation(alertType.delete, async () => {
-      await sendDataPosPay(
-        () => deletePosPay(formBody.pos_pay_id, dataUser.token),
-        () => getDataPosPay(() => getAllPosPay(dataUser.token)),
+      await sendDataPaymentType(
+        () => deletePaymentType(formBody.payment_id, dataUser.token),
+        () => getDataPaymentType(() => getAllPaymentType(dataUser.token)),
         null
       );
     });
@@ -227,18 +227,31 @@ function PageJenisBayar() {
 
   const dataFiltered = useMemo(
     () =>
-      dataPosPay.data.filter(
+      dataPaymentType.data.filter(
         (item) =>
-          item.account_account_code
+          item.payment_type
             .toString()
             .toLowerCase()
             .includes(filterText.toLocaleLowerCase()) ||
-          item.pos_pay_description
+          item.payment_mode
+            .toString()
+            .toLowerCase()
+            .includes(filterText.toLocaleLowerCase()) ||
+          item.period_start
+            .toString()
+            .toLowerCase()
+            .includes(filterText.toLocaleLowerCase()) ||
+          item.period_end
+            .toString()
+            .toLowerCase()
+            .includes(filterText.toLocaleLowerCase()) ||
+          item.pos_pay_name
             .toString()
             .toLowerCase()
             .includes(filterText.toLocaleLowerCase())
+
       ),
-    [filterText, dataPosPay.data]
+    [filterText, dataPaymentType.data]
   );
   return (
     <div className="page-content">
@@ -250,7 +263,7 @@ function PageJenisBayar() {
       <div className="table-content">
         <AddAction onClickHandler={onClickTambahHandler} />
         <TableAkunBiaya
-          data={filterText.length > 0 ? dataFiltered : dataPosPay.data}
+          data={filterText.length > 0 ? dataFiltered : dataPaymentType.data}
           onClickTambahHandler={onClickTambahHandler}
           onClickEditHandler={onClickEditHandler}
           onClickDeleteHandler={onSubmitDeleteHandler}
@@ -258,15 +271,17 @@ function PageJenisBayar() {
         />
       </div>
       <ModalForm
-        initialValues={isEdit ? dataDetailPosPay:posPayInitialValues}
-        schema={posPaySchema}
+        initialValues={isEdit ? dataDetailPaymentType : paymentTypeInitialValues}
+        schema={paymentTypeSchema}
         toggle={() => setIsOpenModalForm(!isOpenModalForm)}
         isOpen={isOpenModalForm}
-        dataAccountCost={dataAccountCost.data}
-        dataPiutang={dataPiutang.data}
-        isLoadingSendData={isLoadingSendDataPosPay}
+        dataPosPay={dataPosPay.data}
+        dataPaymentMode={dataPosPay.data}
+        dataTahunAjaran={dataTahunAjaran.data}
+        isEdit={isEdit}
+        isLoadingSendData={isLoadingPaymentType}
         btnName={isEdit ? "Edit" : "Tambah"}
-        headerName={isEdit ? "Edit Tahun Ajaran" : "Tambah Tahun Ajaran"}
+        headerName={isEdit ? "Edit Jenis Bayar" : "Tambah Jenis Bayar"}
         onSubmitHandler={isEdit ? onSubmitEditHandler : onSubmitTambahHandler}
       />
     </div>

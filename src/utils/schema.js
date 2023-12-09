@@ -50,6 +50,11 @@ export const posPaySchema=Yup.object().shape({
     // majors_short_name:Yup.string().required("Field Harus Diisi"),
    
 })
+export const paymentTypeSchema=Yup.object().shape({
+  payment_type:Yup.string().required("Jenis Bayar Harus Dipilih"),
+  period_period_id :Yup.string().required("Tahun Ajaran Harus Diisi"),
+  pos_pos_id :Yup.string().required("POS Harus Diisi"),   
+})
 // export const siswaSchema=Yup.object().shape({
  
 //     code:Yup.string().required("Kode Harus Diisi"),

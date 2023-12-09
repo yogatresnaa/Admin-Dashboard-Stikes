@@ -98,4 +98,10 @@ export const getAllPosPay = (token) => Axios.get(`${URL_BASE}/pos-pay`, options(
 export const deletePosPay = (id, token) => Axios.delete(`${URL_BASE}/pos-pay/${id}`,  options(token));
 export const putPosPay = (id,body, token) => Axios.put(`${URL_BASE}/pos-pay/${id}`, body, options(token));
 
+//jenis bayar
+export const postPaymentType = (body, token) => Axios.post(`${URL_BASE}/payment-type`, body, options(token));
+export const getAllPaymentType = (token) => Axios.get(`${URL_BASE}/payment-type`, options(token));
+export const deletePaymentType = (id, token) => Axios.delete(`${URL_BASE}/payment-type/${id}`,  options(token));
+export const putPaymentType = (id,body, token) => Axios.put(`${URL_BASE}/payment-type/${id}`, body, options(token));
+
 // export const putAlumni = (id,body,token) => Axios.put(`${URL_BASE}/alumni/${id}`,body, options(token));

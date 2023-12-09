@@ -7,15 +7,16 @@ import FormInput from "./FormInput";
 export default function ModalForm({
   isOpen,
   dataAccountCost,
-  dataPiutang,
+  dataPosPay,
   toggle,
+  isEdit,
   initialValues,
   onSubmitHandler,
   schema,
   btnName,
   headerName,
   isLoadingSendData,
- 
+  dataTahunAjaran
 }) {
   return (
     <>
@@ -42,7 +43,7 @@ export default function ModalForm({
               toggle()
               handleReset();
             }}
-            onClosed={()=>handleReset()}
+            onClosed={() => handleReset()}
           >
             <ModalHeader toggle={toggle}>{headerName}</ModalHeader>
             <ModalBody>
@@ -50,7 +51,9 @@ export default function ModalForm({
                 btnName={btnName}
                 errors={errors}
                 dataAccountCost={dataAccountCost}
-                dataPiutang={dataPiutang}
+                dataTahunAjaran={dataTahunAjaran}
+                dataPosPay={dataPosPay}
+                isEdit={isEdit}
                 values={values}
                 isLoadingSendData={isLoadingSendData}
                 handleChange={handleChange}

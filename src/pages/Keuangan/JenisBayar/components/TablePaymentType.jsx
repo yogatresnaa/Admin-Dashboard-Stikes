@@ -1,12 +1,14 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 import { dataAkunBiaya } from "../../../../utils/dumyDataTransaksi";
-import Button from "react-bootstrap/Button";
+import { Button } from "reactstrap";
 import { Tooltip } from "react-tooltip";
+import { Link } from "react-router-dom";
 import { FaRegEdit, FaRegTrashAlt, FaRegPlusSquare } from "react-icons/fa";
 import { accountCategory, accountType } from "../../../../utils/CONSTANT";
+import { upperCaseFirstChar } from "../../../../utils/helper";
 
-function TableAkunBiaya({
+function TablePaymentType({
   data,
   subHeaderComponent,
   resetPaginationToggle,
@@ -23,7 +25,7 @@ function TableAkunBiaya({
       <Button
         variant="warning"
         className="text-white"
-        color="danger"
+        color="warning"
         data-tooltip-id="my-tooltip"
         data-tooltip-content="Ubah"
         size="sm"
@@ -36,7 +38,7 @@ function TableAkunBiaya({
       </Button>
 
       <Button
-        variant="danger"
+
         className="text-white"
         color="danger"
         data-tooltip-id="my-tooltip"
@@ -51,6 +53,28 @@ function TableAkunBiaya({
       </Button>
     </div>
   );
+
+  const renderPaymentSetting = (row) => (
+    <Link to={`/admin/tarif-tagihan/${row.payment_id}`} state={{data:row}} className="d-flex gap-1">
+      <Button
+        color="primary"
+        className="text-white"
+
+        data-tooltip-id="my-tooltip"
+        data-tooltip-content="Ubah"
+        size="sm"
+        onClick={() => {
+         console.log()
+        }}
+        id={row.ID}
+
+      >
+        <span style={{ fontSize: '11px' }}> Setting Tarif Pembayaran</span>
+
+      </Button>
+
+    </Link>
+  );
   const columns = [
     {
       name: "NO",
@@ -58,36 +82,38 @@ function TableAkunBiaya({
       sortable: true,
       width: "80px",
     },
+
     {
       name: "POS",
-      selector: (row) => row.account_code_description,
+      selector: (row) => row.pos_pay_name,
       sortable: true,
-      width: "200px",
+      width: "250px",
     },
     {
       name: "Nama Pembayaran",
-      width: "200px",
-      selector: (row) => row.account_code_credit_description,
+      width: "300px",
+      selector: (row) => `${row.pos_pay_name} - T.A ${row.period_start}/${row.period_end}`,
       sortable: true,
     },
 
     {
       name: "Tipe",
-      selector: (row) => row.pos_pay_name,
+      cell: (row) => upperCaseFirstChar(row.payment_type),
+
+      selector: (row) => row.payment_type,
       width: "150px",
       sortable: true,
     },
     {
       name: "Tahun",
-      selector: (row) => row.pos_pay_description,
+      selector: (row) => `${row.period_start}/${row.period_end}`,
       width: "150px",
       sortable: true,
     },
     {
       name: "Tarif Pembayaran",
-      selector: (row) => row.pos_pay_description,
-      width: "150px",
-      sortable: true,
+      cell: (row) => renderPaymentSetting(row),
+      width: "250px",
     },
 
     {
@@ -113,4 +139,4 @@ function TableAkunBiaya({
   );
 }
 
-export default TableAkunBiaya;
+export default TablePaymentType;

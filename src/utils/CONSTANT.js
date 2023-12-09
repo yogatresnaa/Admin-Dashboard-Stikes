@@ -16,3 +16,24 @@ export const alertType = {
 export const statusSiswa = ["Tidak Aktif", "Aktif", "Tamat"];
 export const accountType = ["Akun Utama", "Sub Akun 1", "Sub Akun 2"];
 export const accountCategory = ["#", "Pembayaran", "Keuangan"];
+
+export const payType = [
+  {
+    id: "BEBAS",
+    name: "BEBAS",
+  },
+  {
+    id: "BULANAN",
+    name: "BULANAN",
+  }
+]
+export const payMode = [
+  {
+    id: "TETAP",
+    name: "TETAP",
+  },
+  {
+    id: "TIDAK TETAP",
+    name: "TIDAK TETAP",
+  }
+]

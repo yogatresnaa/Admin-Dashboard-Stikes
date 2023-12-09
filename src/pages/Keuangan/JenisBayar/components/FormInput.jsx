@@ -2,7 +2,8 @@ import React from "react";
 import { Button, Form, FormGroup } from "reactstrap";
 import FormComponent from "../../../../component/Form/FormComponent";
 import Loader from "../../../../component/Loader/Loader";
-import { categoryArray } from "../../../../utils/CONSTANT";
+import { payType } from "../../../../utils/CONSTANT";
+import { payMode } from "../../../../utils/CONSTANT";
 import CustomSelect from "../../../../component/Select/CustomSelect";
 import ErrorComponent from "../../../../component/Form/ErrorComponent";
 export default function FormInput({
@@ -12,10 +13,13 @@ export default function FormInput({
   handleChange,
   btnName,
   dataAccountCost,
-  dataPiutang,
-
+  dataTahunAjaran,
+  isEdit,
+  dataPosPay,
   isLoadingSendData,
 }) {
+
+  console.log(values)
   return (
     <Form
       onSubmit={handleSubmit}
@@ -27,58 +31,71 @@ export default function FormInput({
     >
       <FormGroup>
         <CustomSelect
-          data={dataAccountCost}
-          labelName="Kode Akun"
-          optionName="account_code"
-          optionValue={"account_code"}
-          optionNameOptional="account_description"
-          onChange={handleChange("account_account_code")}
-          value={values.account_account_code==null?'':values.account_account_code}
-          name="account_account_code"
+          data={dataPosPay}
+          labelName="POS"
+          optionName="pos_pay_name"
+          optionValue={"pos_pay_id"}
+          onChange={handleChange("pos_pos_id")}
+
+          value={values.pos_pos_id == null ? '' : values.pos_pos_id}
+          name="pos_pos_id"
         />
         <ErrorComponent
-          text={errors.account_account_code}
-          error={errors.account_account_code}
+          text={errors.pos_pos_id}
+          error={errors.pos_pos_id}
         />
       </FormGroup>
       <FormGroup>
         <CustomSelect
-          data={dataPiutang}
-          labelName="Akun Piutang"
-          optionName="account_code"
-          optionValue={"account_code"}
-          optionNameOptional="account_description"
-          onChange={handleChange("account_account_credit")}
-          value={values.account_account_credit}
-          name="account_account_credit"
+          data={dataTahunAjaran}
+          labelName="Tahun Ajaran"
+          optionName="period_start"
+          optionValue={"period_id"}
+          symbol="/"
+          optionNameOptional="period_end"
+          onChange={handleChange("period_period_id")}
+          value={values.period_period_id}
+          name="period_period_id"
         />
         <ErrorComponent
-          text={errors.account_account_credit}
-          error={errors.account_account_credit}
+          text={errors.period_period_id}
+          error={errors.period_period_id}
         />
       </FormGroup>
-      <FormComponent
-        id="pos_pay_name"
-        name="pos_pay_name"
-        text="Nama POS"
-        placeholder="Nama POS"
-        type="text"
-        error={errors}
-        handler={handleChange("pos_pay_name")}
-        value={values.pos_pay_name}
-      />
-     
-      <FormComponent
-        id="pos_pay_description"
-        name="pos_pay_description"
-        text="Keterangan"
-        placeholder="Masukkan keterangan"
-        type="text"
-        error={errors}
-        handler={handleChange("pos_pay_description")}
-        value={values.pos_pay_description}
-      />
-    
+      <FormGroup>
+        <CustomSelect
+          data={payType}
+          labelName="Tipe Bayar"
+          optionName="name"
+          optionValue={"id"}
+          onChange={handleChange("payment_type")}
+          value={values.payment_type}
+          name="payment_type"
+        />
+        <ErrorComponent
+          text={errors.payment_type}
+          error={errors.payment_type}
+        />
+      </FormGroup>
+
+      {isEdit &&
+        <FormGroup>
+          <CustomSelect
+            data={payMode}
+            labelName="Model Bayar"
+            optionName="name"
+            optionValue={"id"}
+            onChange={handleChange("payment_mode")}
+            value={values.payment_mode}
+            name="payment_mode"
+          />
+          <ErrorComponent
+            text={errors.payment_mode}
+            error={errors.payment_mode}
+          />
+        </FormGroup>
+
+      }
 
       {isLoadingSendData ? (
         <Loader />
