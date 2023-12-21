@@ -42,12 +42,16 @@ function MainPage() {
           className="px-4 mt-5 gap-3 flex-flex-nowrap justify-content-center"
         >
           <CardItem
-            text="Login Admin"
+            text="Keuangan"
             onClick={navigateToAdmin}
             logo={<HiOutlineDesktopComputer size={120} />}
           />
           <CardItem
             text="Cek Pembayaran Siswa"
+            logo={<BsCreditCard2Back size={120} />}
+          />
+          <CardItem
+            text="LMS"
             logo={<BsCreditCard2Back size={120} />}
           />
         </Row>

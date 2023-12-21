@@ -33,6 +33,7 @@ export const siswaModel = {
     student_born_place: body.student_born_place,
     student_born_date: body.student_born_date || "0000-00-00",
     student_hobby: body.student_hobby,
+    student_parent_phone:body.student_parent_phone,
     student_phone: body.student_phone,
     student_address: body.student_address,
     student_nis: body.student_nis,

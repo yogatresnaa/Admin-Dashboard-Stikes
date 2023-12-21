@@ -27,6 +27,7 @@ export const siswaInitialValues = {
   student_nisn: '',
   majors_majors_id: '',
   class_class_id: '',
+  student_parent_phone: '',
 
 }
 

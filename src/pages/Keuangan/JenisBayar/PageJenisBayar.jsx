@@ -6,20 +6,9 @@ import SelectUnitKelas from "../../../component/ActionButton/SelectUnitKelas";
 import AddAction from "../../../component/ActionButton/AcctionAddButoon";
 import { Button } from "reactstrap";
 import {
-  getAllProdi,
-  getAllKelas,
-  getAllAlumni,
-  getAllAccountCost,
-  getCodeAccountCost,
-  postAccountCost,
-  putAccountCost,
-  deleteAccountCost,
+
   getAllPosPay,
-  getAllPiutang,
-  getAllAccountCostPay,
-  postPosPay,
-  deletePosPay,
-  putPosPay,
+
   getAllPaymentType,
   putPaymentType,
   postPaymentType,
@@ -33,9 +22,9 @@ import queryString from "query-string";
 import { useSelector } from "react-redux";
 import useTable from "../../../customHooks/useTable";
 import ModalForm from "./components/FormModal";
-import { accountCostInitialValues, paymentTypeInitialValues, posPayInitialValues } from "../../../utils/initialValues";
-import { accountCostSchema, paymentTypeSchema, posPaySchema } from "../../../utils/schema";
-import { accountCostModel, paymentTypeModel, posPayModel } from "../../../models/models";
+import { paymentTypeInitialValues, } from "../../../utils/initialValues";
+import { paymentTypeSchema, } from "../../../utils/schema";
+import { paymentTypeModel, } from "../../../models/models";
 import { alertConfirmation } from "../../../component/Alert/swalConfirmation";
 import { alertType } from "../../../utils/CONSTANT";
 

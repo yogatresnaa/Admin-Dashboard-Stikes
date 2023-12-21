@@ -1,6 +1,6 @@
 import React from "react";
 import { FormGroup, Label, Input } from "reactstrap";
-export default function CustomSelect({ withLabel = true, data, value, onChange, name, labelName, optionName, optionValue, optionNameOptional = '', symbol = '-' }) {
+export default function CustomSelect({ includeAll = false, withLabel = true, data, value, onChange, name, labelName, optionName, optionValue, optionNameOptional = '', symbol = '-' }) {
   return (
     <>
       {
@@ -8,7 +8,7 @@ export default function CustomSelect({ withLabel = true, data, value, onChange, 
           <FormGroup>
             < Label for={name} > {labelName}</Label >
             <Input type="select" value={value} onChange={onChange} name={name} id={name}>
-              <option value={""}>Belum Dipilih</option>
+              <option value={""}>{includeAll ? 'Semua' : 'Belum Dipilih'}</option>
 
               {data.map((item) => (
                 <option key={item[optionValue]} value={item[optionValue]}>{optionNameOptional == '' ? item[optionName] : `${item[optionName]} ${symbol} ${item[optionNameOptional]}`}</option>
@@ -19,8 +19,7 @@ export default function CustomSelect({ withLabel = true, data, value, onChange, 
           <>
 
             <Input type="select" value={value} onChange={onChange} name={name} id={name}>
-              <option value={""}>Belum Dipilih</option>
-
+              <option value={""}>{includeAll ? 'Semua' : 'Belum Dipilih'}</option>
               {data.map((item) => (
                 <option key={item[optionValue]} value={item[optionValue]}>{optionNameOptional == '' ? item[optionName] : `${item[optionName]} ${symbol} ${item[optionNameOptional]}`}</option>
               ))}

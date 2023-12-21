@@ -22,6 +22,7 @@ export const siswaSchema=Yup.object().shape({
     student_born_date:Yup.string().required("Tanggal Lahir Harus Diisi"),
     student_born_place:Yup.string().required("Tempat Lahir Harus Diisi"),
     class_class_id:Yup.string().required("Kelas Harus Diisi"),
+    student_parent_phone:Yup.string().required("Nomor Telp Orang Tua Diisi"),
     // majors_short_name:Yup.string().required("Field Harus Diisi"),
    
 })
