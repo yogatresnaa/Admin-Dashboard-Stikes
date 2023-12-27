@@ -12,7 +12,10 @@ import { getAllKelas, getAllPaymentRateByPayment } from '../../../../utils/http'
 import TableTarifTagihan from './components/TableTarifTagihan';
 import useTable from '../../../../customHooks/useTable';
 import SearchInput from '../../../../component/ActionButton/SearchInput';
+
 import queryString from 'query-string';
+import ActionButton from './components/ActionButton';
+import { ToastContainer } from 'react-toastify';
 export default function PageTarifTagihan() {
 
   const location = useLocation();
@@ -80,7 +83,7 @@ export default function PageTarifTagihan() {
     getDataKelas(() => getAllKelas(dataUser.token))
     console.log(queryFilter)
     console.log(data)
-    getDataPaymentRate(() => getAllPaymentRateByPayment(queryString.stringify(queryFilter), data.payment_id))
+    getDataPaymentRate(() => getAllPaymentRateByPayment(queryString.stringify(queryFilter), data.payment_id, dataUser.token))
   }, [])
 
   const dataFiltered = useMemo(
@@ -121,7 +124,7 @@ export default function PageTarifTagihan() {
   return (
     <>
       <div className="page-content">
-        {/* <ToastContainer /> */}
+        <ToastContainer />
         <h3>
           Tarif Tagihan <span style={{ fontSize: "0.8em", color: "gray" }}>Detail</span>
         </h3>
@@ -133,7 +136,7 @@ export default function PageTarifTagihan() {
           <Row md={4} noGutters className='gap-3'>
             <Row md={1} noGutters>
               <Col md={3} className='justify-content-center align-items-center d-flex'>
-                <p className='section-title'>Tahun</p>
+                <h5 className='section-title'>Tahun</h5>
               </Col>
               <Col md={9}>
                 <Input style={{ fontSize: '0.8rem', height: '100%' }} value={`${data.period_start} / ${data.period_end}`} disabled />
@@ -141,7 +144,7 @@ export default function PageTarifTagihan() {
             </Row>
             <Row md={1} noGutters>
               <Col md={3} className='justify-content-center align-items-center d-flex'>
-                <p className='section-title'>Kelas</p>
+                <h5 className='section-title'>Kelas</h5>
               </Col>
               <Col md={9}>
                 <CustomSelect
@@ -166,38 +169,11 @@ export default function PageTarifTagihan() {
               </Col>
             </Row>
           </Row>
-          <div style={{ borderBottom: '0.5px solid gray' }}></div>
-          <Row md={6} noGutters className='gap-1 align-items-center'>
-            <Col md={1} >
-              <p className='section-title'>Setting Tarif</p>
-            </Col>
-
-            <Col md={2} >
-              <Link to={{
-                pathname: '/admin/tarif-tagihan/91/tambah', search: createSearchParams({
-                  type: "tambah"
-                }).toString()
-              }}>
-                <Button size='sm' className='button-setting-tarif d-flex align-items-center text-white justify-content-center  ' color='primary'><AiOutlinePlusCircle size={15} color='white' /> Berdasarkan Kelas</Button>
-              </Link>
-            </Col>
-            <Col md={2} >
-              <Button size='sm' className='button-setting-tarif d-flex align-items-center text-white justify-content-center ' color='info'><AiOutlinePlusCircle size={15} color='white' />Berdasarkan Siswa</Button>
-            </Col>
-            <Col md={2} >
-              <Button size='sm' className='button-setting-tarif d-flex align-items-center text-white justify-content-center ' color='warning'><AiFillEdit size={15} color='white' /> Edit Tarif Bebas per Kelas</Button>
-
-            </Col>
-            <Col md={1} >
-              <Button size='sm' className='button-setting-tarif d-flex align-items-center text-white justify-content-center ' color='secondary'><AiOutlineRollback size={15} color='white' onClick={onBackHandler} /> kembali</Button>
-            </Col>
-          </Row>
-
+          <div style={{ borderBottom: '0.5px solid gray' }} />
+          <ActionButton onBackHandler={onBackHandler} data={data} />
         </div>
         <div className="table-content d-flex flex-column gap-3 mt-4">
           <TableTarifTagihan subHeaderComponent={subHeaderComponent} data={dataFiltered} isLoading={isLoadingPaymentRate} />
-
-
         </div>
       </div>
 

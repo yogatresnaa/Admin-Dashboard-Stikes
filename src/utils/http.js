@@ -107,6 +107,10 @@ export const putPaymentType = (id, body, token) => Axios.put(`${URL_BASE}/paymen
 // export const postPaymentType = (body, token) => Axios.post(`${URL_BASE}/payment-type`, body, options(token));
 export const getAllPaymentRateByPayment = (queryFilter, id, token) => Axios.get(`${URL_BASE}/payment-rate/${id}?${queryFilter}`, options(token));
 export const getAllPaymentRateById = (id, token) => Axios.get(`${URL_BASE}/payment-rate/detail/${id}`, options(token));
+
+//detail tarif bayar 
+export const getDetailPaymentRate = (id, token) => Axios.get(`${URL_BASE}/payment-rate/detail/${id}`, options(token));
+// export const getAllPaymentRateById = (id, token) => Axios.get(`${URL_BASE}/payment-rate/detail/${id}`, options(token));
 // export const deletePaymentType = (id, token) => Axios.delete(`${URL_BASE}/payment-type/${id}`, options(token));
 // export const putPaymentType = (id, body, token) => Axios.put(`${URL_BASE}/payment-type/${id}`, body, options(token));
 

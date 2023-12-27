@@ -50,3 +50,26 @@ export const paymentTypeInitialValues = {
   pos_pos_id: '',
 
 }
+export const detailPaymentRateInitialValues = {
+  payment_type: '',
+  student_student_id: '',
+  class_class_id: '',
+  month: {
+    month_januari: { id: 7, payment: '' },
+    month_februari: { id: 8, payment: '' },
+    month_maret: { id: 9, payment: '' },
+    month_april: { id: 10, payment: '' },
+    month_mei: { id: 11, payment: '' },
+    month_juni: { id: 12, payment: '' },
+    month_juli: { id: 1, payment: '' },
+    month_agustus: { id: 2, payment: '' },
+    month_september: { id: 3, payment: '' },
+    month_oktober: { id: 4, payment: '' },
+    month_november: { id: 5, payment: '' },
+    month_desember: { id: 6, payment: '' },
+
+
+  }
+
+
+}

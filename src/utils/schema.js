@@ -56,6 +56,26 @@ export const paymentTypeSchema=Yup.object().shape({
   period_period_id :Yup.string().required("Tahun Ajaran Harus Diisi"),
   pos_pos_id :Yup.string().required("POS Harus Diisi"),   
 })
+
+export const paymentRateSchema=Yup.object().shape({
+  class_class_id:Yup.string().required("Kelas Harus Dipilih"),
+  month:Yup.object().shape({
+    month_januari: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_februari: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_maret: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_april: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_mei: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_juni: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_juli: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_agustus: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_september: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_oktober: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_november: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_desember: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+  })
+  
+  
+})
 // export const siswaSchema=Yup.object().shape({
  
 //     code:Yup.string().required("Kode Harus Diisi"),
