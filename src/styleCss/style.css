@@ -48,9 +48,8 @@
 }
 
 .sidebar-text,
-.sidebar-text>* {
+.sidebar-text > * {
   font-size: 0.8rem;
-
 }
 
 ::-webkit-scrollbar {
@@ -60,8 +59,8 @@
 
 ::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  background-color: rgba(0, 0, 0, .5);
-  box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .content {

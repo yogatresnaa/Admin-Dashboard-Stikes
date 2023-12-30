@@ -1,50 +1,48 @@
 .bg {
-    background-color: rgb(12, 203, 168) !important;
-  }
-  .nav-item {
-    cursor: pointer;
-  }
-  
-  .column-wrapper {
-    flex-wrap: nowrap;
-  }
-  
-  
-  .link {
-    text-decoration: none;
-  }
-  .color:hover {
-    background-color: blue;
-    border-radius: 5px;
-  }
+  background-color: rgb(12, 203, 168) !important;
+}
+.nav-item {
+  cursor: pointer;
+}
+
+.column-wrapper {
+  flex-wrap: nowrap;
+}
+
+.link {
+  text-decoration: none;
+}
+.color:hover {
+  background-color: blue;
+  border-radius: 5px;
+}
 
 .sidebar-wrapper {
-    z-index: 20;
-    overflow-y: auto;
+  z-index: 20;
+  overflow-y: auto;
 }
 .sidebar-wrapper::-webkit-scrollbar {
-    display: none;
-  }
-.brand-name {
-    display: flex;
-    justify-content: center;
-    
-   
-    align-items: center;
+  display: none;
 }
-.brand-name__image-wrapper{
-    width: 100px;
-    height:  100px;
-    flex: 1;
-    overflow: hidden;
+.brand-name {
+  display: flex;
+  justify-content: center;
+
+  align-items: center;
+}
+.brand-name__image-wrapper {
+  width: 100px;
+  height: 100px;
+  flex: 1;
+  overflow: hidden;
 }
 .brand-name__image-wrapper > img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .link.color:hover {
-    background-color:gray; /*will change background-color of element on hover */
-    color: white; /*will change color of text within the element on hover */
+  background-color: gray; /*will change background-color of element on hover */
+  color: white; /*will change color of text within the element on hover */
 }
