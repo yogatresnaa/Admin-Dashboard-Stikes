@@ -203,7 +203,7 @@ function Sidebar() {
                 </Navbar.Toggle>
               </a>
               <ul className='nav collapse itemku ms-2 flex-column justify-content-end column-wrapper  ' id='submenu6' data-bs-parent='#parentM'>
-                <Link className='link color' to='/saldo-awal'>
+                <Link className='link color' to='/admin/saldo-awal'>
                   <li className='nav-item nav-link text-white m-1'>
                     <FaCircleMinus /> Saldo Awal
                   </li>

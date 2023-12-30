@@ -10,6 +10,8 @@ import PageTahunAjaran from './Akademik/TahunAjaran/PageTahunAjaran';
 import PageNotFound from './NotFound/PageNoFound';
 import PagePosBayar from './Keuangan/PosBayar/PagePosBayar';
 import PageAkunBiaya from './Keuangan/AkunBiaya/PageAkunBiaya';
+
+import PageSaldoAwal from './KasBank/KasMasuk/PageSaldoAwal';
 // import PageDashboard from './Dashboard/PageDashboard';
 import LoginPage from './Login/Login';
 import 'react-toastify/dist/ReactToastify.css';
@@ -46,6 +48,8 @@ function AppRoutes() {
 
             <Route path='akun-biaya' element={<PageAkunBiaya />} />
             <Route path='pos-bayar' element={<PagePosBayar />} />
+
+            <Route path='saldo-awal' element={<PageSaldoAwal />} />
 
             <Route path='' element={<PageDashboard />} />
           </Route>

@@ -108,4 +108,28 @@ const dataAkunBiaya = [
   },
 ];
 
-export { getDataTransaksi, dataPosBayar, dataAkunBiaya };
+const saldoAwal = [
+  {
+    id: 1,
+    KodeAkun: '1-1000',
+    Keterangan: 'AKTIVA',
+    Debit: '-',
+    Kredit: '-',
+  },
+  {
+    id: 2,
+    KodeAkun: '1-2000',
+    Keterangan: 'Aktiva SMK',
+    Debit: '-',
+    Kredit: '-',
+  },
+  {
+    id: 3,
+    KodeAkun: '1-3000',
+    Keterangan: 'Kas SMK',
+    Debit: '0',
+    Kredit: '0',
+  },
+];
+
+export { getDataTransaksi, dataPosBayar, dataAkunBiaya, saldoAwal };
