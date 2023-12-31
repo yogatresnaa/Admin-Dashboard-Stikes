@@ -118,7 +118,7 @@ const saldoAwal = [
   },
   {
     id: 2,
-    KodeAkun: '1-2000',
+    KodeAkun: 'Kas Tunai',
     Keterangan: 'Aktiva SMK',
     Debit: '-',
     Kredit: '-',
@@ -132,4 +132,46 @@ const saldoAwal = [
   },
 ];
 
-export { getDataTransaksi, dataPosBayar, dataAkunBiaya, saldoAwal };
+const kasKeluar = [
+  {
+    id: 1,
+    Kas: 'Kas Tunai',
+    NoRef: 'GKTK000356745421122302',
+    Tanggal: '30/12/2023',
+    KodeAkun: '5-50105 - Biaya Biaya ',
+    Keterangan: 'Gaji y',
+    Nominal: ' 2.115.000',
+
+    Pajak: '0%',
+    UnitPos: '...',
+    Total: '2.115.000',
+  },
+  {
+    id: 2,
+    Kas: 'Kas Tunai',
+    NoRef: 'GKSMPx30122301',
+    Tanggal: '29/12/2023',
+    KodeAkun: '5-50103 - Biaya Kirim Setoran',
+    Keterangan: 'Transfer Kas ke akun Kas Bank BRI Syariah SMA',
+    Nominal: 'Rp. 2.115.000',
+
+    Pajak: '0%',
+    UnitPos: '...',
+    Total: '2.115.000',
+  },
+  {
+    id: 3,
+    Kas: 'Kas Tunai',
+    NoRef: 'JKTK2912230001',
+    Tanggal: '21/12/2023',
+    KodeAkun: '5-50201 - Biaya Gaji',
+    Keterangan: 'Gaji Kepala Sekolah',
+    Nominal: 'Rp. 1.000.000',
+
+    Pajak: '0%',
+    UnitPos: '...',
+    Total: 'Rp. 1.000.000',
+  },
+];
+
+export { getDataTransaksi, dataPosBayar, dataAkunBiaya, saldoAwal, kasKeluar };

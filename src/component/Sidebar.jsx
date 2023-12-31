@@ -208,7 +208,7 @@ function Sidebar() {
                     <FaCircleMinus /> Saldo Awal
                   </li>
                 </Link>
-                <Link className='link color' to='/saldo-keluar'>
+                <Link className='link color' to='/admin/kas-keluar'>
                   <li className='nav-item nav-link text-white m-1'>
                     <FaCircleMinus /> Kas Keluar
                   </li>
