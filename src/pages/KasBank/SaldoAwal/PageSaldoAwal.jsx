@@ -8,22 +8,22 @@ import queryString from 'query-string';
 import { useSelector } from 'react-redux';
 
 function PageSaldoAwal() {
-  const {
-    data: dataSiswa,
-    setData: setDataSiswa,
-    sendData: sendDataSiswa,
-    setDataDetail: setDataDetailSiswa,
-    dataDetail: dataDetailSiswa,
-    getData: getDataSiswa,
-    isLoading: isLoadingSiswa,
-    setIsLoading: setIsLoadingSiswa,
-    isLoadingSendData: isLoadingSendDataSiswa,
-    filterText,
-    onChangeFilterText,
-  } = useRequest();
+  // const {
+  //   data: dataSiswa,
+  //   setData: setDataSiswa,
+  //   sendData: sendDataSiswa,
+  //   setDataDetail: setDataDetailSiswa,
+  //   dataDetail: dataDetailSiswa,
+  //   getData: getDataSiswa,
+  //   isLoading: isLoadingSiswa,
+  //   setIsLoading: setIsLoadingSiswa,
+  //   isLoadingSendData: isLoadingSendDataSiswa,
+  //   filterText,
+  //   onChangeFilterText,
+  // } = useRequest();
 
   const { data: dataKelas, setData: setDataKelas, getData: getDataKelas } = useRequest();
-  const { data: dataProdi, setData: setDataProdi, getData: getDataProdi } = useRequest();
+  // const { data: dataProdi, setData: setDataProdi, getData: getDataProdi } = useRequest();
 
   const dataUser = useSelector(({ authState }) => authState.data);
   const [queryFilter, setQueryFilter] = useState({
@@ -33,7 +33,7 @@ function PageSaldoAwal() {
   });
 
   useEffect(() => {
-    const query = queryString.stringify(queryFilter);
+    // const query = queryString.stringify(queryFilter);
     getDataKelas(() => getAllKelas(dataUser.token));
   }, []);
 

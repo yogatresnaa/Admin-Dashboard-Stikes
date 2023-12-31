@@ -11,7 +11,7 @@ import PageNotFound from './NotFound/PageNoFound';
 import PagePosBayar from './Keuangan/PosBayar/PagePosBayar';
 import PageAkunBiaya from './Keuangan/AkunBiaya/PageAkunBiaya';
 
-import PageSaldoAwal from './KasBank/KasMasuk/PageSaldoAwal';
+import PageSaldoAwal from './KasBank/SaldoAwal/PageSaldoAwal';
 // import PageDashboard from './Dashboard/PageDashboard';
 import LoginPage from './Login/Login';
 import 'react-toastify/dist/ReactToastify.css';

@@ -210,7 +210,7 @@ function Sidebar() {
                 </Link>
                 <Link className='link color' to='/saldo-keluar'>
                   <li className='nav-item nav-link text-white m-1'>
-                    <FaCircleMinus /> Saldo Keluar
+                    <FaCircleMinus /> Kas Keluar
                   </li>
                 </Link>
 
