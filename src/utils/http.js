@@ -71,7 +71,7 @@ export const postStatusSiswa = (body, token) => Axios.post(`${URL_BASE}/status-s
 export const deleteStatusSiswa = (id, token) => Axios.delete(`${URL_BASE}/status-siswa/${id}`, options(token));
 
 export const getAllSiswa = (query, token) => Axios.get(`${URL_BASE}/siswa?${query}`, options(token));
-export const getAllSiswaByQuery = (query, token) => Axios.get(`${URL_BASE}/siswa${query}`, options(token));
+export const getAllSiswaByQuery = (query, token) => Axios.get(`${URL_BASE}/siswa?${query}`, options(token));
 export const getSiswaById = (id, token) => Axios.get(`${URL_BASE}/siswa/${id}`, options(token));
 export const postSiswa = (body, token) => Axios.post(`${URL_BASE}/siswa`, body, options(token));
 export const putSiswa = (id, body, token) => Axios.put(`${URL_BASE}/siswa/${id}`, body, options(token));
@@ -110,6 +110,11 @@ export const getAllPaymentRateById = (id, token) => Axios.get(`${URL_BASE}/payme
 
 //detail tarif bayar 
 export const getDetailPaymentRate = (id, token) => Axios.get(`${URL_BASE}/payment-rate/detail/${id}`, options(token));
+export const postMonthlyPaymentRateByClass = (body, token) => Axios.post(`${URL_BASE}/payment-rate/month/class`, body, options(token));
+export const postMonthlyPaymentRateByStudent = (body, token) => Axios.post(`${URL_BASE}/payment-rate/month/student`, body, options(token));
+export const postFreePaymentRateByClass = (body, token) => Axios.post(`${URL_BASE}/payment-rate/free/class`, body, options(token));
+export const postFreePaymentRateByStudent = (body, token) => Axios.post(`${URL_BASE}/payment-rate/free/student`, body, options(token));
+
 // export const getAllPaymentRateById = (id, token) => Axios.get(`${URL_BASE}/payment-rate/detail/${id}`, options(token));
 // export const deletePaymentType = (id, token) => Axios.delete(`${URL_BASE}/payment-type/${id}`, options(token));
 // export const putPaymentType = (id, body, token) => Axios.put(`${URL_BASE}/payment-type/${id}`, body, options(token));

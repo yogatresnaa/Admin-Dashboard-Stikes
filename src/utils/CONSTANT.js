@@ -105,3 +105,8 @@ export const monthField = {
   month_payment_november: '',
   month_payment_desember: '',
 }
+
+export const paymentType = {
+  bulanan: 'bulanan',
+  bebas: 'bebas'
+}

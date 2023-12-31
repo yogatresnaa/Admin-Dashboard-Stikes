@@ -65,34 +65,20 @@ export const paymentTypeModel = {
 
   }),
 }
-export const paymentRateModel = {
+export const monthlyPaymentRateModel = {
   objectToJSON: (body) => ({
-    payment_type: body.payment_type,
+    payment_payment_id: body.payment_id,
     student_student_id: body.student_student_id,
     class_class_id: body.class_class_id,
-    month_januari: body.month_januari,
-    month_februari: body.month_februari,
-    month_maret: body.month_maret,
-    month_april: body.month_april,
-    month_mei: body.month_mei,
-    month_juni: body.month_juni,
-    month_juli: body.month_juli,
-    month_agustus: body.month_agustus,
-    month_september: body.month_september,
-    month_oktober: body.month_oktober,
-    month_november: body.month_november,
-    month_desember: body.month_desember,
-    month_payment_januari: body.month_payment_januari,
-    month_payment_februari: body.month_payment_februari,
-    month_payment_maret: body.month_payment_maret,
-    month_payment_april: body.month_payment_april,
-    month_payment_mei: body.month_payment_mei,
-    month_payment_juni: body.month_payment_juni,
-    month_payment_juli: body.month_payment_juli,
-    month_payment_agustus: body.month_payment_agustus,
-    month_payment_september: body.month_payment_september,
-    month_payment_oktober: body.month_payment_oktober,
-    month_payment_november: body.month_payment_november,
-    month_payment_desember: body.month_payment_desember,
+    month: body.month
+  }),
+}
+export const freePaymentRateModel = {
+  objectToJSON: (body) => ({
+    payment_payment_id: body.payment_id,
+    payment: body.payment,
+    student_student_id: body.student_student_id,
+    class_class_id: body.class_class_id,
+
   }),
 }

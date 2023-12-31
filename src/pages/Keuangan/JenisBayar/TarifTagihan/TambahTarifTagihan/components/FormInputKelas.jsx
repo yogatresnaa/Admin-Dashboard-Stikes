@@ -12,14 +12,18 @@ export default function FormInputKelas({
   values,
   errors,
   handleChange,
+  locationState,
   btnName,
+  type,
   dataKelas,
+  dataSiswa,
+  setFieldValue,
+  onChangeClassAndFetchHandler,
   dataDetailPaymentRate,
   isEdit,
   isLoadingSendData,
 }) {
 
-  console.log(values)
   return (
     <>
       <HorizontalFormComponent
@@ -52,27 +56,47 @@ export default function FormInputKelas({
         handler={handleChange("payment_type")}
         value={values.payment_type}
       />
-      <FormGroup>
+      {locationState.data.payment_type.toLowerCase().includes('bulanan') &&
+        <FormGroup>
 
-        <CustomSelect
-          data={dataKelas}
-          isVertical={false}
-          includeAll={false}
-          withLabel
-          name={'class_id'}
-
-          value={values.class_class_id}
-          onChange={handleChange("class_class_id")}
-          labelName={'Kelas'}
-          optionName={'class_name'}
-          optionValue={'class_id'}
-        />
-        <ErrorComponent
-          text={errors.class_class_id}
-          error={errors.class_class_id}
-        />
-
-      </FormGroup>
+          <CustomSelect
+            data={dataKelas}
+            isVertical={false}
+            includeAll={false}
+            withLabel
+            name={'class_id'}
+            value={values.class_class_id}
+            onChange={type.includes('siswa') ? (e) => { onChangeClassAndFetchHandler(setFieldValue, e.target.value) } : handleChange("class_class_id")}
+            labelName={'Kelas'}
+            optionName={'class_name'}
+            optionValue={'class_id'}
+          />
+          <ErrorComponent
+            text={errors.class_class_id}
+            error={errors.class_class_id}
+          />
+        </FormGroup>
+      }
+      {type.includes('siswa') &&
+        <FormGroup>
+          <CustomSelect
+            data={dataSiswa}
+            isVertical={false}
+            includeAll={false}
+            withLabel
+            name={'class_id'}
+            value={values.student_student_id}
+            onChange={handleChange("student_student_id")}
+            labelName={'Siswa'}
+            optionName={'student_full_name'}
+            optionValue={'student_id'}
+          />
+          <ErrorComponent
+            text={errors.student_student_id}
+            error={errors.student_student_id}
+          />
+        </FormGroup>
+      }
     </>
   );
 }

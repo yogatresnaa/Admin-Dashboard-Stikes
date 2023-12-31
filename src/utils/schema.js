@@ -57,7 +57,7 @@ export const paymentTypeSchema=Yup.object().shape({
   pos_pos_id :Yup.string().required("POS Harus Diisi"),   
 })
 
-export const paymentRateSchema=Yup.object().shape({
+export const monthlyPaymentRateSchema=Yup.object().shape({
   class_class_id:Yup.string().required("Kelas Harus Dipilih"),
   month:Yup.object().shape({
     month_januari: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
@@ -73,7 +73,10 @@ export const paymentRateSchema=Yup.object().shape({
     month_november: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
     month_desember: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
   })
-  
+})
+export const freePaymentRateSchema=Yup.object().shape({
+  class_class_id:Yup.string().required("Kelas Harus Dipilih"),
+  payment:Yup.string().required("nominal harus diisi"),
   
 })
 // export const siswaSchema=Yup.object().shape({
