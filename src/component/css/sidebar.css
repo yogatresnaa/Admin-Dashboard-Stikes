@@ -1,5 +1,5 @@
 .bg {
-  background-color: rgb(12, 203, 168) !important;
+  background-color: white !important;
 }
 .nav-item {
   cursor: pointer;
@@ -43,6 +43,6 @@
 }
 
 .link.color:hover {
-  background-color: gray; /*will change background-color of element on hover */
+  background-color: #e0f4ff; /*will change background-color of element on hover */
   color: white; /*will change color of text within the element on hover */
 }
