@@ -4,8 +4,6 @@
   padding: 5px;
   margin: 10px;
   flex: auto;
-  display: flex;
-  overflow-x: scroll;
   flex-direction: column;
 
 }

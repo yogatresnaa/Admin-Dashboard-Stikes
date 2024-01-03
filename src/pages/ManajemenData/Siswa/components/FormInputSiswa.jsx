@@ -50,7 +50,7 @@ export default function FormInputSiswa({
         handler={handleChange("student_born_date")}
         value={values.student_born_date}
       />
-         <FormComponent
+      <FormComponent
         id="student_hobby"
         name="student_hobby"
         text="Hobi"
@@ -60,7 +60,7 @@ export default function FormInputSiswa({
         handler={handleChange("student_hobby")}
         value={values.student_hobby}
       />
-         <FormComponent
+      <FormComponent
         id="student_phone"
         name="student_phone"
         text="Nomor Handphone"
@@ -70,7 +70,17 @@ export default function FormInputSiswa({
         handler={handleChange("student_phone")}
         value={values.student_phone}
       />
-         <FormComponent
+      <FormComponent
+        id="student_parent_phone"
+        name="student_parent_phone"
+        text="Nomor Handphone Orang Tua"
+        placeholder="Masukkan Nomor Handphone Orang Tua"
+        type="text"
+        error={errors}
+        handler={handleChange("student_parent_phone")}
+        value={values.student_parent_phone}
+      />
+      <FormComponent
         id="student_address"
         name="student_address"
         text="Alamat"

@@ -22,6 +22,7 @@ export const siswaSchema=Yup.object().shape({
     student_born_date:Yup.string().required("Tanggal Lahir Harus Diisi"),
     student_born_place:Yup.string().required("Tempat Lahir Harus Diisi"),
     class_class_id:Yup.string().required("Kelas Harus Diisi"),
+    student_parent_phone:Yup.string().required("Nomor Telp Orang Tua Diisi"),
     // majors_short_name:Yup.string().required("Field Harus Diisi"),
    
 })
@@ -49,6 +50,34 @@ export const posPaySchema=Yup.object().shape({
 
     // majors_short_name:Yup.string().required("Field Harus Diisi"),
    
+})
+export const paymentTypeSchema=Yup.object().shape({
+  payment_type:Yup.string().required("Jenis Bayar Harus Dipilih"),
+  period_period_id :Yup.string().required("Tahun Ajaran Harus Diisi"),
+  pos_pos_id :Yup.string().required("POS Harus Diisi"),   
+})
+
+export const monthlyPaymentRateSchema=Yup.object().shape({
+  class_class_id:Yup.string().required("Kelas Harus Dipilih"),
+  month:Yup.object().shape({
+    month_januari: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_februari: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_maret: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_april: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_mei: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_juni: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_juli: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_agustus: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_september: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_oktober: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_november: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+    month_desember: Yup.object().shape({payment:Yup.string().required("Harus Diisi") }),
+  })
+})
+export const freePaymentRateSchema=Yup.object().shape({
+  class_class_id:Yup.string().required("Kelas Harus Dipilih"),
+  payment:Yup.string().required("nominal harus diisi"),
+  
 })
 // export const siswaSchema=Yup.object().shape({
  

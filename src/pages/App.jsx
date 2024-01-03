@@ -24,6 +24,9 @@ import MainPage from './MainPage';
 import PageProgramStudi from './ManajemenData/ProgramStudi/PageProgramStudi';
 import PageLaporanPembayaranKelas from './Laporan/Pembayaran/PerKelas/PageLaporanPembayaranKelas';
 import PageDashboard from './Dashboard/PageDashboard';
+import PageJenisBayar from './Keuangan/JenisBayar/PageJenisBayar';
+import PageTarifTagihan from './Keuangan/JenisBayar/TarifTagihan/PageTarifTagihan';
+import PageAddTarifTagihan from './Keuangan/JenisBayar/TarifTagihan/TambahTarifTagihan/PageAddTarifTagihan';
 function AppRoutes() {
   return (
     <Provider store={store}>
@@ -43,7 +46,10 @@ function AppRoutes() {
             <Route path='laporan-pembayaran/kelas' element={<PageLaporanPembayaranKelas />} />
 
             <Route path='pos-bayar' element={<PagePosBayar />} />
+            <Route path='jenis-bayar' element={<PageJenisBayar />} />
             <Route path='akun-biaya' element={<PageAkunBiaya />} />
+            <Route path='tarif-tagihan/:id' element={<PageTarifTagihan />} />
+            <Route path='tarif-tagihan/:id/tambah' element={<PageAddTarifTagihan />} />
 
             <Route path='not-found' element={<PageNotFound />} />
 
