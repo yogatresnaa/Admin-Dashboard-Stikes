@@ -1,6 +1,6 @@
 import React from "react";
 import { FormGroup, Label, Input } from "reactstrap";
-export default function CustomSelect({ isVertical = true, includeAll = false, withLabel = true, data, value, onChange, name, labelName, optionName, optionValue, optionNameOptional = '', symbol = '-' }) {
+export default function CustomSelect({ isVertical = true, includeAll = false, withLabel = true, data, isDisabled = false, value, onChange, name, labelName, optionName, optionValue, optionNameOptional = '', symbol = '-' }) {
   return (
     <>
       {
@@ -11,7 +11,7 @@ export default function CustomSelect({ isVertical = true, includeAll = false, wi
               width: '100%',
               maxWidth: '100px'
             }} > {labelName}</Label >
-            <Input type="select" className={`${isVertical ? '' : 'w-100'}`} value={value} onChange={onChange} name={name} id={name}>
+            <Input type="select" className={`${isVertical ? '' : 'w-100'}`} value={value} onChange={onChange} disabled={isDisabled} name={name} id={name}>
               <option value={""}>{includeAll ? 'Semua' : 'Belum Dipilih'}</option>
 
               {data.map((item) => (

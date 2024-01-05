@@ -109,11 +109,12 @@ export const getAllPaymentRateByPayment = (queryFilter, id, token) => Axios.get(
 export const getAllPaymentRateById = (id, token) => Axios.get(`${URL_BASE}/payment-rate/detail/${id}`, options(token));
 
 //detail tarif bayar 
-export const getDetailPaymentRate = (id, token) => Axios.get(`${URL_BASE}/payment-rate/detail/${id}`, options(token));
+export const getDetailPaymentRate = (id, query, body, token) => Axios.post(`${URL_BASE}/payment-rate/detail/${id}?${query}`, body, options(token));
 export const postMonthlyPaymentRateByClass = (body, token) => Axios.post(`${URL_BASE}/payment-rate/month/class`, body, options(token));
 export const postMonthlyPaymentRateByStudent = (body, token) => Axios.post(`${URL_BASE}/payment-rate/month/student`, body, options(token));
 export const postFreePaymentRateByClass = (body, token) => Axios.post(`${URL_BASE}/payment-rate/free/class`, body, options(token));
 export const postFreePaymentRateByStudent = (body, token) => Axios.post(`${URL_BASE}/payment-rate/free/student`, body, options(token));
+export const deletePaymentRate = (id, token) => Axios.delete(`${URL_BASE}/payment-rate/${id}`, options(token));
 
 // export const getAllPaymentRateById = (id, token) => Axios.get(`${URL_BASE}/payment-rate/detail/${id}`, options(token));
 // export const deletePaymentType = (id, token) => Axios.delete(`${URL_BASE}/payment-type/${id}`, options(token));

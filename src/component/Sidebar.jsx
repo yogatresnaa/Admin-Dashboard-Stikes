@@ -290,8 +290,8 @@ function Sidebar() {
                 </li>
 
                 <li className='nav-item'>
-                  <a href='#submenu8' className='nav-link text-white' id='submenu5' onClick={toggleNav8} data-bs-toggle='collapse' aria-current='page'>
-                    Laporan Keuagan
+                  <a href='#submenu8' className='nav-link ' id='submenu5' onClick={toggleNav8} data-bs-toggle='collapse' aria-current='page' style={{ color: '#DC84F3' }}>
+                    Laporan Keuangan
                     <Navbar.Toggle aria-controls='responsive-navbar-nav' className='ms-2'>
                       {toggle8 === true ? <FaAngleUp /> : <FaAngleDown />}
                     </Navbar.Toggle>
@@ -299,12 +299,12 @@ function Sidebar() {
 
                   <ul className='nav collapse multi-collapse ms-2 flex-column justify-content-end column-wrapper ' id='submenu8' data-bs-parent='#submenu7'>
                     <Link className='link color' to='/lap-jurnal'>
-                      <li className='nav-item nav-link text-white m-1'>
+                      <li className='nav-item nav-link m-1' style={{ color: '#DC84F3' }}>
                         <FaCircleMinus /> Laporan Jurnal
                       </li>
                     </Link>
                     <Link className='link color' to='/lap-kas-bank'>
-                      <li className='nav-item nav-link text-white m-1'>
+                      <li className='nav-item nav-link m-1' style={{ color: '#DC84F3' }}>
                         <FaCircleMinus /> Laporan Kas Bank
                       </li>
                     </Link>
