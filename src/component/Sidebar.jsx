@@ -197,7 +197,7 @@ function Sidebar() {
                       </li>
                     </Link>
 
-                    <Link className='link color' to='/alumni'>
+                    <Link className='link color' to='/admin/jenis-bayar'>
                       <li className='nav-item nav-link m-1' style={{ color: '#DC84F3' }}>
                         <FaCircleMinus /> Jenis Bayar
                       </li>
