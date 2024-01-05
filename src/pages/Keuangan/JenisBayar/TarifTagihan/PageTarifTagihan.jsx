@@ -3,15 +3,16 @@ import { Link, createSearchParams, useLocation, useNavigate } from 'react-router
 import { Col, Input, Row, FormGroup, Button } from 'reactstrap';
 import CustomSelect from '../../../../component/Select/CustomSelect';
 import ErrorComponent from '../../../../component/Form/ErrorComponent';
-import { payType } from '../../../../utils/CONSTANT';
+import { alertType, payType } from '../../../../utils/CONSTANT';
 import { AiOutlineRollback, AiOutlinePlusCircle, AiFillEdit } from "react-icons/ai";
 import './styles/style.css';
 import useRequest from '../../../../customHooks/useRequest';
 import { useSelector } from 'react-redux';
-import { getAllKelas, getAllPaymentRateByPayment } from '../../../../utils/http';
+import { deletePaymentRate, getAllKelas, getAllPaymentRateByPayment } from '../../../../utils/http';
 import TableTarifTagihan from './components/TableTarifTagihan';
 import useTable from '../../../../customHooks/useTable';
 import SearchInput from '../../../../component/ActionButton/SearchInput';
+import { alertConfirmation } from "../../../../component/Alert/swalConfirmation";
 
 import queryString from 'query-string';
 import ActionButton from './components/ActionButton';
@@ -86,6 +87,25 @@ export default function PageTarifTagihan() {
     getDataPaymentRate(() => getAllPaymentRateByPayment(queryString.stringify(queryFilter), data.payment_id, dataUser.token))
   }, [])
 
+  const onDeleteClickHandler = async (formBody) => {
+    alertConfirmation(alertType.delete, async () => {
+      await sendDataPaymentRate(
+        () => deletePaymentRate(formBody.payment_rate_id, dataUser.token),
+        () => getDataPaymentRate(() => getAllPaymentRateByPayment(queryString.stringify(queryFilter), data.payment_id, dataUser.token)),
+        null
+      );
+    });
+  }
+
+  const onClickEditHandler = (row) => {
+    console.log(row)
+    // navigate({
+    //   pathname: `/admin/tarif-tagihan/${data.payment_id}/tambah`, search: createSearchParams({
+    //     type: "edit-siswa",
+    //   })
+    // }, { state: row }
+    // )
+  }
   const dataFiltered = useMemo(
     () =>
       dataPaymentRate.data.filter(
@@ -131,7 +151,7 @@ export default function PageTarifTagihan() {
 
         <div className="table-content d-flex flex-column gap-3">
           <h4 style={{ fontSize: '1.1rem' }}>
-            Tarif - <span style={{ fontSize: "0.9em", color: "gray" }}>{`${data.pos_pay_name} - T.A ${data.period_start}/${data.period_end}`}</span>
+            Tarif - <span style={{ fontSize: "0.9em", color: "gray" }}>{`${data.pos_pay_name} - T.A ${data.period_start} / ${data.period_end}`}</span>
           </h4>
           <Row md={4} noGutters className='gap-3'>
             <Row md={1} noGutters>
@@ -173,7 +193,7 @@ export default function PageTarifTagihan() {
           <ActionButton onBackHandler={onBackHandler} data={data} />
         </div>
         <div className="table-content d-flex flex-column gap-3 mt-4">
-          <TableTarifTagihan subHeaderComponent={subHeaderComponent} data={dataFiltered} isLoading={isLoadingPaymentRate} />
+          <TableTarifTagihan subHeaderComponent={subHeaderComponent} onClickDeleteHandler={onDeleteClickHandler} data={dataFiltered} isLoading={isLoadingPaymentRate} onClickEditHandler={onClickEditHandler} />
         </div>
       </div>
 

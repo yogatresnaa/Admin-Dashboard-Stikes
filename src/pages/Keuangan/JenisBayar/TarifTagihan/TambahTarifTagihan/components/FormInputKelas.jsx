@@ -64,6 +64,7 @@ export default function FormInputKelas({
             isVertical={false}
             includeAll={false}
             withLabel
+            isDisabled={type.includes('edit')}
             name={'class_id'}
             value={values.class_class_id}
             onChange={type.includes('siswa') ? (e) => { onChangeClassAndFetchHandler(setFieldValue, e.target.value) } : handleChange("class_class_id")}
@@ -83,6 +84,7 @@ export default function FormInputKelas({
             data={dataSiswa}
             isVertical={false}
             includeAll={false}
+            isDisabled={type.includes('edit')}
             withLabel
             name={'class_id'}
             value={values.student_student_id}

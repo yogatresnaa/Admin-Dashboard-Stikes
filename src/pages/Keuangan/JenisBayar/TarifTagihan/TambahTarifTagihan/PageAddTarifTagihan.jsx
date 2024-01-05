@@ -53,12 +53,30 @@ export default function PageAddTarifTagihan() {
     getData: getDataSiswa,
   } = useRequest();
   const [selectedClass, setSelectedClass] = useState({ value: '', isSelected: false })
+
   useEffect(() => {
     getDataKelas(() => getAllKelas())
+    fetchData()
 
-    searchParams.get('type').includes('edit') ? getDataDetailPaymentRate(() => getDetailPaymentRate(location.state.data.payment_rate_id)) : setDataDetailPaymentRate({ data: { ...detailPaymentRateInitialValues, ...location.state.data } })
 
   }, [])
+
+
+  const fetchData = async () => {
+    const query = queryString.stringify({ type: location.state.data?.payment_type.toLowerCase() })
+
+    if (searchParams.get('type').includes('edit')) {
+      await getDataDetailPaymentRate(async () => await getDetailPaymentRate(location.state.data.payment_rate_id, query, { ...location.state.data }, dataUser.token))
+      const query2 = queryString.stringify({ class_id: location.state.data.class_class_id })
+      await getDataSiswa(async () => await getAllSiswaByQuery(query2))
+    }
+    else {
+      setDataDetailPaymentRate({ data: { ...detailPaymentRateInitialValues, ...location.state.data } })
+    }
+  }
+
+  console.log(dataDetailPaymentRate)
+  console.log(location.state.data)
 
   useEffect(() => {
     if (selectedClass.isSelected) {
