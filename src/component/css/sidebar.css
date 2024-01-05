@@ -1,50 +1,57 @@
 .bg {
-    background-color: rgb(12, 203, 168) !important;
-  }
-  .nav-item {
-    cursor: pointer;
-  }
-  
-  .column-wrapper {
-    flex-wrap: nowrap;
-  }
-  
-  
-  .link {
-    text-decoration: none;
-  }
-  .color:hover {
-    background-color: blue;
-    border-radius: 5px;
-  }
+  background-color: white !important;
+}
+
+.nav-item {
+  cursor: pointer;
+}
+
+.column-wrapper {
+  flex-wrap: nowrap;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.color:hover {
+  background-color: blue;
+  border-radius: 5px;
+}
 
 .sidebar-wrapper {
-    z-index: 20;
-    overflow-y: auto;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  z-index: 20;
+  overflow-y: auto;
 }
+
 .sidebar-wrapper::-webkit-scrollbar {
-    display: none;
-  }
+  display: none;
+}
+
 .brand-name {
-    display: flex;
-    justify-content: center;
-    
-   
-    align-items: center;
+  display: flex;
+  justify-content: center;
+
+  align-items: center;
 }
-.brand-name__image-wrapper{
-    width: 100px;
-    height:  100px;
-    flex: 1;
-    overflow: hidden;
+
+.brand-name__image-wrapper {
+  width: 100px;
+  height: 100px;
+  flex: 1;
+  overflow: hidden;
 }
-.brand-name__image-wrapper > img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+
+.brand-name__image-wrapper>img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .link.color:hover {
-    background-color:gray; /*will change background-color of element on hover */
-    color: white; /*will change color of text within the element on hover */
+  background-color: #e0f4ff;
+  /*will change background-color of element on hover */
+  color: white;
+  /*will change color of text within the element on hover */
 }

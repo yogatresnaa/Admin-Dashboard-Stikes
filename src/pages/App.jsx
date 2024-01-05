@@ -10,10 +10,12 @@ import PageTahunAjaran from './Akademik/TahunAjaran/PageTahunAjaran';
 import PageNotFound from './NotFound/PageNoFound';
 import PagePosBayar from './Keuangan/PosBayar/PagePosBayar';
 import PageAkunBiaya from './Keuangan/AkunBiaya/PageAkunBiaya';
+
+import PageSaldoAwal from './KasBank/SaldoAwal/PageSaldoAwal';
+import PageKasKeluar from './KasBank/KasKeluar/PageKasKeluar';
 // import PageDashboard from './Dashboard/PageDashboard';
 import LoginPage from './Login/Login';
 import 'react-toastify/dist/ReactToastify.css';
-
 
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -50,6 +52,13 @@ function AppRoutes() {
             <Route path='tarif-tagihan/:id/tambah' element={<PageAddTarifTagihan />} />
 
             <Route path='not-found' element={<PageNotFound />} />
+
+            <Route path='akun-biaya' element={<PageAkunBiaya />} />
+            <Route path='pos-bayar' element={<PagePosBayar />} />
+
+            <Route path='saldo-awal' element={<PageSaldoAwal />} />
+            <Route path='kas-keluar' element={<PageKasKeluar />} />
+
             <Route path='' element={<PageDashboard />} />
           </Route>
         </Routes>
