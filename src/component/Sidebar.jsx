@@ -119,7 +119,7 @@ function Sidebar() {
                   {toggle1 === true ? <FaAngleUp /> : <FaAngleDown />}
                 </Navbar.Toggle>
               </a>
-              <ul className='nav collapse ms-1 flex-column justify-content-end column-wrapper ' id='submenu' data-bs-parent='#parentM'>
+              <ul className='nav collapse ms-1 flex-column justify-content-end column-wrapper bg-ul ' id='submenu' data-bs-parent='#parentM'>
                 {ManajmenData.map((item) => (
                   <Link to={item.to} className='link color' key={item.id}>
                     <li className='nav-item nav-link  m-1' style={{ color: '#DC84F3' }}>
@@ -141,7 +141,7 @@ function Sidebar() {
                   {toggle2 === true ? <FaAngleUp /> : <FaAngleDown />}
                 </Navbar.Toggle>
               </a>
-              <ul className='nav collapse ms-2 flex-column justify-content-end column-wrapper ' id='submenu1' data-bs-parent='#parentM'>
+              <ul className='nav collapse ms-2 flex-column justify-content-end column-wrapper bg-ul ' id='submenu1' data-bs-parent='#parentM'>
                 <Link className='link link color' to='/admin/tahun-ajaran'>
                   <li className='nav-item nav-link  m-1' style={{ color: '#DC84F3' }}>
                     <FaCircleMinus /> Tahun Ajaran
@@ -172,7 +172,7 @@ function Sidebar() {
                   {toggle3 === true ? <FaAngleUp /> : <FaAngleDown />}
                 </Navbar.Toggle>
               </a>
-              <ul className='nav collapse ms-2  flex-column justify-content-end  column-wrapper ' id='submenu3' data-bs-parent='#parentM'>
+              <ul className='nav collapse ms-2  flex-column justify-content-end  column-wrapper  ' id='submenu3' data-bs-parent='#parentM'>
                 <Link className='link color' to='/#'>
                   <li className='nav-item nav-link  m-1' style={{ color: '#DC84F3' }}>
                     <FaCircleMinus /> Pembayaran Siswa
@@ -185,7 +185,7 @@ function Sidebar() {
                       {toggle4 === true ? <FaAngleUp /> : <FaAngleDown />}
                     </Navbar.Toggle>
                   </a>
-                  <ul className='nav collapse multi-collapse ms-2 flex-column justify-content-end column-wrapper ' id='submenu4' data-bs-parent='#submenu5'>
+                  <ul className='nav collapse multi-collapse ms-2 flex-column justify-content-end column-wrapper bg-ul ' id='submenu4' data-bs-parent='#submenu5'>
                     <Link className='link color' to='/admin/akun-biaya'>
                       <li className='nav-item nav-link  m-1' style={{ color: '#DC84F3' }}>
                         <FaCircleMinus /> Akun Biaya
@@ -203,7 +203,7 @@ function Sidebar() {
                       </li>
                     </Link>
                     <Link className='link color' to='/admin/jenis-bayar'>
-                      <li className='nav-item nav-link text-white m-1'>
+                      <li className='nav-item nav-link m-1' style={{ color: '#DC84F3' }}>
                         <FaCircleMinus /> Kirim Tagihan
                       </li>
                     </Link>
@@ -223,7 +223,7 @@ function Sidebar() {
                   {toggle5 === true ? <FaAngleUp /> : <FaAngleDown />}
                 </Navbar.Toggle>
               </a>
-              <ul className='nav collapse itemku ms-2 flex-column justify-content-end column-wrapper  ' id='submenu6' data-bs-parent='#parentM'>
+              <ul className='nav collapse itemku ms-2 flex-column justify-content-end column-wrapper  bg-ul' id='submenu6' data-bs-parent='#parentM'>
                 <Link className='link color' to='/admin/saldo-awal'>
                   <li className='nav-item nav-link m-1' style={{ color: '#DC84F3' }}>
                     <FaCircleMinus /> Saldo Awal
@@ -263,7 +263,7 @@ function Sidebar() {
                     </Navbar.Toggle>
                   </a>
 
-                  <ul className='nav collapse multi-collapse ms-2 flex-column justify-content-end column-wrapper ' id='submenu4' data-bs-parent='#submenu5'>
+                  <ul className='nav collapse multi-collapse ms-2 flex-column justify-content-end column-wrapper bg-ul' id='submenu4' data-bs-parent='#submenu5'>
                     <Link className='link color' to='/admin/laporan-pembayaran/kelas'>
                       <li className='nav-item nav-link m-1' style={{ color: '#DC84F3' }}>
                         <FaCircleMinus /> Per.Kelas
