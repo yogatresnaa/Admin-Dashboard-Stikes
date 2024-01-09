@@ -173,7 +173,7 @@ function Sidebar() {
                 </Navbar.Toggle>
               </a>
               <ul className='nav collapse ms-2  flex-column justify-content-end  column-wrapper  ' id='submenu3' data-bs-parent='#parentM'>
-                <Link className='link color' to='/#'>
+                <Link className='link color' to='/admin/pembayaran-siswa'>
                   <li className='nav-item nav-link  m-1' style={{ color: '#DC84F3' }}>
                     <FaCircleMinus /> Pembayaran Siswa
                   </li>

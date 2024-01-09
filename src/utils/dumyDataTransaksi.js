@@ -167,11 +167,116 @@ const kasKeluar = [
     KodeAkun: '5-50201 - Biaya Gaji',
     Keterangan: 'Gaji Kepala Sekolah',
     Nominal: 'Rp. 1.000.000',
-
     Pajak: '0%',
     UnitPos: '...',
     Total: 'Rp. 1.000.000',
   },
 ];
 
-export { getDataTransaksi, dataPosBayar, dataAkunBiaya, saldoAwal, kasKeluar };
+const pembayaran1 = [
+  {
+    id: 1,
+    NamaPembayaran: 'SPP SMK - T.A. 2023/2024',
+    SisaTagihan: `Rp. 2.100.000`,
+    Juli: `0(06/07/23)[]`,
+    Agustus: `350.000(20/02/23)[KAS BANK BTN]`,
+    September: `350.000 (13/09/23) [KAS TUNAI SMK]`,
+    Oktober: `350.000(16/10/23)[KAS TUNAI SMK]`,
+    November: `350.000(15/11/23)[KAS TUNAI SMK`,
+    Desember: `350.000(12/12/23)[KAS TUNAI SMK]`,
+    Januari: '#',
+    Februari: '#',
+    Maret: '#',
+    April: '#',
+    Mei: '#',
+    Juni: '#',
+  }
+]
+
+const pembayaran2 = [
+  {
+    id: 1,
+    JenisBayar: '',
+    Tagihan: '',
+    Diskon: '',
+    TagihanDiskon: '',
+    Dibayar: '',
+    Sisa: '',
+    Status: '',
+    Bayar: '',
+  }
+]
+
+const transaksiPembayaran = [
+  {
+    id: 1,
+    NoRef: '',
+    Tanggal: '',
+    Pembayaran: '',
+    Nominal: '',
+  }
+]
+
+const historyPembayaran = [
+  {
+    id: 1,
+    Tanggal: '12/12/2023',
+    NoRef: 'SPSMK127923110312122301',
+    Pembayaran: 'SPP SMK - T.A 2023/2024 (Desember)',
+    Nominal: 'Rp. 350.000',
+    BayarVia: 'KAS TUNAI SMK',
+  },
+    {
+    id: 2,
+    Tanggal: '12/12/2023',
+    NoRef: 'SPSMK127923110312122301',
+    Pembayaran: 'SPP SMK - T.A 2023/2024 (Desember)',
+    Nominal: 'Rp. 350.000',
+    BayarVia: 'KAS TUNAI SMK',
+  },
+    {
+    id: 3,
+    Tanggal: '12/12/2023',
+    NoRef: 'SPSMK127923110312122301',
+    Pembayaran: 'SPP SMK - T.A 2023/2024 (Desember)',
+    Nominal: 'Rp. 350.000',
+    BayarVia: 'KAS TUNAI SMK',
+  },
+    {
+    id: 4,
+    Tanggal: '12/12/2023',
+    NoRef: 'SPSMK127923110312122301',
+    Pembayaran: 'SPP SMK - T.A 2023/2024 (Desember)',
+    Nominal: 'Rp. 350.000',
+    BayarVia: 'KAS TUNAI SMK',
+  }
+]
+
+const tagihanPembayaran = [
+  {
+    id: 1,
+    RincianTagihan: 'SPP SMK - T.A 2023/2024-Januari ',
+    Nominal: 'Rp 350.000'
+  },
+    {
+    id: 2,
+    RincianTagihan: 'SPP SMK - T.A 2023/2024-Februari ',
+    Nominal: 'Rp 350.000'
+  },
+    {
+    id: 3,
+    RincianTagihan: 'SPP SMK - T.A 2023/2024-Maret ',
+    Nominal: 'Rp 500.000'
+  },
+    {
+    id: 4,
+    RincianTagihan: 'SPP SMK - T.A 2023/2024-Maret ',
+    Nominal: 'Rp 600.000'
+  },
+    {
+    id: 5,
+    RincianTagihan: 'SPP SMK - T.A 2023/2024-April ',
+    Nominal: 'Rp 1000.000'
+  }
+]
+export { getDataTransaksi, dataPosBayar, dataAkunBiaya, saldoAwal, kasKeluar, pembayaran1, transaksiPembayaran, historyPembayaran, tagihanPembayaran };
