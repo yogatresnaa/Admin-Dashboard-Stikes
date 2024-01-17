@@ -14,6 +14,7 @@ export default function FormEditBulananKelas({
     type,
     dataKelas,
     dataSiswa,
+    monthSelectHandler,
     setFieldValue,
     onChangeClassAndFetchHandler,
 }) {
@@ -51,7 +52,21 @@ export default function FormEditBulananKelas({
                     <div className="d-flex flex-column flex-auto">
                         {monthArray.map((item) => (
                             <FormGroup check key={item.month_id}>
-                                <Input type="checkbox" />
+                                <Input
+                                    value={item.month_name}
+                                    type="checkbox"
+                                    onChange={(e) => {
+                                        if (e.target.checked)
+                                            setFieldValue(
+                                                `month.month_${e.target.value}`,
+                                                item.month_id
+                                            )
+                                        else
+                                            delete values.month[
+                                                `month_${e.target.value}`
+                                            ]
+                                    }}
+                                />
                                 <Label style={{ fontSize: '0.8rem' }} check>
                                     {item.month_name}
                                 </Label>
@@ -59,6 +74,7 @@ export default function FormEditBulananKelas({
                         ))}
                     </div>
                 </div>
+                <ErrorComponent text={errors.month} error={errors.month} />
             </FormGroup>
             <ol style={{ fontSize: '0.7rem' }}>
                 <li>

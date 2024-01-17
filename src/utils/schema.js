@@ -100,6 +100,7 @@ export const monthlyPaymentRateSchema = Yup.object().shape({
 
 export const editMonthlyPaymentRateSchema = Yup.object().shape({
     class_class_id: Yup.string().required('Kelas Harus Dipilih'),
+
     payment_new: Yup.string().required('Tarif Baru harus diisi'),
     payment_old: Yup.string().required('Tarif Lama harus diisi'),
     // month: Yup.object().shape({

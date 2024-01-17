@@ -85,3 +85,12 @@ export const putFreePaymentRateModel = {
         payment: body.payment,
     }),
 }
+export const putMonthlyPaymentRateModel = {
+    objectToJSON: (body) => ({
+        payment_rate_id: body.payment_rate_id,
+        month: JSON.stringify(body.month),
+        payment_new: body.payment_new,
+        payment_old: body.payment_old,
+        payment_payment_id: body.payment_id,
+    }),
+}

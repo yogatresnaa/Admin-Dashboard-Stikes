@@ -27,6 +27,7 @@ import {
     postMonthlyPaymentRateByClass,
     postMonthlyPaymentRateByStudent,
     putFreePaymentRateByStudent,
+    putMonthlyPaymentRateByClass,
     putMonthlyPaymentRateByStudent,
 } from '../../../../../../utils/http'
 // import TableTarifTagihan from './components/TableTarifTagihan';
@@ -51,6 +52,7 @@ import {
     monthlyPaymentRateModel,
     freePaymentRateModel,
     putFreePaymentRateModel,
+    putMonthlyPaymentRateModel,
 } from '../../../../../../models/models'
 import { ToastContainer } from 'react-toastify'
 import FormInputBebasTagihan from '../components/FormInputBebasTagihan'
@@ -88,6 +90,8 @@ export default function PageEditTarifTagihan() {
         value: '',
         isSelected: false,
     })
+
+    const [monthValueArr, setMonthvalueArr] = useState([])
 
     useEffect(() => {
         fetchData()
@@ -265,6 +269,27 @@ export default function PageEditTarifTagihan() {
             }
         )
     }
+    const onEditMonthlyPaymentRateByClassHandler = async (
+        formBody,
+        { resetForm }
+    ) => {
+        const newFormBody = putMonthlyPaymentRateModel.objectToJSON(formBody)
+        console.log(newFormBody)
+        await sendDataPaymentRate(
+            () =>
+                putMonthlyPaymentRateByClass(
+                    formBody.class_class_id,
+                    newFormBody,
+                    dataUser.token
+                ),
+            null,
+            () => {
+                setTimeout(() => {
+                    navigate(-1)
+                }, 2000)
+            }
+        )
+    }
     const onChangeClassAndFetchHandler = (handler, value) => {
         handler('student_student_id', '')
         handler('class_class_id', value)
@@ -275,14 +300,15 @@ export default function PageEditTarifTagihan() {
         }))
     }
 
-    const submitHandler = (formBody, { resetForm }) => {
-        console.log(searchParams.get('type'))
-        console.log('mantap')
-
+    const submitHandler = (formBody, { resetForm, setErrors }) => {
         if (
             location.state.data?.payment_type.toLowerCase().includes('bulanan')
         ) {
             if (searchParams.get('type').includes('edit-kelas')) {
+                if (Object.keys(formBody.month).length == 0) {
+                    return setErrors({ month: 'Bulan harus dipilih minimal 1' })
+                }
+                onEditMonthlyPaymentRateByClassHandler(formBody, { resetForm })
                 // onAddPaymentRateByClassHandler(formBody, { resetForm })
                 console.log(formBody)
             } else if (searchParams.get('type').includes('edit-siswa')) {
@@ -299,6 +325,9 @@ export default function PageEditTarifTagihan() {
             }
         }
     }
+    // const monthSelectHandler = ({monthName,monthId}) => {
+
+    // }
     return (
         <>
             <ToastContainer />
@@ -395,6 +424,8 @@ export default function PageEditTarifTagihan() {
                                     <FormEditBulananKelas
                                         handleChange={handleChange}
                                         values={values}
+                                        setFieldValue={setFieldValue}
+                                        // monthSelectHandler={monthSelectHandler}
                                         errors={errors}
                                     />
                                     <div className="d-flex gap-2">
