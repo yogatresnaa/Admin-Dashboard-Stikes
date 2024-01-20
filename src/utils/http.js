@@ -175,6 +175,8 @@ export const putFreePaymentRateByStudent = (id, body, token) =>
         body,
         options(token)
     )
+export const putFreePaymentRateByClass = (id, body, token) =>
+    Axios.put(`${URL_BASE}/payment-rate/free/class/${id}`, body, options(token))
 export const putMonthlyPaymentRateByClass = (id, body, token) =>
     Axios.put(
         `${URL_BASE}/payment-rate/month/class/${id}`,

@@ -86,7 +86,7 @@ function TableTarifTagihan({
         },
 
         {
-            name: 'Kelas',
+            name: 'Tipe',
             cell: (row) => upperCaseFirstChar(row.payment_type),
 
             selector: (row) => row.payment_type,
