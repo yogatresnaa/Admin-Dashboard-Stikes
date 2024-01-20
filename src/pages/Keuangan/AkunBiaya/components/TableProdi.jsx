@@ -56,7 +56,6 @@ function TableProdi({ data }) {
       cell: (row) => renderActionButton(row),
       ignoreRowClick: true,
       allowOverflow: true,
-
       width: '200px',
     },
   ];

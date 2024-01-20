@@ -11,6 +11,8 @@ import PageNotFound from './NotFound/PageNoFound'
 import PagePosBayar from './Keuangan/PosBayar/PagePosBayar'
 import PageAkunBiaya from './Keuangan/AkunBiaya/PageAkunBiaya'
 
+import PagePembayaranSiswa from './Keuangan/PembayaranSiswa/PagePembayaranSiswa'
+
 import PageSaldoAwal from './KasBank/SaldoAwal/PageSaldoAwal'
 import PageKasKeluar from './KasBank/KasKeluar/PageKasKeluar'
 // import PageDashboard from './Dashboard/PageDashboard';
@@ -53,6 +55,10 @@ function AppRoutes() {
                         <Route
                             path="laporan-pembayaran/kelas"
                             element={<PageLaporanPembayaranKelas />}
+                        />
+                        <Route
+                            path="pembayaran-siswa"
+                            element={<PagePembayaranSiswa />}
                         />
 
                         <Route path="pos-bayar" element={<PagePosBayar />} />
