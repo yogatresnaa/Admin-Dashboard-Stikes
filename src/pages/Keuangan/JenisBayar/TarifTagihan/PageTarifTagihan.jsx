@@ -97,8 +97,8 @@ export default function PageTarifTagihan() {
     });
   }
 
-  const onClickEditHandler = (row) => {
-    console.log(row)
+  const onClickEditByStudentHandler = (row) => {
+    // console.log(row)
     // navigate({
     //   pathname: `/admin/tarif-tagihan/${data.payment_id}/tambah`, search: createSearchParams({
     //     type: "edit-siswa",
@@ -193,7 +193,7 @@ export default function PageTarifTagihan() {
           <ActionButton onBackHandler={onBackHandler} data={data} />
         </div>
         <div className="table-content d-flex flex-column gap-3 mt-4">
-          <TableTarifTagihan subHeaderComponent={subHeaderComponent} onClickDeleteHandler={onDeleteClickHandler} data={dataFiltered} isLoading={isLoadingPaymentRate} onClickEditHandler={onClickEditHandler} />
+          <TableTarifTagihan subHeaderComponent={subHeaderComponent} onClickDeleteHandler={onDeleteClickHandler} data={dataFiltered} isLoading={isLoadingPaymentRate} onClickEditHandler={onClickEditByStudentHandler} />
         </div>
       </div>
 
