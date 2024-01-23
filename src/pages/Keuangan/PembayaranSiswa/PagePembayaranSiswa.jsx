@@ -6,7 +6,7 @@ import PembayaranBebas from './components/PembayaranBebas'
 import SelectTahunAjaran from '../../../component/ActionButton/SelectTahunAjaran'
 import SearchInput from '../../../component/ActionButton/SearchInput'
 import useRequest from '../../../customHooks/useRequest'
-import { getAllTahunAjaran } from '../../../utils/http'
+import { getAllSiswa, getAllTahunAjaran } from '../../../utils/http'
 import { useSelector } from 'react-redux'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
@@ -18,8 +18,39 @@ import TagihanPembayaran from './components/TagihanPembayaran'
 import Kalkulator from './components/Kalkulator'
 import NoRefrensi from './components/cetakBuktiPembayaran'
 import CetakButton from './components/ButtonCetak'
+import ModalSiswa from './components/ModalSiswa'
+import useTable from '../../../customHooks/useTable'
 
 function PagePembayaranSiswa() {
+    const {
+        data: dataSiswa,
+        setData: setDataSiswa,
+        sendData: sendDataSiswa,
+        setDataDetail: setDataDetailSiswa,
+        dataDetail: dataDetailSiswa,
+        getData: getDataSiswa,
+        isLoading: isLoadingSiswa,
+        setIsLoading: setIsLoadingSiswa,
+        isLoadingSendData: isLoadingSendDataSiswa,
+        filterText,
+        onChangeFilterText,
+    } = useRequest()
+
+    const {
+        resetPaginationToggle,
+        setResetPaginationToggle,
+        setIsOpenModalEdit,
+        isOpenModalForm: isOpenModalSiswa,
+        setIsOpenModalForm: setIsOpenModalSiswa,
+        isEdit,
+        setIsEdit,
+    } = useTable()
+
+    const toggleModalSiswa = (e) => {
+        setIsOpenModalSiswa(!isOpenModalSiswa)
+    }
+
+    const [selectedSiswa, setSelectedSiswa] = useState(null)
     const {
         data: TahunAjaran,
         setData: setTahunAjaran,
@@ -41,13 +72,38 @@ function PagePembayaranSiswa() {
         const query = queryString.stringify(queryFilter)
         console.log('a')
         getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token))
+        getDataSiswa(() => getAllSiswa({}, dataUser.token))
     }, [])
+    const subHeaderComponent = useMemo(() => {
+        const onClearHandler = () => {
+            if (filterText) {
+                onChangeFilterText('')
+                setResetPaginationToggle(!resetPaginationToggle)
+            }
+        }
 
+        return (
+            <SearchInput
+                filterText={filterText}
+                setFilterText={onChangeFilterText}
+            />
+        )
+    }, [
+        filterText,
+        onChangeFilterText,
+        resetPaginationToggle,
+        setResetPaginationToggle,
+    ])
     const onQueryFilterChange = (e) => {
         setQueryFilter((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
         }))
+    }
+
+    const onClickSiswaHandler = (data) => {
+        setSelectedSiswa(data)
+        setIsOpenModalSiswa(!isOpenModalSiswa)
     }
     return (
         <div className="page-content">
@@ -61,106 +117,133 @@ function PagePembayaranSiswa() {
                     <h6 className="filter-data">
                         Filter Data Pembayaran SIswa
                     </h6>
-                    <div className="d-flex flex-row gap-5 justify-content-start align-items-center mt-2 thn-ajrn">
+                    <div className="d-flex flex-row gap-5 justify-content-start align-items-end mt-2 thn-ajrn">
                         <SelectTahunAjaran
                             data={TahunAjaran.data}
                             onProdiFilterChange={onQueryFilterChange}
                             value={queryFilter}
                         />
-                        <p style={{ width: '200px' }}>
-                            Cari Nis Siswa <SearchInput />
-                        </p>
+                        <SearchInput
+                            style={{ margin: 0 }}
+                            filterText={filterText}
+                            setFilterText={onChangeFilterText}
+                        />
+
+                        <Button size="sm" onClick={toggleModalSiswa}>
+                            Data Siswa
+                        </Button>
                     </div>
                 </div>
+                {selectedSiswa && (
+                    <>
+                        <div className="info-santri">
+                            <h6>Informasi Siswa</h6>
+                            <InformasiSantri />
+                            <ItemImageSiswa />
+                        </div>
 
-                <div className="info-santri">
-                    <h6>Informasi Siswa</h6>
-                    <InformasiSantri />
-                    <ItemImageSiswa />
-                </div>
-
-                <div className="jenis-bayar">
-                    <h6>Jenis Pembayaran</h6>
-                    <Tabs
-                        defaultActiveKey="home"
-                        transition={false}
-                        id="noanim-tab-example"
-                        className="mb-3"
-                    >
-                        <Tab eventKey="bulanan" title="Bulanan">
-                            <PembayaranBulanan />
-                        </Tab>
-                        <Tab eventKey="bebas" title="Bebas">
-                            <PembayaranBebas />
-                        </Tab>
-                    </Tabs>
-                </div>
-
-                <div className="Jenis-Pembayaran">
-                    <div className="transaksi-historiPembayaran">
-                        <div className="pembayaran-history">
+                        <div className="jenis-bayar">
+                            <h6>Jenis Pembayaran</h6>
                             <Tabs
-                                defaultActiveKey="profile"
-                                id="uncontrolled-tab-example"
+                                defaultActiveKey="home"
+                                transition={false}
+                                id="noanim-tab-example"
                                 className="mb-3"
                             >
-                                <Tab
-                                    eventKey="Transaksi"
-                                    title="Transaksi Pembayaran"
-                                >
-                                    <div>
-                                        <TransaksiPembayaran />
-                                    </div>
+                                <Tab eventKey="bulanan" title="Bulanan">
+                                    <PembayaranBulanan />
                                 </Tab>
-                                <Tab
-                                    eventKey="History"
-                                    title="History Pembayaran"
-                                >
-                                    <HistoryPembayaran />
-                                </Tab>
-
-                                <Tab
-                                    eventKey="Tagihan"
-                                    title="Tagihan Pembayaran"
-                                >
-                                    <TagihanPembayaran />
+                                <Tab eventKey="bebas" title="Bebas">
+                                    <PembayaranBebas />
                                 </Tab>
                             </Tabs>
                         </div>
-                    </div>
-                    <div className="kalkulator">
-                        <h6>Kalkulator</h6>
-                        <div className="wrapping">
-                            <p
-                                style={{ width: '150px', padding: '5px' }}
-                                className="total"
-                            >
-                                Total <Kalkulator />
-                            </p>
-                            <p
-                                style={{ width: '150px', padding: '5px' }}
-                                className="dibayar"
-                            >
-                                Dibayar
-                                <Kalkulator />
-                            </p>
-                            <p
-                                style={{ width: '300px', padding: '5px' }}
-                                className="kembalian"
-                            >
-                                Kembalian
-                                <Kalkulator />
-                            </p>
-                        </div>
 
-                        <div className="bukti-pembayaran">
-                            <h6>Cetak Bukti Pembayaran</h6>
-                            <NoRefrensi />
-                            <CetakButton />
+                        <div className="Jenis-Pembayaran">
+                            <div className="transaksi-historiPembayaran">
+                                <div className="pembayaran-history">
+                                    <Tabs
+                                        defaultActiveKey="profile"
+                                        id="uncontrolled-tab-example"
+                                        className="mb-3"
+                                    >
+                                        <Tab
+                                            eventKey="Transaksi"
+                                            title="Transaksi Pembayaran"
+                                        >
+                                            <div>
+                                                <TransaksiPembayaran />
+                                            </div>
+                                        </Tab>
+                                        <Tab
+                                            eventKey="History"
+                                            title="History Pembayaran"
+                                        >
+                                            <HistoryPembayaran />
+                                        </Tab>
+
+                                        <Tab
+                                            eventKey="Tagihan"
+                                            title="Tagihan Pembayaran"
+                                        >
+                                            <TagihanPembayaran />
+                                        </Tab>
+                                    </Tabs>
+                                </div>
+                            </div>
+                            <div className="kalkulator">
+                                <h6>Kalkulator</h6>
+                                <div className="wrapping">
+                                    <p
+                                        style={{
+                                            width: '150px',
+                                            padding: '5px',
+                                        }}
+                                        className="total"
+                                    >
+                                        Total <Kalkulator />
+                                    </p>
+                                    <p
+                                        style={{
+                                            width: '150px',
+                                            padding: '5px',
+                                        }}
+                                        className="dibayar"
+                                    >
+                                        Dibayar
+                                        <Kalkulator />
+                                    </p>
+                                    <p
+                                        style={{
+                                            width: '300px',
+                                            padding: '5px',
+                                        }}
+                                        className="kembalian"
+                                    >
+                                        Kembalian
+                                        <Kalkulator />
+                                    </p>
+                                </div>
+
+                                <div className="bukti-pembayaran">
+                                    <h6>Cetak Bukti Pembayaran</h6>
+                                    <NoRefrensi />
+                                    <CetakButton />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </>
+                )}
             </div>
+
+            <ModalSiswa
+                dataSiswa={dataSiswa.data}
+                subHeaderComponent={subHeaderComponent}
+                isOpenModal={isOpenModalSiswa}
+                toggleModal={toggleModalSiswa}
+                onClickSiswaHandler={onClickSiswaHandler}
+                isLoading={isLoadingSiswa}
+            />
         </div>
     )
 }
