@@ -16,8 +16,10 @@ import TransaksiPembayaran from "./components/TransaksiPembayaran";
 import HistoryPembayaran from "./components/HistoryPembayaran";
 import TagihanPembayaran from "./components/TagihanPembayaran";
 import Kalkulator from "./components/Kalkulator";
-import NoRefrensi from "./components/cetakBuktiPembayaran";
+import PilihNoRefrensi from "./components/cetakBuktiPembayaran";
 import CetakButton from "./components/ButtonCetak";
+import NoRef from "./components/NoRefrensi";
+import AkunKas from "./components/AkunKas";
 
 
 function PagePembayaranSiswa(){
@@ -26,11 +28,6 @@ function PagePembayaranSiswa(){
     setData: setTahunAjaran,
     getData: getDataTahunAjaran,
   } = useRequest();
-
-  //   const onCLickFilterSubmit = () => {
-  //   const query = queryString.stringify(queryFilter);
-  //   getDataSiswa(() => getAllSiswa(query, dataUser.token));
-  // };
 
    const dataUser = useSelector(({ authState }) => authState.data);
      const [queryFilter, setQueryFilter] = useState({
@@ -78,8 +75,13 @@ function PagePembayaranSiswa(){
 
                 <div className="jenis-bayar">
                   <h6>Jenis Pembayaran</h6>
+                  <div className="no-refrensi">
+                       <NoRef />
+                       <AkunKas />
+                  </div>
+                 
                          <Tabs
-                              defaultActiveKey="home"
+                              defaultActiveKey="bulanan"
                               transition={false}
                               id="noanim-tab-example"
                               className="mb-3">
@@ -96,7 +98,7 @@ function PagePembayaranSiswa(){
                   <div className="transaksi-historiPembayaran">
                     <div className="pembayaran-history">
                             <Tabs
-                              defaultActiveKey="profile"
+                              defaultActiveKey="Transaksi"
                               id="uncontrolled-tab-example"
                               className="mb-3"
                             >
@@ -126,7 +128,7 @@ function PagePembayaranSiswa(){
 
                     <div className="bukti-pembayaran">
                       <h6>Cetak Bukti Pembayaran</h6>
-                        <NoRefrensi />
+                        <PilihNoRefrensi />
                         <CetakButton />
                        
                     </div>

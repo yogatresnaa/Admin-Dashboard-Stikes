@@ -22,12 +22,14 @@ function HistoryPembayaran() {
 			'&:not(:last-of-type)': {
 				borderRightStyle: 'solid',
 				borderRightWidth: '1px',
-        borderBottomtWidth: '1px',
-        minHeight: '50px',
-        backgroundColor: '#F8EDFF'
-        
-				
+				borderBottomtWidth: '1px',
+				minHeight: '50px',
+				backgroundColor: '#F8EDFF'		
 			},
+				':last-of-type': {
+				backgroundColor: '#F8EDFF'		
+			},
+			
 		},
 	},
 	cells: {

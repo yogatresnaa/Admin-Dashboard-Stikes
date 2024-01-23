@@ -25,9 +25,10 @@
 }
 
 .sidebar-wrapper {
-
+  background-color: aquamarine;
+  height: 100px;
   z-index: 20;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .sidebar-wrapper::-webkit-scrollbar {

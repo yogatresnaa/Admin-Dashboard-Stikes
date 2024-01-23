@@ -82,6 +82,14 @@
   margin-top: 20px;
 }
 
+.no-refrensi {
+  display: flex;
+  width: 500px;
+  border-top: 1px solid rgb(225, 166, 240) ;
+  padding: 10px;
+  margin: 10px;
+}
+
 .transaksi-historiPembayaran {
    width: 900px;
   padding: 10px;

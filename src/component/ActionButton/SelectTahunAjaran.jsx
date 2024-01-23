@@ -11,7 +11,7 @@ function SelectTahunAjaran({data,onChange,value}) {
             <Form.Select size="sm" onChange={onChange} value={value} name='period_id'>
               <option value=''>Semua</option>
               {data.length>0 && data.map((item,index)=>(
-              <option value={item.period_id} key={item.period_id}>{item.pediod_start}/${item.pediod_end}</option>
+              <option value={item.period_id} key={item.period_id}>{item.period_start}/${item.period_end}</option>
               ))}
               
             </Form.Select>

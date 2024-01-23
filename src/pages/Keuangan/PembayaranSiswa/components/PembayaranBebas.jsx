@@ -14,6 +14,7 @@ function PembayaranBebas() {
 		style: {
 			borderTopStyle: 'solid',
 			borderTopWidth: '1px',
+			textAlign: 'center',
 			
 		},
 	},
@@ -24,10 +25,10 @@ function PembayaranBebas() {
 				borderRightWidth: '1px',
                 borderBottomtWidth: '1px',
                 minHeight: '50px',
-                backgroundColor: '#F8EDFF',
-            
-        
-				
+                backgroundColor: '#F8EDFF',				
+			},
+			':last-of-type': {
+				backgroundColor: '#F8EDFF'		
 			},
 		},
 	},

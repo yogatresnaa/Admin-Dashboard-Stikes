@@ -12,8 +12,6 @@ function InformasiSantri({dataValue}) {
           <td>NIS</td>
           <td>: 123454321</td>
       </tr>
-
-
        <tr>
           <td>Nama Siswa</td>
           <td>: Roy</td>
