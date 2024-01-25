@@ -26,6 +26,7 @@ import {
     postFreePaymentRateByStudent,
     postMonthlyPaymentRateByClass,
     postMonthlyPaymentRateByStudent,
+    putFreePaymentRateByClass,
     putFreePaymentRateByStudent,
     putMonthlyPaymentRateByClass,
     putMonthlyPaymentRateByStudent,
@@ -46,6 +47,7 @@ import {
     monthlyPaymentRateSchema,
     freePaymentRateSchema,
     editMonthlyPaymentRateSchema,
+    editFreePaymentRateSchema,
 } from '../../../../../../utils/schema'
 import FormInputMonthPayment from '../components/FormInputMonthPayment'
 import {
@@ -53,6 +55,7 @@ import {
     freePaymentRateModel,
     putFreePaymentRateModel,
     putMonthlyPaymentRateModel,
+    putFreePaymentRateByClassModel,
 } from '../../../../../../models/models'
 import { ToastContainer } from 'react-toastify'
 import FormInputBebasTagihan from '../components/FormInputBebasTagihan'
@@ -103,7 +106,7 @@ export default function PageEditTarifTagihan() {
             type: location.state.data?.payment_type.toLowerCase(),
         })
 
-        if (searchParams.get('type').includes('edit')) {
+        if (searchParams.get('type').includes('edit-siswa')) {
             await getDataDetailPaymentRate(
                 async () =>
                     await getDetailPaymentRate(
@@ -113,11 +116,12 @@ export default function PageEditTarifTagihan() {
                         dataUser.token
                     )
             )
+
             const query2 = queryString.stringify({
                 class_id: location.state.data.class_class_id,
             })
             await getDataSiswa(async () => await getAllSiswaByQuery(query2))
-        } else {
+        } else if (searchParams.get('type').includes('edit-kelas')) {
             setDataDetailPaymentRate({
                 data: {
                     ...detailPaymentRateInitialValues,
@@ -269,6 +273,28 @@ export default function PageEditTarifTagihan() {
             }
         )
     }
+    const onEditFreePaymentRateByClassHandler = async (
+        formBody,
+        { resetForm }
+    ) => {
+        const newFormBody =
+            putFreePaymentRateByClassModel.objectToJSON(formBody)
+        console.log(formBody)
+        await sendDataPaymentRate(
+            () =>
+                putFreePaymentRateByClass(
+                    formBody.class_class_id,
+                    newFormBody,
+                    dataUser.token
+                ),
+            null,
+            () => {
+                setTimeout(() => {
+                    navigate(-1)
+                }, 2000)
+            }
+        )
+    }
     const onEditMonthlyPaymentRateByClassHandler = async (
         formBody,
         { resetForm }
@@ -317,10 +343,9 @@ export default function PageEditTarifTagihan() {
                 })
             }
         } else {
-            // else if (searchParams.get('type').includes('edit-kelas')) {
-            //   onAddMonthlyPaymentRateByClassHandler(formBody, { resetForm })
-            // }
-            if (searchParams.get('type').includes('edit-siswa')) {
+            if (searchParams.get('type').includes('edit-kelas')) {
+                onEditFreePaymentRateByClassHandler(formBody, { resetForm })
+            } else if (searchParams.get('type').includes('edit-siswa')) {
                 onEditFreePaymentRateByStudentHandler(formBody, { resetForm })
             }
         }
@@ -328,6 +353,8 @@ export default function PageEditTarifTagihan() {
     // const monthSelectHandler = ({monthName,monthId}) => {
 
     // }
+
+    console.log(dataDetailPaymentRate)
     return (
         <>
             <ToastContainer />
@@ -343,7 +370,9 @@ export default function PageEditTarifTagihan() {
                         .toLowerCase()
                         .includes('bulanan')
                         ? editMonthlyPaymentRateSchema
-                        : freePaymentRateSchema
+                        : searchParams.get('type').includes('edit-siswa')
+                          ? freePaymentRateSchema
+                          : editFreePaymentRateSchema
                 }
             >
                 {({

@@ -146,6 +146,11 @@ export const freePaymentRateSchema = Yup.object().shape({
     class_class_id: Yup.string().required('Kelas Harus Dipilih'),
     payment: Yup.string().required('nominal harus diisi'),
 })
+export const editFreePaymentRateSchema = Yup.object().shape({
+    class_class_id: Yup.string().required('Kelas Harus Dipilih'),
+    payment_old: Yup.string().required('nominal harus diisi'),
+    payment_new: Yup.string().required('nominal harus diisi'),
+})
 // export const siswaSchema=Yup.object().shape({
 
 //     code:Yup.string().required("Kode Harus Diisi"),
