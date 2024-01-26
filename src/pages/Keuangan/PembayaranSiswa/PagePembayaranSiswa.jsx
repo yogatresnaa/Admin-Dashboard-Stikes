@@ -6,7 +6,11 @@ import PembayaranBebas from './components/PembayaranBebas'
 import SelectTahunAjaran from '../../../component/ActionButton/SelectTahunAjaran'
 import SearchInput from '../../../component/ActionButton/SearchInput'
 import useRequest from '../../../customHooks/useRequest'
-import { getAllSiswa, getAllTahunAjaran } from '../../../utils/http'
+import {
+    getAllSiswa,
+    getAllTahunAjaran,
+    getPaymentTransactionByStudent,
+} from '../../../utils/http'
 import { useSelector } from 'react-redux'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
@@ -34,6 +38,16 @@ function PagePembayaranSiswa() {
         isLoadingSendData: isLoadingSendDataSiswa,
         filterText,
         onChangeFilterText,
+    } = useRequest()
+    const {
+        data: dataPaymentTransaction,
+        setData: setDataPaymentTransaction,
+        sendData: sendDataPaymentTransaction,
+
+        getData: getDataPaymentTransaction,
+        isLoading: isLoadingPaymentTransaction,
+        setIsLoading: setIsLoadingPaymentTransaction,
+        isLoadingSendData: isLoadingSendPaymentTransaction,
     } = useRequest()
 
     const {
@@ -102,9 +116,16 @@ function PagePembayaranSiswa() {
     }
 
     const onClickSiswaHandler = (data) => {
-        setSelectedSiswa(data)
+        getDataPaymentTransaction(() =>
+            getPaymentTransactionByStudent(data.student_id, {}, dataUser.token)
+        )
+
         setIsOpenModalSiswa(!isOpenModalSiswa)
     }
+    useEffect(() => {
+        setSelectedSiswa(dataPaymentTransaction)
+        console.log(dataPaymentTransaction)
+    }, [dataPaymentTransaction])
     return (
         <div className="page-content">
             <h3>
@@ -138,7 +159,7 @@ function PagePembayaranSiswa() {
                     <>
                         <div className="info-santri">
                             <h6>Informasi Siswa</h6>
-                            <InformasiSantri />
+                            <InformasiSantri dataValue={selectedSiswa} />
                             <ItemImageSiswa />
                         </div>
 
