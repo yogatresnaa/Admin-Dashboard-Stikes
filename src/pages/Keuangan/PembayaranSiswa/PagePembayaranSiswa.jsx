@@ -65,9 +65,10 @@ function PagePembayaranSiswa() {
     }
 
     const [selectedSiswa, setSelectedSiswa] = useState(null)
+    const [tahunAjaranState, setTahunAjaran] = useState('')
     const {
         data: TahunAjaran,
-        setData: setTahunAjaran,
+        setData: setDataTahunAjaran,
         getData: getDataTahunAjaran,
     } = useRequest()
 
@@ -117,15 +118,64 @@ function PagePembayaranSiswa() {
 
     const onClickSiswaHandler = (data) => {
         getDataPaymentTransaction(() =>
-            getPaymentTransactionByStudent(data.student_id, {}, dataUser.token)
+            getPaymentTransactionByStudent(
+                data.student_id,
+                {
+                    period_start: TahunAjaran.data[0].period_start,
+                    period_end: TahunAjaran.data[0].period_end,
+                },
+                dataUser.token
+            )
         )
 
         setIsOpenModalSiswa(!isOpenModalSiswa)
     }
     useEffect(() => {
-        setSelectedSiswa(dataPaymentTransaction)
         console.log(dataPaymentTransaction)
-    }, [dataPaymentTransaction])
+        if (
+            TahunAjaran.data.length > 0 &&
+            dataPaymentTransaction.data.student_id
+        ) {
+            if (tahunAjaranState == '') {
+                console.log(TahunAjaran)
+                setTahunAjaran(TahunAjaran.data[0])
+                setSelectedSiswa({
+                    ...dataPaymentTransaction.data,
+                    period: `${TahunAjaran?.data[0]?.period_start}/${TahunAjaran?.data[0]?.period_end}`,
+                })
+            } else {
+                console.log()
+                setSelectedSiswa({
+                    ...dataPaymentTransaction.data,
+                    period: `${tahunAjaranState.period_start}/${tahunAjaranState.period_end}`,
+                })
+            }
+        }
+        console.log(dataPaymentTransaction)
+    }, [
+        TahunAjaran,
+        TahunAjaran.data,
+        dataPaymentTransaction,
+        tahunAjaranState,
+    ])
+
+    const onPeriodChange = (e) => {
+        console.log(TahunAjaran)
+        const selectedPeriod = TahunAjaran.data.filter(
+            (item) => item.period_id == parseInt(e.target.value, 10)
+        )[0]
+
+        setTahunAjaran(selectedPeriod)
+    }
+    console.log(tahunAjaranState)
+    const onClickSearchHandler = () => {
+        setSelectedSiswa((prevState) => ({
+            ...prevState,
+            period: `${tahunAjaranState.period_start}/${tahunAjaranState.period_end}`,
+        }))
+    }
+
+    console.log(selectedSiswa)
     return (
         <div className="page-content">
             <h3>
@@ -141,8 +191,8 @@ function PagePembayaranSiswa() {
                     <div className="d-flex flex-row gap-5 justify-content-start align-items-end mt-2 thn-ajrn">
                         <SelectTahunAjaran
                             data={TahunAjaran.data}
-                            onProdiFilterChange={onQueryFilterChange}
-                            value={queryFilter}
+                            onChange={onPeriodChange}
+                            value={tahunAjaranState?.period_id ?? ''}
                         />
                         <SearchInput
                             style={{ margin: 0 }}

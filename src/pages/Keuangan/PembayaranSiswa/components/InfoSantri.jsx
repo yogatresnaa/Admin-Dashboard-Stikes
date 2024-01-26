@@ -7,7 +7,7 @@ function InformasiSantri({ dataValue }) {
             <table>
                 <tr>
                     <td>Tahun Ajaran</td>
-                    <td>: </td>
+                    <td>: {dataValue?.period} </td>
                 </tr>
                 <tr>
                     <td>NIS</td>
