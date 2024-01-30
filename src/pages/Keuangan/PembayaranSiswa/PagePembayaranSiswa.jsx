@@ -24,6 +24,8 @@ import NoRefrensi from './components/cetakBuktiPembayaran'
 import CetakButton from './components/ButtonCetak'
 import ModalSiswa from './components/ModalSiswa'
 import useTable from '../../../customHooks/useTable'
+import AkunKas from './components/AkunKas'
+import NoRef from './components/NoRefrensi'
 
 function PagePembayaranSiswa() {
     const {
@@ -215,8 +217,15 @@ function PagePembayaranSiswa() {
 
                         <div className="jenis-bayar">
                             <h6>Jenis Pembayaran</h6>
+                            <div className='no-refrensi'>
+                                <p><b>No. Refrensi </b> <NoRef /></p>
+                                <p><b>Akun Kas * </b> <AkunKas /></p>
+                               
+                               
+
+                            </div>
                             <Tabs
-                                defaultActiveKey="home"
+                                defaultActiveKey="bulanan"
                                 transition={false}
                                 id="noanim-tab-example"
                                 className="mb-3"
@@ -234,7 +243,7 @@ function PagePembayaranSiswa() {
                             <div className="transaksi-historiPembayaran">
                                 <div className="pembayaran-history">
                                     <Tabs
-                                        defaultActiveKey="profile"
+                                        defaultActiveKey="Transaksi"
                                         id="uncontrolled-tab-example"
                                         className="mb-3"
                                     >
