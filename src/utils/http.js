@@ -191,3 +191,9 @@ export const deletePaymentRate = (id, token) =>
 // export const putPaymentType = (id, body, token) => Axios.put(`${URL_BASE}/payment-type/${id}`, body, options(token));
 
 // export const putAlumni = (id,body,token) => Axios.put(`${URL_BASE}/alumni/${id}`,body, options(token));
+
+export const getPaymentTransactionByStudent = (id, query, token) =>
+    Axios.get(`${URL_BASE}/payment-transaction/student/${id}`, {
+        ...options(token),
+        params: query,
+    })

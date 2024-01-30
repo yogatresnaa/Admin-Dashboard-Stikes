@@ -37,6 +37,7 @@ export const siswaModel = {
         student_phone: body.student_phone,
         student_address: body.student_address,
         student_nis: body.student_nis,
+        student_status: body.student_status,
         student_nisn: body.student_nisn,
         majors_majors_id: body.majors_majors_id,
         class_class_id: body.class_class_id,
