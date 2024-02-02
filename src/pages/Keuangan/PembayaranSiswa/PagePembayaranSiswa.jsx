@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Button } from 'reactstrap'
+import { ToastContainer } from 'react-toastify'
+
 import ItemImageSiswa from './components/ImageSiswa'
 import PembayaranBulanan from './components/PembayaranBulanan'
 import PembayaranBebas from './components/PembayaranBebas'
@@ -7,9 +9,12 @@ import SelectTahunAjaran from '../../../component/ActionButton/SelectTahunAjaran
 import SearchInput from '../../../component/ActionButton/SearchInput'
 import useRequest from '../../../customHooks/useRequest'
 import {
+    deletePaymentTransactionById,
+    getAllKelas,
     getAllSiswa,
     getAllTahunAjaran,
     getPaymentTransactionByStudent,
+    putPaymentTransactionById,
 } from '../../../utils/http'
 import { useSelector } from 'react-redux'
 import Tab from 'react-bootstrap/Tab'
@@ -24,7 +29,12 @@ import NoRefrensi from './components/cetakBuktiPembayaran'
 import CetakButton from './components/ButtonCetak'
 import ModalSiswa from './components/ModalSiswa'
 import useTable from '../../../customHooks/useTable'
+import ModalPembayaran from './components/ModalPembayaran'
 
+const pembayaranBulananInitialValues = {
+    payment_rate_bill: '',
+    tanggal_pembayaran: '',
+}
 function PagePembayaranSiswa() {
     const {
         data: dataSiswa,
@@ -37,7 +47,14 @@ function PagePembayaranSiswa() {
         setIsLoading: setIsLoadingSiswa,
         isLoadingSendData: isLoadingSendDataSiswa,
         filterText,
+        setFilterText,
         onChangeFilterText,
+    } = useRequest()
+    const {
+        data: dataKelas,
+        getData: getDataKelas,
+        isLoading: isLoadingKelas,
+        setIsLoading: setIsLoadingKelas,
     } = useRequest()
     const {
         data: dataPaymentTransaction,
@@ -59,13 +76,18 @@ function PagePembayaranSiswa() {
         isEdit,
         setIsEdit,
     } = useTable()
-
+    const {
+        isOpenModalForm: isOpenModalPembayaran,
+        setIsOpenModalForm: setIsOpenModaPembayaran,
+    } = useTable()
     const toggleModalSiswa = (e) => {
         setIsOpenModalSiswa(!isOpenModalSiswa)
     }
 
-    const [selectedSiswa, setSelectedSiswa] = useState(null)
     const [tahunAjaranState, setTahunAjaran] = useState('')
+    const [kelas, setKelas] = useState('')
+    const [dataDetailPembayaran, setDataDetailPembayaran] = useState({})
+    const [filterTextModal, setFilterTextModal] = useState('')
     const {
         data: TahunAjaran,
         setData: setDataTahunAjaran,
@@ -88,7 +110,12 @@ function PagePembayaranSiswa() {
         console.log('a')
         getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token))
         getDataSiswa(() => getAllSiswa({}, dataUser.token))
+        getDataKelas(() => getAllKelas(dataUser.token))
     }, [])
+
+    const onChangeFilterTextModal = (e) => {
+        setFilterTextModal(e.target.value)
+    }
     const subHeaderComponent = useMemo(() => {
         const onClearHandler = () => {
             if (filterText) {
@@ -99,8 +126,8 @@ function PagePembayaranSiswa() {
 
         return (
             <SearchInput
-                filterText={filterText}
-                setFilterText={onChangeFilterText}
+                filterText={filterTextModal}
+                setFilterText={onChangeFilterTextModal}
             />
         )
     }, [
@@ -127,6 +154,7 @@ function PagePembayaranSiswa() {
                 dataUser.token
             )
         )
+        setFilterText(data.student_nis)
 
         setIsOpenModalSiswa(!isOpenModalSiswa)
     }
@@ -139,13 +167,13 @@ function PagePembayaranSiswa() {
             if (tahunAjaranState == '') {
                 console.log(TahunAjaran)
                 setTahunAjaran(TahunAjaran.data[0])
-                setSelectedSiswa({
+                setDataDetailSiswa({
                     ...dataPaymentTransaction.data,
                     period: `${TahunAjaran?.data[0]?.period_start}/${TahunAjaran?.data[0]?.period_end}`,
                 })
             } else {
                 console.log()
-                setSelectedSiswa({
+                setDataDetailSiswa({
                     ...dataPaymentTransaction.data,
                     period: `${tahunAjaranState.period_start}/${tahunAjaranState.period_end}`,
                 })
@@ -167,17 +195,107 @@ function PagePembayaranSiswa() {
 
         setTahunAjaran(selectedPeriod)
     }
-    console.log(tahunAjaranState)
     const onClickSearchHandler = () => {
-        setSelectedSiswa((prevState) => ({
+        const getSiswa = dataSiswa.data.filter((item) =>
+            item.student_nis
+                .toString()
+                .toLowerCase()
+                .includes(filterTextModal.toLocaleLowerCase())
+        )[0]
+        getDataPaymentTransaction(() =>
+            getPaymentTransactionByStudent(
+                getSiswa.student_id,
+                {
+                    period_start: TahunAjaran.data[0].period_start,
+                    period_end: TahunAjaran.data[0].period_end,
+                },
+                dataUser.token
+            )
+        )
+        setDataDetailSiswa((prevState) => ({
             ...prevState,
             period: `${tahunAjaranState.period_start}/${tahunAjaranState.period_end}`,
         }))
     }
 
-    console.log(selectedSiswa)
+    const onChangeKelasHandler = (e) => {
+        setKelas(e.target.value)
+    }
+    const newDataSiswa = dataSiswa.data.filter(
+        (item) =>
+            item.student_nis
+                .toString()
+                .toLowerCase()
+                .includes(filterTextModal.toLocaleLowerCase()) &&
+            item.class_class_id == kelas
+    )
+    const onClickItemPembayaranHandler = (data) => {
+        setDataDetailPembayaran(data)
+        setIsOpenModaPembayaran(!isOpenModalPembayaran)
+    }
+    useEffect(() => {
+        // if (dataDetailPembayaran) {
+        //     setIsOpenModaPembayaran(!isOpenModalPembayaran)
+        // }
+    }, [dataDetailPembayaran, isOpenModalPembayaran, setIsOpenModaPembayaran])
+    const onClickSubmitButtonModal = (type, id) => () => {
+        switch (type) {
+            case 'submit':
+                onCLickSubmitPembayaranBulananHandler(id)
+                break
+            case 'delete':
+                onCLickDeletePembayaranBulananHandler(id)
+                break
+            default:
+                return
+        }
+    }
+    const onCLickSubmitPembayaranBulananHandler = async (id) => {
+        const formData = { student_student_id: dataDetailSiswa?.student_id }
+
+        await sendDataPaymentTransaction(
+            () => putPaymentTransactionById(id, formData, dataUser.token),
+            () => {
+                getDataPaymentTransaction(() =>
+                    getPaymentTransactionByStudent(
+                        dataDetailSiswa.student_id,
+                        {
+                            period_start: tahunAjaranState.period_start,
+                            period_end: tahunAjaranState.period_end,
+                        },
+                        dataUser.token
+                    )
+                )
+                setIsOpenModaPembayaran(!isOpenModalPembayaran)
+            },
+            null
+        )
+    }
+    const onCLickDeletePembayaranBulananHandler = async (id) => {
+        const formData = { student_student_id: dataDetailSiswa?.student_id }
+
+        await sendDataPaymentTransaction(
+            () => deletePaymentTransactionById(id, formData, dataUser.token),
+            () => {
+                getDataPaymentTransaction(() =>
+                    getPaymentTransactionByStudent(
+                        dataDetailSiswa.student_id,
+                        {
+                            period_start: tahunAjaranState.period_start,
+                            period_end: tahunAjaranState.period_end,
+                        },
+                        dataUser.token
+                    )
+                )
+                setIsOpenModaPembayaran(!isOpenModalPembayaran)
+            },
+            null
+        )
+    }
     return (
         <div className="page-content">
+            <ToastContainer />
+
             <h3>
                 Pembayaran Siswa{' '}
                 <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>
@@ -188,41 +306,57 @@ function PagePembayaranSiswa() {
                     <h6 className="filter-data">
                         Filter Data Pembayaran SIswa
                     </h6>
-                    <div className="d-flex flex-row gap-5 justify-content-start align-items-end mt-2 thn-ajrn">
+                    <div className="d-flex flex-row gap-3 justify-content-start align-items-end mt-2 thn-ajrn">
                         <SelectTahunAjaran
                             data={TahunAjaran.data}
                             onChange={onPeriodChange}
                             value={tahunAjaranState?.period_id ?? ''}
                         />
-                        <SearchInput
-                            style={{ margin: 0 }}
-                            filterText={filterText}
-                            setFilterText={onChangeFilterText}
-                        />
+                        <div className="d-flex gap-1 justify-content-between">
+                            <SearchInput
+                                style={{ margin: 0 }}
+                                filterText={filterText}
+                                setFilterText={onChangeFilterText}
+                            />
+
+                            <Button
+                                size="sm"
+                                color="success"
+                                disabled={!kelas && filterText === ''}
+                                onClick={onClickSearchHandler}
+                            >
+                                Cari
+                            </Button>
+                        </div>
 
                         <Button size="sm" onClick={toggleModalSiswa}>
                             Data Siswa
                         </Button>
                     </div>
                 </div>
-                {selectedSiswa && (
+                {dataDetailSiswa && (
                     <>
                         <div className="info-santri">
                             <h6>Informasi Siswa</h6>
-                            <InformasiSantri dataValue={selectedSiswa} />
+                            <InformasiSantri dataValue={dataDetailSiswa} />
                             <ItemImageSiswa />
                         </div>
 
                         <div className="jenis-bayar">
                             <h6>Jenis Pembayaran</h6>
                             <Tabs
-                                defaultActiveKey="home"
+                                defaultActiveKey="bulanan"
                                 transition={false}
                                 id="noanim-tab-example"
                                 className="mb-3"
                             >
                                 <Tab eventKey="bulanan" title="Bulanan">
-                                    <PembayaranBulanan />
+                                    <PembayaranBulanan
+                                        data={dataDetailSiswa}
+                                        onClickHandler={
+                                            onClickItemPembayaranHandler
+                                        }
+                                    />
                                 </Tab>
                                 <Tab eventKey="bebas" title="Bebas">
                                     <PembayaranBebas />
@@ -234,7 +368,7 @@ function PagePembayaranSiswa() {
                             <div className="transaksi-historiPembayaran">
                                 <div className="pembayaran-history">
                                     <Tabs
-                                        defaultActiveKey="profile"
+                                        defaultActiveKey="Transaksi"
                                         id="uncontrolled-tab-example"
                                         className="mb-3"
                                     >
@@ -306,12 +440,29 @@ function PagePembayaranSiswa() {
                     </>
                 )}
             </div>
+            <ModalPembayaran
+                data={dataDetailPembayaran}
+                headerName={'Data Bayar'}
+                onSubmit={onClickSubmitButtonModal}
+                initialValues={pembayaranBulananInitialValues}
+                isOpenModal={isOpenModalPembayaran}
+                toggleModal={() =>
+                    setIsOpenModaPembayaran(!isOpenModalPembayaran)
+                }
+            />
 
             <ModalSiswa
-                dataSiswa={dataSiswa.data}
+                dataSiswa={
+                    kelas || filterTextModal !== ''
+                        ? newDataSiswa
+                        : dataSiswa.data
+                }
                 subHeaderComponent={subHeaderComponent}
                 isOpenModal={isOpenModalSiswa}
                 toggleModal={toggleModalSiswa}
+                dataKelas={dataKelas.data}
+                onChangeKelas={onChangeKelasHandler}
+                valueKelas={kelas}
                 onClickSiswaHandler={onClickSiswaHandler}
                 isLoading={isLoadingSiswa}
             />
