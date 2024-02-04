@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/js/dist/dropdown';
 import 'bootstrap/js/dist/collapse';
-import { FaUserGraduate, FaAngleDown, FaAngleUp, FaUniversity, FaRegMoneyBillAlt, FaRegCreditCard, FaRegKeyboard, FaRegEdit } from 'react-icons/fa';
+import { FaUserGraduate, FaAngleDown, FaAngleUp, FaUniversity, FaRegMoneyBillAlt, FaRegCreditCard, FaRegKeyboard, FaRegEdit, FaEnvelope, FaMoneyCheckAlt, FaSearchDollar  } from 'react-icons/fa';
 import { BsFillMortarboardFill } from 'react-icons/bs';
 import { FaCircleMinus } from 'react-icons/fa6';
 import { IconContext } from 'react-icons';
@@ -108,6 +108,30 @@ function Sidebar() {
               </li>
             </Link>
 
+             <Link className='link' to='/admin/pembayaran-siswa'>
+              <li className='nav-item nav-link text-black  my-1'>
+                <IconContext.Provider value={{ color: '#DC84F3' }}>
+                  <FaRegMoneyBillAlt style={{ width: '30px', height: '30px', background: '#E0F4FF', padding: '3px', boxShadow: 'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px' }} />
+                </IconContext.Provider>
+
+                <span className='ms-2'>Pembayaran Siswa</span>
+              </li>
+            </Link>
+
+
+              <li className='nav-item my-2' onClick={toggleNav}>
+              <a href='#submenu' className='nav-link text-black' data-bs-toggle='collapse' aria-current='page'>
+                <IconContext.Provider value={{ color: '#DC84F3' }}>
+                  <FaEnvelope style={{ width: '30px', height: '30px', background: '#E0F4FF', padding: '3px', borderradius: '50x', boxShadow: 'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px' }} />
+                </IconContext.Provider>
+
+                <span className='ms-2'>Kirim Tagihan</span>
+                {/* <Navbar.Toggle aria-controls='responsive-navbar-nav' className='ms-2'>
+                  {toggle1 === true ? <FaAngleUp /> : <FaAngleDown />}
+                </Navbar.Toggle> */}
+              </a>
+            </li>
+
             <li className='nav-item my-2' onClick={toggleNav}>
               <a href='#submenu' className='nav-link text-black' data-bs-toggle='collapse' aria-current='page'>
                 <IconContext.Provider value={{ color: '#DC84F3' }}>
@@ -160,6 +184,20 @@ function Sidebar() {
                 </Link>
               </ul>
             </li>
+
+
+            <Link className='link' to='/admin/pembayaran-siswa'>
+              <li className='nav-item nav-link text-black  my-1'>
+                <IconContext.Provider value={{ color: '#DC84F3' }}>
+                  <FaRegMoneyBillAlt style={{ width: '30px', height: '30px', background: '#E0F4FF', padding: '3px', boxShadow: 'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px' }} />
+                </IconContext.Provider>
+
+                <span className='ms-2'>Seting Pembayaran</span>
+              </li>
+            </Link>
+
+
+            
 
             <li className='nav-item text-white my-1'>
               <a href='#submenu3' className='nav-link text-black' onClick={toggleNav3} data-bs-toggle='collapse' aria-current='page'>
@@ -243,7 +281,7 @@ function Sidebar() {
               </ul>
             </li>
 
-            <li className='nav-item text-white my-1'>
+            {/* <li className='nav-item text-white my-1'>
               <a href='#submenu7' className='nav-link text-black' onClick={toggleNav6} data-bs-toggle='collapse' aria-current='page'>
                 <IconContext.Provider value={{ color: '#DC84F3' }}>
                   <FaRegEdit style={{ width: '30px', height: '30px', background: '#E0F4FF', padding: '3px', borderradius: '50x', boxShadow: 'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px' }} />
@@ -311,7 +349,28 @@ function Sidebar() {
                   </ul>
                 </li>
               </ul>
-            </li>
+            </li> */}
+
+
+            <Link className='link' to='/admin/pembayaran-siswa'>
+              <li className='nav-item nav-link text-black  my-1'>
+                <IconContext.Provider value={{ color: '#DC84F3' }}>
+                  <FaSearchDollar  style={{ width: '30px', height: '30px', background: '#E0F4FF', padding: '3px', boxShadow: 'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px' }} />
+                </IconContext.Provider>
+
+                <span className='ms-2'>Lap. Pembayaran</span>
+              </li>
+            </Link>
+
+            <Link className='link' to='/admin/pembayaran-siswa'>
+              <li className='nav-item nav-link text-black  my-1'>
+                <IconContext.Provider value={{ color: '#DC84F3' }}>
+                  <FaMoneyCheckAlt style={{ width: '30px', height: '30px', background: '#E0F4FF', padding: '3px', boxShadow: 'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px' }} />
+                </IconContext.Provider>
+
+                <span className='ms-2'>Lap. Keuangan</span>
+              </li>
+            </Link>
           </ul>
         </div>
       </div>
