@@ -6,7 +6,7 @@ import SelectUnitKelas from '../../../../component/ActionButton/SelectUnitKelas'
 import { Formik } from 'formik'
 import FormComponent from '../../../../component/Form/FormComponent'
 
-export default function ModalPembayaran({
+export default function ModalPembayaranBulanan({
     isOpenModal,
     toggleModal,
     data,

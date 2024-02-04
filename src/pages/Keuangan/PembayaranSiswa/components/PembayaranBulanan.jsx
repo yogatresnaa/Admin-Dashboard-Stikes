@@ -1,11 +1,10 @@
 import React from 'react'
 import DataTable from 'react-data-table-component'
 import { pembayaran1 } from '../../../../utils/dumyDataTransaksi'
-import { dateConvert } from '../../../../utils/helper'
+import { Button } from 'reactstrap'
+import { dateConvert, rupiahConvert } from '../../../../utils/helper'
 
 function PembayaranBulanan({ data, onClickHandler }) {
-    let arrColumns = []
-    console.log
     const renderMonthColumn = (monthName, type) => ({
         name: monthName,
         cell: (row) => (
@@ -18,28 +17,32 @@ function PembayaranBulanan({ data, onClickHandler }) {
                     )
                 }
             >
-                {
+                {rupiahConvert(
                     row.monthly_payment.filter(
                         (item) => item.month_name === monthName
                     )[0].payment_rate_bill
-                }
+                )}
                 <br />
-                {row.monthly_payment.filter(
-                    (item) => item.month_name === monthName
-                )[0].payment_rate_status == 1 &&
-                    `${dateConvert(
-                        row.monthly_payment.filter(
-                            (item) => item.month_name === monthName
-                        )[0].payment_rate_date_pay
-                    )}`}
-                <br />{' '}
-                {row.monthly_payment.filter(
-                    (item) => item.month_name === monthName
-                )[0].payment_rate_status == 1 && `[${type}]`}
+                <span style={{ fontSize: '0.7rem', color: 'grey' }}>
+                    {row.monthly_payment.filter(
+                        (item) => item.month_name === monthName
+                    )[0].payment_rate_status == 1 &&
+                        `(${dateConvert(
+                            row.monthly_payment.filter(
+                                (item) => item.month_name === monthName
+                            )[0].payment_rate_date_pay
+                        )})`}
+                </span>
+                <br />
+                <span style={{ fontSize: '0.8rem', color: 'grey' }}>
+                    {row.monthly_payment.filter(
+                        (item) => item.month_name === monthName
+                    )[0].payment_rate_status == 1 && `[${type}]`}
+                </span>
             </div>
         ),
         sortable: true,
-        width: '200px',
+        width: '150px',
         conditionalCellStyles: [
             {
                 when: (row) =>
@@ -52,6 +55,7 @@ function PembayaranBulanan({ data, onClickHandler }) {
                     '&:hover': {
                         cursor: 'pointer',
                     },
+                    cursor: 'pointer',
                 },
             },
             {
@@ -63,42 +67,14 @@ function PembayaranBulanan({ data, onClickHandler }) {
                     backgroundColor: '#dff0d8',
                     color: 'black',
                     '&:hover': {
-                        cursor: 'pointer',
+                        color: 'pointer',
                     },
+                    cursor: 'pointer',
                 },
             },
         ],
     })
 
-    for (let i = 0; i < data.monthly_type.length; i++) {
-        arrColumns.push(
-            {
-                name: 'No',
-                selector: (row, index) => index + 1,
-                sortable: true,
-                width: '70px',
-            },
-            {
-                name: 'Nama Pembayran',
-                selector: (row) =>
-                    `${row?.pos_pay_name} - T.A ${row.period_start}/${row.period_end}`,
-                sortable: true,
-                width: '200px',
-            },
-            {
-                name: 'Sisa Tagihan',
-                selector: (row) => row.SisaTagihan,
-                sortable: true,
-                width: '200px',
-            },
-            ...data.monthly_type[0].monthly_payment.map((item) => ({
-                name: item.month_name,
-                selector: (row) => item.payment_rate_bill,
-                sortable: true,
-                width: '200px',
-            }))
-        )
-    }
     const customStyles = {
         header: {
             style: {
@@ -108,33 +84,26 @@ function PembayaranBulanan({ data, onClickHandler }) {
         headRow: {
             style: {
                 borderTopStyle: 'solid',
+                fontSize: '11px',
+
                 borderTopWidth: '1px',
             },
         },
         headCells: {
             style: {
-                '&:not(:last-of-type)': {
-                    borderRightStyle: 'solid',
-                    borderRightWidth: '1px',
-                    borderBottomtWidth: '1px',
-                    minHeight: '50px',
-                    backgroundColor: '#F8EDFF',
-                },
-                '&:last-of-type': {
-                    borderRightStyle: 'solid',
-                    borderRightWidth: '1px',
-                    borderBottomtWidth: '1px',
-                    minHeight: '50px',
-                    backgroundColor: '#F8EDFF',
-                },
+                borderRightStyle: 'solid',
+                borderRightWidth: '1px',
+                borderBottomtWidth: '1px',
+                minHeight: '50px',
+                backgroundColor: '#F8EDFF',
             },
         },
         cells: {
             style: {
-                '&:not(:last-of-type)': {
-                    borderRightStyle: 'solid',
-                    borderRightWidth: '1px',
-                },
+                fontSize: '11px',
+
+                borderRightStyle: 'solid',
+                borderRightWidth: '1px',
             },
         },
     }
@@ -147,7 +116,7 @@ function PembayaranBulanan({ data, onClickHandler }) {
             width: '70px',
         },
         {
-            name: 'Nama Pembayran',
+            name: 'Nama Pembayaran',
             selector: (row) =>
                 `${row?.pos_pay_name} - T.A ${row.period_start}/${row.period_end}`,
             sortable: true,
@@ -155,7 +124,7 @@ function PembayaranBulanan({ data, onClickHandler }) {
         },
         {
             name: 'Sisa Tagihan',
-            selector: (row) => row.sisa_tagihan,
+            selector: (row) => rupiahConvert(row.sisa_tagihan),
             sortable: true,
             width: '200px',
         },

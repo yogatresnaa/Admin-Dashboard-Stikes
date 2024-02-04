@@ -164,3 +164,8 @@ export const editFreePaymentRateSchema = Yup.object().shape({
 //     // majors_short_name:Yup.string().required("Field Harus Diisi"),
 
 // })
+
+export const freePaymentSchema = Yup.object().shape({
+    payment_rate_bebas_pay_bill: Yup.string().required('Nominal Dipilih'),
+    payment_rate_bebas_pay_desc: Yup.string().required('Deskripsi harus diisi'),
+})

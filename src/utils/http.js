@@ -205,3 +205,13 @@ export const deletePaymentTransactionById = (id, body, token) =>
         body,
         options(token)
     )
+
+export const putDiscountFreePaymentTransactionById = (id, body, token) =>
+    Axios.put(
+        `${URL_BASE}/payment-transaction/discount/${id}`,
+        body,
+        options(token)
+    )
+
+export const putFreePaymentTransactionById = (id, body, token) =>
+    Axios.put(`${URL_BASE}/payment-transaction/pay/${id}`, body, options(token))

@@ -14,6 +14,8 @@ import {
     getAllSiswa,
     getAllTahunAjaran,
     getPaymentTransactionByStudent,
+    putDiscountFreePaymentTransactionById,
+    putFreePaymentTransactionById,
     putPaymentTransactionById,
 } from '../../../utils/http'
 import { useSelector } from 'react-redux'
@@ -29,7 +31,9 @@ import NoRefrensi from './components/cetakBuktiPembayaran'
 import CetakButton from './components/ButtonCetak'
 import ModalSiswa from './components/ModalSiswa'
 import useTable from '../../../customHooks/useTable'
-import ModalPembayaran from './components/ModalPembayaran'
+import ModalPembayaranBulanan from './components/ModalPembayaranBulanan'
+import ModalDiscount from './components/ModalDiscount'
+import ModalPembayaranBebas from './components/ModalPembayaranBebas'
 
 const pembayaranBulananInitialValues = {
     payment_rate_bill: '',
@@ -76,10 +80,26 @@ function PagePembayaranSiswa() {
         isEdit,
         setIsEdit,
     } = useTable()
+
     const {
         isOpenModalForm: isOpenModalPembayaran,
         setIsOpenModalForm: setIsOpenModaPembayaran,
     } = useTable()
+
+    const {
+        isOpenModalForm: isOpenModalDiscount,
+        setIsOpenModalForm: setIsOpenModalDiscount,
+    } = useTable()
+    const {
+        isOpenModalForm: isOpenModalPembayaranBebas,
+        setIsOpenModalForm: setIsOpenModalPembayaranBebas,
+    } = useTable()
+
+    const {
+        isOpenModalForm: isOpenModalBayar,
+        setIsOpenModalForm: setIsOpenModalBayar,
+    } = useTable()
+
     const toggleModalSiswa = (e) => {
         setIsOpenModalSiswa(!isOpenModalSiswa)
     }
@@ -87,6 +107,7 @@ function PagePembayaranSiswa() {
     const [tahunAjaranState, setTahunAjaran] = useState('')
     const [kelas, setKelas] = useState('')
     const [dataDetailPembayaran, setDataDetailPembayaran] = useState({})
+    const [dataDiscount, setDataDiscount] = useState({})
     const [filterTextModal, setFilterTextModal] = useState('')
     const {
         data: TahunAjaran,
@@ -292,12 +313,69 @@ function PagePembayaranSiswa() {
             null
         )
     }
+    const onClickDiscountHandler = (data) => {
+        setDataDetailPembayaran(data)
+        setIsOpenModalDiscount(!isOpenModalDiscount)
+    }
+
+    const onSubmitDiscountModal = async (formBody, { resetForm }) => {
+        await sendDataPaymentTransaction(
+            () =>
+                putDiscountFreePaymentTransactionById(
+                    formBody.detail_payment_rate_id,
+                    formBody,
+                    dataUser.token
+                ),
+            () => {
+                getDataPaymentTransaction(() =>
+                    getPaymentTransactionByStudent(
+                        dataDetailSiswa.student_id,
+                        {
+                            period_start: tahunAjaranState.period_start,
+                            period_end: tahunAjaranState.period_end,
+                        },
+                        dataUser.token
+                    )
+                )
+                setIsOpenModalDiscount(!isOpenModalDiscount)
+            },
+            null
+        )
+    }
+    const onClickBayarHandler = (data) => {
+        setDataDetailPembayaran(data)
+        setIsOpenModalPembayaranBebas(!isOpenModalPembayaranBebas)
+    }
+    const onSubmitBayarModal = async (formBody, { resetForm }) => {
+        console.log(formBody)
+        await sendDataPaymentTransaction(
+            () =>
+                putFreePaymentTransactionById(
+                    formBody.detail_payment_rate_id,
+                    formBody,
+                    dataUser.token
+                ),
+            () => {
+                getDataPaymentTransaction(() =>
+                    getPaymentTransactionByStudent(
+                        dataDetailSiswa.student_id,
+                        {
+                            period_start: tahunAjaranState.period_start,
+                            period_end: tahunAjaranState.period_end,
+                        },
+                        dataUser.token
+                    )
+                )
+                setIsOpenModalPembayaranBebas(!isOpenModalPembayaranBebas)
+            },
+            null
+        )
+    }
     return (
         <div className="page-content">
             <ToastContainer />
-
             <h3>
-                Pembayaran Siswa{' '}
+                Pembayaran Siswa
                 <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>
             </h3>
 
@@ -359,7 +437,18 @@ function PagePembayaranSiswa() {
                                     />
                                 </Tab>
                                 <Tab eventKey="bebas" title="Bebas">
-                                    <PembayaranBebas />
+                                    <PembayaranBebas
+                                        data={dataDetailSiswa}
+                                        onClickDiscountHandler={
+                                            onClickDiscountHandler
+                                        }
+                                        onClickBayarHandler={
+                                            onClickBayarHandler
+                                        }
+                                        onClickHandler={
+                                            onClickItemPembayaranHandler
+                                        }
+                                    />
                                 </Tab>
                             </Tabs>
                         </div>
@@ -440,7 +529,7 @@ function PagePembayaranSiswa() {
                     </>
                 )}
             </div>
-            <ModalPembayaran
+            <ModalPembayaranBulanan
                 data={dataDetailPembayaran}
                 headerName={'Data Bayar'}
                 onSubmit={onClickSubmitButtonModal}
@@ -448,6 +537,20 @@ function PagePembayaranSiswa() {
                 isOpenModal={isOpenModalPembayaran}
                 toggleModal={() =>
                     setIsOpenModaPembayaran(!isOpenModalPembayaran)
+                }
+            />
+            <ModalDiscount
+                data={dataDetailPembayaran}
+                isOpenModal={isOpenModalDiscount}
+                onSubmit={onSubmitDiscountModal}
+                toggleModal={() => setIsOpenModalDiscount(!isOpenModalDiscount)}
+            />
+            <ModalPembayaranBebas
+                data={dataDetailPembayaran}
+                isOpenModal={isOpenModalPembayaranBebas}
+                onSubmitHandler={onSubmitBayarModal}
+                toggleModal={() =>
+                    setIsOpenModalPembayaranBebas(!isOpenModalPembayaranBebas)
                 }
             />
 
