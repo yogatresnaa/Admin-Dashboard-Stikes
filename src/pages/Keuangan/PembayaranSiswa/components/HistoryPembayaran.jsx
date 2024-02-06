@@ -71,7 +71,7 @@ function HistoryPembayaran() {
         },
     ]
     return (
-        <div>
+        <div style={{ maxWidth: '800px', width: '100%' }}>
             <DataTable
                 title="History Pembayaran"
                 columns={columns}

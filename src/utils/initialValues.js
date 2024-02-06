@@ -65,3 +65,8 @@ export const detailPaymentRateInitialValues = {
         month_desember: { id: 6, payment: '' },
     },
 }
+
+export const freePaymentInitialValues = {
+    payment_rate_bebas_pay_bill: '',
+    payment_rate_bebas_pay_desc: '',
+}

@@ -1,85 +1,98 @@
 /* Pembayaran siswa */
 
 .pembayaran-siswa {
-  padding: 10px;
-  border-radius: 10px;
-  border-top:solid 5px rgb(225, 166, 240);
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  margin-bottom: 15px;
- 
+    padding: 10px;
+    border-radius: 10px;
+    border-top: solid 5px rgb(225, 166, 240);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-bottom: 15px;
 }
 
 .filter-data {
-  margin-top: 20px;
-  margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 30px;
 }
 
 .thn-ajrn {
-  width: 60%;
-  
+    width: 60%;
 }
-
 
 .info-santri {
-  width: 100%;
-  display: flex;
-  padding: 10px;
-  border-radius: 10px;
-  border-top:solid 5px rgb(225, 166, 240);
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  margin: auto;
+    width: 100%;
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    border-top: solid 5px rgb(225, 166, 240);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin: auto;
 }
 
-.info-santri h6{
-  width: 250px;
+.info-santri h6 {
+    width: 250px;
 }
-
 
 .data-santri {
-  width: 100%;
-  margin: 20px 50px 20px 50px;
+    width: 100%;
+    margin: 20px 50px 20px 50px;
 }
 
 .data-santri table {
-  width: 500px;
-  line-height:35px;
-
+    min-width: 300px;
+    width: 100%;
+    max-width: 500px;
+    line-height: 35px;
+    display: flex;
+    flex-direction: column;
+}
+.data-santri table tr {
+    flex: 1;
+    display: flex;
+    border-bottom: 1px solid rgb(225, 172, 244);
+    font-size: 0.8rem;
 }
 .data-santri table td {
-  border-bottom: 1px solid rgb(225, 172, 244);
-  width: 90%;
-  
+    flex: 1;
+    border-bottom: 1px solid rgb(225, 172, 244);
+    font-size: 0.8rem;
+}
+.data-santri table td.colon {
+    flex: 0.1;
+    font-size: 0.8rem;
 }
 
 .Image-siswa {
-  width: 40%;
-  margin: 20px 50px 20px 50px;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 40%;
+    margin: 20px 50px 20px 50px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .Image-siswa img {
-  width: 100%;
+    width: 100%;
 }
 
-
 .jenis-bayar {
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  border-top:solid 5px rgb(225, 166, 240);
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border-top: solid 5px rgb(225, 166, 240);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-top: 20px;
 }
 
 .Jenis-Pembayaran {
-  display: flex;
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  border-top:solid 5px rgb(225, 166, 240);
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  margin-top: 20px;
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border-top: solid 5px rgb(225, 166, 240);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 1600px) {
+    .Jenis-Pembayaran {
+    }
 }
 
 .no-refrensi {
@@ -91,72 +104,72 @@
 }
 
 .transaksi-historiPembayaran {
-   width: 900px;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  margin-top: 20px;
+    width: 100%;
+    flex: 3;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-top: 20px;
 }
 
 .pembayaran-history {
-  width: 800px;
-  border: 1px solid grey;
-  padding: 2px;
-  border-radius: 10px;
+    width: 100%;
+    border: 1px solid grey;
+    padding: 2px;
+    border-radius: 10px;
 }
-
 
 .kalkulator {
-  width: 50%;
-  margin: 20px 50px 20px 50px;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  padding: 5px;
- 
+    flex: 1;
+    margin: 1rem 0 0 1rem;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 5px;
 }
-.kalkulator h6{
-  padding: 5px;
+.kalkulator h6 {
+    padding: 5px;
 }
 
 .wrapping {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas: 
-  'total dibayar'
-  'kembalian kembalian'
-  ;
-  width: 300px;
-  
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        'total dibayar'
+        'kembalian kembalian';
+    width: 300px;
+
     border-radius: 10px;
 }
 .total {
-  grid-area: total;
-
+    grid-area: total;
 }
 .dibayar {
-grid-area: dibayar;
+    grid-area: dibayar;
 }
 
 .kembalian {
-  grid-area: kembalian;
-
+    grid-area: kembalian;
 }
 .input-text {
-  padding: 5px;
+    padding: 5px;
 }
 
 .bukti-pembayaran {
-  width: 300px;
-  padding: 10px;
-  border-top: 1px solid rgb(225, 166, 240);;
-  margin-top: 40px;
+    width: 100%;
+    padding: 10px;
+    border-top: 1px solid rgb(225, 166, 240);
+    margin-top: 40px;
 }
 
 .cetak-button {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-  
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
 }
 
 /* Pembayaran siswa */
+
+.nav-tabs .nav-link {
+    font-size: 0.8rem;
+    color: black;
+}

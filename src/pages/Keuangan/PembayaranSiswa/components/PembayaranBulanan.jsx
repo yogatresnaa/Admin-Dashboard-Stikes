@@ -1,157 +1,162 @@
-import React from 'react';
-import DataTable from 'react-data-table-component';
-import { pembayaran1 } from '../../../../utils/dumyDataTransaksi';
+import React from 'react'
+import DataTable from 'react-data-table-component'
+import { pembayaran1 } from '../../../../utils/dumyDataTransaksi'
+import { Button } from 'reactstrap'
+import { dateConvert, rupiahConvert } from '../../../../utils/helper'
 
-function PembayaranBulanan() {
+function PembayaranBulanan({ data, onClickHandler }) {
+    const renderMonthColumn = (monthName, type) => ({
+        name: monthName,
+        cell: (row) => (
+            <div
+                onClick={() =>
+                    onClickHandler(
+                        row.monthly_payment.filter(
+                            (item) => item.month_name === monthName
+                        )[0]
+                    )
+                }
+            >
+                {rupiahConvert(
+                    row.monthly_payment.filter(
+                        (item) => item.month_name === monthName
+                    )[0].payment_rate_bill
+                )}
+                <br />
+                <span style={{ fontSize: '0.7rem', color: 'grey' }}>
+                    {row.monthly_payment.filter(
+                        (item) => item.month_name === monthName
+                    )[0].payment_rate_status == 1 &&
+                        `(${dateConvert(
+                            row.monthly_payment.filter(
+                                (item) => item.month_name === monthName
+                            )[0].payment_rate_date_pay
+                        )})`}
+                </span>
+                <br />
+                <span style={{ fontSize: '0.8rem', color: 'grey' }}>
+                    {row.monthly_payment.filter(
+                        (item) => item.month_name === monthName
+                    )[0].payment_rate_status == 1 && `[${type}]`}
+                </span>
+            </div>
+        ),
+        sortable: true,
+        width: '150px',
+        conditionalCellStyles: [
+            {
+                when: (row) =>
+                    row.monthly_payment.filter(
+                        (item) => item.month_name === monthName
+                    )[0].payment_rate_status == 0,
+                style: {
+                    backgroundColor: '#f2dede',
+                    color: 'black',
+                    '&:hover': {
+                        cursor: 'pointer',
+                    },
+                    cursor: 'pointer',
+                },
+            },
+            {
+                when: (row) =>
+                    row.monthly_payment.filter(
+                        (item) => item.month_name === monthName
+                    )[0].payment_rate_status == 1,
+                style: {
+                    backgroundColor: '#dff0d8',
+                    color: 'black',
+                    '&:hover': {
+                        color: 'pointer',
+                    },
+                    cursor: 'pointer',
+                },
+            },
+        ],
+    })
 
-  const customStyles = {
-	header: {
-		style: {
-			minHeight: '100px',
-		},
-	},
-	headRow: {
-		style: {
-			borderTopStyle: 'solid',
-			borderTopWidth: '1px',
-			
-		},
-	},
-	headCells: {
-		style: {
-			'&:not(:last-of-type)': {
-				borderRightStyle: 'solid',
-				borderRightWidth: '1px',
-				borderBottomtWidth: '1px',
-				minHeight: '50px',
-				backgroundColor: '#F8EDFF'				
-			},
-			':last-of-type': {
-				backgroundColor: '#F8EDFF'		
-			},
-		},
-	},
-	cells: {
-		style: {
-			'&:not(:last-of-type)': {
-				borderRightStyle: 'solid',
-				borderRightWidth: '1px',
-        
-				
-			},
-		},
-	},
-};
- 
+    const customStyles = {
+        header: {
+            style: {
+                minHeight: '100px',
+            },
+        },
+        headRow: {
+            style: {
+                borderTopStyle: 'solid',
+                fontSize: '11px',
 
-  const columns = [
-	{
-	name: 'No',
-	selector: (row,index) => index + 1,
-	sortable: true,
-    width: '70px',
-   
-	},
-	{
-	name: 'Nama Pembayran',
-	selector: row => row.NamaPembayaran,
-	sortable: true,
-    width: '200px',
+                borderTopWidth: '1px',
+            },
+        },
+        headCells: {
+            style: {
+                borderRightStyle: 'solid',
+                borderRightWidth: '1px',
+                borderBottomtWidth: '1px',
+                minHeight: '50px',
+                backgroundColor: '#F8EDFF',
+            },
+        },
+        cells: {
+            style: {
+                fontSize: '11px',
 
-	},
-	{
-	name: 'Sisa Tagihan',
-	selector: row => row.SisaTagihan,
-	sortable: true,
-    width: '200px',
-	},
-  {
-	name: 'Juli',
-	selector: row => row.Juli,
-	sortable: true,
-    width: '200px',
-	},
-  {
-	name: 'Agustus',
-	selector: row => row.SisaTagihan,
-	sortable: true,
-    width: '200px',
- 
-	},
-  {
-	name: 'September',
-	selector: row => row.Agustus,
-	sortable: true,
-    width: '300px',
-	},
-  {
-	name: 'Oktober',
-	selector: row => row.Oktober,
-	sortable: true,
-    width: '300px',
-	},
-  {
-	name: 'November',
-	selector: row => row.November,
-	sortable: true,
-    width: '300px',
-	},
-  {
-	name: 'Desember',
-	selector: row => row.Desember,
-	sortable: true,
-    width: '300px',
-	},
+                borderRightStyle: 'solid',
+                borderRightWidth: '1px',
+            },
+        },
+    }
 
-    {
-	name: 'Januari',
-	selector: row => row.Januari,
-	sortable: true,
-    width: '200px',
-	},
-  {
-	name: 'Februri',
-	selector: row => row.Februri,
-	sortable: true,
-    width: '200px',
-	},
-  {
-	name: 'Maret',
-	selector: row => row.Maret,
-	sortable: true,
-    width: '200px',
-	},
-  {
-	name: 'April',
-	selector: row => row.April,
-	sortable: true,
-    width: '200px',
-	},
-  {
-	name: 'Mei',
-	selector: row => row.Mei,
-	sortable: true,
-    width: '200px',
-	},
-  {
-	name: 'Juni',
-	selector: row => row.Juni,
-	sortable: true,
-    width: '200px',
-	},
-]
-  return (
-    <div>
-              <DataTable
-                title="Bulanan"
+    const columns = [
+        {
+            name: 'No',
+            selector: (row, index) => index + 1,
+            sortable: true,
+            width: '70px',
+        },
+        {
+            name: 'Nama Pembayaran',
+            selector: (row) =>
+                `${row?.pos_pay_name} - T.A ${row.period_start}/${row.period_end}`,
+            sortable: true,
+            width: '200px',
+        },
+        {
+            name: 'Sisa Tagihan',
+            selector: (row) => rupiahConvert(row.sisa_tagihan),
+            sortable: true,
+            width: '200px',
+        },
+        // ...data.monthly_type[0].monthly_payment.map((item) => ({
+        //     name: item.month_name,
+        //     selector: (row) => row.payment_rate_bill,
+        //     sortable: true,
+        //     width: '200px',
+        // })),
+        renderMonthColumn('Juli', data.pos_pay_name),
+        renderMonthColumn('Agustus', data.pos_pay_name),
+        renderMonthColumn('September', data.pos_pay_name),
+        renderMonthColumn('Oktober', data.pos_pay_name),
+        renderMonthColumn('November', data.pos_pay_name),
+        renderMonthColumn('Desember', data.pos_pay_name),
+        renderMonthColumn('Januari', data.pos_pay_name),
+        renderMonthColumn('Februari', data.pos_pay_name),
+        renderMonthColumn('Maret', data.pos_pay_name),
+        renderMonthColumn('April', data.pos_pay_name),
+        renderMonthColumn('Mei', data.pos_pay_name),
+        renderMonthColumn('Juni', data.pos_pay_name),
+    ]
+    return (
+        <div>
+            <DataTable
                 columns={columns}
                 customStyles={customStyles}
-                data={pembayaran1}
+                data={data?.monthly_type}
                 dense
-              />
-    </div>
-   
-  );
+            />
+        </div>
+    )
 }
 
-export default PembayaranBulanan;
+export default PembayaranBulanan
