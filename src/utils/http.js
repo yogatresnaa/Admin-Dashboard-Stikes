@@ -215,3 +215,15 @@ export const putDiscountFreePaymentTransactionById = (id, body, token) =>
 
 export const putFreePaymentTransactionById = (id, body, token) =>
     Axios.put(`${URL_BASE}/payment-transaction/pay/${id}`, body, options(token))
+
+export const getDetailFreePaymentRateByPaymentId = (id, token) =>
+    Axios.get(
+        `${URL_BASE}/detail-free-payment-rate/payment-transaction/${id}`,
+        options(token)
+    )
+export const deleteDetailFreePaymentRateByPaymentId = (id, body, token) =>
+    Axios.put(
+        `${URL_BASE}/detail-free-payment-rate/${id}`,
+        body,
+        options(token)
+    )

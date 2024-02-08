@@ -9,10 +9,12 @@ import SelectTahunAjaran from '../../../component/ActionButton/SelectTahunAjaran
 import SearchInput from '../../../component/ActionButton/SearchInput'
 import useRequest from '../../../customHooks/useRequest'
 import {
+    deleteDetailFreePaymentRateByPaymentId,
     deletePaymentTransactionById,
     getAllKelas,
     getAllSiswa,
     getAllTahunAjaran,
+    getDetailFreePaymentRateByPaymentId,
     getPaymentTransactionByStudent,
     putDiscountFreePaymentTransactionById,
     putFreePaymentTransactionById,
@@ -34,6 +36,9 @@ import useTable from '../../../customHooks/useTable'
 import ModalPembayaranBulanan from './components/ModalPembayaranBulanan'
 import ModalDiscount from './components/ModalDiscount'
 import ModalPembayaranBebas from './components/ModalPembayaranBebas'
+import ModalDetailPembayaran from './components/ModalDetailPembayaran'
+import { alertConfirmation } from '../../../component/Alert/swalConfirmation'
+import { alertType } from '../../../utils/CONSTANT'
 
 const pembayaranBulananInitialValues = {
     payment_rate_bill: '',
@@ -70,6 +75,14 @@ function PagePembayaranSiswa() {
         setIsLoading: setIsLoadingPaymentTransaction,
         isLoadingSendData: isLoadingSendPaymentTransaction,
     } = useRequest()
+    const {
+        data: dataDetailFreePaymentTransaction,
+        dataDetail: selecteddataDetailFreePaymentTransaction,
+        setDataDetail: setSelecteDataDetailFreePaymentTransaction,
+        setData: setDataDetailFreePaymentTransaction,
+        sendData: sendDataDetailFreePaymentTransaction,
+        getData: getDataDetailFreePaymentTransaction,
+    } = useRequest()
 
     const {
         resetPaginationToggle,
@@ -84,6 +97,10 @@ function PagePembayaranSiswa() {
     const {
         isOpenModalForm: isOpenModalPembayaran,
         setIsOpenModalForm: setIsOpenModaPembayaran,
+    } = useTable()
+    const {
+        isOpenModalForm: isOpenModalDetailPembayaran,
+        setIsOpenModalForm: setIsOpenModalDetailPembayaran,
     } = useTable()
 
     const {
@@ -371,6 +388,62 @@ function PagePembayaranSiswa() {
             null
         )
     }
+
+    const onClickItemDetailPembayaranHandler = async (id) => {
+        setSelecteDataDetailFreePaymentTransaction(id)
+
+        await getDataDetailFreePaymentTransaction(() =>
+            getDetailFreePaymentRateByPaymentId(id, dataUser.token)
+        )
+        setIsOpenModalDetailPembayaran(true)
+    }
+    const onDeleteDetailPembayaranHandler = async (id) => {
+        const formBody = {
+            ...dataDetailSiswa,
+            detail_payment_rate_id: selecteddataDetailFreePaymentTransaction,
+        }
+        alertConfirmation(alertType.delete, async () => {
+            await sendDataDetailFreePaymentTransaction(
+                () =>
+                    deleteDetailFreePaymentRateByPaymentId(
+                        id,
+                        formBody,
+                        dataUser.token
+                    ),
+                async () => {
+                    await getDataDetailFreePaymentTransaction(() =>
+                        getDetailFreePaymentRateByPaymentId(
+                            selecteddataDetailFreePaymentTransaction,
+                            dataUser.token
+                        )
+                    )
+                    await getDataPaymentTransaction(() =>
+                        getPaymentTransactionByStudent(
+                            dataDetailSiswa.student_id,
+                            {
+                                period_start: tahunAjaranState.period_start,
+                                period_end: tahunAjaranState.period_end,
+                            },
+                            dataUser.token
+                        )
+                    )
+                },
+                null
+            )
+        })
+    }
+    const onClickRefreshHandler = async () => {
+        await getDataPaymentTransaction(() =>
+            getPaymentTransactionByStudent(
+                dataDetailSiswa.student_id,
+                {
+                    period_start: tahunAjaranState.period_start,
+                    period_end: tahunAjaranState.period_end,
+                },
+                dataUser.token
+            )
+        )
+    }
     return (
         <div className="page-content">
             <ToastContainer />
@@ -445,8 +518,14 @@ function PagePembayaranSiswa() {
                                         onClickBayarHandler={
                                             onClickBayarHandler
                                         }
+                                        onClickRefreshHandler={
+                                            onClickRefreshHandler
+                                        }
                                         onClickHandler={
                                             onClickItemPembayaranHandler
+                                        }
+                                        onClickItemDetailHandler={
+                                            onClickItemDetailPembayaranHandler
                                         }
                                     />
                                 </Tab>
@@ -552,6 +631,15 @@ function PagePembayaranSiswa() {
                 toggleModal={() =>
                     setIsOpenModalPembayaranBebas(!isOpenModalPembayaranBebas)
                 }
+            />
+            <ModalDetailPembayaran
+                isOpenModal={isOpenModalDetailPembayaran}
+                data={dataDetailFreePaymentTransaction.data}
+                toggleModal={() =>
+                    setIsOpenModalDetailPembayaran(!isOpenModalDetailPembayaran)
+                }
+                onCLickItemHandler={onClickItemDetailPembayaranHandler}
+                onClickDeleteDetail={onDeleteDetailPembayaranHandler}
             />
 
             <ModalSiswa

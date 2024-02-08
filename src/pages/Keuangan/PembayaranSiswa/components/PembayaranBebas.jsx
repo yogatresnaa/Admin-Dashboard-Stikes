@@ -8,7 +8,9 @@ import { GrFormAdd } from 'react-icons/gr'
 function PembayaranBebas({
     data,
     onClickHandler,
+    onClickItemDetailHandler,
     onClickDiscountHandler,
+    onClickRefreshHandler,
     onClickBayarHandler,
 }) {
     const customStyles = {
@@ -97,8 +99,12 @@ function PembayaranBebas({
     )
     const renderStatus = (value) => (
         <p
+            onClick={() =>
+                onClickItemDetailHandler(value.detail_payment_rate_id)
+            }
             style={{
-                backgroundColor: value == 0 ? 'orange' : 'green',
+                backgroundColor:
+                    value.payment_rate_status == 0 ? 'orange' : 'green',
                 padding: '2px 4px',
                 cursor: 'pointer',
                 borderRadius: '4px',
@@ -107,7 +113,7 @@ function PembayaranBebas({
             }}
             className="d-flex justify-content-center"
         >
-            {value == 0 ? 'Belum Lunas' : 'Lunas'}
+            {value.payment_rate_status == 0 ? 'Belum Lunas' : 'Lunas'}
         </p>
     )
     const columns = [
@@ -163,7 +169,7 @@ function PembayaranBebas({
         },
         {
             name: 'Status',
-            cell: (row) => renderStatus(row.payment_rate_status),
+            cell: (row) => renderStatus(row),
             sortable: true,
             width: '300px',
         },
@@ -176,7 +182,7 @@ function PembayaranBebas({
     ]
     return (
         <div>
-            <Button className="mb-2" size="sm" onClick={() => {}}>
+            <Button className="mb-2" size="sm" onClick={onClickRefreshHandler}>
                 Refresh
             </Button>
             <DataTable
