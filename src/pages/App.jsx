@@ -16,6 +16,7 @@ import PagePembayaranSiswa from './Keuangan/PembayaranSiswa/PagePembayaranSiswa'
 import PageSaldoAwal from './KasBank/SaldoAwal/PageSaldoAwal'
 import PageKasKeluar from './KasBank/KasKeluar/PageKasKeluar'
 import PageKasMasuk from './KasBank/KasMasuk/PageKasMasuk'
+import PageKirimTagihan from './KasBank/KirimTagihan/PageKirimTagihan'
 // import PageDashboard from './Dashboard/PageDashboard';
 import LoginPage from './Login/Login'
 import 'react-toastify/dist/ReactToastify.css'
@@ -89,6 +90,7 @@ function AppRoutes() {
                         <Route path="saldo-awal" element={<PageSaldoAwal />} />
                         <Route path="kas-keluar" element={<PageKasKeluar />} />
                         <Route path="kas-masuk" element={<PageKasMasuk /> } />
+                        <Route path='kirim-tagihan' element= {<PageKirimTagihan />} />
 
                         <Route path="" element={<PageDashboard />} />
                     </Route>

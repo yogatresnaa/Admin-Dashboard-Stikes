@@ -1,44 +1,47 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import TableSiswa from "./components/TableSiswa";
-import AddAction from "../../../../component/ActionButton/AcctionAddButoon";
-import SelectProdi from "../../../../component/ActionButton/SelectProdi";
-import ShowDataEnteris from "../../../../component/ActionButton/showEntries";
-import SearchInput from "../../../../component/ActionButton/SearchInput";
+// import TableSiswa from "./components/TableSiswa";
+
+import SelectProdi from "../../../component/ActionButton/SelectProdi";
+import SearchInput from "../../../component/ActionButton/SearchInput";
+import TableKirimTagihan from "./components/TableKirimTagihan";
+
+import { FaSquareWhatsapp } from "react-icons/fa6";
+
 import _ from 'lodash'
-import useRequest from "../../../../customHooks/useRequest";
-import {
+import useRequest from "../../../customHooks/useRequest";
+import  {
   getAllProdi,
   putProdi,
+  getAllTahunAjaran,
   deleteProdi,
   postProdi,
-  getAllTahunAjaran,
   getAllSiswa,
   putSiswa,
   deleteSiswa,
   postSiswa,
   getAllKelas,
-} from "../../../../utils/http";
-import "./css/page-laporan-pembayaran-kelas.css";
+} from "../../../utils/http"
+// import "./css/page-laporan-pembayaran-kelas.css";
 import { useSelector } from "react-redux";
-import ModalForm from "./components/FormModal";
-import { siswaInitialValues } from "../../../../utils/initialValues";
-import { siswaSchema } from "../../../../utils/schema";
+// import ModalForm from "./components/FormModal";
+import { siswaInitialValues } from "../../../utils/initialValues";
+import { siswaSchema } from "../../../utils/schema";
 import { ToastContainer } from "react-toastify";
-import { prodiModel, siswaModel } from "../../../../models/models";
-import useTable from "../../../../customHooks/useTable";
-import { alertConfirmation } from "../../../../component/Alert/swalConfirmation";
-import { alertType, statusSiswa } from "../../../../utils/CONSTANT";
-import SelectUnitKelas from "../../../../component/ActionButton/SelectUnitKelas";
+import { prodiModel, siswaModel } from "../../../models/models";
+import useTable from "../../../customHooks/useTable";
+import { alertConfirmation } from "../../../component/Alert/swalConfirmation";
+import { alertType, statusSiswa } from "../../../utils/CONSTANT";
+import SelectUnitKelas from "../../../component/ActionButton/SelectUnitKelas";
 import { Button } from "reactstrap";
 import queryString from "query-string";
-import SelectStatusMahasiswa from "../../../../component/ActionButton/SelectStatusMahasiswa";
-import DetailModal from "./components/DetailModal";
-import { dateConvert, dateConvertForDb } from "../../../../utils/helper";
+import SelectStatusMahasiswa from "../../../component/ActionButton/SelectStatusMahasiswa";
+// import DetailModal from "./components/DetailModal";
+import { dateConvert, dateConvertForDb } from "../../../utils/helper";
 import ReactToPrint, { useReactToPrint } from "react-to-print";
-import PrintTableSiswaComponent from "./components/PrintTableSiswaTemplate";
-import SelectTahunAjaran from "../../../../component/ActionButton/SelectTahunAjaran";
+// import PrintTableSiswaComponent from "./components/PrintTableSiswaTemplate";
+import SelectTahunAjaran from "../../../component/ActionButton/SelectTahunAjaran";
 
-function PageLaporanPembayaranKelas() {
+function PageKirimTagihan() {
   const {
     data: dataSiswa,
     setData: setDataSiswa,
@@ -73,19 +76,18 @@ function PageLaporanPembayaranKelas() {
   } = useTable();
 
   const dataUser = useSelector(({ authState }) => authState.data);
+  const [tahunAjaranState, setTahunAjaran] = useState('');
+  const {
+        data: TahunAjaran,
+        setData: setDataTahunAjaran,
+        getData: getDataTahunAjaran,
+    } = useRequest()
   const [queryFilter, setQueryFilter] = useState({
     class_id: "",
     status: "",
     majors_id: "",
   });
   const [isOpenDetailModal, setIsOpenDetailModal] = useState(false);
-  const [tahunAjaranState, setTahunAjaran] = useState('');
-  const {
-        data: TahunAjaran,
-        setData: setDataTahunAjaran,
-        getData: getDataTahunAjaran,
-    } = useRequest();
-
   const printComponent = useRef();
   useEffect(() => {
     const query = queryString.stringify(queryFilter);
@@ -95,7 +97,7 @@ function PageLaporanPembayaranKelas() {
     getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token))
   }, []);
 
-    const onPeriodChange = (e) => {
+      const onPeriodChange = (e) => {
         console.log(TahunAjaran)
         const selectedPeriod = TahunAjaran.data.filter(
             (item) => item.period_id == parseInt(e.target.value, 10)
@@ -232,19 +234,15 @@ function PageLaporanPembayaranKelas() {
       <ToastContainer />
       <div className="page-content">
         <h3>
-          Siswa <span style={{ fontSize: "0.8em", color: "gray" }}>List</span>
+          Kirim Tagihan <span style={{ fontSize: "0.8em", color: "gray" }}>List</span>
         </h3>
 
         <div className="table-content">
-          <div className="d-flex gap-2"> 
-            <AddAction onClickHandler={onClickTambahHandler} />
-            <Button  size="sm"color="success" onClick={handlePrint}>Print</Button>
-          </div>
           <div className="d-flex flex-row gap-1 justify-content-start align-items-center mt-2">
             <SelectTahunAjaran
-              data={TahunAjaran.data}
-              onChange={onPeriodChange}
-              value={tahunAjaranState?.period_id ?? ''}
+                data={TahunAjaran.data}
+                onChange={onPeriodChange}
+                value={tahunAjaranState?.period_id ?? ''}
             />
             <SelectProdi data={dataProdi.data} onProdiFilterChange={onQueryFilterChange} value={queryFilter.majors_id} />
             <SelectUnitKelas
@@ -253,10 +251,19 @@ function PageLaporanPembayaranKelas() {
               value={queryFilter.class_id}
             />
            
-            <Button size="sm" className="align-self-end" onClick={onCLickFilterSubmit}>
+            <Button size="sm" className="align-self-end" onClick={onCLickFilterSubmit} color="info">
               Cari
             </Button>
+             <Button size="sm" className="align-self-end" onClick={onCLickFilterSubmit} color="success">
+              < FaSquareWhatsapp style={{width: '30px', height: '20px',}} />Kirim Tagihan
+            </Button>
           </div>
+
+          <div className="table-kirim-tagihan">
+                <TableKirimTagihan />
+          </div>
+
+          
 
           {/* <TableSiswa
             data={filterText.length > 0 ? dataFiltered : dataSiswa.data}
@@ -268,7 +275,7 @@ function PageLaporanPembayaranKelas() {
             onClickDeleteHandler={onSubmitDeleteHandler}
           /> */}
         </div>
-        <ModalForm
+        {/* <ModalForm
           initialValues={isEdit ? dataDetailSiswa : siswaInitialValues}
           schema={siswaSchema}
           toggle={() => setIsOpenModalForm(!isOpenModalForm)}
@@ -285,7 +292,7 @@ function PageLaporanPembayaranKelas() {
           isOpen={isOpenDetailModal}
           toggle={() => setIsOpenDetailModal(!isOpenDetailModal)}
           headerName={"Detail"}
-        />
+        /> */}
         {/* <ModalForm
           initialValues={
             dataDetailKelas !== null ? dataDetailKelas : kelasInitialValues
@@ -298,10 +305,10 @@ function PageLaporanPembayaranKelas() {
           onSubmitHandler={onSubmitEditHandler}
         /> */}
        
-        <PrintTableSiswaComponent data={dataSiswa.data} ref={printComponent} />
+        {/* <PrintTableSiswaComponent data={dataSiswa.data} ref={printComponent} /> */}
       </div>
     </>
   );
 }
 
-export default PageLaporanPembayaranKelas;
+export default PageKirimTagihan;

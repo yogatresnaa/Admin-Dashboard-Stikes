@@ -202,7 +202,7 @@ function Sidebar() {
                         <FaCircleMinus /> Jenis Bayar
                       </li>
                     </Link>
-                    <Link className='link color' to='/admin/jenis-bayar'>
+                    <Link className='link color' to='/admin/kirim-tagihan'>
                       <li className='nav-item nav-link m-1' style={{ color: '#DC84F3' }}>
                         <FaCircleMinus /> Kirim Tagihan
                       </li>

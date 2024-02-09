@@ -1,5 +1,6 @@
 @import '../../../src/component/ActionButton/css/SearchInput.css';
 @import '../Keuangan/PembayaranSiswa/css/pembayaranSiswa.css';
+@import '../KasBank/KirimTagihan/css/kirimTagihan.css';
 
 .page-content {
   padding: 5px;

@@ -65,7 +65,7 @@ function TableKasKeluar() {
   ];
   return (
     <div>
-      <DataTable columns={columns} data={kasKeluar} pagination />
+      <DataTable columns={columns} data={kasKeluar}  pagination />
     </div>
   );
 }
