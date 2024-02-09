@@ -3,7 +3,7 @@
 @import '../pages/css/common-table.css';
 @import '../component/ActionButton/css/index.css';
 @import '../pages/NotFound/css/NoFound.css';
-@import '../pages//Dashboard/css/Chart.css';
+@import '../pages//Dashboard/css/Dashboard.css';
 
 @font-face {
     font-family: 'Poppins-Light';

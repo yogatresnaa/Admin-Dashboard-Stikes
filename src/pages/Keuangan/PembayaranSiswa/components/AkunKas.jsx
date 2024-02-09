@@ -1,10 +1,10 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 
-function PilihNoRefrensi() {
+function AkunKas() {
   return (
     <Form.Select aria-label="Default select example">
-      <option>Pilih No Refrensi</option>
+      <option>Pilih Akun Kas</option>
       <option value="1">One</option>
       <option value="2">Two</option>
       <option value="3">Three</option>
@@ -12,4 +12,4 @@ function PilihNoRefrensi() {
   );
 }
 
-export default PilihNoRefrensi;
+export default AkunKas;

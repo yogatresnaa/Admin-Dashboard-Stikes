@@ -1,0 +1,112 @@
+.card-transaksi {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+
+    width: 100%;
+}
+
+.page-dashboar {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    padding: 0;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.bar-chart {
+    padding: 10px;
+    min-width: 400px;
+    width: 100%;
+    max-width: 750px;
+    flex: 1;
+}
+
+.line-chart {
+    padding: 10px;
+    min-width: 400px;
+
+    width: 100%;
+    flex: 1;
+    max-width: 750px;
+}
+
+.list-data-transaksi {
+    display: flex;
+    width: 100%;
+    flex: 1;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 30px 0;
+
+    justify-content: flex-start;
+}
+
+.transaksi-item {
+    min-width: 230px;
+    width: 100%;
+    max-width: 250px;
+    padding: 12px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.transaksi-item:hover {
+    transform: scale(1.05);
+}
+
+.transaksi-item__text {
+    display: flex;
+    height: 100%;
+    flex: 1;
+    justify-content: flex-start;
+    gap: 1rem;
+    flex-direction: column;
+}
+
+.transaksi-item h3,
+.transaksi-item p {
+    color: black;
+}
+
+.transaksi-item p {
+    font-size: 0.6rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.transaksi-item__colon {
+    flex: 0.1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.transaksi-item__key {
+    flex: 0.5;
+}
+
+.transaksi-item__value {
+    flex: 1;
+    font-weight: 600;
+    font-size: 0.7rem;
+}
+
+.transaksi-item__title-transaksi {
+    text-align: start;
+    margin: 0;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+@media only screen and (min-width: 1200px) {
+    .page-dashboar {
+        flex-direction: row;
+    }
+}

@@ -227,3 +227,7 @@ export const deleteDetailFreePaymentRateByPaymentId = (id, body, token) =>
         body,
         options(token)
     )
+
+//dashboard
+export const getAllDataDashboard = (token) =>
+    Axios.get(`${URL_BASE}/dashboard`, options(token))

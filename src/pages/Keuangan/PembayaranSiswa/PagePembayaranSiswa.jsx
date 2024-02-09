@@ -39,6 +39,8 @@ import ModalPembayaranBebas from './components/ModalPembayaranBebas'
 import ModalDetailPembayaran from './components/ModalDetailPembayaran'
 import { alertConfirmation } from '../../../component/Alert/swalConfirmation'
 import { alertType } from '../../../utils/CONSTANT'
+import AkunKas from './components/AkunKas'
+import NoRef from './components/NoRefrensi'
 
 const pembayaranBulananInitialValues = {
     payment_rate_bill: '',
@@ -238,7 +240,7 @@ function PagePembayaranSiswa() {
             item.student_nis
                 .toString()
                 .toLowerCase()
-                .includes(filterTextModal.toLocaleLowerCase())
+                .includes(filterText.toLocaleLowerCase())
         )[0]
         getDataPaymentTransaction(() =>
             getPaymentTransactionByStudent(
@@ -265,7 +267,7 @@ function PagePembayaranSiswa() {
                 .toString()
                 .toLowerCase()
                 .includes(filterTextModal.toLocaleLowerCase()) &&
-            item.class_class_id == kelas
+            (kelas !== '' ? item.class_class_id == kelas : true)
     )
     const onClickItemPembayaranHandler = (data) => {
         setDataDetailPembayaran(data)
@@ -495,6 +497,14 @@ function PagePembayaranSiswa() {
 
                         <div className="jenis-bayar">
                             <h6>Jenis Pembayaran</h6>
+                            <div className="no-refrensi">
+                                <p>
+                                    <b>No. Refrensi </b> <NoRef />
+                                </p>
+                                <p>
+                                    <b>Akun Kas * </b> <AkunKas />
+                                </p>
+                            </div>
                             <Tabs
                                 defaultActiveKey="bulanan"
                                 transition={false}
