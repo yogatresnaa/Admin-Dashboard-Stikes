@@ -279,4 +279,37 @@ const tagihanPembayaran = [
     Nominal: 'Rp 1000.000'
   }
 ]
-export { getDataTransaksi, dataPosBayar, dataAkunBiaya, saldoAwal, kasKeluar, pembayaran1, transaksiPembayaran, historyPembayaran, tagihanPembayaran };
+
+
+const KirimTagihan = [
+  {
+    id: 1,
+    NIS: '1999',
+    Nama: 'Ramlan',
+    Kelas: 'Perawat',
+    WaOrtu: '12332',
+    TotalTagihan: 'Rp. 1223'
+
+  },
+
+    {
+    id: 2,
+    NIS: '12',
+    Nama: 'Rusdi',
+    Kelas: 'Perawat',
+    WaOrtu: '12332',
+    TotalTagihan: 'Rp. 1223'
+
+  },
+
+    {
+    id: 3,
+    NIS: '12',
+    Nama: 'susi',
+    Kelas: 'Perawat',
+    WaOrtu: '12332',
+    TotalTagihan: 'Rp. 1223'
+
+  }
+]
+export { getDataTransaksi, dataPosBayar, dataAkunBiaya, saldoAwal, kasKeluar, pembayaran1, transaksiPembayaran, historyPembayaran, tagihanPembayaran, KirimTagihan };

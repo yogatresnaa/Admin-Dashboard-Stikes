@@ -11,6 +11,7 @@ import {
   putProdi,
   deleteProdi,
   postProdi,
+  getAllTahunAjaran,
   getAllSiswa,
   putSiswa,
   deleteSiswa,
@@ -78,13 +79,30 @@ function PageLaporanPembayaranKelas() {
     majors_id: "",
   });
   const [isOpenDetailModal, setIsOpenDetailModal] = useState(false);
+  const [tahunAjaranState, setTahunAjaran] = useState('');
+  const {
+        data: TahunAjaran,
+        setData: setDataTahunAjaran,
+        getData: getDataTahunAjaran,
+    } = useRequest();
+
   const printComponent = useRef();
   useEffect(() => {
     const query = queryString.stringify(queryFilter);
     getDataSiswa(() => getAllSiswa(query, dataUser.token));
     getDataProdi(() => getAllProdi(dataUser.token));
     getDataKelas(() => getAllKelas(dataUser.token));
+    getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token))
   }, []);
+
+    const onPeriodChange = (e) => {
+        console.log(TahunAjaran)
+        const selectedPeriod = TahunAjaran.data.filter(
+            (item) => item.period_id == parseInt(e.target.value, 10)
+        )[0]
+
+        setTahunAjaran(selectedPeriod)
+    }
 
   const onCLickFilterSubmit = () => {
     const query = queryString.stringify(queryFilter);
@@ -224,15 +242,11 @@ function PageLaporanPembayaranKelas() {
           </div>
           <div className="d-flex flex-row gap-1 justify-content-start align-items-center mt-2">
             <SelectTahunAjaran
-              data={dataProdi.data}
-              onProdiFilterChange={onQueryFilterChange}
-              value={queryFilter.majors_id}
+              data={TahunAjaran.data}
+              onChange={onPeriodChange}
+              value={tahunAjaranState?.period_id ?? ''}
             />
-            <SelectProdi
-               data={dataKelas.data}
-               onProdiFilterChange={onQueryFilterChange}
-               value={queryFilter.class_id}
-             />
+            <SelectProdi data={dataProdi.data} onProdiFilterChange={onQueryFilterChange} value={queryFilter.majors_id} />
             <SelectUnitKelas
               data={dataKelas.data}
               onProdiFilterChange={onQueryFilterChange}

@@ -11,6 +11,7 @@ import useRequest from '../../../customHooks/useRequest'
 import {
     deleteDetailFreePaymentRateByPaymentId,
     deletePaymentTransactionById,
+    getAllAktivaAccountCostPay,
     getAllKelas,
     getAllSiswa,
     getAllTahunAjaran,
@@ -85,6 +86,14 @@ function PagePembayaranSiswa() {
         sendData: sendDataDetailFreePaymentTransaction,
         getData: getDataDetailFreePaymentTransaction,
     } = useRequest()
+    const {
+        data: dataAkunkas,
+        // dataDetail: selecteddataDetailFreePaymentTransaction,
+        // setDataDetail: setSelecteDataDetailFreePaymentTransaction,
+        // setData: setDataDetailFreePaymentTransaction,
+        // sendData: sendDataDetailFreePaymentTransaction,
+        getData: getDataAkunKas,
+    } = useRequest()
 
     const {
         resetPaginationToggle,
@@ -124,6 +133,7 @@ function PagePembayaranSiswa() {
     }
 
     const [tahunAjaranState, setTahunAjaran] = useState('')
+    const [paymentRateVia, setPaymentRateVia] = useState('')
     const [kelas, setKelas] = useState('')
     const [dataDetailPembayaran, setDataDetailPembayaran] = useState({})
     const [dataDiscount, setDataDiscount] = useState({})
@@ -151,6 +161,7 @@ function PagePembayaranSiswa() {
         getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token))
         getDataSiswa(() => getAllSiswa({}, dataUser.token))
         getDataKelas(() => getAllKelas(dataUser.token))
+        getDataAkunKas(() => getAllAktivaAccountCostPay(dataUser.token))
     }, [])
 
     const onChangeFilterTextModal = (e) => {
@@ -291,7 +302,10 @@ function PagePembayaranSiswa() {
         }
     }
     const onCLickSubmitPembayaranBulananHandler = async (id) => {
-        const formData = { student_student_id: dataDetailSiswa?.student_id }
+        const formData = {
+            student_student_id: dataDetailSiswa?.student_id,
+            payment_rate_via: paymentRateVia,
+        }
 
         await sendDataPaymentTransaction(
             () => putPaymentTransactionById(id, formData, dataUser.token),
@@ -366,6 +380,7 @@ function PagePembayaranSiswa() {
         setIsOpenModalPembayaranBebas(!isOpenModalPembayaranBebas)
     }
     const onSubmitBayarModal = async (formBody, { resetForm }) => {
+        formBody.payment_rate_via = paymentRateVia
         console.log(formBody)
         await sendDataPaymentTransaction(
             () =>
@@ -446,6 +461,10 @@ function PagePembayaranSiswa() {
             )
         )
     }
+
+    const onChangeAkunKas = (e) => {
+        setPaymentRateVia(e.target.value)
+    }
     return (
         <div className="page-content">
             <ToastContainer />
@@ -498,11 +517,16 @@ function PagePembayaranSiswa() {
                         <div className="jenis-bayar">
                             <h6>Jenis Pembayaran</h6>
                             <div className="no-refrensi">
-                                <p>
+                                <p style={{ fontSize: '0.7rem' }}>
                                     <b>No. Refrensi </b> <NoRef />
                                 </p>
-                                <p>
-                                    <b>Akun Kas * </b> <AkunKas />
+                                <p style={{ fontSize: '0.7rem' }}>
+                                    <b>Akun Kas * </b>{' '}
+                                    <AkunKas
+                                        data={dataAkunkas}
+                                        onChangeHandler={onChangeAkunKas}
+                                        value={paymentRateVia}
+                                    />
                                 </p>
                             </div>
                             <Tabs

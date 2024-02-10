@@ -7,7 +7,7 @@ export default function DetailPembayaranBody({ data, onClickDeleteDetail }) {
     console.log(data)
     return (
         <tbody className="body-table">
-            {data?.map((item, index) => (
+            {data?.pembayaran_detail?.map((item, index) => (
                 <tr key={item.payment_rate_bebas_pay_id}>
                     <td>{index + 1}</td>
                     <td>

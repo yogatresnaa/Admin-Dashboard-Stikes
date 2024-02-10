@@ -116,6 +116,8 @@ export const getAllAccountCost = (token) =>
     Axios.get(`${URL_BASE}/account-cost`, options(token))
 export const getAllAccountCostPay = (token) =>
     Axios.get(`${URL_BASE}/account-cost/pos-pay`, options(token))
+export const getAllAktivaAccountCostPay = (token) =>
+    Axios.get(`${URL_BASE}/account-cost/aktiva`, options(token))
 
 //piutang
 export const getAllPiutang = (token) =>

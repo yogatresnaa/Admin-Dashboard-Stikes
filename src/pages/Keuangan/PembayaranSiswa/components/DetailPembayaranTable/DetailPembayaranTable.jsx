@@ -11,7 +11,7 @@ export default function DetailPembayaranTable({ data, onClickDeleteDetail }) {
                 data={data}
                 onClickDeleteDetail={onClickDeleteDetail}
             />
-            <DetailPembayaranFooter />
+            <DetailPembayaranFooter data={data} />
         </table>
     )
 }

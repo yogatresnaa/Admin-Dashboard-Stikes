@@ -37,7 +37,12 @@ function PembayaranBulanan({ data, onClickHandler }) {
                 <span style={{ fontSize: '0.8rem', color: 'grey' }}>
                     {row.monthly_payment.filter(
                         (item) => item.month_name === monthName
-                    )[0].payment_rate_status == 1 && `[${type}]`}
+                    )[0].payment_rate_status == 1 &&
+                        `[${
+                            row.monthly_payment.filter(
+                                (item) => item.month_name === monthName
+                            )[0].payment_rate_via_name ?? ''
+                        }]`}
                 </span>
             </div>
         ),
@@ -134,18 +139,18 @@ function PembayaranBulanan({ data, onClickHandler }) {
         //     sortable: true,
         //     width: '200px',
         // })),
-        renderMonthColumn('Juli', data.pos_pay_name),
-        renderMonthColumn('Agustus', data.pos_pay_name),
-        renderMonthColumn('September', data.pos_pay_name),
-        renderMonthColumn('Oktober', data.pos_pay_name),
-        renderMonthColumn('November', data.pos_pay_name),
-        renderMonthColumn('Desember', data.pos_pay_name),
-        renderMonthColumn('Januari', data.pos_pay_name),
-        renderMonthColumn('Februari', data.pos_pay_name),
-        renderMonthColumn('Maret', data.pos_pay_name),
-        renderMonthColumn('April', data.pos_pay_name),
-        renderMonthColumn('Mei', data.pos_pay_name),
-        renderMonthColumn('Juni', data.pos_pay_name),
+        renderMonthColumn('Juli'),
+        renderMonthColumn('Agustus'),
+        renderMonthColumn('September'),
+        renderMonthColumn('Oktober'),
+        renderMonthColumn('November'),
+        renderMonthColumn('Desember'),
+        renderMonthColumn('Januari'),
+        renderMonthColumn('Februari'),
+        renderMonthColumn('Maret'),
+        renderMonthColumn('April'),
+        renderMonthColumn('Mei'),
+        renderMonthColumn('Juni'),
     ]
     return (
         <div>

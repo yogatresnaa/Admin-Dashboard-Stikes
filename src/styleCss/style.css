@@ -58,7 +58,10 @@
 .sidebar-text > * {
     font-size: 0.8rem;
 }
-
+.list-group.list-group-flush {
+    height: 80vh;
+    overflow-y: scroll;
+}
 ::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 7px;

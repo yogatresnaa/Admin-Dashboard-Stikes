@@ -21,6 +21,7 @@ export default function ModalDetailPembayaran({
                 toggleModal()
             }}
             size="lg"
+            style={{ maxWidth: '900px', width: '100%' }}
         >
             <ModalHeader toggle={toggleModal}>
                 Lihat Pembayaran/Cicilan
