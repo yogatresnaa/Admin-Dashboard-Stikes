@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import TableSiswa from "./components/TableSiswa";
 import AddAction from "../../../../component/ActionButton/AcctionAddButoon";
 import SelectProdi from "../../../../component/ActionButton/SelectProdi";
 import ShowDataEnteris from "../../../../component/ActionButton/showEntries";
@@ -18,9 +17,9 @@ import {
   postSiswa,
   getAllKelas,
 } from "../../../../utils/http";
-import "./css/page-laporan-pembayaran-kelas.css";
+// import "./css/page-laporan-pembayaran-kelas.css";
 import { useSelector } from "react-redux";
-import ModalForm from "./components/FormModal";
+// import ModalForm from "../PerKelas/components/";
 import { siswaInitialValues } from "../../../../utils/initialValues";
 import { siswaSchema } from "../../../../utils/schema";
 import { ToastContainer } from "react-toastify";
@@ -32,14 +31,18 @@ import SelectUnitKelas from "../../../../component/ActionButton/SelectUnitKelas"
 import { Button } from "reactstrap";
 import queryString from "query-string";
 import SelectStatusMahasiswa from "../../../../component/ActionButton/SelectStatusMahasiswa";
-import DetailModal from "./components/DetailModal";
+// import DetailModal from "./components/DetailModal";
 import { dateConvert, dateConvertForDb } from "../../../../utils/helper";
 import ReactToPrint, { useReactToPrint } from "react-to-print";
-import PrintTableSiswaComponent from "./components/PrintTableSiswaTemplate";
+// import PrintTableSiswaComponent from "./components/PrintTableSiswaTemplate";
 import SelectTahunAjaran from "../../../../component/ActionButton/SelectTahunAjaran";
-import JenisPembayaran from "../../../../component/ActionButton/SelectPembayaran";
+import DateInput from "../../../../component/ActionButton/InputDate";
+import SelectBulan from "../../../../component/ActionButton/SelectBulan";
+import SelectSampaiBulan from "../../../../component/ActionButton/SelectBulan2";
+import TableTagihanSiswa from "./component/TableTagihanSiswa";
+import { FaFileExcel } from "react-icons/fa6";
 
-function PageLaporanPembayaranKelas() {
+function PageTagihanSiswa() {
   const {
     data: dataSiswa,
     setData: setDataSiswa,
@@ -233,15 +236,12 @@ function PageLaporanPembayaranKelas() {
       <ToastContainer />
       <div className="page-content">
         <h3>
-          Laporan Pembayaran PerKelas <span style={{ fontSize: "0.8em", color: "gray" }}>List</span>
+          Laporan Tagihan Siswa <span style={{ fontSize: "0.8em", color: "gray" }}>List</span>
         </h3>
 
         <div className="table-content">
-          {/* <div className="d-flex gap-2"> 
-            <AddAction onClickHandler={onClickTambahHandler} />
-            <Button  size="sm"color="success" onClick={handlePrint}>Print</Button>
-          </div> */}
-          <div className="d-flex flex-row gap-1 justify-content-start align-items-center mt-2">
+          <div className="sub-content">
+                          <div className="d-flex flex-row gap-1 justify-content-start align-items-center mt-2">
             <SelectTahunAjaran
               data={TahunAjaran.data}
               onChange={onPeriodChange}
@@ -254,11 +254,22 @@ function PageLaporanPembayaranKelas() {
               value={queryFilter.class_id}
             />
 
-            <JenisPembayaran />
+            <SelectBulan />
+            <SelectSampaiBulan />
            
             <Button size="sm" className="align-self-end" onClick={onCLickFilterSubmit}>
               Cari
             </Button>
+
+             <Button color="success" size="sm" className="align-self-end" onClick={onCLickFilterSubmit}>
+              <FaFileExcel/> Excel
+            </Button>
+          </div>
+          </div>
+
+
+          <div className="sub-content">
+                <TableTagihanSiswa />
           </div>
 
           {/* <TableSiswa
@@ -271,7 +282,7 @@ function PageLaporanPembayaranKelas() {
             onClickDeleteHandler={onSubmitDeleteHandler}
           /> */}
         </div>
-        <ModalForm
+        {/* <ModalForm
           initialValues={isEdit ? dataDetailSiswa : siswaInitialValues}
           schema={siswaSchema}
           toggle={() => setIsOpenModalForm(!isOpenModalForm)}
@@ -282,13 +293,13 @@ function PageLaporanPembayaranKelas() {
           isLoadingSendData={isLoadingSendDataSiswa}
           headerName={isEdit ? "Edit Siswa" : "Tambah Siswa"}
           onSubmitHandler={isEdit ? onSubmitEditHandler : onSubmitTambahHandler}
-        />
-        <DetailModal
+        /> */}
+        {/* <DetailModal
           data={dataDetailSiswa}
           isOpen={isOpenDetailModal}
           toggle={() => setIsOpenDetailModal(!isOpenDetailModal)}
           headerName={"Detail"}
-        />
+        /> */}
         {/* <ModalForm
           initialValues={
             dataDetailKelas !== null ? dataDetailKelas : kelasInitialValues
@@ -301,10 +312,10 @@ function PageLaporanPembayaranKelas() {
           onSubmitHandler={onSubmitEditHandler}
         /> */}
        
-        <PrintTableSiswaComponent data={dataSiswa.data} ref={printComponent} />
+        {/* <PrintTableSiswaComponent data={dataSiswa.data} ref={printComponent} /> */}
       </div>
     </>
   );
 }
 
-export default PageLaporanPembayaranKelas;
+export default PageTagihanSiswa;

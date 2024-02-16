@@ -312,4 +312,14 @@ const KirimTagihan = [
 
   }
 ]
-export { getDataTransaksi, dataPosBayar, dataAkunBiaya, saldoAwal, kasKeluar, pembayaran1, transaksiPembayaran, historyPembayaran, tagihanPembayaran, KirimTagihan };
+
+const dataTagihanSiswa = [
+  {
+    id: 1,
+    NIS: '12',
+    Nama: 'susi',
+    Kelas: 'Perawat',
+    TotalTagihan: 'Rp. 1223'
+}
+]
+export { getDataTransaksi, dataPosBayar, dataAkunBiaya, saldoAwal, kasKeluar, pembayaran1, transaksiPembayaran, historyPembayaran, tagihanPembayaran, KirimTagihan, dataTagihanSiswa };

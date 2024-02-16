@@ -269,19 +269,19 @@ function Sidebar() {
                         <FaCircleMinus /> Per.Kelas
                       </li>
                     </Link>
-                    <Link className='link color' to='/per-tanggal'>
+                    <Link className='link color' to='/admin/laporan-pembayaran/tanggal'>
                       <li className='nav-item nav-link m-1' style={{ color: '#DC84F3' }}>
                         <FaCircleMinus /> Per.Tanggal
                       </li>
                     </Link>
 
-                    <Link className='link color' to='/tagihan-mahasiswa'>
+                    <Link className='link color' to='/admin/laporan-pembayaran/tagihan-siswa'>
                       <li className='nav-item nav-link m-1' style={{ color: '#DC84F3' }}>
                         <FaCircleMinus /> Tagihan Mahasiswa
                       </li>
                     </Link>
 
-                    <Link className='link color' to='/rekap-pembayaran'>
+                    <Link className='link color' to='/admin/laporan-pembayaran/rekap-pembayarn'>
                       <li className='nav-item nav-link m-1' style={{ color: '#DC84F3' }}>
                         <FaCircleMinus /> Rekap Pembayaran
                       </li>

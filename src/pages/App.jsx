@@ -17,6 +17,17 @@ import PageSaldoAwal from './KasBank/SaldoAwal/PageSaldoAwal'
 import PageKasKeluar from './KasBank/KasKeluar/PageKasKeluar'
 import PageKasMasuk from './KasBank/KasMasuk/PageKasMasuk'
 import PageKirimTagihan from './KasBank/KirimTagihan/PageKirimTagihan'
+
+
+// Laporan
+import PageLaporanPembayaranTanggal from './Laporan/Pembayaran/PerTanggal/PageLaporanPerTanggal'
+import PageLaporanPembayaranKelas from './Laporan/Pembayaran/PerKelas/PageLaporanPembayaranKelas'
+import PageTagihanSiswa from './Laporan/Pembayaran/TagihanSiswa/PageTagihanSiswa'
+import PageRekapPembayaran from './Laporan/Pembayaran/RekapPembayaran/PageRekapPembayaran'
+
+// Laporan
+
+
 // import PageDashboard from './Dashboard/PageDashboard';
 import LoginPage from './Login/Login'
 import 'react-toastify/dist/ReactToastify.css'
@@ -26,7 +37,6 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from '../redux/store'
 import MainPage from './MainPage'
 import PageProgramStudi from './ManajemenData/ProgramStudi/PageProgramStudi'
-import PageLaporanPembayaranKelas from './Laporan/Pembayaran/PerKelas/PageLaporanPembayaranKelas'
 import PageDashboard from './Dashboard/PageDashboard'
 import PageJenisBayar from './Keuangan/JenisBayar/PageJenisBayar'
 import PageTarifTagihan from './Keuangan/JenisBayar/TarifTagihan/PageTarifTagihan'
@@ -55,10 +65,6 @@ function AppRoutes() {
                             element={<PageTahunAjaran />}
                         />
                         <Route
-                            path="laporan-pembayaran/kelas"
-                            element={<PageLaporanPembayaranKelas />}
-                        />
-                        <Route
                             path="pembayaran-siswa"
                             element={<PagePembayaranSiswa />}
                         />
@@ -81,6 +87,26 @@ function AppRoutes() {
                             path="tarif-tagihan/:id/edit"
                             element={<PageEditTarifTagihan />}
                         />
+
+                         <Route
+                            path="laporan-pembayaran/kelas"
+                            element={<PageLaporanPembayaranKelas />}
+                        />
+
+                        <Route path="laporan-pembayaran/tanggal" 
+                        element ={<PageLaporanPembayaranTanggal />}/>
+
+                        <Route path="laporan-pembayaran/tagihan-siswa"
+                        element={<PageTagihanSiswa />}/>
+
+                        <Route path="laporan-pembayaran/rekap-pembayarn"
+                        element={<PageRekapPembayaran /> } />
+
+
+
+
+
+
 
                         <Route path="not-found" element={<PageNotFound />} />
 
