@@ -16,7 +16,9 @@ import {
     getAllSiswa,
     getAllTahunAjaran,
     getDetailFreePaymentRateByPaymentId,
+    getHistoryPaymentTransactionByStudent,
     getPaymentTransactionByStudent,
+    getTagihanPaymentTransactionByStudent,
     putDiscountFreePaymentTransactionById,
     putFreePaymentTransactionById,
     putPaymentTransactionById,
@@ -68,6 +70,8 @@ function PagePembayaranSiswa() {
         isLoading: isLoadingKelas,
         setIsLoading: setIsLoadingKelas,
     } = useRequest()
+    const { data: dataHistory, getData: getDataHistory } = useRequest()
+    const { data: dataTagihan, getData: getDataTagihan } = useRequest()
     const {
         data: dataPaymentTransaction,
         setData: setDataPaymentTransaction,
@@ -205,6 +209,13 @@ function PagePembayaranSiswa() {
                 dataUser.token
             )
         )
+        getDataHistory(() =>
+            getHistoryPaymentTransactionByStudent(data.student_id)
+        )
+        getDataTagihan(() =>
+            getTagihanPaymentTransactionByStudent(data.student_id)
+        )
+
         setFilterText(data.student_nis)
 
         setIsOpenModalSiswa(!isOpenModalSiswa)
@@ -305,6 +316,7 @@ function PagePembayaranSiswa() {
         const formData = {
             student_student_id: dataDetailSiswa?.student_id,
             payment_rate_via: paymentRateVia,
+            payment_rate_number_pay: generateNoReferensi(),
         }
 
         await sendDataPaymentTransaction(
@@ -326,7 +338,9 @@ function PagePembayaranSiswa() {
         )
     }
     const onCLickDeletePembayaranBulananHandler = async (id) => {
-        const formData = { student_student_id: dataDetailSiswa?.student_id }
+        const formData = {
+            student_student_id: dataDetailSiswa?.student_id,
+        }
 
         await sendDataPaymentTransaction(
             () => deletePaymentTransactionById(id, formData, dataUser.token),
@@ -381,6 +395,7 @@ function PagePembayaranSiswa() {
     }
     const onSubmitBayarModal = async (formBody, { resetForm }) => {
         formBody.payment_rate_via = paymentRateVia
+        formBody.payment_rate_bebas_pay_number = generateNoReferensi()
         console.log(formBody)
         await sendDataPaymentTransaction(
             () =>
@@ -461,6 +476,14 @@ function PagePembayaranSiswa() {
             )
         )
     }
+    const generateNoReferensi = () =>
+        `SP${dataDetailSiswa.sekolah_nama}${
+            dataDetailSiswa.student_nis
+        }${new Date().getDate()}${
+            (new Date().getMonth() + 1).toString().length == 1
+                ? `0${new Date().getMonth() + 1}`
+                : new Date().getMonth() + 1
+        }${new Date().getFullYear().toString().substring(2)}01`
 
     const onChangeAkunKas = (e) => {
         setPaymentRateVia(e.target.value)
@@ -518,7 +541,8 @@ function PagePembayaranSiswa() {
                             <h6>Jenis Pembayaran</h6>
                             <div className="no-refrensi">
                                 <p style={{ fontSize: '0.7rem' }}>
-                                    <b>No. Refrensi </b> <NoRef />
+                                    <b>No. Referensi </b>{' '}
+                                    <NoRef text={generateNoReferensi()} />
                                 </p>
                                 <p style={{ fontSize: '0.7rem' }}>
                                     <b>Akun Kas * </b>{' '}
@@ -586,14 +610,18 @@ function PagePembayaranSiswa() {
                                             eventKey="History"
                                             title="History Pembayaran"
                                         >
-                                            <HistoryPembayaran />
+                                            <HistoryPembayaran
+                                                data={dataHistory.data}
+                                            />
                                         </Tab>
 
                                         <Tab
                                             eventKey="Tagihan"
                                             title="Tagihan Pembayaran"
                                         >
-                                            <TagihanPembayaran />
+                                            <TagihanPembayaran
+                                                data={dataTagihan.data}
+                                            />
                                         </Tab>
                                     </Tabs>
                                 </div>

@@ -199,6 +199,16 @@ export const getPaymentTransactionByStudent = (id, query, token) =>
         ...options(token),
         params: query,
     })
+export const getHistoryPaymentTransactionByStudent = (id, query, token) =>
+    Axios.get(`${URL_BASE}/payment-transaction/student/history/${id}`, {
+        ...options(token),
+        params: query,
+    })
+export const getTagihanPaymentTransactionByStudent = (id, query, token) =>
+    Axios.get(`${URL_BASE}/payment-transaction/student/tagihan/${id}`, {
+        ...options(token),
+        params: query,
+    })
 export const putPaymentTransactionById = (id, body, token) =>
     Axios.put(`${URL_BASE}/payment-transaction/${id}`, body, options(token))
 export const deletePaymentTransactionById = (id, body, token) =>
