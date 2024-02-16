@@ -69,8 +69,7 @@ function TableProgramStudi({
   
     {
       name: 'Aksi',
-      cell: (row) => renderActionButton(row),
-  
+      cell: (row) => renderActionButton(row), 
       width: "200px",
     },
   ];

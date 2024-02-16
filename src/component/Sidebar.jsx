@@ -104,7 +104,7 @@ function Sidebar() {
                     {/* <FaUniversity className='me-3 fs-1' /> */}
                 </div>
 
-                <div className="list-group list-group-flush">
+                <div className="list-group list-group-flush ">
                     <hr className="text-white d-none d-sm-block"></hr>
                     <ul className="nav nav-pills flex" id="parentM">
                         <Link className="link" to="/admin">
@@ -561,7 +561,7 @@ function Sidebar() {
                                         </Link>
                                         <Link
                                             className="link color"
-                                            to="/per-tanggal"
+                                            to="/admin/laporan-pembayaran/tanggal"
                                         >
                                             <li
                                                 className="nav-item nav-link m-1"
@@ -573,7 +573,7 @@ function Sidebar() {
 
                                         <Link
                                             className="link color"
-                                            to="/tagihan-mahasiswa"
+                                            to="/admin/laporan-pembayaran/tagihan-siswa"
                                         >
                                             <li
                                                 className="nav-item nav-link m-1"
@@ -586,7 +586,7 @@ function Sidebar() {
 
                                         <Link
                                             className="link color"
-                                            to="/rekap-pembayaran"
+                                            to="/admin/laporan-pembayaran/rekap-pembayarn"
                                         >
                                             <li
                                                 className="nav-item nav-link m-1"
