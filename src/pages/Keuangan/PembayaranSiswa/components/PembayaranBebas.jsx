@@ -134,7 +134,7 @@ function PembayaranBebas({
         },
         {
             name: 'Tagihan',
-            selector: (row) => rupiahConvert(row.payment_rate_bill),
+            selector: (row) => rupiahConvert(row.payment_rate_bill ?? 0),
             sortable: true,
             width: '200px',
         },
@@ -142,7 +142,7 @@ function PembayaranBebas({
             name: 'Diskon',
             cell: (row) =>
                 renderDiscountComponent(
-                    rupiahConvert(row.payment_rate_discount),
+                    rupiahConvert(row.payment_rate_discount ?? 0),
                     row,
                     row.payment_rate_status
                 ),
@@ -151,19 +151,19 @@ function PembayaranBebas({
         },
         {
             name: 'Tagihan-Diskon',
-            selector: (row) => rupiahConvert(row.sisa_tagihan_diskon),
+            selector: (row) => rupiahConvert(row.sisa_tagihan_diskon ?? 0),
             sortable: true,
             width: '200px',
         },
         {
             name: 'Dibayar',
-            selector: (row) => rupiahConvert(row.payment_rate_total_pay),
+            selector: (row) => rupiahConvert(row.payment_rate_total_pay ?? 0),
             sortable: true,
             width: '300px',
         },
         {
             name: 'Sisa',
-            selector: (row) => rupiahConvert(row.sisa_tagihan),
+            selector: (row) => rupiahConvert(row.sisa_tagihan ?? 0),
             sortable: true,
             width: '300px',
         },
@@ -188,7 +188,9 @@ function PembayaranBebas({
             <DataTable
                 columns={columns}
                 customStyles={customStyles}
-                data={data?.free_type}
+                data={
+                    data?.free_type[0]?.payment_rate_bill ? data?.free_type : []
+                }
                 conditionalRowStyles={conditionalRowStyles}
             />
         </div>

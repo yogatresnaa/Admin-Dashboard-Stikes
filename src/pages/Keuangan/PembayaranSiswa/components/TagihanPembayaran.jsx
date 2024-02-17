@@ -2,10 +2,26 @@ import React from 'react'
 import DataTable from 'react-data-table-component'
 import { tagihanPembayaran } from '../../../../utils/dumyDataTransaksi'
 import { dateConvert, rupiahConvert } from '../../../../utils/helper'
+import { Button } from 'reactstrap'
 
-function TagihanPembayaran({ data }) {
+function TagihanPembayaran({ data, onClickCetakTagihanPembayaranHandler }) {
     return (
-        <div style={{ width: '100%' }}>
+        <div
+            style={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
+            }}
+        >
+            <Button
+                color="danger"
+                size="sm"
+                onClick={onClickCetakTagihanPembayaranHandler}
+                style={{ alignSelf: 'flex-end', marginRight: '1rem' }}
+            >
+                Cetak Tagihan
+            </Button>
             <div
                 style={{
                     width: '100%',

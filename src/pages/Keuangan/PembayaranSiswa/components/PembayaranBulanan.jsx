@@ -18,15 +18,15 @@ function PembayaranBulanan({ data, onClickHandler }) {
                 }
             >
                 {rupiahConvert(
-                    row.monthly_payment.filter(
+                    row?.monthly_payment.filter(
                         (item) => item.month_name === monthName
-                    )[0].payment_rate_bill
+                    )[0]?.payment_rate_bill ?? 0
                 )}
                 <br />
                 <span style={{ fontSize: '0.7rem', color: 'grey' }}>
                     {row.monthly_payment.filter(
                         (item) => item.month_name === monthName
-                    )[0].payment_rate_status == 1 &&
+                    )[0]?.payment_rate_status == 1 &&
                         `(${dateConvert(
                             row.monthly_payment.filter(
                                 (item) => item.month_name === monthName
@@ -37,11 +37,11 @@ function PembayaranBulanan({ data, onClickHandler }) {
                 <span style={{ fontSize: '0.8rem', color: 'grey' }}>
                     {row.monthly_payment.filter(
                         (item) => item.month_name === monthName
-                    )[0].payment_rate_status == 1 &&
+                    )[0]?.payment_rate_status == 1 &&
                         `[${
-                            row.monthly_payment.filter(
+                            row?.monthly_payment.filter(
                                 (item) => item.month_name === monthName
-                            )[0].payment_rate_via_name ?? ''
+                            )[0]?.payment_rate_via_name ?? ''
                         }]`}
                 </span>
             </div>
@@ -53,7 +53,7 @@ function PembayaranBulanan({ data, onClickHandler }) {
                 when: (row) =>
                     row.monthly_payment.filter(
                         (item) => item.month_name === monthName
-                    )[0].payment_rate_status == 0,
+                    )[0]?.payment_rate_status == 0,
                 style: {
                     backgroundColor: '#f2dede',
                     color: 'black',
@@ -67,7 +67,7 @@ function PembayaranBulanan({ data, onClickHandler }) {
                 when: (row) =>
                     row.monthly_payment.filter(
                         (item) => item.month_name === monthName
-                    )[0].payment_rate_status == 1,
+                    )[0]?.payment_rate_status == 1,
                 style: {
                     backgroundColor: '#dff0d8',
                     color: 'black',
@@ -157,7 +157,9 @@ function PembayaranBulanan({ data, onClickHandler }) {
             <DataTable
                 columns={columns}
                 customStyles={customStyles}
-                data={data?.monthly_type}
+                data={data?.monthly_type.filter(
+                    (item) => item?.monthly_payment?.length > 0
+                )}
                 dense
             />
         </div>

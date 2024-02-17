@@ -239,6 +239,11 @@ export const deleteDetailFreePaymentRateByPaymentId = (id, body, token) =>
         body,
         options(token)
     )
+export const getDokumenTagihanPembayaran = (id, token) =>
+    Axios.post(`${URL_BASE}/dokumen/tagihan-pembayaran/${id}`, {
+        ...options(token),
+        responseType: 'arraybuffer',
+    })
 
 //dashboard
 export const getAllDataDashboard = (token) =>

@@ -16,6 +16,7 @@ import {
     getAllSiswa,
     getAllTahunAjaran,
     getDetailFreePaymentRateByPaymentId,
+    getDokumenTagihanPembayaran,
     getHistoryPaymentTransactionByStudent,
     getPaymentTransactionByStudent,
     getTagihanPaymentTransactionByStudent,
@@ -147,6 +148,12 @@ function PagePembayaranSiswa() {
         setData: setDataTahunAjaran,
         getData: getDataTahunAjaran,
     } = useRequest()
+    const {
+        data: dataDokumenTagihanPembayaran,
+        setData: setDataDokumentagihanPembayaran,
+        sendData: sendDataDokumentagihanPembayaran,
+        getData: getDataDokumentagihanPembayaran,
+    } = useRequest()
 
     //   const onCLickFilterSubmit = () => {
     //   const query = queryString.stringify(queryFilter);
@@ -268,8 +275,8 @@ function PagePembayaranSiswa() {
             getPaymentTransactionByStudent(
                 getSiswa.student_id,
                 {
-                    period_start: TahunAjaran.data[0].period_start,
-                    period_end: TahunAjaran.data[0].period_end,
+                    period_start: tahunAjaranState.period_start,
+                    period_end: tahunAjaranState.period_end,
                 },
                 dataUser.token
             )
@@ -488,6 +495,33 @@ function PagePembayaranSiswa() {
     const onChangeAkunKas = (e) => {
         setPaymentRateVia(e.target.value)
     }
+    useEffect(() => {
+        console.log(dataDokumenTagihanPembayaran)
+    }, [dataDokumenTagihanPembayaran])
+    const onClickCetakTagihanPembayaranHandler = async () => {
+        await getDataDokumentagihanPembayaran(() =>
+            getDokumenTagihanPembayaran(
+                dataDetailSiswa.student_id,
+                dataUser.token
+            )
+        )
+        const url = window.URL.createObjectURL(
+            new Blob(
+                [new Uint8Array(dataDokumenTagihanPembayaran.data.data).buffer],
+                {
+                    type: 'application/pdf',
+                }
+            )
+        )
+        var link = document.createElement('a')
+        link.href = url
+        link.setAttribute(
+            'download',
+            `${dataDetailSiswa.student_full_name}.pdf`
+        )
+        document.body.appendChild(link)
+        link.click()
+    }
     return (
         <div className="page-content">
             <ToastContainer />
@@ -621,6 +655,9 @@ function PagePembayaranSiswa() {
                                         >
                                             <TagihanPembayaran
                                                 data={dataTagihan.data}
+                                                onClickCetakTagihanPembayaranHandler={
+                                                    onClickCetakTagihanPembayaranHandler
+                                                }
                                             />
                                         </Tab>
                                     </Tabs>
