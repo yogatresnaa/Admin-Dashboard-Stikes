@@ -13,7 +13,7 @@ function TagihanPembayaran() {
 	headRow: {
 		style: {
 				borderTopStyle: 'solid',
-			borderTopWidth: '1px',
+				borderTopWidth: '1px',
 
 			
 		},

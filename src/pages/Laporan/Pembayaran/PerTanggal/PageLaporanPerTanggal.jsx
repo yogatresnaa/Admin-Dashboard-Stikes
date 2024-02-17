@@ -261,7 +261,7 @@ function PageLaporanPembayaranTanggal() {
           </div>
 
           <div className="sub-content">
-             <h6 style={{ fontSize: "20px", color: "gray", marginBottom: "30px" }}>
+             <h6 style={{ fontSize: "20px", color: "white", marginBottom: "30px", backgroundColor: 'lightblue', padding:'10px', marginTop:'-10px', borderRadius: '2px' }}>
           Laporan Pembayaran Kelas 10
             </h6>
                  <TablePembayaran />

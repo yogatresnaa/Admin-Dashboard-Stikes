@@ -322,4 +322,17 @@ const dataTagihanSiswa = [
     TotalTagihan: 'Rp. 1223'
 }
 ]
-export { getDataTransaksi, dataPosBayar, dataAkunBiaya, saldoAwal, kasKeluar, pembayaran1, transaksiPembayaran, historyPembayaran, tagihanPembayaran, KirimTagihan, dataTagihanSiswa };
+
+const PembayaranPerkelas = [
+  {
+    id: 1,
+    NIS: '12',
+    Nama: 'susi',
+    Tagihan: 'Perawat',
+    SudahDibyar: 'Rp. 1223',
+    Kekurangan: 'Rp. 1223',
+    Keterangan: 'Belum Lunas',
+    
+}
+]
+export { getDataTransaksi, dataPosBayar, dataAkunBiaya, saldoAwal, kasKeluar, pembayaran1, transaksiPembayaran, historyPembayaran, tagihanPembayaran, KirimTagihan, dataTagihanSiswa, PembayaranPerkelas };

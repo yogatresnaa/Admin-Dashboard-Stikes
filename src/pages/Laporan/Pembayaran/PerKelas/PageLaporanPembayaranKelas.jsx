@@ -38,6 +38,7 @@ import ReactToPrint, { useReactToPrint } from "react-to-print";
 import PrintTableSiswaComponent from "./components/PrintTableSiswaTemplate";
 import SelectTahunAjaran from "../../../../component/ActionButton/SelectTahunAjaran";
 import JenisPembayaran from "../../../../component/ActionButton/SelectPembayaran";
+import TablePembayaranPerKelas from "./components/TablePembayaranPerKelas";
 
 function PageLaporanPembayaranKelas() {
   const {
@@ -241,7 +242,9 @@ function PageLaporanPembayaranKelas() {
             <AddAction onClickHandler={onClickTambahHandler} />
             <Button  size="sm"color="success" onClick={handlePrint}>Print</Button>
           </div> */}
-          <div className="d-flex flex-row gap-1 justify-content-start align-items-center mt-2">
+
+          <div className="sub-content">
+            <div className="d-flex flex-row gap-1 justify-content-start align-items-center mt-2">
             <SelectTahunAjaran
               data={TahunAjaran.data}
               onChange={onPeriodChange}
@@ -259,6 +262,15 @@ function PageLaporanPembayaranKelas() {
             <Button size="sm" className="align-self-end" onClick={onCLickFilterSubmit}>
               Cari
             </Button>
+          </div>
+          </div>
+
+
+          <div className="sub-content">
+                 <h6 style={{ fontSize: "20px", color: "white", marginBottom: "30px", backgroundColor: 'lightblue', padding:'10px', marginTop:'-10px', borderRadius: '2px' }}>
+                    Laporan Pembayaran XXXXXX
+                </h6>
+            <TablePembayaranPerKelas />
           </div>
 
           {/* <TableSiswa
