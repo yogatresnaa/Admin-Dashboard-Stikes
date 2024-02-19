@@ -1,58 +1,121 @@
-import React from 'react'
+import React, { lazy,Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import Homepage from './Homepage'
-import PageKelas from './ManajemenData/Kelas/PageKelas'
-import PageSiswa from './ManajemenData/Siswa/PageSiswa'
-import PageAlumni from './Akademik/Alumni/PageAlumni'
-import PageKelulusan from './Akademik/Kelulusan/PageKelulusan'
-import PageTahunAjaran from './Akademik/TahunAjaran/PageTahunAjaran'
-import PageNotFound from './NotFound/PageNoFound'
-import PagePosBayar from './Keuangan/PosBayar/PagePosBayar'
-import PageAkunBiaya from './Keuangan/AkunBiaya/PageAkunBiaya'
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from '../redux/store'
+import 'react-toastify/dist/ReactToastify.css'
 
-import PagePembayaranSiswa from './Keuangan/PembayaranSiswa/PagePembayaranSiswa'
+const Homepage = lazy(() =>
+  import("./Homepage")
+);
+const PageKelas = lazy(() =>
+  import("./ManajemenData/Kelas/PageKelas")
+);
+const PageSiswa = lazy(() =>
+  import("./ManajemenData/Siswa/PageSiswa")
+);
+const PageAlumni = lazy(() =>
+  import("./Akademik/Alumni/PageAlumni")
+);
+const PageKelulusan = lazy(() =>
+  import("./Akademik/Kelulusan/PageKelulusan")
+);
+const PageTahunAjaran = lazy(() =>
+  import("./Akademik/TahunAjaran/PageTahunAjaran")
+);
+const PageNotFound = lazy(() =>
+  import("./NotFound/PageNoFound")
+);
+const PagePosBayar = lazy(() =>
+  import("./Keuangan/PosBayar/PagePosBayar")
+);
+const PageAkunBiaya = lazy(() =>
+  import("./Keuangan/AkunBiaya/PageAkunBiaya")
+);
+const PagePembayaranSiswa = lazy(() =>
+  import("./Keuangan/PembayaranSiswa/PagePembayaranSiswa")
+);
 
-import PageSaldoAwal from './KasBank/SaldoAwal/PageSaldoAwal'
-import PageKasKeluar from './KasBank/KasKeluar/PageKasKeluar'
-import PageKasMasuk from './KasBank/KasMasuk/PageKasMasuk'
-import PageKirimTagihan from './KasBank/KirimTagihan/PageKirimTagihan'
+const PageSaldoAwal = lazy(() =>
+  import("./KasBank/SaldoAwal/PageSaldoAwal")
+);
+
+const PageKasKeluar = lazy(() =>
+  import("./KasBank/KasKeluar/PageKasKeluar")
+);
+
+const PageKasMasuk = lazy(() =>
+  import("./KasBank/KasMasuk/PageKasMasuk")
+);
+
+const PageKirimTagihan = lazy(() =>
+  import("./KasBank/KirimTagihan/PageKirimTagihan")
+);
+
+const PageLaporanPembayaranTanggal = lazy(() =>
+  import("./Laporan/Pembayaran/PerTanggal/PageLaporanPerTanggal")
+);
+
+const PageLaporanPembayaranKelas = lazy(() =>
+  import("./Laporan/Pembayaran/PerKelas/PageLaporanPembayaranKelas")
+);
+const PageTagihanSiswa = lazy(() =>
+  import("./Laporan/Pembayaran/TagihanSiswa/PageTagihanSiswa")
+);
+const PageRekapPembayaran = lazy(() =>
+  import("./Laporan/Pembayaran/RekapPembayaran/PageRekapPembayaran")
+);
+const LoginPage = lazy(() =>
+  import("./Login/Login")
+);
+const MainPage = lazy(() =>
+  import("./MainPage")
+);
+const PageProgramStudi = lazy(() =>
+  import("./ManajemenData/ProgramStudi/PageProgramStudi")
+);
+const PageDashboard = lazy(() =>
+  import("./Dashboard/PageDashboard")
+);
+const PageJenisBayar = lazy(() =>
+  import("./Keuangan/JenisBayar/PageJenisBayar")
+);
+const PageTarifTagihan = lazy(() =>
+  import("./Keuangan/JenisBayar/TarifTagihan/PageTarifTagihan")
+);
+const PageAddTarifTagihan = lazy(() =>
+  import("./Keuangan/JenisBayar/TarifTagihan/ManageTarifTagihan/TambahTarifTagihan/PageAddTarifTagihan")
+);
+const PageEditTarifTagihan = lazy(() =>
+  import("./Keuangan/JenisBayar/TarifTagihan/ManageTarifTagihan/EditTarifTagihan/PageEditTarifTagihan")
+);
+
+
+
 
 
 // Laporan
-import PageLaporanPembayaranTanggal from './Laporan/Pembayaran/PerTanggal/PageLaporanPerTanggal'
-import PageLaporanPembayaranKelas from './Laporan/Pembayaran/PerKelas/PageLaporanPembayaranKelas'
-import PageTagihanSiswa from './Laporan/Pembayaran/TagihanSiswa/PageTagihanSiswa'
-import PageRekapPembayaran from './Laporan/Pembayaran/RekapPembayaran/PageRekapPembayaran'
 
 // Laporan
 
 
 // import PageDashboard from './Dashboard/PageDashboard';
-import LoginPage from './Login/Login'
-import 'react-toastify/dist/ReactToastify.css'
 
-import { Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
-import { store, persistor } from '../redux/store'
-import MainPage from './MainPage'
-import PageProgramStudi from './ManajemenData/ProgramStudi/PageProgramStudi'
-import PageDashboard from './Dashboard/PageDashboard'
-import PageJenisBayar from './Keuangan/JenisBayar/PageJenisBayar'
-import PageTarifTagihan from './Keuangan/JenisBayar/TarifTagihan/PageTarifTagihan'
-import PageAddTarifTagihan from './Keuangan/JenisBayar/TarifTagihan/ManageTarifTagihan/TambahTarifTagihan/PageAddTarifTagihan'
-import PageEditTarifTagihan from './Keuangan/JenisBayar/TarifTagihan/ManageTarifTagihan/EditTarifTagihan/PageEditTarifTagihan'
+import PreLoader from '../component/Loader/PreLoader';
+import LoadingProvider from '../context/LoadingContext'
 function AppRoutes() {
     return (
+        <Suspense fallback={<PreLoader />}>
         <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
+            <LoadingProvider>
+                <PersistGate loading={null} persistor={persistor}>
                 <Routes>
                     <Route path="/" element={<MainPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/admin" element={<Homepage />}>
                         <Route path="kelas" element={<PageKelas />} />
                         <Route path="dashboard" element={<PageKelas />} />
-
                         <Route path="siswa" element={<PageSiswa />} />
                         <Route path="alumni" element={<PageAlumni />} />
                         <Route path="kelulusan" element={<PageKelulusan />} />
@@ -101,28 +164,21 @@ function AppRoutes() {
 
                         <Route path="laporan-pembayaran/rekap-pembayarn"
                         element={<PageRekapPembayaran /> } />
-
-
-
-
-
-
-
                         <Route path="not-found" element={<PageNotFound />} />
-
                         <Route path="akun-biaya" element={<PageAkunBiaya />} />
                         <Route path="pos-bayar" element={<PagePosBayar />} />
-
                         <Route path="saldo-awal" element={<PageSaldoAwal />} />
                         <Route path="kas-keluar" element={<PageKasKeluar />} />
                         <Route path="kas-masuk" element={<PageKasMasuk /> } />
                         <Route path='kirim-tagihan' element= {<PageKirimTagihan />} />
-
                         <Route path="" element={<PageDashboard />} />
                     </Route>
                 </Routes>
-            </PersistGate>
+                </PersistGate>
+            </LoadingProvider>
+
         </Provider>
+        </Suspense>
     )
 }
 

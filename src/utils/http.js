@@ -240,9 +240,13 @@ export const deleteDetailFreePaymentRateByPaymentId = (id, body, token) =>
         options(token)
     )
 export const getDokumenTagihanPembayaran = (id, token) =>
-    Axios.post(`${URL_BASE}/dokumen/tagihan-pembayaran/${id}`, {
+    Axios.get(`${URL_BASE}/dokumen/tagihan-pembayaran/${id}`, {
         ...options(token),
-        responseType: 'arraybuffer',
+    })
+export const getDokumenRincianPembayaran = (id, query, token) =>
+    Axios.get(`${URL_BASE}/dokumen/rincian-pembayaran/${id}`, {
+        ...options(token),
+        params: query,
     })
 
 //dashboard

@@ -1,10 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { requestWrapper } from "../utils/helper";
 import { toast } from "react-toastify";
 import { functionType } from "../utils/CONSTANT";
+import { LoadingContext } from "../context/LoadingContext";
 
-export default function useRequest() {
-  const [isLoading, setIsLoading] = useState(false);
+export default function useRequest(isGenerate=false) {
+  const {isLoading, setIsLoading} = useContext(LoadingContext);
+  const [isLoadingGenerate, setIsLoadingGenerate] = useState(false);
   const [isLoadingSendData, setIsLoadingSendData] = useState(false);
   const [data, setData] = useState({ data: [], filter: [] });
   const [dataDetail, setDataDetail] = useState(null);
@@ -15,7 +17,15 @@ export default function useRequest() {
 
   const getData = async (fn) => {
     try {
-      setIsLoading(true)
+      if(!isGenerate){
+
+        setIsLoading(true)
+      }
+      else{
+        setIsLoadingGenerate(true)
+
+      }
+
   
       const response = await fn();
       console.log(response)
@@ -43,7 +53,9 @@ export default function useRequest() {
       }
     }
     finally{
+      if(!isGenerate)
       setIsLoading(false)
+    else setIsLoadingGenerate(false)
 
     }
   };
@@ -104,6 +116,8 @@ export default function useRequest() {
     dataDetail,
     setDataDetail,
     isLoadingSendData,
+    isLoadingGenerate,
+    setIsLoadingGenerate,
     onChangeFilterText,
   };
 }
