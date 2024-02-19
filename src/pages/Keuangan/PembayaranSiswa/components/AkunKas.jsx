@@ -1,15 +1,21 @@
-import React from 'react';
-import Form from 'react-bootstrap/Form';
+import React from 'react'
+import Form from 'react-bootstrap/Form'
 
-function AkunKas() {
-  return (
-    <Form.Select aria-label="Default select example">
-      <option>Pilih Akun Kas</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </Form.Select>
-  );
+function AkunKas({ data, value, onChangeHandler }) {
+    return (
+        <Form.Select
+            aria-label="Default select example"
+            value={value}
+            onChange={onChangeHandler}
+        >
+            <option value={null}>Pilih Akun Kas</option>
+            {data?.data.map((item) => (
+                <option key={item.account_id} value={item.account_id}>
+                    {item?.account_code}-{item?.account_description}
+                </option>
+            ))}
+        </Form.Select>
+    )
 }
 
-export default AkunKas;
+export default AkunKas

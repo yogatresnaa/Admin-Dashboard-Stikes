@@ -8,7 +8,9 @@ import { GrFormAdd } from 'react-icons/gr'
 function PembayaranBebas({
     data,
     onClickHandler,
+    onClickItemDetailHandler,
     onClickDiscountHandler,
+    onClickRefreshHandler,
     onClickBayarHandler,
 }) {
     const customStyles = {
@@ -97,8 +99,12 @@ function PembayaranBebas({
     )
     const renderStatus = (value) => (
         <p
+            onClick={() =>
+                onClickItemDetailHandler(value.detail_payment_rate_id)
+            }
             style={{
-                backgroundColor: value == 0 ? 'orange' : 'green',
+                backgroundColor:
+                    value.payment_rate_status == 0 ? 'orange' : 'green',
                 padding: '2px 4px',
                 cursor: 'pointer',
                 borderRadius: '4px',
@@ -107,7 +113,7 @@ function PembayaranBebas({
             }}
             className="d-flex justify-content-center"
         >
-            {value == 0 ? 'Belum Lunas' : 'Lunas'}
+            {value.payment_rate_status == 0 ? 'Belum Lunas' : 'Lunas'}
         </p>
     )
     const columns = [
@@ -128,7 +134,7 @@ function PembayaranBebas({
         },
         {
             name: 'Tagihan',
-            selector: (row) => rupiahConvert(row.payment_rate_bill),
+            selector: (row) => rupiahConvert(row.payment_rate_bill ?? 0),
             sortable: true,
             width: '200px',
         },
@@ -136,7 +142,7 @@ function PembayaranBebas({
             name: 'Diskon',
             cell: (row) =>
                 renderDiscountComponent(
-                    rupiahConvert(row.payment_rate_discount),
+                    rupiahConvert(row.payment_rate_discount ?? 0),
                     row,
                     row.payment_rate_status
                 ),
@@ -145,25 +151,25 @@ function PembayaranBebas({
         },
         {
             name: 'Tagihan-Diskon',
-            selector: (row) => rupiahConvert(row.sisa_tagihan_diskon),
+            selector: (row) => rupiahConvert(row.sisa_tagihan_diskon ?? 0),
             sortable: true,
             width: '200px',
         },
         {
             name: 'Dibayar',
-            selector: (row) => rupiahConvert(row.payment_rate_total_pay),
+            selector: (row) => rupiahConvert(row.payment_rate_total_pay ?? 0),
             sortable: true,
             width: '300px',
         },
         {
             name: 'Sisa',
-            selector: (row) => rupiahConvert(row.sisa_tagihan),
+            selector: (row) => rupiahConvert(row.sisa_tagihan ?? 0),
             sortable: true,
             width: '300px',
         },
         {
             name: 'Status',
-            cell: (row) => renderStatus(row.payment_rate_status),
+            cell: (row) => renderStatus(row),
             sortable: true,
             width: '300px',
         },
@@ -176,13 +182,15 @@ function PembayaranBebas({
     ]
     return (
         <div>
-            <Button className="mb-2" size="sm" onClick={() => {}}>
+            <Button className="mb-2" size="sm" onClick={onClickRefreshHandler}>
                 Refresh
             </Button>
             <DataTable
                 columns={columns}
                 customStyles={customStyles}
-                data={data?.free_type}
+                data={
+                    data?.free_type[0]?.payment_rate_bill ? data?.free_type : []
+                }
                 conditionalRowStyles={conditionalRowStyles}
             />
         </div>

@@ -1,140 +1,146 @@
 .header-wrapper {
-  display: flex;
-  box-sizing: border-box;
-  height: 50px;
-  padding: 0 2rem;
-  flex: 1;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-  justify-content: flex-end;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 2;
-  background-color: white;
-  left: 0;
+    display: flex;
+    box-sizing: border-box;
+    height: 50px;
+    padding: 0 2rem;
+    flex: 1;
+    box-shadow:
+        rgba(0, 0, 0, 0.16) 0px 3px 6px,
+        rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    justify-content: flex-end;
+    position: fixed;
+    width: 100%;
+    top: 0;
+
+    z-index: 2;
+    background-color: white;
+    left: 0;
 }
 
 .profile-wrapper p {
-  margin: 0;
-  font-size: 0.7em;
-  font-family: 'Poppins', sans-serif;
-  display: flex;
-  flex-direction: column;
+    margin: 0;
+    font-size: 0.7em;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
 }
 
-
 .profile-wrapper img {
-  width: 30px;
+    width: 30px;
 }
 
 .profile-wrapper {
-  display: flex;
-  cursor: pointer;
-  height: inherit;
-  gap: 8px;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    cursor: pointer;
+    height: inherit;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
 }
 
 .profile-wrapper p::after {
-  content: " ";
-  display: block;
-  height: 3px;
-  animation-name: scaleBack;
-  animation-duration: 0.3s;
-  animation-fill-mode: forwards;
+    content: ' ';
+    display: block;
+    height: 3px;
+    animation-name: scaleBack;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
 
-  animation-iteration-count: 1;
-  transform-origin: center;
-  animation-timing-function: ease;
-  background-color: black;
-
-
+    animation-iteration-count: 1;
+    transform-origin: center;
+    animation-timing-function: ease;
+    background-color: black;
 }
 
 @keyframes scaleTransform {
-  0% {
-    transform: scaleX(0);
-  }
+    0% {
+        transform: scaleX(0);
+    }
 
-  100% {
-    transform: scaleX(1);
-  }
+    100% {
+        transform: scaleX(1);
+    }
 }
 
 @keyframes scaleBack {
-  0% {
-    transform: scaleX(1);
-  }
+    0% {
+        transform: scaleX(1);
+    }
 
-  100% {
-    transform: scaleX(0);
-  }
+    100% {
+        transform: scaleX(0);
+    }
 }
 
 .profile-wrapper:hover p::after {
-  content: " ";
-  display: block;
-  height: 3px;
-  animation-name: scaleTransform;
-  animation-duration: 0.3s;
+    content: ' ';
+    display: block;
+    height: 3px;
+    animation-name: scaleTransform;
+    animation-duration: 0.3s;
 
-  animation-fill-mode: forwards;
-  transform-origin: center;
-  animation-timing-function: ease;
-  width: 100%;
+    animation-fill-mode: forwards;
+    transform-origin: center;
+    animation-timing-function: ease;
+    width: 100%;
 
-  background-color: black;
+    background-color: black;
 }
 
 .profile-wrapper:hover {
-  border-color: black;
+    border-color: black;
 }
 
 .dropdown-wrapper {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  gap: 8px;
-  right: 0;
-  padding: 8px;
-  top: 50px;
-  background-color: var(--main);
-  width: 270px;
-  z-index: 100;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    gap: 8px;
+    right: 0;
+    padding: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    top: 50px;
+    background-color: var(--main);
+    width: 270px;
+    z-index: 100;
 }
 
 .dropdown__profile-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
 }
 
 .dropdown__profile-wrapper img {
-  width: 80px;
+    width: 80px;
 }
 
 .dropdown__profile-wrapper p {
-  color: white;
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
+    color: white;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
 }
-
-
-.text-role,
+.text-nama {
+    font-size: 0.8rem;
+}
+.text-role {
+    font-size: 0.7rem;
+    font-weight: 500;
+}
 .text-email {
-  font-size: 0.8em;
-  font-weight: 200;
+    font-size: 0.7em;
+    font-weight: 200;
 }
 
 .dropdown__button-wrapper {
-  display: flex;
-  justify-content: space-between;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
 }
 
 .header-wrapper[disabled] {
-  pointer-events: none;
-
+    pointer-events: none;
 }

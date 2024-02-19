@@ -82,7 +82,7 @@ export const requestOnlyWrapper =
 
 export const dateConvert = (data) => {
     const date = new Date(data)
-    return `${date.getDay()} ${date.toLocaleString('id', {
+    return `${date.getDate()} ${date.toLocaleString('id', {
         month: 'long',
     })} ${date.getFullYear()}`
 }

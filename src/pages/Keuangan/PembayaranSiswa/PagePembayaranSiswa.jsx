@@ -9,11 +9,17 @@ import SelectTahunAjaran from '../../../component/ActionButton/SelectTahunAjaran
 import SearchInput from '../../../component/ActionButton/SearchInput'
 import useRequest from '../../../customHooks/useRequest'
 import {
+    deleteDetailFreePaymentRateByPaymentId,
     deletePaymentTransactionById,
+    getAllAktivaAccountCostPay,
     getAllKelas,
     getAllSiswa,
     getAllTahunAjaran,
+    getDetailFreePaymentRateByPaymentId,
+    getDokumenTagihanPembayaran,
+    getHistoryPaymentTransactionByStudent,
     getPaymentTransactionByStudent,
+    getTagihanPaymentTransactionByStudent,
     putDiscountFreePaymentTransactionById,
     putFreePaymentTransactionById,
     putPaymentTransactionById,
@@ -34,6 +40,9 @@ import useTable from '../../../customHooks/useTable'
 import ModalPembayaranBulanan from './components/ModalPembayaranBulanan'
 import ModalDiscount from './components/ModalDiscount'
 import ModalPembayaranBebas from './components/ModalPembayaranBebas'
+import ModalDetailPembayaran from './components/ModalDetailPembayaran'
+import { alertConfirmation } from '../../../component/Alert/swalConfirmation'
+import { alertType } from '../../../utils/CONSTANT'
 import AkunKas from './components/AkunKas'
 import NoRef from './components/NoRefrensi'
 
@@ -62,6 +71,8 @@ function PagePembayaranSiswa() {
         isLoading: isLoadingKelas,
         setIsLoading: setIsLoadingKelas,
     } = useRequest()
+    const { data: dataHistory, getData: getDataHistory } = useRequest()
+    const { data: dataTagihan, getData: getDataTagihan } = useRequest()
     const {
         data: dataPaymentTransaction,
         setData: setDataPaymentTransaction,
@@ -71,6 +82,22 @@ function PagePembayaranSiswa() {
         isLoading: isLoadingPaymentTransaction,
         setIsLoading: setIsLoadingPaymentTransaction,
         isLoadingSendData: isLoadingSendPaymentTransaction,
+    } = useRequest()
+    const {
+        data: dataDetailFreePaymentTransaction,
+        dataDetail: selecteddataDetailFreePaymentTransaction,
+        setDataDetail: setSelecteDataDetailFreePaymentTransaction,
+        setData: setDataDetailFreePaymentTransaction,
+        sendData: sendDataDetailFreePaymentTransaction,
+        getData: getDataDetailFreePaymentTransaction,
+    } = useRequest()
+    const {
+        data: dataAkunkas,
+        // dataDetail: selecteddataDetailFreePaymentTransaction,
+        // setDataDetail: setSelecteDataDetailFreePaymentTransaction,
+        // setData: setDataDetailFreePaymentTransaction,
+        // sendData: sendDataDetailFreePaymentTransaction,
+        getData: getDataAkunKas,
     } = useRequest()
 
     const {
@@ -86,6 +113,10 @@ function PagePembayaranSiswa() {
     const {
         isOpenModalForm: isOpenModalPembayaran,
         setIsOpenModalForm: setIsOpenModaPembayaran,
+    } = useTable()
+    const {
+        isOpenModalForm: isOpenModalDetailPembayaran,
+        setIsOpenModalForm: setIsOpenModalDetailPembayaran,
     } = useTable()
 
     const {
@@ -107,6 +138,7 @@ function PagePembayaranSiswa() {
     }
 
     const [tahunAjaranState, setTahunAjaran] = useState('')
+    const [paymentRateVia, setPaymentRateVia] = useState('')
     const [kelas, setKelas] = useState('')
     const [dataDetailPembayaran, setDataDetailPembayaran] = useState({})
     const [dataDiscount, setDataDiscount] = useState({})
@@ -115,6 +147,12 @@ function PagePembayaranSiswa() {
         data: TahunAjaran,
         setData: setDataTahunAjaran,
         getData: getDataTahunAjaran,
+    } = useRequest()
+    const {
+        data: dataDokumenTagihanPembayaran,
+        setData: setDataDokumentagihanPembayaran,
+        sendData: sendDataDokumentagihanPembayaran,
+        getData: getDataDokumentagihanPembayaran,
     } = useRequest()
 
     //   const onCLickFilterSubmit = () => {
@@ -134,6 +172,7 @@ function PagePembayaranSiswa() {
         getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token))
         getDataSiswa(() => getAllSiswa({}, dataUser.token))
         getDataKelas(() => getAllKelas(dataUser.token))
+        getDataAkunKas(() => getAllAktivaAccountCostPay(dataUser.token))
     }, [])
 
     const onChangeFilterTextModal = (e) => {
@@ -177,6 +216,13 @@ function PagePembayaranSiswa() {
                 dataUser.token
             )
         )
+        getDataHistory(() =>
+            getHistoryPaymentTransactionByStudent(data.student_id)
+        )
+        getDataTagihan(() =>
+            getTagihanPaymentTransactionByStudent(data.student_id)
+        )
+
         setFilterText(data.student_nis)
 
         setIsOpenModalSiswa(!isOpenModalSiswa)
@@ -223,14 +269,14 @@ function PagePembayaranSiswa() {
             item.student_nis
                 .toString()
                 .toLowerCase()
-                .includes(filterTextModal.toLocaleLowerCase())
+                .includes(filterText.toLocaleLowerCase())
         )[0]
         getDataPaymentTransaction(() =>
             getPaymentTransactionByStudent(
                 getSiswa.student_id,
                 {
-                    period_start: TahunAjaran.data[0].period_start,
-                    period_end: TahunAjaran.data[0].period_end,
+                    period_start: tahunAjaranState.period_start,
+                    period_end: tahunAjaranState.period_end,
                 },
                 dataUser.token
             )
@@ -250,7 +296,7 @@ function PagePembayaranSiswa() {
                 .toString()
                 .toLowerCase()
                 .includes(filterTextModal.toLocaleLowerCase()) &&
-            item.class_class_id == kelas
+            (kelas !== '' ? item.class_class_id == kelas : true)
     )
     const onClickItemPembayaranHandler = (data) => {
         setDataDetailPembayaran(data)
@@ -274,7 +320,11 @@ function PagePembayaranSiswa() {
         }
     }
     const onCLickSubmitPembayaranBulananHandler = async (id) => {
-        const formData = { student_student_id: dataDetailSiswa?.student_id }
+        const formData = {
+            student_student_id: dataDetailSiswa?.student_id,
+            payment_rate_via: paymentRateVia,
+            payment_rate_number_pay: generateNoReferensi(),
+        }
 
         await sendDataPaymentTransaction(
             () => putPaymentTransactionById(id, formData, dataUser.token),
@@ -295,7 +345,9 @@ function PagePembayaranSiswa() {
         )
     }
     const onCLickDeletePembayaranBulananHandler = async (id) => {
-        const formData = { student_student_id: dataDetailSiswa?.student_id }
+        const formData = {
+            student_student_id: dataDetailSiswa?.student_id,
+        }
 
         await sendDataPaymentTransaction(
             () => deletePaymentTransactionById(id, formData, dataUser.token),
@@ -349,6 +401,8 @@ function PagePembayaranSiswa() {
         setIsOpenModalPembayaranBebas(!isOpenModalPembayaranBebas)
     }
     const onSubmitBayarModal = async (formBody, { resetForm }) => {
+        formBody.payment_rate_via = paymentRateVia
+        formBody.payment_rate_bebas_pay_number = generateNoReferensi()
         console.log(formBody)
         await sendDataPaymentTransaction(
             () =>
@@ -372,6 +426,101 @@ function PagePembayaranSiswa() {
             },
             null
         )
+    }
+
+    const onClickItemDetailPembayaranHandler = async (id) => {
+        setSelecteDataDetailFreePaymentTransaction(id)
+
+        await getDataDetailFreePaymentTransaction(() =>
+            getDetailFreePaymentRateByPaymentId(id, dataUser.token)
+        )
+        setIsOpenModalDetailPembayaran(true)
+    }
+    const onDeleteDetailPembayaranHandler = async (id) => {
+        const formBody = {
+            ...dataDetailSiswa,
+            detail_payment_rate_id: selecteddataDetailFreePaymentTransaction,
+        }
+        alertConfirmation(alertType.delete, async () => {
+            await sendDataDetailFreePaymentTransaction(
+                () =>
+                    deleteDetailFreePaymentRateByPaymentId(
+                        id,
+                        formBody,
+                        dataUser.token
+                    ),
+                async () => {
+                    await getDataDetailFreePaymentTransaction(() =>
+                        getDetailFreePaymentRateByPaymentId(
+                            selecteddataDetailFreePaymentTransaction,
+                            dataUser.token
+                        )
+                    )
+                    await getDataPaymentTransaction(() =>
+                        getPaymentTransactionByStudent(
+                            dataDetailSiswa.student_id,
+                            {
+                                period_start: tahunAjaranState.period_start,
+                                period_end: tahunAjaranState.period_end,
+                            },
+                            dataUser.token
+                        )
+                    )
+                },
+                null
+            )
+        })
+    }
+    const onClickRefreshHandler = async () => {
+        await getDataPaymentTransaction(() =>
+            getPaymentTransactionByStudent(
+                dataDetailSiswa.student_id,
+                {
+                    period_start: tahunAjaranState.period_start,
+                    period_end: tahunAjaranState.period_end,
+                },
+                dataUser.token
+            )
+        )
+    }
+    const generateNoReferensi = () =>
+        `SP${dataDetailSiswa.sekolah_nama}${
+            dataDetailSiswa.student_nis
+        }${new Date().getDate()}${
+            (new Date().getMonth() + 1).toString().length == 1
+                ? `0${new Date().getMonth() + 1}`
+                : new Date().getMonth() + 1
+        }${new Date().getFullYear().toString().substring(2)}01`
+
+    const onChangeAkunKas = (e) => {
+        setPaymentRateVia(e.target.value)
+    }
+    useEffect(() => {
+        console.log(dataDokumenTagihanPembayaran)
+    }, [dataDokumenTagihanPembayaran])
+    const onClickCetakTagihanPembayaranHandler = async () => {
+        await getDataDokumentagihanPembayaran(() =>
+            getDokumenTagihanPembayaran(
+                dataDetailSiswa.student_id,
+                dataUser.token
+            )
+        )
+        const url = window.URL.createObjectURL(
+            new Blob(
+                [new Uint8Array(dataDokumenTagihanPembayaran.data.data).buffer],
+                {
+                    type: 'application/pdf',
+                }
+            )
+        )
+        var link = document.createElement('a')
+        link.href = url
+        link.setAttribute(
+            'download',
+            `${dataDetailSiswa.student_full_name}.pdf`
+        )
+        document.body.appendChild(link)
+        link.click()
     }
     return (
         <div className="page-content">
@@ -424,12 +573,19 @@ function PagePembayaranSiswa() {
 
                         <div className="jenis-bayar">
                             <h6>Jenis Pembayaran</h6>
-                            <div className='no-refrensi'>
-                                <p><b>No. Refrensi </b> <NoRef /></p>
-                                <p><b>Akun Kas * </b> <AkunKas /></p>
-                               
-                               
-
+                            <div className="no-refrensi">
+                                <p style={{ fontSize: '0.7rem' }}>
+                                    <b>No. Referensi </b>{' '}
+                                    <NoRef text={generateNoReferensi()} />
+                                </p>
+                                <p style={{ fontSize: '0.7rem' }}>
+                                    <b>Akun Kas * </b>{' '}
+                                    <AkunKas
+                                        data={dataAkunkas}
+                                        onChangeHandler={onChangeAkunKas}
+                                        value={paymentRateVia}
+                                    />
+                                </p>
                             </div>
                             <Tabs
                                 defaultActiveKey="bulanan"
@@ -454,8 +610,14 @@ function PagePembayaranSiswa() {
                                         onClickBayarHandler={
                                             onClickBayarHandler
                                         }
+                                        onClickRefreshHandler={
+                                            onClickRefreshHandler
+                                        }
                                         onClickHandler={
                                             onClickItemPembayaranHandler
+                                        }
+                                        onClickItemDetailHandler={
+                                            onClickItemDetailPembayaranHandler
                                         }
                                     />
                                 </Tab>
@@ -482,14 +644,21 @@ function PagePembayaranSiswa() {
                                             eventKey="History"
                                             title="History Pembayaran"
                                         >
-                                            <HistoryPembayaran />
+                                            <HistoryPembayaran
+                                                data={dataHistory.data}
+                                            />
                                         </Tab>
 
                                         <Tab
                                             eventKey="Tagihan"
                                             title="Tagihan Pembayaran"
                                         >
-                                            <TagihanPembayaran />
+                                            <TagihanPembayaran
+                                                data={dataTagihan.data}
+                                                onClickCetakTagihanPembayaranHandler={
+                                                    onClickCetakTagihanPembayaranHandler
+                                                }
+                                            />
                                         </Tab>
                                     </Tabs>
                                 </div>
@@ -561,6 +730,15 @@ function PagePembayaranSiswa() {
                 toggleModal={() =>
                     setIsOpenModalPembayaranBebas(!isOpenModalPembayaranBebas)
                 }
+            />
+            <ModalDetailPembayaran
+                isOpenModal={isOpenModalDetailPembayaran}
+                data={dataDetailFreePaymentTransaction.data}
+                toggleModal={() =>
+                    setIsOpenModalDetailPembayaran(!isOpenModalDetailPembayaran)
+                }
+                onCLickItemHandler={onClickItemDetailPembayaranHandler}
+                onClickDeleteDetail={onDeleteDetailPembayaranHandler}
             />
 
             <ModalSiswa

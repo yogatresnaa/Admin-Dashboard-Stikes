@@ -116,6 +116,8 @@ export const getAllAccountCost = (token) =>
     Axios.get(`${URL_BASE}/account-cost`, options(token))
 export const getAllAccountCostPay = (token) =>
     Axios.get(`${URL_BASE}/account-cost/pos-pay`, options(token))
+export const getAllAktivaAccountCostPay = (token) =>
+    Axios.get(`${URL_BASE}/account-cost/aktiva`, options(token))
 
 //piutang
 export const getAllPiutang = (token) =>
@@ -197,6 +199,16 @@ export const getPaymentTransactionByStudent = (id, query, token) =>
         ...options(token),
         params: query,
     })
+export const getHistoryPaymentTransactionByStudent = (id, query, token) =>
+    Axios.get(`${URL_BASE}/payment-transaction/student/history/${id}`, {
+        ...options(token),
+        params: query,
+    })
+export const getTagihanPaymentTransactionByStudent = (id, query, token) =>
+    Axios.get(`${URL_BASE}/payment-transaction/student/tagihan/${id}`, {
+        ...options(token),
+        params: query,
+    })
 export const putPaymentTransactionById = (id, body, token) =>
     Axios.put(`${URL_BASE}/payment-transaction/${id}`, body, options(token))
 export const deletePaymentTransactionById = (id, body, token) =>
@@ -215,3 +227,24 @@ export const putDiscountFreePaymentTransactionById = (id, body, token) =>
 
 export const putFreePaymentTransactionById = (id, body, token) =>
     Axios.put(`${URL_BASE}/payment-transaction/pay/${id}`, body, options(token))
+
+export const getDetailFreePaymentRateByPaymentId = (id, token) =>
+    Axios.get(
+        `${URL_BASE}/detail-free-payment-rate/payment-transaction/${id}`,
+        options(token)
+    )
+export const deleteDetailFreePaymentRateByPaymentId = (id, body, token) =>
+    Axios.put(
+        `${URL_BASE}/detail-free-payment-rate/${id}`,
+        body,
+        options(token)
+    )
+export const getDokumenTagihanPembayaran = (id, token) =>
+    Axios.post(`${URL_BASE}/dokumen/tagihan-pembayaran/${id}`, {
+        ...options(token),
+        responseType: 'arraybuffer',
+    })
+
+//dashboard
+export const getAllDataDashboard = (token) =>
+    Axios.get(`${URL_BASE}/dashboard`, options(token))
