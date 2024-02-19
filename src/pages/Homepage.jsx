@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route, Outlet, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -9,10 +9,12 @@ import { axiosInterceptorDispatch, checkMe, injectStore } from "../utils/http";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../component/Header";
+import { LoadingContext } from "../context/LoadingContext";
+import FixedLoader from "../component/Loader/FixedLoader";
 
 function Homepage() {
   const dispatch = useDispatch();
-
+  const {isLoading}=useContext(LoadingContext)
   const dataUser = useSelector(({ authState }) => authState);
   const navigate = useNavigate();
 
@@ -48,7 +50,9 @@ function Homepage() {
       </aside>
       <Header  dispatch={dispatch} dataUser={dataUser.data}/>
       <div className="content">
+        {isLoading &&<FixedLoader/>}
         <Outlet />
+        
       </div>
     </div>
   );

@@ -3,8 +3,9 @@ import DataTable from 'react-data-table-component'
 import { tagihanPembayaran } from '../../../../utils/dumyDataTransaksi'
 import { dateConvert, rupiahConvert } from '../../../../utils/helper'
 import { Button } from 'reactstrap'
+import ButtonWithLoader from '../../../../component/ActionButton/ButtonWithLoader'
 
-function TagihanPembayaran({ data, onClickCetakTagihanPembayaranHandler }) {
+function TagihanPembayaran({ isLoading,data, onClickCetakTagihanPembayaranHandler }) {
     return (
         <div
             style={{
@@ -14,14 +15,17 @@ function TagihanPembayaran({ data, onClickCetakTagihanPembayaranHandler }) {
                 gap: '1rem',
             }}
         >
-            <Button
+            <ButtonWithLoader 
+            isLoading={isLoading}
+            text={' Cetak Tagihan'}
+            disabled={isLoading}
                 color="danger"
                 size="sm"
                 onClick={onClickCetakTagihanPembayaranHandler}
                 style={{ alignSelf: 'flex-end', marginRight: '1rem' }}
-            >
-                Cetak Tagihan
-            </Button>
+            />
+               
+           
             <div
                 style={{
                     width: '100%',

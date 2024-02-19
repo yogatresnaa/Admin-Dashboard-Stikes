@@ -56,7 +56,7 @@ export const requestWrapper = async (
                     theme: 'colored',
                 })
             } else if (error.response?.status < 500) {
-                toast.error(error.response.data.message, {
+                toast.error(error.response?.data?.message, {
                     theme: 'colored',
                 })
             } else {
@@ -106,4 +106,17 @@ export const upperCaseFirstChar = (word) => {
         .split('')
         .map((item, index) => (index == 0 ? item : item.toLowerCase()))
         .join('')
+}
+
+export const downloadDocument = (dokumen, documentName) => {
+    const url = window.URL.createObjectURL(
+        new Blob([new Uint8Array(dokumen).buffer], {
+            type: 'application/pdf',
+        })
+    )
+    var link = document.createElement('a')
+    link.href = url
+    link.setAttribute('download', `${documentName}.pdf`)
+    document.body.appendChild(link)
+    link.click()
 }

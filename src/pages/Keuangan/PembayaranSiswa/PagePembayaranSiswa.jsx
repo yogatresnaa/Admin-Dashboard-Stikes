@@ -16,6 +16,7 @@ import {
     getAllSiswa,
     getAllTahunAjaran,
     getDetailFreePaymentRateByPaymentId,
+    getDokumenRincianPembayaran,
     getDokumenTagihanPembayaran,
     getHistoryPaymentTransactionByStudent,
     getPaymentTransactionByStudent,
@@ -45,6 +46,8 @@ import { alertConfirmation } from '../../../component/Alert/swalConfirmation'
 import { alertType } from '../../../utils/CONSTANT'
 import AkunKas from './components/AkunKas'
 import NoRef from './components/NoRefrensi'
+import { downloadDocument } from '../../../utils/helper'
+import ButtonWithLoader from '../../../component/ActionButton/ButtonWithLoader'
 
 const pembayaranBulananInitialValues = {
     payment_rate_bill: '',
@@ -152,8 +155,14 @@ function PagePembayaranSiswa() {
         data: dataDokumenTagihanPembayaran,
         setData: setDataDokumentagihanPembayaran,
         sendData: sendDataDokumentagihanPembayaran,
+        isLoadingGenerate: isLoadngDokumenTagihanPembayaran,
         getData: getDataDokumentagihanPembayaran,
-    } = useRequest()
+    } = useRequest(true)
+    const {
+        data: dataDokumenRincianPembayaran,
+        isLoadingGenerate: isLoadngDokumenRincianPembayaran,
+        getData: getDataDokumenRincianPembayaran,
+    } = useRequest(true)
 
     //   const onCLickFilterSubmit = () => {
     //   const query = queryString.stringify(queryFilter);
@@ -495,9 +504,14 @@ function PagePembayaranSiswa() {
     const onChangeAkunKas = (e) => {
         setPaymentRateVia(e.target.value)
     }
-    useEffect(() => {
-        console.log(dataDokumenTagihanPembayaran)
-    }, [dataDokumenTagihanPembayaran])
+    // useEffect(() => {
+    //     if (
+    //         dataDokumenRincianPembayaran?.data?.data &&
+    //         dataDetailSiswa?.student_full_name
+    //     ) {
+           
+    //     }
+    // }, [dataDetailSiswa?.student_full_name, dataDokumenRincianPembayaran])
     const onClickCetakTagihanPembayaranHandler = async () => {
         await getDataDokumentagihanPembayaran(() =>
             getDokumenTagihanPembayaran(
@@ -505,23 +519,30 @@ function PagePembayaranSiswa() {
                 dataUser.token
             )
         )
-        const url = window.URL.createObjectURL(
-            new Blob(
-                [new Uint8Array(dataDokumenTagihanPembayaran.data.data).buffer],
-                {
-                    type: 'application/pdf',
-                }
-            )
+        downloadDocument(
+            dataDokumenTagihanPembayaran.data.data,
+            `Tagihan Bayar ${dataDetailSiswa.student_full_name}.pdf`
         )
-        var link = document.createElement('a')
-        link.href = url
-        link.setAttribute(
-            'download',
-            `${dataDetailSiswa.student_full_name}.pdf`
-        )
-        document.body.appendChild(link)
-        link.click()
     }
+    const onClickCetakRincianPembayaranHandler = async () => {
+        await getDataDokumenRincianPembayaran(() =>
+            getDokumenRincianPembayaran(
+                dataDetailSiswa.student_id,
+                {
+                    period_start: tahunAjaranState.period_start,
+                    period_end: tahunAjaranState.period_end,
+                },
+                dataUser.token
+            )
+            
+        )
+        downloadDocument(
+            dataDokumenRincianPembayaran.data.data,
+            `Rincian Bayar ${dataDetailSiswa.student_full_name}-${tahunAjaranState.period_start}/${tahunAjaranState.period_end}.pdf`
+        )
+        
+    }
+
     return (
         <div className="page-content">
             <ToastContainer />
@@ -548,16 +569,17 @@ function PagePembayaranSiswa() {
                                 setFilterText={onChangeFilterText}
                             />
 
-                            <Button
-                                size="sm"
-                                color="success"
-                                disabled={!kelas && filterText === ''}
-                                onClick={onClickSearchHandler}
-                            >
-                                Cari
-                            </Button>
+                           
                         </div>
-
+                        <ButtonWithLoader
+                                size="sm"
+                                style={{width:'100px'}}
+                                color="success"
+                                isLoading={isLoadingPaymentTransaction}
+                                onClick={onClickSearchHandler}
+                                text={'Cari'}
+                                disabled={!kelas && filterText === ''}
+                            />
                         <Button size="sm" onClick={toggleModalSiswa}>
                             Data Siswa
                         </Button>
@@ -654,6 +676,7 @@ function PagePembayaranSiswa() {
                                             title="Tagihan Pembayaran"
                                         >
                                             <TagihanPembayaran
+                                            isLoading={isLoadngDokumenTagihanPembayaran}
                                                 data={dataTagihan.data}
                                                 onClickCetakTagihanPembayaranHandler={
                                                     onClickCetakTagihanPembayaranHandler
@@ -700,7 +723,14 @@ function PagePembayaranSiswa() {
                                 <div className="bukti-pembayaran">
                                     <h6>Cetak Bukti Pembayaran</h6>
                                     <NoRefrensi />
-                                    <CetakButton />
+                                    <CetakButton
+                                        isLoading={
+                                            isLoadngDokumenRincianPembayaran
+                                        }
+                                        onClickCetakSemuaHandler={
+                                            onClickCetakRincianPembayaranHandler
+                                        }
+                                    />
                                 </div>
                             </div>
                         </div>

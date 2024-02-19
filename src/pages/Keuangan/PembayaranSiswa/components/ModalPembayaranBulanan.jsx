@@ -58,7 +58,9 @@ export default function ModalPembayaranBulanan({
                             error={errors}
                             handler={handleChange('payment_rate_date_pay')}
                             value={
-                                values.payment_rate_date_pay ??
+                                new Date(
+                                    values.payment_rate_date_pay
+                                ).toLocaleDateString('id') ??
                                 new Date().toLocaleDateString('id')
                             }
                         />
