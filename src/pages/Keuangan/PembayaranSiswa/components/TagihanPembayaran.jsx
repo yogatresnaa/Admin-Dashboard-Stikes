@@ -60,82 +60,6 @@ function TagihanPembayaran({ data, onClickCetakTagihanPembayaranHandler }) {
                                         {item.period_end} ({item.payment_type})
                                     </td>
 
-<<<<<<< HEAD
-  const customStyles = {
-	header: {
-		style: {
-			minHeight: '100px',
-		},
-	},
-	headRow: {
-		style: {
-				borderTopStyle: 'solid',
-				borderTopWidth: '1px',
-
-			
-		},
-	},
-	headCells: {
-		style: {
-			'&:not(:last-of-type)': {
-				borderRightStyle: 'solid',
-				borderRightWidth: '1px',               
-                borderBottomtWidth: '1px',
-                minHeight: '50px',
-                // backgroundColor: '#F8EDFF',
-        
-				
-			},
-		},
-	},
-	cells: {
-		style: {
-			'&:not(:last-of-type)': {
-				borderRightStyle: 'solid',
-				borderRightWidth: '1px',
-                // borderLeftStyle: 'solid',
-                // borderLeftWidth: '1px',
-               
-         
-				
-			},
-		},
-	},
-};
- 
-
-  const columns = [
-
-    {
-	name: 'Rincian Tagihan',
-	selector: row => row.RincianTagihan,
-	sortable: true,
-
-	},
-	{
-	name: 'Nominal',
-	selector: row => row.Nominal,
-	sortable: true,
-
-    
-
-	},
-
-  
-]
-  return (
-    <div>
-              <DataTable
-                title="History Pembayaran"
-                columns={columns}
-                customStyles={customStyles}
-                data={tagihanPembayaran}
-         
-              />
-    </div>
-   
-  );
-=======
                                     <td>
                                         {rupiahConvert(
                                             itemDetail.payment_rate_bill
@@ -155,7 +79,6 @@ function TagihanPembayaran({ data, onClickCetakTagihanPembayaranHandler }) {
             </div>
         </div>
     )
->>>>>>> d894630831aac458fdc2c70bf6206a70b16ba451
 }
 
 export default TagihanPembayaran
