@@ -160,6 +160,9 @@
     border-top: 1px solid rgb(225, 166, 240);
     margin-top: 40px;
 }
+.date {
+    margin-bottom: 20px;
+}
 
 .cetak-button {
     display: flex;

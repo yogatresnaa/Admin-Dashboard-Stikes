@@ -48,6 +48,7 @@ import AkunKas from './components/AkunKas'
 import NoRef from './components/NoRefrensi'
 import { downloadDocument } from '../../../utils/helper'
 import ButtonWithLoader from '../../../component/ActionButton/ButtonWithLoader'
+import DateInput from '../../../component/ActionButton/InputDate'
 
 const pembayaranBulananInitialValues = {
     payment_rate_bill: '',
@@ -509,7 +510,7 @@ function PagePembayaranSiswa() {
     //         dataDokumenRincianPembayaran?.data?.data &&
     //         dataDetailSiswa?.student_full_name
     //     ) {
-           
+
     //     }
     // }, [dataDetailSiswa?.student_full_name, dataDokumenRincianPembayaran])
     const onClickCetakTagihanPembayaranHandler = async () => {
@@ -534,13 +535,11 @@ function PagePembayaranSiswa() {
                 },
                 dataUser.token
             )
-            
         )
         downloadDocument(
             dataDokumenRincianPembayaran.data.data,
             `Rincian Bayar ${dataDetailSiswa.student_full_name}-${tahunAjaranState.period_start}/${tahunAjaranState.period_end}.pdf`
         )
-        
     }
 
     return (
@@ -568,18 +567,16 @@ function PagePembayaranSiswa() {
                                 filterText={filterText}
                                 setFilterText={onChangeFilterText}
                             />
-
-                           
                         </div>
                         <ButtonWithLoader
-                                size="sm"
-                                style={{width:'100px'}}
-                                color="success"
-                                isLoading={isLoadingPaymentTransaction}
-                                onClick={onClickSearchHandler}
-                                text={'Cari'}
-                                disabled={!kelas && filterText === ''}
-                            />
+                            size="sm"
+                            style={{ width: '100px' }}
+                            color="success"
+                            isLoading={isLoadingPaymentTransaction}
+                            onClick={onClickSearchHandler}
+                            text={'Cari'}
+                            disabled={!kelas && filterText === ''}
+                        />
                         <Button size="sm" onClick={toggleModalSiswa}>
                             Data Siswa
                         </Button>
@@ -676,7 +673,9 @@ function PagePembayaranSiswa() {
                                             title="Tagihan Pembayaran"
                                         >
                                             <TagihanPembayaran
-                                            isLoading={isLoadngDokumenTagihanPembayaran}
+                                                isLoading={
+                                                    isLoadngDokumenTagihanPembayaran
+                                                }
                                                 data={dataTagihan.data}
                                                 onClickCetakTagihanPembayaranHandler={
                                                     onClickCetakTagihanPembayaranHandler
@@ -687,7 +686,7 @@ function PagePembayaranSiswa() {
                                 </div>
                             </div>
                             <div className="kalkulator">
-                                <h6>Kalkulator</h6>
+                                {/* <h6>Kalkulator</h6>
                                 <div className="wrapping">
                                     <p
                                         style={{
@@ -718,10 +717,17 @@ function PagePembayaranSiswa() {
                                         Kembalian
                                         <Kalkulator />
                                     </p>
-                                </div>
+                                </div> */}
 
                                 <div className="bukti-pembayaran">
                                     <h6>Cetak Bukti Pembayaran</h6>
+                                    <div className="date">
+                                        <span style={{ fontSize: '0.8rem' }}>
+                                            Tanggal Transaksi
+                                        </span>
+                                        <DateInput />
+                                    </div>
+
                                     <NoRefrensi />
                                     <CetakButton
                                         isLoading={
