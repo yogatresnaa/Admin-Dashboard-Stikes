@@ -629,25 +629,37 @@ function Sidebar() {
                                     >
                                         <Link
                                             className="link color"
-                                            to="/lap-jurnal"
+                                            to="/admin/lap-jurnal-umum"
                                         >
                                             <li
                                                 className="nav-item nav-link m-1"
                                                 style={{ color: '#DC84F3' }}
                                             >
-                                                <FaCircleMinus /> Laporan Jurnal
+                                                <FaCircleMinus />
+                                                Jurnal Umum
                                             </li>
                                         </Link>
                                         <Link
                                             className="link color"
-                                            to="/lap-kas-bank"
+                                            to="/admin/lap-kas-tunai"
                                         >
                                             <li
                                                 className="nav-item nav-link m-1"
                                                 style={{ color: '#DC84F3' }}
                                             >
-                                                <FaCircleMinus /> Laporan Kas
-                                                Bank
+                                                <FaCircleMinus /> Lap. Kas tunai
+                                            </li>
+                                        </Link>
+
+                                        <Link
+                                            className="link color"
+                                            to="/admin/lap-kas-bank"
+                                        >
+                                            <li
+                                                className="nav-item nav-link m-1"
+                                                style={{ color: '#DC84F3' }}
+                                            >
+                                                <FaCircleMinus /> Lap. Kas Bank
                                             </li>
                                         </Link>
                                     </ul>

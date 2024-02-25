@@ -3,31 +3,35 @@
 @import '../KasBank/KirimTagihan/css/kirimTagihan.css';
 
 .page-content {
-  padding: 5px;
-  margin: 10px;
-  flex: auto;
-  flex-direction: column;
-
+    padding: 5px;
+    margin: 10px;
+    flex: auto;
+    flex-direction: column;
 }
 
 .table-content {
-  padding: 20px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  border-radius:10px
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
 }
 
 .search {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: solid rgb(9, 24, 224) 1px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid rgb(9, 24, 224) 1px;
 }
 
 .sub-content {
-      padding: 10px;
+    padding: 10px;
     border-radius: 10px;
     border-top: solid 5px rgb(225, 166, 240);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin: 20px;
 }
 
-
+.button-cetak {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    padding: 5px;
+}
