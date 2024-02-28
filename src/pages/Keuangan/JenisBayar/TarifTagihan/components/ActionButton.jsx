@@ -22,6 +22,7 @@ export default function ActionButton({ onBackHandler, data }) {
                         pathname: `/admin/tarif-tagihan/${data.payment_id}/tambah`,
                         search: createSearchParams({
                             type: 'tambah-kelas',
+                            unit_id: data.unit_unit_id,
                         }).toString(),
                     }}
                 >
@@ -43,6 +44,7 @@ export default function ActionButton({ onBackHandler, data }) {
                         pathname: `/admin/tarif-tagihan/${data.payment_id}/tambah`,
                         search: createSearchParams({
                             type: 'tambah-siswa',
+                            unit_id: data.unit_unit_id,
                         }).toString(),
                     }}
                 >
@@ -64,6 +66,7 @@ export default function ActionButton({ onBackHandler, data }) {
                         pathname: `/admin/tarif-tagihan/${data.payment_id}/edit`,
                         search: createSearchParams({
                             type: 'edit-kelas',
+                            unit_id: data.unit_unit_id,
                         }).toString(),
                     }}
                 >

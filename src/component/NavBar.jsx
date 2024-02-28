@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
 function NavBar() {
-  return (
-    <>
-      <div className='nav-bar'>
-        <h2>STIKES Pelita Ilmu</h2>
-      </div>
-    </>
-  );
+    return (
+        <>
+            <div className="nav-bar">
+                <h2>STIKES Pelita Ilmu</h2>
+            </div>
+        </>
+    )
 }
-export default NavBar;
+export default NavBar

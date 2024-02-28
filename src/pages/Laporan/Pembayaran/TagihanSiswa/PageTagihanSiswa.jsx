@@ -262,19 +262,8 @@ function PageTagihanSiswa() {
                                 value={queryFilter.class_id}
                             />
 
-                            <span
-                                style={{ fontSize: '0.8rem', width: '200px' }}
-                            >
-                                Dari Bulan
-                                <SelectBulan />
-                            </span>
-
-                            <span
-                                style={{ fontSize: '0.8rem', width: '200px' }}
-                            >
-                                Sampai Bulan
-                                <SelectBulan />
-                            </span>
+                            <SelectBulan />
+                            <SelectSampaiBulan />
 
                             <Button
                                 size="sm"

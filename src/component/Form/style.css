@@ -5,28 +5,21 @@
     display: block;
     width: inherit;
     position: relative;
- 
- 
-   
-   
+
     border-radius: 5px;
     background-color: white;
 }
 .error-wrapper span {
     color: white;
     font-size: 0.8em;
-
 }
 
 .error-wrapper.show span {
     color: white;
     font-size: 0.8em;
-
 }
 .error-wrapper.show {
-
-  background-color: #EE5B5B;
-
+    background-color: #ee5b5b;
 }
 
 .password-wrapper {

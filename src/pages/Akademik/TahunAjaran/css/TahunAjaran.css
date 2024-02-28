@@ -1,19 +1,19 @@
 .tahun-ajaran {
-  padding: 5px;
-  background-color: rgb(169, 219, 219);
-  margin-top: 50px;
+    padding: 5px;
+    background-color: rgb(169, 219, 219);
+    margin-top: 50px;
 }
 .table-ajaran {
-  width: 90%;
-  padding: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 90%;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .search {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: solid rgb(9, 24, 224) 1px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid rgb(9, 24, 224) 1px;
 }

@@ -5,7 +5,7 @@ import { Tooltip } from 'react-tooltip'
 import { Link, createSearchParams } from 'react-router-dom'
 import { FaRegEdit, FaRegTrashAlt, FaRegPlusSquare } from 'react-icons/fa'
 import { accountCategory, accountType } from '../../../../../utils/CONSTANT'
-import { upperCaseFirstChar } from '../../../../../utils/helper'
+import { rupiahConvert, upperCaseFirstChar } from '../../../../../utils/helper'
 
 function TableTarifTagihan({
     data,
@@ -73,15 +73,14 @@ function TableTarifTagihan({
 
         {
             name: 'NIS',
-            selector: (row) => row.pos_pay_name,
+            selector: (row) => row.student_nis,
             sortable: true,
             width: '250px',
         },
         {
             name: 'Nama Siswa ',
             width: '300px',
-            selector: (row) =>
-                `${row.pos_pay_name} - T.A ${row.period_start}/${row.period_end}`,
+            selector: (row) => row.student_full_name,
             sortable: true,
         },
 
@@ -95,7 +94,7 @@ function TableTarifTagihan({
         },
         {
             name: 'Nominal',
-            selector: (row) => `${row.period_start}/${row.period_end}`,
+            selector: (row) => rupiahConvert(row.nominal),
             width: '150px',
             sortable: true,
         },

@@ -22,12 +22,12 @@ h2 {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-.card-item>p {
+.card-item > p {
     font-size: 18px;
 }
 
-.card-item>svg,
-.card-item>p {
+.card-item > svg,
+.card-item > p {
     color: var(--main);
     transition: 0.8s all ease;
 }
@@ -38,12 +38,12 @@ h2 {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.card-item:hover>svg,
-.card-item:hover>p {
+.card-item:hover > svg,
+.card-item:hover > p {
     color: white;
 }
 @media only screen and (min-width: 992px) {
     .card-item {
         width: 300px;
     }
-  }
+}

@@ -12,6 +12,8 @@ export default function ModalSiswa({
     subHeaderComponent,
     onClickSiswaHandler,
     valueKelas,
+    dataUnit,
+    valueUnit,
     onChangeKelas,
     isLoadingSiswa,
 }) {
@@ -29,6 +31,12 @@ export default function ModalSiswa({
         >
             <ModalHeader toggle={toggleModal}>Cari Data Siswa </ModalHeader>
             <ModalBody>
+                {/* <SelectUnitKelas
+                    style={{ maxWidth: '200px' }}
+                    data={dataUnit}
+                    value={valueUnit}
+                    onProdiFilterChange={onChangeKelas}
+                /> */}
                 <SelectUnitKelas
                     style={{ maxWidth: '200px' }}
                     data={dataKelas}

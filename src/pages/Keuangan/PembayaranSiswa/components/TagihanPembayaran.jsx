@@ -5,7 +5,12 @@ import { dateConvert, rupiahConvert } from '../../../../utils/helper'
 import { Button } from 'reactstrap'
 import ButtonWithLoader from '../../../../component/ActionButton/ButtonWithLoader'
 
-function TagihanPembayaran({ isLoading,data, onClickCetakTagihanPembayaranHandler }) {
+function TagihanPembayaran({
+    isLoading,
+    data,
+    onClickCetakTagihanPembayaranHandler,
+}) {
+    console.log(data)
     return (
         <div
             style={{
@@ -15,17 +20,16 @@ function TagihanPembayaran({ isLoading,data, onClickCetakTagihanPembayaranHandle
                 gap: '1rem',
             }}
         >
-            <ButtonWithLoader 
-            isLoading={isLoading}
-            text={' Cetak Tagihan'}
-            disabled={isLoading}
+            <ButtonWithLoader
+                isLoading={isLoading}
+                text={' Cetak Tagihan'}
+                disabled={isLoading}
                 color="danger"
                 size="sm"
                 onClick={onClickCetakTagihanPembayaranHandler}
                 style={{ alignSelf: 'flex-end', marginRight: '1rem' }}
             />
-               
-           
+
             <div
                 style={{
                     width: '100%',
@@ -50,7 +54,7 @@ function TagihanPembayaran({ isLoading,data, onClickCetakTagihanPembayaranHandle
                                     </td>
                                     <td>
                                         {rupiahConvert(
-                                            itemDetail.payment_rate_bill
+                                            itemDetail?.payment_rate_bill
                                         )}
                                     </td>
                                 </tr>
@@ -66,7 +70,7 @@ function TagihanPembayaran({ isLoading,data, onClickCetakTagihanPembayaranHandle
 
                                     <td>
                                         {rupiahConvert(
-                                            itemDetail.payment_rate_bill
+                                            itemDetail?.payment_rate_bill
                                         )}
                                     </td>
                                 </tr>
@@ -78,7 +82,7 @@ function TagihanPembayaran({ isLoading,data, onClickCetakTagihanPembayaranHandle
             <div className="d-flex justify-content-between">
                 <p style={{ flex: 2, fontSize: '0.8rem' }}>Total</p>
                 <p style={{ flex: 1, fontSize: '0.8rem', fontWeight: 'bold' }}>
-                    {rupiahConvert(data.total_tagihan)}
+                    {data.total_tagihan && rupiahConvert(data.total_tagihan)}
                 </p>
             </div>
         </div>

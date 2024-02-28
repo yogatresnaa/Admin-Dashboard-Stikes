@@ -1,15 +1,15 @@
-import React from 'react';
-import TableSiswa from '../../Kesiswaan/TableSiswa';
+import React from 'react'
+import TableSiswa from '../../Kesiswaan/TableSiswa'
 
 function PageSiswa() {
-  return (
-    <>
-      <div>
-        <h1>INI PAGE SISWA</h1>
-        <TableSiswa />
-      </div>
-    </>
-  );
+    return (
+        <>
+            <div>
+                <h1>INI PAGE SISWA</h1>
+                <TableSiswa />
+            </div>
+        </>
+    )
 }
 
-export default PageSiswa;
+export default PageSiswa

@@ -1,61 +1,55 @@
-import React, { useContext } from "react";
-import { Routes, Route, Outlet, useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import "../styleCss/style.css";
-import Sidebar from "../component/Sidebar";
-import NavBar from "../component/NavBar";
-import { axiosInterceptorDispatch, checkMe, injectStore } from "../utils/http";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Header from "../component/Header";
-import { LoadingContext } from "../context/LoadingContext";
-import FixedLoader from "../component/Loader/FixedLoader";
+import React, { useContext } from 'react'
+import { Routes, Route, Outlet, useNavigate } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import '../styleCss/style.css'
+import Sidebar from '../component/Sidebar'
+import NavBar from '../component/NavBar'
+import { axiosInterceptorDispatch, checkMe, injectStore } from '../utils/http'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import Header from '../component/Header'
+import { LoadingContext } from '../context/LoadingContext'
+import FixedLoader from '../component/Loader/FixedLoader'
 
 function Homepage() {
-  const dispatch = useDispatch();
-  const {isLoading}=useContext(LoadingContext)
-  const dataUser = useSelector(({ authState }) => authState);
-  const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const { isLoading } = useContext(LoadingContext)
+    const dataUser = useSelector(({ authState }) => authState)
+    const navigate = useNavigate()
 
-  useEffect(() => {
-    if (dataUser?.data.token === undefined && dataUser.isFulfilled) {
-     return navigate("/login",{replace:true});
-     
-    } 
-  }, [dataUser, navigate]);
+    useEffect(() => {
+        if (dataUser?.data.token === undefined && dataUser.isFulfilled) {
+            return navigate('/login', { replace: true })
+        }
+    }, [dataUser, navigate])
 
-  useEffect(() => {
-    axiosInterceptorDispatch(dispatch);
-    injectStore(dataUser.data)
-    
-    const checkMeCredentials=async(token)=>{
-      await checkMe(token);
-    }
-    if(dataUser.data.token!==undefined){
-      checkMeCredentials(dataUser.data.token)
+    useEffect(() => {
+        axiosInterceptorDispatch(dispatch)
+        injectStore(dataUser.data)
 
-    }
-  else{
-    console.log(dataUser.data.token)
-      return navigate("/login",{replace:true});
-
-  }
-    
-  }, []);
-  return (
-    <div className="containerApp">
-      <aside className="sidebar">
-        <Sidebar/>
-      </aside>
-      <Header  dispatch={dispatch} dataUser={dataUser.data}/>
-      <div className="content">
-        {isLoading &&<FixedLoader/>}
-        <Outlet />
-        
-      </div>
-    </div>
-  );
+        const checkMeCredentials = async (token) => {
+            await checkMe(token)
+        }
+        if (dataUser.data.token !== undefined) {
+            checkMeCredentials(dataUser.data.token)
+        } else {
+            console.log(dataUser.data.token)
+            return navigate('/login', { replace: true })
+        }
+    }, [])
+    return (
+        <div className="containerApp">
+            <aside className="sidebar">
+                <Sidebar />
+            </aside>
+            <Header dispatch={dispatch} dataUser={dataUser.data} />
+            <div className="content">
+                {isLoading && <FixedLoader />}
+                <Outlet />
+            </div>
+        </div>
+    )
 }
 
-export default Homepage;
+export default Homepage

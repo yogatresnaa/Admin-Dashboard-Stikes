@@ -2,7 +2,13 @@ import React from 'react'
 import { Button } from 'reactstrap'
 import DataTable from 'react-data-table-component'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-import { FaUnlockAlt, FaRegEdit, FaPrint } from 'react-icons/fa'
+import {
+    FaUnlockAlt,
+    FaRegEdit,
+    FaPrint,
+    FaTrash,
+    FaTrashAlt,
+} from 'react-icons/fa'
 import { FaRegEye } from 'react-icons/fa6'
 import { Tooltip } from 'react-tooltip'
 import { colors, statusSiswa } from '../../../../utils/CONSTANT'
@@ -17,17 +23,6 @@ function TableSiswa({
 }) {
     const renderActionButton = (row) => (
         <div className="d-flex gap-1">
-            {/* <Button
-            color="danger"
-            size='sm'
-            variant='danger'
-            data-tooltip-id="my-tooltip" data-tooltip-content="Reset Password"
-            onClick={() => {
-              onClickDetailHandler(row);
-            }}
-            id={row.ID}>
-            <FaUnlockAlt />
-          </Button> */}
             <Button
                 color="info"
                 size="sm"
@@ -53,6 +48,19 @@ function TableSiswa({
                 id={row.ID}
             >
                 <FaRegEdit color="white" />
+            </Button>
+            <Button
+                color="danger"
+                size="sm"
+                variant="danger"
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content="Hapus"
+                onClick={() => {
+                    onClickDeleteHandler(row)
+                }}
+                id={row.ID}
+            >
+                <FaTrashAlt />
             </Button>
             {/* <Button
             color="success"

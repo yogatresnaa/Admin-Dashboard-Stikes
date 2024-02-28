@@ -1,13 +1,13 @@
-import React from 'react';
-import TableKelulusan from '../../Akademik/TableKelulusan';
+import React from 'react'
+import TableKelulusan from '../../Akademik/TableKelulusan'
 
 function PageKelulusan() {
-  return (
-    <>
-      <h1>INI PAGE KELULUSAN</h1>
-      <TableKelulusan />
-    </>
-  );
+    return (
+        <>
+            <h1>INI PAGE KELULUSAN</h1>
+            <TableKelulusan />
+        </>
+    )
 }
 
-export default PageKelulusan;
+export default PageKelulusan

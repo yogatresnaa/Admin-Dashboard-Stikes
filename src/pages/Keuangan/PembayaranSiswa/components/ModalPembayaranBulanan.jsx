@@ -24,7 +24,7 @@ export default function ModalPembayaranBulanan({
             validateOnChange={false}
             initialValues={data ?? initialValues}
             onSubmit={
-                data.payment_rate_status == 0
+                !data.payment_rate_number_pay
                     ? onSubmit('submit', data.detail_payment_rate_id)
                     : onSubmit('delete', data.detail_payment_rate_id)
             }
@@ -58,10 +58,11 @@ export default function ModalPembayaranBulanan({
                             error={errors}
                             handler={handleChange('payment_rate_date_pay')}
                             value={
-                                new Date(
-                                    values.payment_rate_date_pay
-                                ).toLocaleDateString('id') ??
-                                new Date().toLocaleDateString('id')
+                                values.payment_rate_date_pay
+                                    ? new Date(
+                                          values.payment_rate_date_pay
+                                      ).toLocaleDateString('id')
+                                    : new Date().toLocaleDateString('id')
                             }
                         />
                         <FormComponent
@@ -77,14 +78,14 @@ export default function ModalPembayaranBulanan({
                         />
                         <Button
                             color={`${
-                                data.payment_rate_status == 0
+                                !data.payment_rate_number_pay
                                     ? 'primary'
                                     : 'danger'
                             }`}
                             className="d-flex w-100 justify-content-center text-white"
                             onClick={handleSubmit}
                         >
-                            {data.payment_rate_status == 0 ? 'Submit' : 'Hapus'}
+                            {!data.payment_rate_number_pay ? 'Submit' : 'Hapus'}
                         </Button>
                     </ModalBody>
                 </Modal>

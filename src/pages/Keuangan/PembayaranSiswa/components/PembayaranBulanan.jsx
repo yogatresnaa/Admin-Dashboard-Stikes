@@ -26,7 +26,7 @@ function PembayaranBulanan({ data, onClickHandler }) {
                 <span style={{ fontSize: '0.7rem', color: 'grey' }}>
                     {row.monthly_payment.filter(
                         (item) => item.month_name === monthName
-                    )[0]?.payment_rate_status == 1 &&
+                    )[0]?.payment_rate_number_pay !== null &&
                         `(${dateConvert(
                             row.monthly_payment.filter(
                                 (item) => item.month_name === monthName
@@ -37,7 +37,7 @@ function PembayaranBulanan({ data, onClickHandler }) {
                 <span style={{ fontSize: '0.8rem', color: 'grey' }}>
                     {row.monthly_payment.filter(
                         (item) => item.month_name === monthName
-                    )[0]?.payment_rate_status == 1 &&
+                    )[0]?.payment_rate_number_pay &&
                         `[${
                             row?.monthly_payment.filter(
                                 (item) => item.month_name === monthName
@@ -53,7 +53,10 @@ function PembayaranBulanan({ data, onClickHandler }) {
                 when: (row) =>
                     row.monthly_payment.filter(
                         (item) => item.month_name === monthName
-                    )[0]?.payment_rate_status == 0,
+                    )[0]?.payment_rate_status == 0 ||
+                    row.monthly_payment.filter(
+                        (item) => item.month_name === monthName
+                    )[0]?.is_submit_payment == 0,
                 style: {
                     backgroundColor: '#f2dede',
                     color: 'black',
@@ -67,7 +70,10 @@ function PembayaranBulanan({ data, onClickHandler }) {
                 when: (row) =>
                     row.monthly_payment.filter(
                         (item) => item.month_name === monthName
-                    )[0]?.payment_rate_status == 1,
+                    )[0]?.payment_rate_status == 1 ||
+                    row.monthly_payment.filter(
+                        (item) => item.month_name === monthName
+                    )[0]?.payment_rate_number_pay !== null,
                 style: {
                     backgroundColor: '#dff0d8',
                     color: 'black',

@@ -1,20 +1,20 @@
-import React from 'react';
-import TableKelas from '../../Kesiswaan/TableKelas';
-import AddAction from '../../ActionButton/AcctionAddButoon';
+import React from 'react'
+import TableKelas from '../../Kesiswaan/TableKelas'
+import AddAction from '../../ActionButton/AcctionAddButoon'
 
 function PageKelas() {
-  return (
-    <>
-      <div className='page-kelas'>
-        <h3>Kelas List</h3>
+    return (
+        <>
+            <div className="page-kelas">
+                <h3>Kelas List</h3>
 
-        <div className='table-kelas'>
-          <AddAction />
-          <TableKelas />
-        </div>
-      </div>
-    </>
-  );
+                <div className="table-kelas">
+                    <AddAction />
+                    <TableKelas />
+                </div>
+            </div>
+        </>
+    )
 }
 
-export default PageKelas;
+export default PageKelas

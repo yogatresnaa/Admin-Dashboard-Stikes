@@ -28,6 +28,8 @@ Axios.interceptors.response.use(
             return Promise.reject(error)
             //    handle refresh token dan error
         }
+        console.log('inii')
+        console.log(error)
         return Promise.reject(error)
     }
 )
@@ -39,8 +41,8 @@ export const registerUser = (body) =>
 export const checkMe = (token) =>
     Axios.get(`${URL_BASE}/auth/me`, options(token))
 
-export const getAllProdi = (token) =>
-    Axios.get(`${URL_BASE}/program-studi`, options(token))
+export const getAllProdi = (query = {}, token) =>
+    Axios.get(`${URL_BASE}/program-studi`, { ...options(token), params: query })
 export const getProdiById = (id, token) =>
     Axios.get(`${URL_BASE}/program-studi/${id}`, options(token))
 export const postProdi = (body, token) =>
@@ -50,8 +52,11 @@ export const putProdi = (id, body, token) =>
 export const deleteProdi = (id, body, token) =>
     Axios.delete(`${URL_BASE}/program-studi/${id}`, options(token))
 
-export const getAllKelas = (token) =>
-    Axios.get(`${URL_BASE}/kelas`, options(token))
+export const getAllUnitByUser = (token) =>
+    Axios.get(`${URL_BASE}/unit`, { ...options(token) })
+
+export const getAllKelas = (query = {}, token) =>
+    Axios.get(`${URL_BASE}/kelas`, { ...options(token), params: query })
 export const getKelasById = (id, token) =>
     Axios.get(`${URL_BASE}/kelas/${id}`, options(token))
 export const getKelasByProdi = (id, token) =>
@@ -112,22 +117,28 @@ export const deleteAccountCost = (id, token) =>
     Axios.delete(`${URL_BASE}/account-cost/${id}`, options(token))
 export const getCodeAccountCost = (body, token) =>
     Axios.post(`${URL_BASE}/account-cost/code`, body, options(token))
-export const getAllAccountCost = (token) =>
-    Axios.get(`${URL_BASE}/account-cost`, options(token))
-export const getAllAccountCostPay = (token) =>
-    Axios.get(`${URL_BASE}/account-cost/pos-pay`, options(token))
-export const getAllAktivaAccountCostPay = (token) =>
-    Axios.get(`${URL_BASE}/account-cost/aktiva`, options(token))
+export const getAllAccountCost = (query, token) =>
+    Axios.get(`${URL_BASE}/account-cost`, { ...options(token), params: query })
+export const getAllAccountCostPay = (query, token) =>
+    Axios.get(`${URL_BASE}/account-cost/pos-pay`, {
+        ...options(token),
+        params: query,
+    })
+export const getAllAktivaAccountCostPay = (query, token) =>
+    Axios.get(`${URL_BASE}/account-cost/aktiva`, {
+        ...options(token),
+        params: query,
+    })
 
 //piutang
-export const getAllPiutang = (token) =>
-    Axios.get(`${URL_BASE}/piutang`, options(token))
+export const getAllPiutang = (query, token) =>
+    Axios.get(`${URL_BASE}/piutang`, { ...options(token), params: query })
 
 //pos bayar
 export const postPosPay = (body, token) =>
     Axios.post(`${URL_BASE}/pos-pay`, body, options(token))
-export const getAllPosPay = (token) =>
-    Axios.get(`${URL_BASE}/pos-pay`, options(token))
+export const getAllPosPay = (query, token) =>
+    Axios.get(`${URL_BASE}/pos-pay`, { ...options(token), params: query })
 export const deletePosPay = (id, token) =>
     Axios.delete(`${URL_BASE}/pos-pay/${id}`, options(token))
 export const putPosPay = (id, body, token) =>
@@ -136,8 +147,8 @@ export const putPosPay = (id, body, token) =>
 //jenis bayar
 export const postPaymentType = (body, token) =>
     Axios.post(`${URL_BASE}/payment-type`, body, options(token))
-export const getAllPaymentType = (token) =>
-    Axios.get(`${URL_BASE}/payment-type`, options(token))
+export const getAllPaymentType = (query, token) =>
+    Axios.get(`${URL_BASE}/payment-type`, { ...options(token), params: query })
 export const deletePaymentType = (id, token) =>
     Axios.delete(`${URL_BASE}/payment-type/${id}`, options(token))
 export const putPaymentType = (id, body, token) =>
@@ -199,15 +210,24 @@ export const getPaymentTransactionByStudent = (id, query, token) =>
         ...options(token),
         params: query,
     })
-export const getHistoryPaymentTransactionByStudent = (id, query, token) =>
-    Axios.get(`${URL_BASE}/payment-transaction/student/history/${id}`, {
+export const getPaymentTransactionNotSubmittedByStudent = (id, token) =>
+    Axios.get(`${URL_BASE}/payment-transaction/payment-not-submitted/${id}`, {
+        ...options(token),
+    })
+
+export const getReferenceCode = (query, token) =>
+    Axios.get(`${URL_BASE}/payment-transaction/referensi-code`, {
         ...options(token),
         params: query,
     })
-export const getTagihanPaymentTransactionByStudent = (id, query, token) =>
+
+export const getHistoryPaymentTransactionByStudent = (id, token) =>
+    Axios.get(`${URL_BASE}/payment-transaction/student/history/${id}`, {
+        ...options(token),
+    })
+export const getTagihanPaymentTransactionByStudent = (id, token) =>
     Axios.get(`${URL_BASE}/payment-transaction/student/tagihan/${id}`, {
         ...options(token),
-        params: query,
     })
 export const putPaymentTransactionById = (id, body, token) =>
     Axios.put(`${URL_BASE}/payment-transaction/${id}`, body, options(token))
@@ -227,6 +247,13 @@ export const putDiscountFreePaymentTransactionById = (id, body, token) =>
 
 export const putFreePaymentTransactionById = (id, body, token) =>
     Axios.put(`${URL_BASE}/payment-transaction/pay/${id}`, body, options(token))
+
+export const postSubmitPayment = (body, token) =>
+    Axios.post(
+        `${URL_BASE}/payment-transaction/submit-pay`,
+        body,
+        options(token)
+    )
 
 export const getDetailFreePaymentRateByPaymentId = (id, token) =>
     Axios.get(

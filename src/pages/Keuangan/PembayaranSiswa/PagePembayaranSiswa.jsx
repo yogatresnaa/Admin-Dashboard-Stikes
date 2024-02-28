@@ -15,12 +15,16 @@ import {
     getAllKelas,
     getAllSiswa,
     getAllTahunAjaran,
+    getAllUnitByUser,
     getDetailFreePaymentRateByPaymentId,
     getDokumenRincianPembayaran,
     getDokumenTagihanPembayaran,
     getHistoryPaymentTransactionByStudent,
     getPaymentTransactionByStudent,
+    getPaymentTransactionNotSubmittedByStudent,
+    getReferenceCode,
     getTagihanPaymentTransactionByStudent,
+    postSubmitPayment,
     putDiscountFreePaymentTransactionById,
     putFreePaymentTransactionById,
     putPaymentTransactionById,
@@ -48,7 +52,8 @@ import AkunKas from './components/AkunKas'
 import NoRef from './components/NoRefrensi'
 import { downloadDocument } from '../../../utils/helper'
 import ButtonWithLoader from '../../../component/ActionButton/ButtonWithLoader'
-import DateInput from '../../../component/ActionButton/InputDate'
+import SelectUnit from '../../../component/ActionButton/SelectUnit'
+import { useFetcher } from 'react-router-dom'
 
 const pembayaranBulananInitialValues = {
     payment_rate_bill: '',
@@ -88,6 +93,11 @@ function PagePembayaranSiswa() {
         isLoadingSendData: isLoadingSendPaymentTransaction,
     } = useRequest()
     const {
+        data: dataUnit,
+        setData: setDataUnit,
+        getData: getDataUnit,
+    } = useRequest()
+    const {
         data: dataDetailFreePaymentTransaction,
         dataDetail: selecteddataDetailFreePaymentTransaction,
         setDataDetail: setSelecteDataDetailFreePaymentTransaction,
@@ -102,6 +112,11 @@ function PagePembayaranSiswa() {
         // setData: setDataDetailFreePaymentTransaction,
         // sendData: sendDataDetailFreePaymentTransaction,
         getData: getDataAkunKas,
+    } = useRequest()
+    const {
+        isLoading: isLoadingDataPaymentNotSubmit,
+        data: dataPaymentNotSubmit,
+        getData: getDataPaymentNotSubmit,
     } = useRequest()
 
     const {
@@ -153,6 +168,12 @@ function PagePembayaranSiswa() {
         getData: getDataTahunAjaran,
     } = useRequest()
     const {
+        data: dataCode,
+        setData: setDataCode,
+        getData: getDataCode,
+    } = useRequest()
+
+    const {
         data: dataDokumenTagihanPembayaran,
         setData: setDataDokumentagihanPembayaran,
         sendData: sendDataDokumentagihanPembayaran,
@@ -163,6 +184,7 @@ function PagePembayaranSiswa() {
         data: dataDokumenRincianPembayaran,
         isLoadingGenerate: isLoadngDokumenRincianPembayaran,
         getData: getDataDokumenRincianPembayaran,
+        setData: setDataDokumenRincianPembayaran,
     } = useRequest(true)
 
     //   const onCLickFilterSubmit = () => {
@@ -175,14 +197,12 @@ function PagePembayaranSiswa() {
         class_id: '',
         status: '',
         majors_id: '',
+        unit_id: '',
     })
+
     useEffect(() => {
-        const query = queryString.stringify(queryFilter)
-        console.log('a')
+        getDataUnit(() => getAllUnitByUser(dataUser.token))
         getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token))
-        getDataSiswa(() => getAllSiswa({}, dataUser.token))
-        getDataKelas(() => getAllKelas(dataUser.token))
-        getDataAkunKas(() => getAllAktivaAccountCostPay(dataUser.token))
     }, [])
 
     const onChangeFilterTextModal = (e) => {
@@ -215,7 +235,7 @@ function PagePembayaranSiswa() {
         }))
     }
 
-    const onClickSiswaHandler = (data) => {
+    const onClickSiswaHandler = async (data) => {
         getDataPaymentTransaction(() =>
             getPaymentTransactionByStudent(
                 data.student_id,
@@ -226,17 +246,40 @@ function PagePembayaranSiswa() {
                 dataUser.token
             )
         )
+        await getDataCode(() =>
+            getReferenceCode(
+                {
+                    ref_code: generateNoReferensi(data),
+                    student_id: data.student_id,
+                },
+                dataUser.token
+            )
+        )
+        getDataPaymentNotSubmit(() =>
+            getPaymentTransactionNotSubmittedByStudent(
+                data.student_id,
+                dataUser.token
+            )
+        )
+
         getDataHistory(() =>
-            getHistoryPaymentTransactionByStudent(data.student_id)
+            getHistoryPaymentTransactionByStudent(
+                data.student_id,
+                dataUser.token
+            )
         )
         getDataTagihan(() =>
-            getTagihanPaymentTransactionByStudent(data.student_id)
+            getTagihanPaymentTransactionByStudent(
+                data.student_id,
+                dataUser.token
+            )
         )
 
         setFilterText(data.student_nis)
 
         setIsOpenModalSiswa(!isOpenModalSiswa)
     }
+    console.log(dataTagihan)
     useEffect(() => {
         console.log(dataPaymentTransaction)
         if (
@@ -291,6 +334,30 @@ function PagePembayaranSiswa() {
                 dataUser.token
             )
         )
+        getDataCode(() =>
+            getReferenceCode({
+                ref_code: generateNoReferensi(getSiswa),
+                student_id: getSiswa.student_id,
+            })
+        )
+        getDataPaymentNotSubmit(() =>
+            getPaymentTransactionNotSubmittedByStudent(
+                getSiswa.student_id,
+                dataUser.token
+            )
+        )
+        getDataHistory(() =>
+            getHistoryPaymentTransactionByStudent(
+                getSiswa.student_id,
+                dataUser.token
+            )
+        )
+        getDataTagihan(() =>
+            getTagihanPaymentTransactionByStudent(
+                getSiswa.student_id,
+                dataUser.token
+            )
+        )
         setDataDetailSiswa((prevState) => ({
             ...prevState,
             period: `${tahunAjaranState.period_start}/${tahunAjaranState.period_end}`,
@@ -333,7 +400,7 @@ function PagePembayaranSiswa() {
         const formData = {
             student_student_id: dataDetailSiswa?.student_id,
             payment_rate_via: paymentRateVia,
-            payment_rate_number_pay: generateNoReferensi(),
+            payment_rate_number_pay: dataCode?.data?.code,
         }
 
         await sendDataPaymentTransaction(
@@ -349,6 +416,7 @@ function PagePembayaranSiswa() {
                         dataUser.token
                     )
                 )
+                fetchDataPembayaran()
                 setIsOpenModaPembayaran(!isOpenModalPembayaran)
             },
             null
@@ -372,6 +440,8 @@ function PagePembayaranSiswa() {
                         dataUser.token
                     )
                 )
+                fetchDataPembayaran()
+
                 setIsOpenModaPembayaran(!isOpenModalPembayaran)
             },
             null
@@ -401,6 +471,7 @@ function PagePembayaranSiswa() {
                         dataUser.token
                     )
                 )
+                fetchDataPembayaran()
                 setIsOpenModalDiscount(!isOpenModalDiscount)
             },
             null
@@ -412,7 +483,7 @@ function PagePembayaranSiswa() {
     }
     const onSubmitBayarModal = async (formBody, { resetForm }) => {
         formBody.payment_rate_via = paymentRateVia
-        formBody.payment_rate_bebas_pay_number = generateNoReferensi()
+        formBody.payment_rate_bebas_pay_number = dataCode?.data?.code
         console.log(formBody)
         await sendDataPaymentTransaction(
             () =>
@@ -432,6 +503,7 @@ function PagePembayaranSiswa() {
                         dataUser.token
                     )
                 )
+                fetchDataPembayaran()
                 setIsOpenModalPembayaranBebas(!isOpenModalPembayaranBebas)
             },
             null
@@ -476,6 +548,7 @@ function PagePembayaranSiswa() {
                             dataUser.token
                         )
                     )
+                    fetchDataPembayaran()
                 },
                 null
             )
@@ -492,15 +565,38 @@ function PagePembayaranSiswa() {
                 dataUser.token
             )
         )
+        fetchDataPembayaran()
     }
-    const generateNoReferensi = () =>
-        `SP${dataDetailSiswa.sekolah_nama}${
-            dataDetailSiswa.student_nis
+
+    const fetchDataPembayaran = () => {
+        getDataPaymentNotSubmit(() =>
+            getPaymentTransactionNotSubmittedByStudent(
+                dataDetailSiswa.student_id,
+                dataUser.token
+            )
+        )
+        getDataHistory(() =>
+            getHistoryPaymentTransactionByStudent(
+                dataDetailSiswa.student_id,
+                dataUser.token
+            )
+        )
+        getDataTagihan(() =>
+            getTagihanPaymentTransactionByStudent(
+                dataDetailSiswa.student_id,
+                dataUser.token
+            )
+        )
+    }
+    const generateNoReferensi = (data = null) => {
+        return `KWT${data.unit_unit_name || dataDetailSiswa.unit_unit_name}${
+            data.student_nis || dataDetailSiswa.student_nis
         }${new Date().getDate()}${
             (new Date().getMonth() + 1).toString().length == 1
                 ? `0${new Date().getMonth() + 1}`
                 : new Date().getMonth() + 1
-        }${new Date().getFullYear().toString().substring(2)}01`
+        }${new Date().getFullYear().toString().substring(2)}`
+    }
 
     const onChangeAkunKas = (e) => {
         setPaymentRateVia(e.target.value)
@@ -526,6 +622,7 @@ function PagePembayaranSiswa() {
         )
     }
     const onClickCetakRincianPembayaranHandler = async () => {
+        console.log(tahunAjaranState)
         await getDataDokumenRincianPembayaran(() =>
             getDokumenRincianPembayaran(
                 dataDetailSiswa.student_id,
@@ -536,213 +633,248 @@ function PagePembayaranSiswa() {
                 dataUser.token
             )
         )
-        downloadDocument(
-            dataDokumenRincianPembayaran.data.data,
-            `Rincian Bayar ${dataDetailSiswa.student_full_name}-${tahunAjaranState.period_start}/${tahunAjaranState.period_end}.pdf`
+    }
+    useEffect(() => {
+        if (dataDokumenRincianPembayaran?.data?.data && dataDetailSiswa)
+            downloadDocument(
+                dataDokumenRincianPembayaran.data.data,
+                `Rincian Bayar ${dataDetailSiswa.student_full_name}-${tahunAjaranState.period_start}/${tahunAjaranState.period_end}.pdf`
+            )
+        setDataDokumenRincianPembayaran(null)
+    }, [dataDokumenRincianPembayaran?.data, dataDetailSiswa])
+
+    useEffect(() => {
+        const query = queryString.stringify(queryFilter)
+
+        getDataSiswa(() => getAllSiswa(query, dataUser.token))
+        getDataKelas(() =>
+            getAllKelas({ unit_unit_id: queryFilter.unit_id }, dataUser.token)
+        )
+        getDataAkunKas(() =>
+            getAllAktivaAccountCostPay(
+                { unit_unit_id: queryFilter.unit_id },
+                dataUser.token
+            )
+        )
+    }, [queryFilter.unit_id])
+    const onClickSubmitBayarHandler = () => {
+        alertConfirmation(
+            alertType.add,
+            async () => {
+                console.log(dataPaymentNotSubmit.data)
+                const formBody = {
+                    data_payment: dataPaymentNotSubmit.data?.data_payment.map(
+                        (item) => ({
+                            data_payment: dataPaymentNotSubmit.data,
+                            detail_payment_rate_id:
+                                item.payment_rate_bebas_pay_id ||
+                                item.detail_payment_rate_id,
+
+                            payment_type: item.payment_type,
+                        })
+                    ),
+                    student_id: dataDetailSiswa.student_id,
+                }
+                await sendDataPaymentTransaction(
+                    () => postSubmitPayment(formBody, dataUser.token),
+                    () => fetchDataPembayaran()
+                )
+            },
+            null
         )
     }
-
     return (
         <div className="page-content">
             <ToastContainer />
             <h3>
                 Pembayaran Siswa
-                <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>
+                <span style={{ fontSize: '0.8em', color: 'gray' }}> List</span>
             </h3>
-
             <div className="table-content">
-                <div className="pembayaran-siswa">
-                    <h6 className="filter-data">
-                        Filter Data Pembayaran SIswa
-                    </h6>
-                    <div className="d-flex flex-row gap-3 justify-content-start align-items-end mt-2 thn-ajrn">
-                        <SelectTahunAjaran
-                            data={TahunAjaran.data}
-                            onChange={onPeriodChange}
-                            value={tahunAjaranState?.period_id ?? ''}
-                        />
-                        <div className="d-flex gap-1 justify-content-between">
-                            <SearchInput
-                                style={{ margin: 0 }}
-                                filterText={filterText}
-                                setFilterText={onChangeFilterText}
-                            />
-                        </div>
-                        <ButtonWithLoader
-                            size="sm"
-                            style={{ width: '100px' }}
-                            color="success"
-                            isLoading={isLoadingPaymentTransaction}
-                            onClick={onClickSearchHandler}
-                            text={'Cari'}
-                            disabled={!kelas && filterText === ''}
-                        />
-                        <Button size="sm" onClick={toggleModalSiswa}>
-                            Data Siswa
-                        </Button>
-                    </div>
+                <div className="d-flex w-25 mb-3">
+                    <SelectUnit
+                        data={dataUnit.data}
+                        name={'unit_id'}
+                        onFilterChange={onQueryFilterChange}
+                        value={queryFilter.unit_id}
+                    />
                 </div>
-                {dataDetailSiswa && (
-                    <>
-                        <div className="info-santri">
-                            <h6>Informasi Siswa</h6>
-                            <InformasiSantri dataValue={dataDetailSiswa} />
-                            <ItemImageSiswa />
-                        </div>
+            </div>
+            {queryFilter.unit_id && (
+                <>
+                    <div className="table-content">
+                        <div className="pembayaran-siswa">
+                            <h6 className="filter-data">
+                                Filter Data Pembayaran SIswa
+                            </h6>
 
-                        <div className="jenis-bayar">
-                            <h6>Jenis Pembayaran</h6>
-                            <div className="no-refrensi">
-                                <p style={{ fontSize: '0.7rem' }}>
-                                    <b>No. Referensi </b>{' '}
-                                    <NoRef text={generateNoReferensi()} />
-                                </p>
-                                <p style={{ fontSize: '0.7rem' }}>
-                                    <b>Akun Kas * </b>{' '}
-                                    <AkunKas
-                                        data={dataAkunkas}
-                                        onChangeHandler={onChangeAkunKas}
-                                        value={paymentRateVia}
+                            {queryFilter.unit_id && <></>}
+                            <div className="d-flex flex-row gap-3 justify-content-start align-items-end mt-2 thn-ajrn">
+                                <SelectTahunAjaran
+                                    data={TahunAjaran.data}
+                                    onChange={onPeriodChange}
+                                    value={tahunAjaranState?.period_id ?? ''}
+                                />
+                                <div className="d-flex gap-1 justify-content-between">
+                                    <SearchInput
+                                        style={{ margin: 0 }}
+                                        filterText={filterText}
+                                        setFilterText={onChangeFilterText}
                                     />
-                                </p>
+                                </div>
+                                <ButtonWithLoader
+                                    size="sm"
+                                    style={{ width: '100px' }}
+                                    color="success"
+                                    isLoading={isLoadingPaymentTransaction}
+                                    onClick={onClickSearchHandler}
+                                    text={'Cari'}
+                                    disabled={!kelas && filterText === ''}
+                                />
+                                <Button size="sm" onClick={toggleModalSiswa}>
+                                    Data Siswa
+                                </Button>
                             </div>
-                            <Tabs
-                                defaultActiveKey="bulanan"
-                                transition={false}
-                                id="noanim-tab-example"
-                                className="mb-3"
-                            >
-                                <Tab eventKey="bulanan" title="Bulanan">
-                                    <PembayaranBulanan
-                                        data={dataDetailSiswa}
-                                        onClickHandler={
-                                            onClickItemPembayaranHandler
-                                        }
-                                    />
-                                </Tab>
-                                <Tab eventKey="bebas" title="Bebas">
-                                    <PembayaranBebas
-                                        data={dataDetailSiswa}
-                                        onClickDiscountHandler={
-                                            onClickDiscountHandler
-                                        }
-                                        onClickBayarHandler={
-                                            onClickBayarHandler
-                                        }
-                                        onClickRefreshHandler={
-                                            onClickRefreshHandler
-                                        }
-                                        onClickHandler={
-                                            onClickItemPembayaranHandler
-                                        }
-                                        onClickItemDetailHandler={
-                                            onClickItemDetailPembayaranHandler
-                                        }
-                                    />
-                                </Tab>
-                            </Tabs>
                         </div>
+                        {dataDetailSiswa && (
+                            <>
+                                <div className="info-santri">
+                                    <h6>Informasi Siswa</h6>
+                                    <InformasiSantri
+                                        dataValue={dataDetailSiswa}
+                                    />
+                                    <ItemImageSiswa />
+                                </div>
 
-                        <div className="Jenis-Pembayaran">
-                            <div className="transaksi-historiPembayaran">
-                                <div className="pembayaran-history">
+                                <div className="jenis-bayar">
+                                    <h6>Jenis Pembayaran</h6>
+                                    <div className="no-refrensi">
+                                        <p style={{ fontSize: '0.7rem' }}>
+                                            <b>No. Referensi </b>{' '}
+                                            <NoRef
+                                                text={dataCode?.data?.code}
+                                            />
+                                        </p>
+                                        <p style={{ fontSize: '0.7rem' }}>
+                                            <b>Akun Kas * </b>{' '}
+                                            <AkunKas
+                                                data={dataAkunkas}
+                                                onChangeHandler={
+                                                    onChangeAkunKas
+                                                }
+                                                value={paymentRateVia}
+                                            />
+                                        </p>
+                                    </div>
                                     <Tabs
-                                        defaultActiveKey="Transaksi"
-                                        id="uncontrolled-tab-example"
+                                        defaultActiveKey="bulanan"
+                                        transition={false}
+                                        id="noanim-tab-example"
                                         className="mb-3"
                                     >
-                                        <Tab
-                                            eventKey="Transaksi"
-                                            title="Transaksi Pembayaran"
-                                        >
-                                            <div>
-                                                <TransaksiPembayaran />
-                                            </div>
-                                        </Tab>
-                                        <Tab
-                                            eventKey="History"
-                                            title="History Pembayaran"
-                                        >
-                                            <HistoryPembayaran
-                                                data={dataHistory.data}
+                                        <Tab eventKey="bulanan" title="Bulanan">
+                                            <PembayaranBulanan
+                                                data={dataDetailSiswa}
+                                                onClickHandler={
+                                                    onClickItemPembayaranHandler
+                                                }
                                             />
                                         </Tab>
-
-                                        <Tab
-                                            eventKey="Tagihan"
-                                            title="Tagihan Pembayaran"
-                                        >
-                                            <TagihanPembayaran
-                                                isLoading={
-                                                    isLoadngDokumenTagihanPembayaran
+                                        <Tab eventKey="bebas" title="Bebas">
+                                            <PembayaranBebas
+                                                data={dataDetailSiswa}
+                                                onClickDiscountHandler={
+                                                    onClickDiscountHandler
                                                 }
-                                                data={dataTagihan.data}
-                                                onClickCetakTagihanPembayaranHandler={
-                                                    onClickCetakTagihanPembayaranHandler
+                                                onClickBayarHandler={
+                                                    onClickBayarHandler
+                                                }
+                                                onClickRefreshHandler={
+                                                    onClickRefreshHandler
+                                                }
+                                                onClickHandler={
+                                                    onClickItemPembayaranHandler
+                                                }
+                                                onClickItemDetailHandler={
+                                                    onClickItemDetailPembayaranHandler
                                                 }
                                             />
                                         </Tab>
                                     </Tabs>
                                 </div>
-                            </div>
-                            <div className="kalkulator">
-                                {/* <h6>Kalkulator</h6>
-                                <div className="wrapping">
-                                    <p
-                                        style={{
-                                            width: '150px',
-                                            padding: '5px',
-                                        }}
-                                        className="total"
-                                    >
-                                        Total <Kalkulator />
-                                    </p>
-                                    <p
-                                        style={{
-                                            width: '150px',
-                                            padding: '5px',
-                                        }}
-                                        className="dibayar"
-                                    >
-                                        Dibayar
-                                        <Kalkulator />
-                                    </p>
-                                    <p
-                                        style={{
-                                            width: '300px',
-                                            padding: '5px',
-                                        }}
-                                        className="kembalian"
-                                    >
-                                        Kembalian
-                                        <Kalkulator />
-                                    </p>
-                                </div> */}
 
-                                <div className="bukti-pembayaran">
-                                    <h6>Cetak Bukti Pembayaran</h6>
-                                    <div className="date">
-                                        <span style={{ fontSize: '0.8rem' }}>
-                                            Tanggal Transaksi
-                                        </span>
-                                        <DateInput />
+                                <div className="Jenis-Pembayaran">
+                                    <div className="transaksi-historiPembayaran">
+                                        <div className="pembayaran-history">
+                                            <Tabs
+                                                defaultActiveKey="Transaksi"
+                                                id="uncontrolled-tab-example"
+                                                className="mb-3"
+                                            >
+                                                <Tab
+                                                    eventKey="Transaksi"
+                                                    title="Transaksi Pembayaran"
+                                                >
+                                                    <div>
+                                                        <TransaksiPembayaran
+                                                            isLoading={
+                                                                isLoadingDataPaymentNotSubmit
+                                                            }
+                                                            data={
+                                                                dataPaymentNotSubmit.data
+                                                            }
+                                                            onClickSubmitHandler={
+                                                                onClickSubmitBayarHandler
+                                                            }
+                                                        />
+                                                    </div>
+                                                </Tab>
+                                                <Tab
+                                                    eventKey="History"
+                                                    title="History Pembayaran"
+                                                >
+                                                    <HistoryPembayaran
+                                                        data={dataHistory.data}
+                                                    />
+                                                </Tab>
+
+                                                <Tab
+                                                    eventKey="Tagihan"
+                                                    title="Tagihan Pembayaran"
+                                                >
+                                                    <TagihanPembayaran
+                                                        isLoading={
+                                                            isLoadngDokumenTagihanPembayaran
+                                                        }
+                                                        data={dataTagihan.data}
+                                                        onClickCetakTagihanPembayaranHandler={
+                                                            onClickCetakTagihanPembayaranHandler
+                                                        }
+                                                    />
+                                                </Tab>
+                                            </Tabs>
+                                        </div>
                                     </div>
-
-                                    <NoRefrensi />
-                                    <CetakButton
-                                        isLoading={
-                                            isLoadngDokumenRincianPembayaran
-                                        }
-                                        onClickCetakSemuaHandler={
-                                            onClickCetakRincianPembayaranHandler
-                                        }
-                                    />
+                                    <div className="kalkulator">
+                                        <div className="bukti-pembayaran">
+                                            <h6>Cetak Bukti Pembayaran</h6>
+                                            <NoRefrensi />
+                                            <CetakButton
+                                                isLoading={
+                                                    isLoadngDokumenRincianPembayaran
+                                                }
+                                                onClickCetakSemuaHandler={
+                                                    onClickCetakRincianPembayaranHandler
+                                                }
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </>
-                )}
-            </div>
+                            </>
+                        )}
+                    </div>
+                </>
+            )}
             <ModalPembayaranBulanan
                 data={dataDetailPembayaran}
                 headerName={'Data Bayar'}
@@ -786,7 +918,7 @@ function PagePembayaranSiswa() {
                 subHeaderComponent={subHeaderComponent}
                 isOpenModal={isOpenModalSiswa}
                 toggleModal={toggleModalSiswa}
-                dataKelas={dataKelas.data}
+                dataKelas={dataKelas?.data}
                 onChangeKelas={onChangeKelasHandler}
                 valueKelas={kelas}
                 onClickSiswaHandler={onClickSiswaHandler}

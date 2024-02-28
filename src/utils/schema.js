@@ -21,6 +21,7 @@ export const siswaSchema = Yup.object().shape({
     class_class_id: Yup.string().required('Kelas Harus Diisi'),
     student_parent_phone: Yup.string().required('Nomor Telp Orang Tua Diisi'),
     student_status: Yup.string().required('Status Siswa Harus Diisi'),
+    unit_unit_id: Yup.string().required('Unit Harus Diisi'),
     // majors_short_name:Yup.string().required("Field Harus Diisi"),
 })
 export const accountCostSchema = (isCategory) =>
@@ -39,6 +40,7 @@ export const accountCostSchema = (isCategory) =>
               account_description: Yup.string().required(
                   'Description Harus Diisi'
               ),
+              unit_unit_id: Yup.string().required('Unit Harus Diisi'),
 
               // majors_short_name:Yup.string().required("Field Harus Diisi"),
           })

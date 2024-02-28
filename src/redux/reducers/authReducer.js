@@ -3,11 +3,9 @@ import {
     rejected,
     fulfilled,
     loginUserAction,
-
     logoutUserAction,
     refreshTokenAction,
-
-} from '../actions/actionsTypes';
+} from '../actions/actionsTypes'
 const initialValues = {
     data: {},
     isLoading: false,
@@ -27,8 +25,7 @@ const dataUser = (prevState = initialValues, action) => {
                 isRejected: false,
                 isFulfilled: false,
                 isRejectedRefreshToken: false,
-
-            };
+            }
         case loginUserAction + rejected:
             return {
                 ...prevState,
@@ -58,8 +55,7 @@ const dataUser = (prevState = initialValues, action) => {
                 isRejected: false,
                 isFulfilled: false,
                 isRejectedRefreshToken: false,
-
-            };
+            }
         case logoutUserAction + rejected:
             return {
                 ...prevState,
@@ -89,8 +85,7 @@ const dataUser = (prevState = initialValues, action) => {
                 isRejected: false,
                 isFulfilled: false,
                 isRejectedRefreshToken: false,
-
-            };
+            }
         case refreshTokenAction + rejected:
             return {
                 ...prevState,
@@ -112,7 +107,7 @@ const dataUser = (prevState = initialValues, action) => {
                 data: {
                     ...prevState,
                     token: action.payload.data.data.token,
-                    refreshToken: action.payload.data.data.refreshToken
+                    refreshToken: action.payload.data.data.refreshToken,
                 },
                 message: action.payload.data.message,
                 isRejectedRefreshToken: false,
@@ -126,11 +121,7 @@ const dataUser = (prevState = initialValues, action) => {
                 error: null,
                 message: '',
                 isRejectedRefreshToken: false,
-
             }
-
-
-
     }
 }
-export default dataUser;
+export default dataUser
