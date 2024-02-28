@@ -33,6 +33,7 @@ import { ToastContainer } from 'react-toastify'
 export default function PageTarifTagihan() {
     const location = useLocation()
     const { data } = location.state
+    console.log(data)
     const navigate = useNavigate()
     const {
         data: dataPaymentRate,
@@ -69,6 +70,8 @@ export default function PageTarifTagihan() {
     const [queryFilter, setQueryFilter] = useState({
         class_id: '',
         period: `${data.period_start}/${data.period_end}`,
+        unit_unit_id: data.unit_unit_id,
+        payment_type: data.payment_type,
     })
 
     const subHeaderComponent = useMemo(() => {
@@ -93,9 +96,10 @@ export default function PageTarifTagihan() {
     ])
 
     useEffect(() => {
-        getDataKelas(() => getAllKelas(dataUser.token))
-        console.log(queryFilter)
-        console.log(data)
+        getDataKelas(() =>
+            getAllKelas({ unit_unit_id: data.unit_unit_id }, dataUser.token)
+        )
+
         getDataPaymentRate(() =>
             getAllPaymentRateByPayment(
                 queryString.stringify(queryFilter),

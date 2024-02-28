@@ -1,8 +1,11 @@
-import React, { useEffect, useMemo, useState, useRef } from 'react'
-import TableAkunBiaya from './component/AkunBiaya'
+import React, { useEffect, useMemo, useState } from 'react'
+import TablePosABayar from './component/PosBayar'
+import AddAction from '../../component/ActionButton/AcctionAddButoon'
 import SearchInput from '../../component/ActionButton/SearchInput'
 import SelectProdi from '../../component/ActionButton/SelectProdi'
 import SelectUnitKelas from '../../component/ActionButton/SelectUnitKelas'
+import { useSelector } from 'react-redux'
+import queryString from 'query-string'
 import { Button } from 'reactstrap'
 import {
     getAllProdi,
@@ -16,11 +19,9 @@ import {
     getAllAlumni,
 } from '../../utils/http'
 import useRequest from '../../customHooks/useRequest'
-import queryString from 'query-string'
-import { useSelector } from 'react-redux'
 import useTable from '../../customHooks/useTable'
 
-function PageAkunBiaya() {
+function PagePosBayar() {
     const {
         data: dataAlumni,
         setData: setDataAlumni,
@@ -45,9 +46,6 @@ function PageAkunBiaya() {
         getData: getDataKelas,
     } = useRequest()
     const {
-        setIsOpenModalTambah,
-        isOpenModalEdit,
-        isOpenModalTambah,
         resetPaginationToggle,
         setResetPaginationToggle,
         setIsOpenModalEdit,
@@ -65,8 +63,7 @@ function PageAkunBiaya() {
     })
 
     const [isOpenDetailModal, setIsOpenDetailModal] = useState(false)
-    //  const printComponent = useRef();
-
+    // const printComponent = useRef();
     useEffect(() => {
         const query = queryString.stringify(queryFilter)
         getDataAlumni(() => getAllAlumni(query, dataUser.token))
@@ -78,21 +75,6 @@ function PageAkunBiaya() {
         const query = queryString.stringify(queryFilter)
         getDataAlumni(() => getAllAlumni(query, dataUser.token))
     }
-
-    const onClickTambahHandler = () => {
-        setIsOpenModalForm(!isOpenModalForm)
-        setIsEdit(false)
-    }
-    //   const onClickEditHandler = (item) => {
-    //     console.log(item);
-    //     setDataDetailAlumni((prevState) => ({
-    //       ...prevState,
-    //       ...item,
-    //       student_born_date: item.student_born_date == '0000-00-00' ? item.student_born_date : dateConvertForDb(item.student_born_date),
-    //     }));
-    //     setIsEdit(true);
-    //     setIsOpenModalForm(!isOpenModalForm);
-    //   };
 
     const onQueryFilterChange = (e) => {
         setQueryFilter((prevState) => ({
@@ -135,11 +117,13 @@ function PageAkunBiaya() {
     return (
         <div className="page-content">
             <h3>
-                Akun Biaya{' '}
+                Pos Bayar{' '}
                 <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>
             </h3>
 
             <div className="table-content">
+                <AddAction />
+
                 <div className="d-flex flex-row gap-1 justify-content-start align-items-center mt-2">
                     <SelectProdi
                         data={dataProdi.data}
@@ -151,13 +135,21 @@ function PageAkunBiaya() {
                         onProdiFilterChange={onQueryFilterChange}
                         value={queryFilter.class_id}
                     />
-                    <Button size="sm" className="align-self-end">
-                        {' '}
-                        Cari{' '}
+                    {/* <SelectStatusMahasiswa
+              data={statusSiswa}
+              onProdiFilterChange={onQueryFilterChange}
+              value={queryFilter.status}
+            /> */}
+                    <Button
+                        size="sm"
+                        className="align-self-end"
+                        onClick={onCLickFilterSubmit}
+                    >
+                        Cari
                     </Button>
                 </div>
                 <SearchInput />
-                <TableAkunBiaya
+                <TablePosABayar
                     data={filterText.length > 0 ? dataFiltered : dataKelas.data}
                     subHeaderComponent={subHeaderComponent}
                 />
@@ -166,4 +158,4 @@ function PageAkunBiaya() {
     )
 }
 
-export default PageAkunBiaya
+export default PagePosBayar

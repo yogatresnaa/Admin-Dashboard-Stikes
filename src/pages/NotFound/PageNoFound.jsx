@@ -1,12 +1,12 @@
-import React from 'react';
-import NotFound from './component/ComponentNotFound';
+import React from 'react'
+import NotFound from './component/ComponentNotFound'
 
 function PageNotFound() {
-  return (
-    <div className='page-notfound'>
-      <NotFound />
-    </div>
-  );
+    return (
+        <div className="page-notfound">
+            <NotFound />
+        </div>
+    )
 }
 
-export default PageNotFound;
+export default PageNotFound

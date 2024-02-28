@@ -13,7 +13,7 @@ function SelectUnitKelas({
 }) {
     return (
         <div className="d-flex flex-column flex-grow-1" style={style}>
-            <p style={{ fontSize: '0.8rem' }}>Unit Kelas</p>
+            <p style={{ fontSize: '0.8rem' }}>Kelas</p>
             <Form.Select
                 id={name}
                 size="sm"

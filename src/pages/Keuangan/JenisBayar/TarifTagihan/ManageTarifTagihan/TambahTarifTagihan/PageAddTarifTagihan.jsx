@@ -92,7 +92,12 @@ export default function PageAddTarifTagihan() {
     }, [])
 
     const fetchData = async () => {
-        getDataKelas(() => getAllKelas())
+        getDataKelas(() =>
+            getAllKelas(
+                { unit_unit_id: location?.state?.data?.unit_id },
+                dataUser.token
+            )
+        )
         const query = queryString.stringify({
             type: location.state.data?.payment_type.toLowerCase(),
         })
@@ -279,6 +284,7 @@ export default function PageAddTarifTagihan() {
     const submitHandler = (formBody, { resetForm }) => {
         console.log(searchParams.get('type'))
         console.log('mantap')
+        formBody.unit_unit_id = location.state.data?.unit_id
 
         if (
             location.state.data?.payment_type.toLowerCase().includes('bulanan')

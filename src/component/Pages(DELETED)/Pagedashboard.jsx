@@ -1,13 +1,13 @@
-import React from 'react';
-import Dashboard from '../Dashboard/Dashboard';
+import React from 'react'
+import Dashboard from '../Dashboard/Dashboard'
 
 function PageDashboard() {
-  return (
-    <>
-      <h1>Page Dashboard</h1>
-      <Dashboard />
-    </>
-  );
+    return (
+        <>
+            <h1>Page Dashboard</h1>
+            <Dashboard />
+        </>
+    )
 }
 
-export default PageDashboard;
+export default PageDashboard

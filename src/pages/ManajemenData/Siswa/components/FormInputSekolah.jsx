@@ -7,6 +7,7 @@ import SelectUnitKelas from '../../../../component/ActionButton/SelectUnitKelas'
 import ErrorComponent from '../../../../component/Form/ErrorComponent'
 import SelectStatusSiswa from '../../../../component/ActionButton/SelectStatusSiswa'
 import { statusSiswa } from '../../../../utils/CONSTANT'
+import SelectUnit from '../../../../component/ActionButton/SelectUnit'
 
 export default function FormInputSekolah({
     handleSubmit,
@@ -16,6 +17,7 @@ export default function FormInputSekolah({
     btnName,
     dataProdi,
     dataKelas,
+    dataUnit,
     isLoadingSendData,
 }) {
     return (
@@ -72,6 +74,19 @@ export default function FormInputSekolah({
                 <ErrorComponent
                     text={errors.class_class_id}
                     error={errors.class_class_id}
+                />
+            </FormGroup>
+            <FormGroup>
+                <SelectUnit
+                    data={dataUnit}
+                    onFilterChange={handleChange('unit_unit_id')}
+                    value={values.unit_unit_id}
+                    name="unit_unit_id"
+                    firstValue="Belum Dipilih"
+                />
+                <ErrorComponent
+                    text={errors.unit_unit_id}
+                    error={errors.unit_unit_id}
                 />
             </FormGroup>
             <FormGroup>

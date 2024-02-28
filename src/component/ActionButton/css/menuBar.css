@@ -1,12 +1,12 @@
 .menuBar {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 200px);
-  gap: 4px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    gap: 4px;
 }
 
 .item1 {
-  width: 200px;
-  padding: 3px;
-  padding: 5px;
+    width: 200px;
+    padding: 3px;
+    padding: 5px;
 }

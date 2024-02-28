@@ -1,6 +1,7 @@
 export const kelasModel = {
     objectToJSON: (body) => ({
         class_name: body.class_name,
+        unit_unit_id: body.unit_unit_id,
     }),
 }
 export const tahunAjaranModel = {
@@ -14,6 +15,7 @@ export const prodiModel = {
     objectToJSON: (body) => ({
         majors_name: body.majors_name,
         majors_short_name: body.majors_short_name,
+        unit_unit_id: body.unit_unit_id,
     }),
 }
 export const accountCostModel = {
@@ -24,7 +26,7 @@ export const accountCostModel = {
         account_note: body.account_note,
         account_category: body.account_category,
         account_majors_id: body.account_majors_id,
-        sekolah_id: body.sekolah_id,
+        unit_unit_id: body.unit_unit_id,
     }),
 }
 export const siswaModel = {
@@ -38,7 +40,9 @@ export const siswaModel = {
         student_address: body.student_address,
         student_nis: body.student_nis,
         student_status: body.student_status,
+        student_gender: body.student_gender,
         student_nisn: body.student_nisn,
+        unit_unit_id: body.unit_unit_id,
         majors_majors_id: body.majors_majors_id,
         class_class_id: body.class_class_id,
     }),
@@ -47,7 +51,6 @@ export const siswaModel = {
 export const posPayModel = {
     objectToJSON: (body) => ({
         account_account_code: body.account_account_code,
-        sekolah_id: body.sekolah_id,
         account_account_credit: body.account_account_credit,
         pos_pay_name: body.pos_pay_name,
         pos_pay_description: body.pos_pay_description,
@@ -60,7 +63,7 @@ export const paymentTypeModel = {
         payment_mode: body.payment_mode,
         period_period_id: body.period_period_id,
         pos_pos_id: body.pos_pos_id,
-        sekolah_id: body.sekolah_id,
+        unit_unit_id: body.unit_unit_id,
     }),
 }
 export const monthlyPaymentRateModel = {
@@ -70,6 +73,7 @@ export const monthlyPaymentRateModel = {
         student_student_id: body.student_student_id,
         class_class_id: body.class_class_id,
         month: body.month,
+        unit_unit_id: body.unit_unit_id,
     }),
 }
 export const freePaymentRateModel = {
@@ -78,6 +82,7 @@ export const freePaymentRateModel = {
         payment: body.payment,
         student_student_id: body.student_student_id,
         class_class_id: body.class_class_id,
+        unit_unit_id: body.unit_unit_id,
     }),
 }
 export const putFreePaymentRateModel = {
