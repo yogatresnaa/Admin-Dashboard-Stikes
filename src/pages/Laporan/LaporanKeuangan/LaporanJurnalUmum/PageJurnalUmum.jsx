@@ -11,6 +11,9 @@ import useRequest from '../../../../customHooks/useRequest'
 import { getAllKelas } from '../../../../utils/http'
 
 import TableJurnalUmum from './component/TabelJurnalUmum'
+import MyDataTable from './component/contoh'
+
+// import { dataContoh } from '../../../../utils/dumyDataTransaksi'
 
 function JurnalUmum() {
     const {
@@ -134,6 +137,10 @@ function JurnalUmum() {
                             </div>
                         </div>
                     </div>
+
+                    {/* <div className="sub-content">
+                        <MyDataTable data={data} />
+                    </div> */}
                 </div>
             </div>
         </>

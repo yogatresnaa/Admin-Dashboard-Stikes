@@ -359,6 +359,24 @@ const JurnalUmum1 = [
         Pengeluaran: 'Rp. 100.000',
     },
 ]
+
+const dataContoh = [
+    {
+        id: 1,
+        name: 'John Doe',
+        position: 'Software Engineer',
+        office: 'New York',
+        age: 30,
+    },
+    {
+        id: 2,
+        name: 'Jane Smith',
+        position: 'Data Scientist',
+        office: 'San Francisco',
+        age: 35,
+    },
+    // tambahkan data lainnya sesuai kebutuhan
+]
 export {
     getDataTransaksi,
     dataPosBayar,
@@ -374,4 +392,5 @@ export {
     PembayaranPerkelas,
     JurnalUmum,
     JurnalUmum1,
+    dataContoh,
 }
