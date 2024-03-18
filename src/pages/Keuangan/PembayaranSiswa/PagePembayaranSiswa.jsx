@@ -54,6 +54,7 @@ import { downloadDocument } from '../../../utils/helper'
 import ButtonWithLoader from '../../../component/ActionButton/ButtonWithLoader'
 import SelectUnit from '../../../component/ActionButton/SelectUnit'
 import { useFetcher } from 'react-router-dom'
+import { FaCcAmazonPay } from 'react-icons/fa'
 
 const pembayaranBulananInitialValues = {
     payment_rate_bill: '',
@@ -684,246 +685,320 @@ function PagePembayaranSiswa() {
         )
     }
     return (
-        <div className="page-content">
-            <ToastContainer />
-            <h3>
-                Pembayaran Siswa
-                <span style={{ fontSize: '0.8em', color: 'gray' }}> List</span>
-            </h3>
-            <div className="table-content">
-                <div className="d-flex w-25 mb-3">
-                    <SelectUnit
-                        data={dataUnit.data}
-                        name={'unit_id'}
-                        onFilterChange={onQueryFilterChange}
-                        value={queryFilter.unit_id}
-                    />
-                </div>
-            </div>
-            {queryFilter.unit_id && (
-                <>
-                    <div className="table-content">
-                        <div className="pembayaran-siswa">
-                            <h6 className="filter-data">
-                                Filter Data Pembayaran SIswa
-                            </h6>
-
-                            {queryFilter.unit_id && <></>}
-                            <div className="d-flex flex-row gap-3 justify-content-start align-items-end mt-2 thn-ajrn">
-                                <SelectTahunAjaran
-                                    data={TahunAjaran.data}
-                                    onChange={onPeriodChange}
-                                    value={tahunAjaranState?.period_id ?? ''}
+        <div className="page">
+            <Tabs
+                defaultActiveKey="home"
+                transition={false}
+                id="noanim-tab-example"
+                className="mb-3"
+            >
+                <Tab
+                    eventKey="Dashboard"
+                    title={
+                        <span>
+                            <FaCcAmazonPay className="tabs-icon" />
+                            <p>Pembayaran Siswa</p>
+                        </span>
+                    }
+                >
+                    <div className="page-content">
+                        <ToastContainer />
+                        <h3>
+                            Pembayaran Siswa
+                            <span style={{ fontSize: '0.8em', color: 'gray' }}>
+                                {' '}
+                                List
+                            </span>
+                        </h3>
+                        <div className="table-content">
+                            <div className="d-flex w-25 mb-3">
+                                <SelectUnit
+                                    data={dataUnit.data}
+                                    name={'unit_id'}
+                                    onFilterChange={onQueryFilterChange}
+                                    value={queryFilter.unit_id}
                                 />
-                                <div className="d-flex gap-1 justify-content-between">
-                                    <SearchInput
-                                        style={{ margin: 0 }}
-                                        filterText={filterText}
-                                        setFilterText={onChangeFilterText}
-                                    />
-                                </div>
-                                <ButtonWithLoader
-                                    size="sm"
-                                    style={{ width: '100px' }}
-                                    color="success"
-                                    isLoading={isLoadingPaymentTransaction}
-                                    onClick={onClickSearchHandler}
-                                    text={'Cari'}
-                                    disabled={!kelas && filterText === ''}
-                                />
-                                <Button size="sm" onClick={toggleModalSiswa}>
-                                    Data Siswa
-                                </Button>
                             </div>
                         </div>
-                        {dataDetailSiswa && (
+                        {queryFilter.unit_id && (
                             <>
-                                <div className="info-santri">
-                                    <h6>Informasi Siswa</h6>
-                                    <InformasiSantri
-                                        dataValue={dataDetailSiswa}
-                                    />
-                                    <ItemImageSiswa />
-                                </div>
+                                <div className="table-content">
+                                    <div className="pembayaran-siswa">
+                                        <h6 className="filter-data">
+                                            Filter Data Pembayaran SIswa
+                                        </h6>
 
-                                <div className="jenis-bayar">
-                                    <h6>Jenis Pembayaran</h6>
-                                    <div className="no-refrensi">
-                                        <p style={{ fontSize: '0.7rem' }}>
-                                            <b>No. Referensi </b>{' '}
-                                            <NoRef
-                                                text={dataCode?.data?.code}
-                                            />
-                                        </p>
-                                        <p style={{ fontSize: '0.7rem' }}>
-                                            <b>Akun Kas * </b>{' '}
-                                            <AkunKas
-                                                data={dataAkunkas}
-                                                onChangeHandler={
-                                                    onChangeAkunKas
-                                                }
-                                                value={paymentRateVia}
-                                            />
-                                        </p>
-                                    </div>
-                                    <Tabs
-                                        defaultActiveKey="bulanan"
-                                        transition={false}
-                                        id="noanim-tab-example"
-                                        className="mb-3"
-                                    >
-                                        <Tab eventKey="bulanan" title="Bulanan">
-                                            <PembayaranBulanan
-                                                data={dataDetailSiswa}
-                                                onClickHandler={
-                                                    onClickItemPembayaranHandler
+                                        {queryFilter.unit_id && <></>}
+                                        <div className="d-flex flex-row gap-3 justify-content-start align-items-end mt-2 thn-ajrn">
+                                            <SelectTahunAjaran
+                                                data={TahunAjaran.data}
+                                                onChange={onPeriodChange}
+                                                value={
+                                                    tahunAjaranState?.period_id ??
+                                                    ''
                                                 }
                                             />
-                                        </Tab>
-                                        <Tab eventKey="bebas" title="Bebas">
-                                            <PembayaranBebas
-                                                data={dataDetailSiswa}
-                                                onClickDiscountHandler={
-                                                    onClickDiscountHandler
+                                            <div className="d-flex gap-1 justify-content-between">
+                                                <SearchInput
+                                                    style={{ margin: 0 }}
+                                                    filterText={filterText}
+                                                    setFilterText={
+                                                        onChangeFilterText
+                                                    }
+                                                />
+                                            </div>
+                                            <ButtonWithLoader
+                                                size="sm"
+                                                style={{ width: '100px' }}
+                                                color="success"
+                                                isLoading={
+                                                    isLoadingPaymentTransaction
                                                 }
-                                                onClickBayarHandler={
-                                                    onClickBayarHandler
-                                                }
-                                                onClickRefreshHandler={
-                                                    onClickRefreshHandler
-                                                }
-                                                onClickHandler={
-                                                    onClickItemPembayaranHandler
-                                                }
-                                                onClickItemDetailHandler={
-                                                    onClickItemDetailPembayaranHandler
+                                                onClick={onClickSearchHandler}
+                                                text={'Cari'}
+                                                disabled={
+                                                    !kelas && filterText === ''
                                                 }
                                             />
-                                        </Tab>
-                                    </Tabs>
-                                </div>
-
-                                <div className="Jenis-Pembayaran">
-                                    <div className="transaksi-historiPembayaran">
-                                        <div className="pembayaran-history">
-                                            <Tabs
-                                                defaultActiveKey="Transaksi"
-                                                id="uncontrolled-tab-example"
-                                                className="mb-3"
+                                            <Button
+                                                size="sm"
+                                                onClick={toggleModalSiswa}
                                             >
-                                                <Tab
-                                                    eventKey="Transaksi"
-                                                    title="Transaksi Pembayaran"
+                                                Data Siswa
+                                            </Button>
+                                        </div>
+                                    </div>
+                                    {dataDetailSiswa && (
+                                        <>
+                                            <div className="info-santri">
+                                                <h6>Informasi Siswa</h6>
+                                                <InformasiSantri
+                                                    dataValue={dataDetailSiswa}
+                                                />
+                                                <ItemImageSiswa />
+                                            </div>
+
+                                            <div className="jenis-bayar">
+                                                <h6>Jenis Pembayaran</h6>
+                                                <div className="no-refrensi">
+                                                    <p
+                                                        style={{
+                                                            fontSize: '0.7rem',
+                                                        }}
+                                                    >
+                                                        <b>No. Referensi </b>{' '}
+                                                        <NoRef
+                                                            text={
+                                                                dataCode?.data
+                                                                    ?.code
+                                                            }
+                                                        />
+                                                    </p>
+                                                    <p
+                                                        style={{
+                                                            fontSize: '0.7rem',
+                                                        }}
+                                                    >
+                                                        <b>Akun Kas * </b>{' '}
+                                                        <AkunKas
+                                                            data={dataAkunkas}
+                                                            onChangeHandler={
+                                                                onChangeAkunKas
+                                                            }
+                                                            value={
+                                                                paymentRateVia
+                                                            }
+                                                        />
+                                                    </p>
+                                                </div>
+                                                <Tabs
+                                                    defaultActiveKey="bulanan"
+                                                    transition={false}
+                                                    id="noanim-tab-example"
+                                                    className="mb-3"
                                                 >
-                                                    <div>
-                                                        <TransaksiPembayaran
-                                                            isLoading={
-                                                                isLoadingDataPaymentNotSubmit
-                                                            }
+                                                    <Tab
+                                                        eventKey="bulanan"
+                                                        title="Bulanan"
+                                                    >
+                                                        <PembayaranBulanan
                                                             data={
-                                                                dataPaymentNotSubmit.data
+                                                                dataDetailSiswa
                                                             }
-                                                            onClickSubmitHandler={
-                                                                onClickSubmitBayarHandler
+                                                            onClickHandler={
+                                                                onClickItemPembayaranHandler
+                                                            }
+                                                        />
+                                                    </Tab>
+                                                    <Tab
+                                                        eventKey="bebas"
+                                                        title="Bebas"
+                                                    >
+                                                        <PembayaranBebas
+                                                            data={
+                                                                dataDetailSiswa
+                                                            }
+                                                            onClickDiscountHandler={
+                                                                onClickDiscountHandler
+                                                            }
+                                                            onClickBayarHandler={
+                                                                onClickBayarHandler
+                                                            }
+                                                            onClickRefreshHandler={
+                                                                onClickRefreshHandler
+                                                            }
+                                                            onClickHandler={
+                                                                onClickItemPembayaranHandler
+                                                            }
+                                                            onClickItemDetailHandler={
+                                                                onClickItemDetailPembayaranHandler
+                                                            }
+                                                        />
+                                                    </Tab>
+                                                </Tabs>
+                                            </div>
+
+                                            <div className="Jenis-Pembayaran">
+                                                <div className="transaksi-historiPembayaran">
+                                                    <div className="pembayaran-history">
+                                                        <Tabs
+                                                            defaultActiveKey="Transaksi"
+                                                            id="uncontrolled-tab-example"
+                                                            className="mb-3"
+                                                        >
+                                                            <Tab
+                                                                eventKey="Transaksi"
+                                                                title="Transaksi Pembayaran"
+                                                            >
+                                                                <div>
+                                                                    <TransaksiPembayaran
+                                                                        isLoading={
+                                                                            isLoadingDataPaymentNotSubmit
+                                                                        }
+                                                                        data={
+                                                                            dataPaymentNotSubmit.data
+                                                                        }
+                                                                        onClickSubmitHandler={
+                                                                            onClickSubmitBayarHandler
+                                                                        }
+                                                                    />
+                                                                </div>
+                                                            </Tab>
+                                                            <Tab
+                                                                eventKey="History"
+                                                                title="History Pembayaran"
+                                                            >
+                                                                <HistoryPembayaran
+                                                                    data={
+                                                                        dataHistory.data
+                                                                    }
+                                                                />
+                                                            </Tab>
+
+                                                            <Tab
+                                                                eventKey="Tagihan"
+                                                                title="Tagihan Pembayaran"
+                                                            >
+                                                                <TagihanPembayaran
+                                                                    isLoading={
+                                                                        isLoadngDokumenTagihanPembayaran
+                                                                    }
+                                                                    data={
+                                                                        dataTagihan.data
+                                                                    }
+                                                                    onClickCetakTagihanPembayaranHandler={
+                                                                        onClickCetakTagihanPembayaranHandler
+                                                                    }
+                                                                />
+                                                            </Tab>
+                                                        </Tabs>
+                                                    </div>
+                                                </div>
+                                                <div className="kalkulator">
+                                                    <div className="bukti-pembayaran">
+                                                        <h6>
+                                                            Cetak Bukti
+                                                            Pembayaran
+                                                        </h6>
+                                                        <NoRefrensi />
+                                                        <CetakButton
+                                                            isLoading={
+                                                                isLoadngDokumenRincianPembayaran
+                                                            }
+                                                            onClickCetakSemuaHandler={
+                                                                onClickCetakRincianPembayaranHandler
                                                             }
                                                         />
                                                     </div>
-                                                </Tab>
-                                                <Tab
-                                                    eventKey="History"
-                                                    title="History Pembayaran"
-                                                >
-                                                    <HistoryPembayaran
-                                                        data={dataHistory.data}
-                                                    />
-                                                </Tab>
-
-                                                <Tab
-                                                    eventKey="Tagihan"
-                                                    title="Tagihan Pembayaran"
-                                                >
-                                                    <TagihanPembayaran
-                                                        isLoading={
-                                                            isLoadngDokumenTagihanPembayaran
-                                                        }
-                                                        data={dataTagihan.data}
-                                                        onClickCetakTagihanPembayaranHandler={
-                                                            onClickCetakTagihanPembayaranHandler
-                                                        }
-                                                    />
-                                                </Tab>
-                                            </Tabs>
-                                        </div>
-                                    </div>
-                                    <div className="kalkulator">
-                                        <div className="bukti-pembayaran">
-                                            <h6>Cetak Bukti Pembayaran</h6>
-                                            <NoRefrensi />
-                                            <CetakButton
-                                                isLoading={
-                                                    isLoadngDokumenRincianPembayaran
-                                                }
-                                                onClickCetakSemuaHandler={
-                                                    onClickCetakRincianPembayaranHandler
-                                                }
-                                            />
-                                        </div>
-                                    </div>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </>
                         )}
-                    </div>
-                </>
-            )}
-            <ModalPembayaranBulanan
-                data={dataDetailPembayaran}
-                headerName={'Data Bayar'}
-                onSubmit={onClickSubmitButtonModal}
-                initialValues={pembayaranBulananInitialValues}
-                isOpenModal={isOpenModalPembayaran}
-                toggleModal={() =>
-                    setIsOpenModaPembayaran(!isOpenModalPembayaran)
-                }
-            />
-            <ModalDiscount
-                data={dataDetailPembayaran}
-                isOpenModal={isOpenModalDiscount}
-                onSubmit={onSubmitDiscountModal}
-                toggleModal={() => setIsOpenModalDiscount(!isOpenModalDiscount)}
-            />
-            <ModalPembayaranBebas
-                data={dataDetailPembayaran}
-                isOpenModal={isOpenModalPembayaranBebas}
-                onSubmitHandler={onSubmitBayarModal}
-                toggleModal={() =>
-                    setIsOpenModalPembayaranBebas(!isOpenModalPembayaranBebas)
-                }
-            />
-            <ModalDetailPembayaran
-                isOpenModal={isOpenModalDetailPembayaran}
-                data={dataDetailFreePaymentTransaction.data}
-                toggleModal={() =>
-                    setIsOpenModalDetailPembayaran(!isOpenModalDetailPembayaran)
-                }
-                onCLickItemHandler={onClickItemDetailPembayaranHandler}
-                onClickDeleteDetail={onDeleteDetailPembayaranHandler}
-            />
+                        <ModalPembayaranBulanan
+                            data={dataDetailPembayaran}
+                            headerName={'Data Bayar'}
+                            onSubmit={onClickSubmitButtonModal}
+                            initialValues={pembayaranBulananInitialValues}
+                            isOpenModal={isOpenModalPembayaran}
+                            toggleModal={() =>
+                                setIsOpenModaPembayaran(!isOpenModalPembayaran)
+                            }
+                        />
+                        <ModalDiscount
+                            data={dataDetailPembayaran}
+                            isOpenModal={isOpenModalDiscount}
+                            onSubmit={onSubmitDiscountModal}
+                            toggleModal={() =>
+                                setIsOpenModalDiscount(!isOpenModalDiscount)
+                            }
+                        />
+                        <ModalPembayaranBebas
+                            data={dataDetailPembayaran}
+                            isOpenModal={isOpenModalPembayaranBebas}
+                            onSubmitHandler={onSubmitBayarModal}
+                            toggleModal={() =>
+                                setIsOpenModalPembayaranBebas(
+                                    !isOpenModalPembayaranBebas
+                                )
+                            }
+                        />
+                        <ModalDetailPembayaran
+                            isOpenModal={isOpenModalDetailPembayaran}
+                            data={dataDetailFreePaymentTransaction.data}
+                            toggleModal={() =>
+                                setIsOpenModalDetailPembayaran(
+                                    !isOpenModalDetailPembayaran
+                                )
+                            }
+                            onCLickItemHandler={
+                                onClickItemDetailPembayaranHandler
+                            }
+                            onClickDeleteDetail={
+                                onDeleteDetailPembayaranHandler
+                            }
+                        />
 
-            <ModalSiswa
-                dataSiswa={
-                    kelas || filterTextModal !== ''
-                        ? newDataSiswa
-                        : dataSiswa.data
-                }
-                subHeaderComponent={subHeaderComponent}
-                isOpenModal={isOpenModalSiswa}
-                toggleModal={toggleModalSiswa}
-                dataKelas={dataKelas?.data}
-                onChangeKelas={onChangeKelasHandler}
-                valueKelas={kelas}
-                onClickSiswaHandler={onClickSiswaHandler}
-                isLoading={isLoadingSiswa}
-            />
+                        <ModalSiswa
+                            dataSiswa={
+                                kelas || filterTextModal !== ''
+                                    ? newDataSiswa
+                                    : dataSiswa.data
+                            }
+                            subHeaderComponent={subHeaderComponent}
+                            isOpenModal={isOpenModalSiswa}
+                            toggleModal={toggleModalSiswa}
+                            dataKelas={dataKelas?.data}
+                            onChangeKelas={onChangeKelasHandler}
+                            valueKelas={kelas}
+                            onClickSiswaHandler={onClickSiswaHandler}
+                            isLoading={isLoadingSiswa}
+                        />
+                    </div>
+                </Tab>
+            </Tabs>
         </div>
     )
 }

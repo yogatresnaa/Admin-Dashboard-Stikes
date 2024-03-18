@@ -11,9 +11,11 @@ import {
     FaRegCreditCard,
     FaRegKeyboard,
     FaRegEdit,
+    FaCcAmazonPay,
+    FaServer,
 } from 'react-icons/fa'
 import { BsFillMortarboardFill } from 'react-icons/bs'
-import { FaCircleMinus } from 'react-icons/fa6'
+import { FaCircleMinus, FaMoneyCheckDollar, FaGear } from 'react-icons/fa6'
 import { IconContext } from 'react-icons'
 import Navbar from 'react-bootstrap/Navbar'
 import logo from '../assets/images/logo.png' // with import
@@ -128,7 +130,70 @@ function Sidebar() {
                             </li>
                         </Link>
 
-                        <li className="nav-item my-2" onClick={toggleNav}>
+                        <Link className="link" to="/admin/pembayaran-siswa">
+                            <li className="nav-item nav-link text-black  my-1">
+                                <IconContext.Provider
+                                    value={{ color: '#DC84F3' }}
+                                >
+                                    <FaCcAmazonPay
+                                        style={{
+                                            width: '30px',
+                                            height: '30px',
+                                            background: '#E0F4FF',
+                                            padding: '3px',
+                                            boxShadow:
+                                                'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px',
+                                        }}
+                                    />
+                                </IconContext.Provider>
+
+                                <span className="ms-2">Pembayaran Siswa</span>
+                            </li>
+                        </Link>
+
+                        <Link className="link" to="/admin/pembayaran-siswa">
+                            <li className="nav-item nav-link text-black  my-1">
+                                <IconContext.Provider
+                                    value={{ color: '#DC84F3' }}
+                                >
+                                    <FaMoneyCheckDollar
+                                        style={{
+                                            width: '30px',
+                                            height: '30px',
+                                            background: '#E0F4FF',
+                                            padding: '3px',
+                                            boxShadow:
+                                                'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px',
+                                        }}
+                                    />
+                                </IconContext.Provider>
+
+                                <span className="ms-2">Kirim Tagihan</span>
+                            </li>
+                        </Link>
+
+                        <Link className="link" to="/admin/manajemen-data">
+                            <li className="nav-item nav-link text-black  my-1">
+                                <IconContext.Provider
+                                    value={{ color: '#DC84F3' }}
+                                >
+                                    <FaServer
+                                        style={{
+                                            width: '30px',
+                                            height: '30px',
+                                            background: '#E0F4FF',
+                                            padding: '3px',
+                                            boxShadow:
+                                                'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px',
+                                        }}
+                                    />
+                                </IconContext.Provider>
+
+                                <span className="ms-2">Manajemen Data</span>
+                            </li>
+                        </Link>
+
+                        {/* <li className="nav-item my-2" onClick={toggleNav}>
                             <a
                                 href="#submenu"
                                 className="nav-link text-black"
@@ -183,9 +248,30 @@ function Sidebar() {
                                     </Link>
                                 ))}
                             </ul>
-                        </li>
+                        </li> */}
 
-                        <li
+                        <Link className="link" to="/admin/akademik">
+                            <li className="nav-item nav-link text-black  my-1">
+                                <IconContext.Provider
+                                    value={{ color: '#DC84F3' }}
+                                >
+                                    <BsFillMortarboardFill
+                                        style={{
+                                            width: '30px',
+                                            height: '30px',
+                                            background: '#E0F4FF',
+                                            padding: '3px',
+                                            boxShadow:
+                                                'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px',
+                                        }}
+                                    />
+                                </IconContext.Provider>
+
+                                <span className="ms-2">Akademik</span>
+                            </li>
+                        </Link>
+
+                        {/* <li
                             className="nav-item text-white my-1 column-wrapper "
                             onClick={toggleNav2}
                         >
@@ -264,7 +350,28 @@ function Sidebar() {
                                     </li>
                                 </Link>
                             </ul>
-                        </li>
+                        </li> */}
+
+                        <Link className="link" to="/admin/akademik">
+                            <li className="nav-item nav-link text-black  my-1">
+                                <IconContext.Provider
+                                    value={{ color: '#DC84F3' }}
+                                >
+                                    <FaGear
+                                        style={{
+                                            width: '30px',
+                                            height: '30px',
+                                            background: '#E0F4FF',
+                                            padding: '3px',
+                                            boxShadow:
+                                                'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px',
+                                        }}
+                                    />
+                                </IconContext.Provider>
+
+                                <span className="ms-2">Setting Pembayaran</span>
+                            </li>
+                        </Link>
 
                         <li className="nav-item text-white my-1">
                             <a

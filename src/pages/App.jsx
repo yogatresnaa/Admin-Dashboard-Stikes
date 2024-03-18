@@ -7,8 +7,11 @@ import { store, persistor } from '../redux/store'
 import 'react-toastify/dist/ReactToastify.css'
 
 const Homepage = lazy(() => import('./Homepage'))
+const PageManajemenData = lazy(() => import('./ManajemenData/PageManajemen'))
 const PageKelas = lazy(() => import('./ManajemenData/Kelas/PageKelas'))
 const PageSiswa = lazy(() => import('./ManajemenData/Siswa/PageSiswa'))
+
+const PageAkademik = lazy(() => import('./Akademik/PageAkademik'))
 const PageAlumni = lazy(() => import('./Akademik/Alumni/PageAlumni'))
 const PageKelulusan = lazy(() => import('./Akademik/Kelulusan/PageKelulusan'))
 const PageTahunAjaran = lazy(
@@ -91,21 +94,33 @@ function AppRoutes() {
                             <Route path="/" element={<MainPage />} />
                             <Route path="/login" element={<LoginPage />} />
                             <Route path="/admin" element={<Homepage />}>
-                                <Route path="kelas" element={<PageKelas />} />
                                 <Route
                                     path="dashboard"
                                     element={<PageKelas />}
                                 />
+
+                                <Route
+                                    path="manajemen-data"
+                                    element={<PageManajemenData />}
+                                />
+                                <Route path="kelas" element={<PageKelas />} />
                                 <Route path="siswa" element={<PageSiswa />} />
+                                <Route
+                                    path="program-studi"
+                                    element={<PageProgramStudi />}
+                                />
+
+                                <Route
+                                    path="akademik"
+                                    element={<PageAkademik />}
+                                />
+
                                 <Route path="alumni" element={<PageAlumni />} />
                                 <Route
                                     path="kelulusan"
                                     element={<PageKelulusan />}
                                 />
-                                <Route
-                                    path="program-studi"
-                                    element={<PageProgramStudi />}
-                                />
+
                                 <Route
                                     path="tahun-ajaran"
                                     element={<PageTahunAjaran />}
