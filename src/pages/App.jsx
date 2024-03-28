@@ -6,6 +6,9 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from '../redux/store'
 import 'react-toastify/dist/ReactToastify.css'
 
+const CekTagihanSiswa = lazy(
+    () => import('./CekDataTagihanSiswa/PageDataPaySiswa')
+)
 const Homepage = lazy(() => import('./Homepage'))
 const PageManajemenData = lazy(() => import('./ManajemenData/PageManajemen'))
 const PageKelas = lazy(() => import('./ManajemenData/Kelas/PageKelas'))
@@ -92,6 +95,10 @@ function AppRoutes() {
                     <PersistGate loading={null} persistor={persistor}>
                         <Routes>
                             <Route path="/" element={<MainPage />} />
+                            <Route
+                                path="/cek-data-pembayaran-siswa"
+                                element={<CekTagihanSiswa />}
+                            />
                             <Route path="/login" element={<LoginPage />} />
                             <Route path="/admin" element={<Homepage />}>
                                 <Route
