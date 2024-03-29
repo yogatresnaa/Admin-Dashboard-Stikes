@@ -20,6 +20,9 @@ import {
     deleteSiswa,
     postSiswa,
     getAllKelas,
+    getAllUnitByUser,
+    getTagihanPaymentTransactionAllStudent,
+    postSendWhatsapp,
 } from '../../../utils/http'
 // import "./css/page-laporan-pembayaran-kelas.css";
 import { useSelector } from 'react-redux'
@@ -41,6 +44,7 @@ import ReactToPrint, { useReactToPrint } from 'react-to-print'
 // import PrintTableSiswaComponent from "./components/PrintTableSiswaTemplate";
 import SelectTahunAjaran from '../../../component/ActionButton/SelectTahunAjaran'
 import { FaWhatsapp } from 'react-icons/fa6'
+import SelectUnit from '../../../component/ActionButton/SelectUnit'
 function PageKirimTagihan() {
     const {
         data: dataSiswa,
@@ -82,33 +86,40 @@ function PageKirimTagihan() {
         setData: setDataTahunAjaran,
         getData: getDataTahunAjaran,
     } = useRequest()
+    const {
+        data: dataUnit,
+        setData: setDataUnit,
+        getData: getDataUnit,
+    } = useRequest()
     const [queryFilter, setQueryFilter] = useState({
         class_id: '',
         period_id: '',
+        unit_id: '',
         majors_id: '',
     })
-    const [isOpenDetailModal, setIsOpenDetailModal] = useState(false)
+    const [isSubmit, setIsSubmit] = useState(false)
+    const [selectedStudent, setSelectedStudent] = useState([])
     const printComponent = useRef()
     useEffect(() => {
-        const query = queryString.stringify(queryFilter)
-        getDataSiswa(() => getAllSiswa(query, dataUser.token))
-        getDataProdi(() => getAllProdi(dataUser.token))
-        getDataKelas(() => getAllKelas(dataUser.token))
         getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token))
+
+        getDataUnit(() => getAllUnitByUser(dataUser.token))
     }, [])
 
     const onPeriodChange = (e) => {
-        console.log(TahunAjaran)
-        const selectedPeriod = TahunAjaran.data.filter(
-            (item) => item.period_id == parseInt(e.target.value, 10)
-        )[0]
+        setQueryFilter((prevState) => ({
+            ...prevState,
+            period_id: e.target.value,
+        }))
     }
 
-    const onCLickFilterSubmit = () => {
-        const query = queryString.stringify(queryFilter)
-        getDataSiswa(() => getAllSiswa(query, dataUser.token))
+    const onCLickFilterSubmit = async () => {
+        // const query = queryString.stringify(queryFilter)
+        await getDataSiswa(() =>
+            getTagihanPaymentTransactionAllStudent(queryFilter, dataUser.token)
+        )
+        setIsSubmit(true)
     }
-    const onSearchClickHandler = () => {}
 
     const onQueryFilterChange = (e) => {
         setQueryFilter((prevState) => ({
@@ -116,27 +127,24 @@ function PageKirimTagihan() {
             [e.target.name]: e.target.value,
         }))
     }
-
-    console.log(dataSiswa)
-    const dataFiltered = useMemo(
-        () =>
-            dataSiswa.data.filter(
-                (item) =>
-                    item.student_nis
-                        .toString()
-                        .toLowerCase()
-                        .includes(filterText.toLocaleLowerCase()) ||
-                    item.student_full_name
-                        .toString()
-                        .toLowerCase()
-                        .includes(filterText.toLocaleLowerCase()) ||
-                    item.majors_majors_name
-                        .toString()
-                        .toLowerCase()
-                        .includes(filterText.toLocaleLowerCase())
-            ),
-        [filterText, dataSiswa.data]
-    )
+    useEffect(() => {
+        if (queryFilter.unit_id) {
+            getDataProdi(() =>
+                getAllProdi({ unit_id: queryFilter.unit_id }, dataUser.token)
+            )
+            getDataKelas(() =>
+                getAllKelas({ unit_id: queryFilter.unit_id }, dataUser.token)
+            )
+        }
+    }, [queryFilter])
+    const onSelectableChange = ({ selectedRows }) =>
+        setSelectedStudent(selectedRows)
+    const onSubmitKirimTagihan = () => {
+        const body = { students: selectedStudent }
+        alertConfirmation('Mengirim Tagihan', () =>
+            sendDataSiswa(() => postSendWhatsapp(body, dataUser.token))
+        )
+    }
 
     return (
         <>
@@ -156,13 +164,21 @@ function PageKirimTagihan() {
                             onChange={onPeriodChange}
                             value={queryFilter?.period_id ?? ''}
                         />
-                        <SelectProdi
+                        <SelectUnit
+                            data={dataUnit.data}
+                            name={'unit_id'}
+                            onFilterChange={onQueryFilterChange}
+                            value={queryFilter.unit_id}
+                        />
+                        {/* <SelectProdi
                             data={dataProdi.data}
+                            name={'majors_id'}
                             onProdiFilterChange={onQueryFilterChange}
                             value={queryFilter.majors_id}
-                        />
+                        /> */}
                         <SelectUnitKelas
                             data={dataKelas.data}
+                            name={'class_id'}
                             onProdiFilterChange={onQueryFilterChange}
                             value={queryFilter.class_id}
                         />
@@ -172,14 +188,20 @@ function PageKirimTagihan() {
                             className="align-self-end text-bg-dark"
                             onClick={onCLickFilterSubmit}
                             color="dark"
+                            disabled={
+                                !queryFilter.class_id ||
+                                !queryFilter.unit_id ||
+                                !queryFilter.period_id
+                            }
                         >
                             Cari
                         </Button>
                         <Button
                             size="sm"
                             className="align-self-end d-flex align-items-center"
-                            onClick={onCLickFilterSubmit}
+                            onClick={onSubmitKirimTagihan}
                             color="success"
+                            disabled={selectedStudent.length < 1}
                         >
                             <FaWhatsapp
                                 style={{ width: '30px', height: '20px' }}
@@ -187,52 +209,15 @@ function PageKirimTagihan() {
                             Kirim Tagihan
                         </Button>
                     </div>
-
-                    <div className="table-kirim-tagihan">
-                        <TableKirimTagihan />
-                    </div>
-
-                    {/* <TableSiswa
-            data={filterText.length > 0 ? dataFiltered : dataSiswa.data}
-            subHeaderComponent={subHeaderComponent}
-            resetPaginationToggle={resetPaginationToggle}
-            isLoading={isLoadingSiswa}
-            onClickEditHandler={onClickEditHandler}
-            onClickDetailHandler={onClickDetailSiswaHandler}
-            onClickDeleteHandler={onSubmitDeleteHandler}
-          /> */}
+                    {isSubmit && (
+                        <div className="table-kirim-tagihan">
+                            <TableKirimTagihan
+                                data={dataSiswa.data}
+                                onSelectableChange={onSelectableChange}
+                            />
+                        </div>
+                    )}
                 </div>
-                {/* <ModalForm
-          initialValues={isEdit ? dataDetailSiswa : siswaInitialValues}
-          schema={siswaSchema}
-          toggle={() => setIsOpenModalForm(!isOpenModalForm)}
-          isOpen={isOpenModalForm}
-          btnName={isEdit ? "Edit" : "Tambah"}
-          dataProdi={dataProdi.data}
-          dataKelas={dataKelas.data}
-          isLoadingSendData={isLoadingSendDataSiswa}
-          headerName={isEdit ? "Edit Siswa" : "Tambah Siswa"}
-          onSubmitHandler={isEdit ? onSubmitEditHandler : onSubmitTambahHandler}
-        />
-        <DetailModal
-          data={dataDetailSiswa}
-          isOpen={isOpenDetailModal}
-          toggle={() => setIsOpenDetailModal(!isOpenDetailModal)}
-          headerName={"Detail"}
-        /> */}
-                {/* <ModalForm
-          initialValues={
-            dataDetailKelas !== null ? dataDetailKelas : kelasInitialValues
-          }
-          schema={kelasSchema}
-          toggle={() => setIsOpenModalEdit(!isOpenModalEdit)}
-          isOpen={isOpenModalEdit}
-          btnName="Edit"
-          headerName="Edit Kelas"
-          onSubmitHandler={onSubmitEditHandler}
-        /> */}
-
-                {/* <PrintTableSiswaComponent data={dataSiswa.data} ref={printComponent} /> */}
             </div>
         </>
     )

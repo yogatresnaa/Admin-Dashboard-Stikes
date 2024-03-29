@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Header from '../component/Header'
 import { LoadingContext } from '../context/LoadingContext'
 import FixedLoader from '../component/Loader/FixedLoader'
+import { checkAuthActionCreator } from '../redux/actions/authAction'
 
 function Homepage() {
     const dispatch = useDispatch()
@@ -28,15 +29,7 @@ function Homepage() {
         axiosInterceptorDispatch(dispatch)
         injectStore(dataUser.data)
 
-        const checkMeCredentials = async (token) => {
-            await checkMe(token)
-        }
-        if (dataUser.data.token !== undefined) {
-            checkMeCredentials(dataUser.data.token)
-        } else {
-            console.log(dataUser.data.token)
-            return navigate('/login', { replace: true })
-        }
+        dispatch(checkAuthActionCreator(dataUser.data.token))
     }, [])
     return (
         <div className="containerApp">

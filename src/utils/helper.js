@@ -100,7 +100,15 @@ export const rupiahConvert = (data) => {
         currency: 'IDR',
     })}`
 }
-
+export const currencyFormatter = (value) => {
+    if (value.length === 1) {
+        return value
+    }
+    let result = value?.toString().replace(/\D/g, '').toString() // Remove no
+    result = result?.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    result = result?.replace(/^0/g, '')
+    return result
+}
 export const upperCaseFirstChar = (word) => {
     return word
         .split('')

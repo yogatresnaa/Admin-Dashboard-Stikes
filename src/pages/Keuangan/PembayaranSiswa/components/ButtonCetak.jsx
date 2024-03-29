@@ -2,15 +2,24 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 import ButtonWithLoader from '../../../../component/ActionButton/ButtonWithLoader'
 
-function CetakButton({ onClickCetakSemuaHandler, isLoading }) {
+function CetakButton({
+    onClickCetakSemuaHandler,
+    onClickCetakKwitansiHandler,
+    isLoading,
+    isLoadingKwitansi,
+    isDisabledKwitansi,
+}) {
     return (
         <div className="cetak-button">
-            <Button
-                variant="primary"
+            <ButtonWithLoader
+                color="primary"
                 style={{ width: '250px', margin: '10px' }}
-            >
-                Cetak
-            </Button>
+                onClick={onClickCetakKwitansiHandler}
+                isLoading={isLoadingKwitansi}
+                size={'md'}
+                disabled={isDisabledKwitansi}
+                text={'Cetak Kwitansi'}
+            />
             <ButtonWithLoader
                 color="primary"
                 style={{ width: '250px', margin: '10px' }}

@@ -1,6 +1,5 @@
 import React from 'react'
 import DataTable from 'react-data-table-component'
-import { kasKeluar } from '../../../../utils/dumyDataTransaksi'
 
 function TableKasKeluar() {
     const columns = [
@@ -65,7 +64,7 @@ function TableKasKeluar() {
     ]
     return (
         <div>
-            <DataTable columns={columns} data={kasKeluar} pagination />
+            <DataTable columns={columns} data={[]} pagination />
         </div>
     )
 }

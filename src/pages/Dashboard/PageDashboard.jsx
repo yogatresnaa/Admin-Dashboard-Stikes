@@ -17,11 +17,11 @@ import { useSelector } from 'react-redux'
 import Cardsiswa from './components/CardSiswa'
 
 const color = [
-    '#C4FFDD',
-    '#c9c9ff',
-    '#ffd7e1',
-    'red',
-    '#fff9d1',
+    '#AC3E31',
+    '#DBAE58',
+    '#488A99',
+    '#A5D8DD',
+    '#6AB187',
     'blue',
     'red',
     'green',
@@ -68,7 +68,7 @@ function PageDashboard() {
                         {...dataTransaksi[0]}
                         color={color[0]}
                         icon={
-                            <BsFillCalculatorFill color={color[0]} size={40} />
+                            <BsFillCalculatorFill color={'white'} size={40} />
                         }
                     />
                     <CardTransaksi
@@ -76,26 +76,30 @@ function PageDashboard() {
                         id={dataTransaksi[1].id}
                         {...dataTransaksi[1]}
                         color={color[1]}
-                        icon={<BiMoney color={color[1]} size={40} />}
+                        icon={<BiMoney color={'white'} size={40} />}
                     />
                     <CardTransaksi
                         key={dataTransaksi[2].id}
                         id={dataTransaksi[2].id}
                         {...dataTransaksi[2]}
                         color={color[2]}
-                        icon={<BiWallet color={color[2]} size={40} />}
+                        icon={<BiWallet color={'white'} size={40} />}
                     />
                     <Cardsiswa
                         title={'Jumlah Siswa'}
                         data={dataDashboard.data.jumlah_siswa_aktif}
                         color={color[3]}
-                        icon={<BiUser color={color[3]} size={40} />}
+                        icon={<BiUser color={'white'} size={40} />}
                     />
                 </div>
             </div>
-            <div className="page-dashboar">
-                <BarChart />
-                <LineChart />
+            <div className="d-flex gap-2 w-100">
+                <div className="custom-card flex-1">
+                    <BarChart />
+                </div>
+                <div className="custom-card flex-1">
+                    <LineChart />
+                </div>
             </div>
         </div>
     )

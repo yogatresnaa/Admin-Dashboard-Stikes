@@ -1,5 +1,6 @@
-import { loginUser, logoutUser } from '../../utils/http'
+import { checkMe, loginUser, logoutUser } from '../../utils/http'
 import {
+    getUserByIdAction,
     loginUserAction,
     logoutUserAction,
     refreshTokenAction,
@@ -12,4 +13,8 @@ export const loginUserActionCreator = (body) => ({
 export const logoutUserActionCreator = (token) => ({
     type: logoutUserAction,
     payload: logoutUser({ refreshToken: token }),
+})
+export const checkAuthActionCreator = (token) => ({
+    type: getUserByIdAction,
+    payload: checkMe({ token }),
 })

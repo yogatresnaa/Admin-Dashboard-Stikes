@@ -5,6 +5,7 @@ import {
     loginUserAction,
     logoutUserAction,
     refreshTokenAction,
+    getUserByIdAction,
 } from '../actions/actionsTypes'
 const initialValues = {
     data: {},
@@ -45,6 +46,37 @@ const dataUser = (prevState = initialValues, action) => {
                 isFulfilled: true,
                 error: null,
                 data: action.payload.data.data,
+                message: action.payload.data.message,
+                isRejectedRefreshToken: false,
+            }
+        case getUserByIdAction + pending:
+            return {
+                ...prevState,
+                isLoading: true,
+                isRejected: false,
+                isFulfilled: false,
+                isRejectedRefreshToken: false,
+            }
+        case getUserByIdAction + rejected:
+            return {
+                ...prevState,
+                isLoading: false,
+                isRejected: true,
+                isFulfilled: false,
+                error: action.payload.response?.data,
+                message: '',
+                isRejectedRefreshToken: false,
+            }
+
+        case getUserByIdAction + fulfilled:
+            console.log(action.payload)
+            return {
+                ...prevState,
+                isLoading: false,
+                isRejected: false,
+                isFulfilled: true,
+                error: null,
+                data: { ...prevState.data, ...action.payload.data.data },
                 message: action.payload.data.message,
                 isRejectedRefreshToken: false,
             }
