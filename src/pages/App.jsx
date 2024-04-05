@@ -93,6 +93,7 @@ import PreLoader from '../component/Loader/PreLoader'
 import LoadingProvider from '../context/LoadingContext'
 import TagihanPembayaran from './Dokumen/TagihanPembayaran'
 import { checkAuthActionCreator } from '../redux/actions/authAction'
+import EditKasMasuk from './KasBank/KasMasuk/EditKasMasuk'
 
 const RouteWithAuth = ({ element: Component, ...rest }) => {
     const dataUser = useSelector(({ authState }) => authState)
@@ -271,7 +272,7 @@ function AppRoutes() {
                                 }
                             />
                             <Route
-                                path="kas-keluar/edit"
+                                path="kas-keluar/edit/:id"
                                 element={
                                     <RouteWithAuth
                                         element={PageEditKasKeluar}
@@ -293,9 +294,9 @@ function AppRoutes() {
                                 }
                             />
                             <Route
-                                path="kas-masuk/edit"
+                                path="kas-masuk/edit/:id"
                                 element={
-                                    <RouteWithAuth element={PageEditKasMasuk} />
+                                    <RouteWithAuth element={EditKasMasuk} />
                                 }
                             />
                             <Route

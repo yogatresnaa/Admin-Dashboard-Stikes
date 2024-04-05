@@ -9,6 +9,7 @@ function SelectUnit({
     onFilterChange,
     value,
     name = null,
+    disabled = false,
     firstValue = null,
     style,
     includeAll = true,
@@ -19,6 +20,7 @@ function SelectUnit({
             <Form.Select
                 id={name}
                 size="sm"
+                disabled={disabled}
                 onChange={onFilterChange}
                 value={value}
                 name={name || 'unit_id'}

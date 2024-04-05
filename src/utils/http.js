@@ -318,3 +318,55 @@ export const postSendWhatsapp = (body, token) =>
 
 export const getAllDataSaldoAwal = (token, query) =>
     Axios.get(`${URL_BASE}/cash-account`, { ...options(token), params: query })
+
+//kredit
+
+export const postKreditNotSubmitted = (body, token) =>
+    Axios.post(`${URL_BASE}/kredit/not-submitted`, body, options(token))
+export const postKreditSubmitted = (body, token) =>
+    Axios.post(`${URL_BASE}/kredit/submitted`, body, options(token))
+export const putKreditSubmitted = (id, body, token) =>
+    Axios.put(`${URL_BASE}/kredit/submitted/${id}`, body, options(token))
+
+export const getKreditNotSubmitted = (params, token) =>
+    Axios.get(`${URL_BASE}/kredit/not-submitted`, {
+        ...options(token),
+        params: params,
+    })
+
+export const getAllKreditSubmitted = (params, token) =>
+    Axios.get(`${URL_BASE}/kredit/submitted`, {
+        ...options(token),
+        params: params,
+    })
+export const generateCreditNoRef = (body, token) =>
+    Axios.post(`${URL_BASE}/kredit/no-ref`, body, options(token))
+
+export const deleteKredit = (id, token) =>
+    Axios.delete(`${URL_BASE}/kredit/not-submitted/${id}`, options(token))
+
+//debit
+
+export const postDebitNotSubmitted = (body, token) =>
+    Axios.post(`${URL_BASE}/debit/not-submitted`, body, options(token))
+export const postDebitSubmitted = (body, token) =>
+    Axios.post(`${URL_BASE}/debit/submitted`, body, options(token))
+export const putDebitSubmitted = (id, body, token) =>
+    Axios.put(`${URL_BASE}/debit/submitted/${id}`, body, options(token))
+
+export const getDebitNotSubmitted = (params, token) =>
+    Axios.get(`${URL_BASE}/debit/not-submitted`, {
+        ...options(token),
+        params: params,
+    })
+
+export const getAllDebitSubmitted = (params, token) =>
+    Axios.get(`${URL_BASE}/debit/submitted`, {
+        ...options(token),
+        params: params,
+    })
+export const generateDebitNoRef = (body, token) =>
+    Axios.post(`${URL_BASE}/debit/no-ref`, body, options(token))
+
+export const deleteDebit = (id, token) =>
+    Axios.delete(`${URL_BASE}/debit/not-submitted/${id}`, options(token))

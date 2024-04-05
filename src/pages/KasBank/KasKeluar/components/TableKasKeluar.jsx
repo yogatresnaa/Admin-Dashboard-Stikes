@@ -5,7 +5,7 @@ import { Button } from 'reactstrap'
 import DataTable from 'react-data-table-component'
 import { Tooltip } from 'react-tooltip'
 
-export default function TableKasMasuk({
+export default function TableKasKeluar({
     data,
     onClickDeleteHandler,
     onCLickEditHandler,
@@ -37,7 +37,7 @@ export default function TableKasMasuk({
                 data-tooltip-id="my-tooltip"
                 data-tooltip-content="Hapus"
                 onClick={() => {
-                    onClickDeleteHandler(row.debit_id)
+                    onClickDeleteHandler(row.kredit_id)
                 }}
                 id={row.ID}
             >
@@ -65,7 +65,7 @@ export default function TableKasMasuk({
         },
         {
             name: 'No. Ref',
-            selector: (row) => row.debit_no_ref,
+            selector: (row) => row.kredit_no_ref,
             sortable: true,
         },
         {
@@ -75,7 +75,7 @@ export default function TableKasMasuk({
         },
         {
             name: 'Tanggal',
-            selector: (row) => dateConvert(row?.debit_date),
+            selector: (row) => dateConvert(row.kredit_date),
             sortable: true,
         },
         {
@@ -86,22 +86,22 @@ export default function TableKasMasuk({
         },
         {
             name: 'Keterangan',
-            selector: (row) => row.debit_information,
+            selector: (row) => row.kredit_information,
             sortable: true,
         },
         {
             name: 'Nominal (Rp. )',
-            selector: (row) => `${rupiahConvert(parseInt(row.debit_value))}`,
+            selector: (row) => rupiahConvert(parseInt(row.kredit_value)),
             sortable: true,
         },
         {
             name: 'Pajak (%)',
-            selector: (row) => `${row.debit_tax}`,
+            selector: (row) => `${row.kredit_tax}`,
             sortable: true,
         },
         {
             name: 'Total',
-            selector: (row) => `${rupiahConvert(parseInt(row.debit_value))}`,
+            selector: (row) => `${rupiahConvert(parseInt(row.kredit_value))}`,
             sortable: true,
         },
 

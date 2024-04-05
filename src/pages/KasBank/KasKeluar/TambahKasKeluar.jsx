@@ -2,11 +2,17 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import SelectUnitKelas from '../../../component/ActionButton/SelectUnitKelas'
 import useRequest from '../../../customHooks/useRequest'
 import {
+    deleteKredit,
+    generateCreditNoRef,
     getAllAccountBiaya,
     getAllAktivaAccountCostPay,
-    getAllKelas,
     getAllUnitByUser,
+    getKreditNotSubmitted,
+    postKreditNotSubmitted,
+    postKreditSubmitted,
 } from '../../../utils/http'
+import { ToastContainer } from 'react-toastify'
+
 import AddAction from '../../../component/ActionButton/AcctionAddButoon'
 import queryString from 'query-string'
 import { useNavigate } from 'react-router-dom'
@@ -17,6 +23,9 @@ import BreadCrumb from '../../../component/BreadCrumb/BreadCrumb'
 import FormFilter from '../components/FormFilter'
 import TabelTambah from '../components/TabelTambah'
 import { Formik } from 'formik'
+import { alertConfirmation } from '../../../component/Alert/swalConfirmation'
+import { alertType } from '../../../utils/CONSTANT'
+import { kreditPaymentSchema } from '../../../utils/schema'
 
 const breadCrumbItems = [
     {
@@ -36,12 +45,21 @@ function TambahKasKeluar() {
         setData: setDataUnit,
         getData: getDataUnit,
     } = useRequest()
+    const { data: dataKreditNotSubmit, getData: getDataKreditNotSubmit } =
+        useRequest()
+    const {
+        data: dataNoRef,
+        getData: getDataNoRef,
+        setData: setDataNoRef,
+    } = useRequest()
     const { data: dataAkunBiaya, getData: getDataAkunBiaya } = useRequest()
     const {
         data: dataAkunKas,
         setData: setDataAkunKas,
         getData: getDataAkunKas,
     } = useRequest()
+
+    const { sendData: sendDataKreditNotSubmitted } = useRequest()
     // const { data: dataProdi, setData: setDataProdi, getData: getDataProdi } = useRequest();
 
     const dataUser = useSelector(({ authState }) => authState.data)
@@ -52,22 +70,49 @@ function TambahKasKeluar() {
     useEffect(() => {
         // const query = queryString.stringify(queryFilter);
         getDataUnit(() => getAllUnitByUser(dataUser.token))
-        getDataAkunKas(() =>
-            getAllAktivaAccountCostPay(
-                { unit_unit_id: queryFilter.unit_id },
-                dataUser.token
-            )
-        )
     }, [])
 
     useEffect(() => {
-        getDataAkunBiaya(() =>
-            getAllAccountBiaya(
-                { unit_unit_id: queryFilter.unit_id },
+        if (queryFilter.unit_id) {
+            getDataNoRef(() =>
+                generateCreditNoRef(
+                    {
+                        unit_name: dataUnit.data.filter(
+                            (item) => item.unit_id == queryFilter.unit_id
+                        )[0].unit_name,
+                    },
+                    dataUser.token
+                )
+            )
+            getDataAkunKas(() =>
+                getAllAktivaAccountCostPay(
+                    { unit_unit_id: queryFilter.unit_id },
+                    dataUser.token
+                )
+            )
+            getDataAkunBiaya(() =>
+                getAllAccountBiaya(
+                    { unit_unit_id: queryFilter.unit_id },
+                    dataUser.token
+                )
+            )
+        }
+    }, [queryFilter.unit_id])
+
+    const fetchDataKredit = () => {
+        getDataKreditNotSubmit(() =>
+            getKreditNotSubmitted(
+                {
+                    unit_id: queryFilter.unit_id,
+                    no_ref: dataNoRef.data.no_ref,
+                },
                 dataUser.token
             )
         )
-    }, [queryFilter.unit_id])
+    }
+    useEffect(() => {
+        if (dataNoRef?.data?.no_ref && queryFilter.unit_id) fetchDataKredit()
+    }, [dataNoRef, queryFilter.unit_id])
 
     const onQueryFilterChange = (e) => {
         setQueryFilter((prevState) => ({
@@ -76,8 +121,58 @@ function TambahKasKeluar() {
         }))
     }
 
+    const onSubmitTambahHandler = async (formBody, { resetForm }) => {
+        const newFormBody = {
+            ...formBody,
+            unit_unit_id: queryFilter.unit_id,
+            kredit_no_ref: dataNoRef.data.no_ref,
+        }
+        console.log(dataNoRef.data.no_ref)
+        sendDataKreditNotSubmitted(
+            () => postKreditNotSubmitted(newFormBody, dataUser.token),
+            () => {
+                fetchDataKredit()
+            }
+        )
+        // sendDataKredit(()=>)
+    }
+    const onClickDeleteHandler = (id) => {
+        alertConfirmation(alertType.delete, async () => {
+            await sendDataKreditNotSubmitted(
+                () => deleteKredit(id, dataUser.token),
+                () => {
+                    fetchDataKredit()
+                },
+                null
+            )
+        })
+    }
+    const onClickSubmitAll = (ids) => {
+        alertConfirmation(alertType.add, async () => {
+            await sendDataKreditNotSubmitted(
+                () => postKreditSubmitted({ kredit_ids: ids }, dataUser.token),
+                () => {
+                    getDataNoRef(() =>
+                        generateCreditNoRef(
+                            {
+                                unit_name: dataUnit.data.filter(
+                                    (item) =>
+                                        item.unit_id == queryFilter.unit_id
+                                )[0].unit_name,
+                            },
+                            dataUser.token
+                        )
+                    )
+                    fetchDataKredit()
+                },
+                null
+            )
+        })
+    }
     return (
         <div className="page-content d-flex flex-column gap-2">
+            <ToastContainer />
+
             <div className="d-flex justify-content-between">
                 <h3>
                     Tambah Kas Keluar{' '}
@@ -96,7 +191,6 @@ function TambahKasKeluar() {
                     kredit_no_ref: '',
                     kredit_desc: '',
                     kredit_value: '',
-                    user_user_id: '',
                     account_cash_account: '',
                     account_cost_account: '',
                     pos_pos_pay_id: '',
@@ -104,8 +198,8 @@ function TambahKasKeluar() {
                     kredit_information: '',
                     unit_unit_id: '',
                 }}
-                onSubmit={() => {}}
-                // validationSchema={schema}
+                onSubmit={onSubmitTambahHandler}
+                validationSchema={kreditPaymentSchema}
             >
                 {({
                     errors,
@@ -119,7 +213,10 @@ function TambahKasKeluar() {
                             dataUnit={dataUnit.data}
                             dataAkunKas={dataAkunKas}
                             value={values}
+                            total={dataKreditNotSubmit.data?.total}
                             error={errors}
+                            type={'kredit'}
+                            no_ref={dataNoRef?.data?.no_ref}
                             onQueryFilterChange={onQueryFilterChange}
                             setFieldValue={setFieldValue}
                             queryFilter={queryFilter}
@@ -129,10 +226,17 @@ function TambahKasKeluar() {
                             dataAkunBiaya={dataAkunBiaya.data}
                             value={values}
                             error={errors}
+                            type={'kredit'}
+                            onSubmit={handleSubmit}
                             setFieldValue={setFieldValue}
                             handleChange={handleChange}
                         />
-                        <TabelTambah />
+                        <TabelTambah
+                            data={dataKreditNotSubmit.data}
+                            type={'kredit'}
+                            onClickDeleteHandler={onClickDeleteHandler}
+                            onClickSubmit={onClickSubmitAll}
+                        />
                     </>
                 )}
             </Formik>

@@ -4,6 +4,7 @@ import FormComponent from '../../../component/Form/FormComponent'
 import SelectUnit from '../../../component/ActionButton/SelectUnit'
 import SelectDate from '../../../component/ActionButton/SelectDate'
 import CustomSelection from '../../../component/ActionButton/CustomSelection'
+import ErrorComponent from '../../../component/Form/ErrorComponent'
 export default function FormTambah({
     dataAkunBiaya,
     onSubmit,
@@ -11,42 +12,51 @@ export default function FormTambah({
     error,
     setFieldValue,
     handleChange,
+    type,
 }) {
     return (
         <div className="table-content d-flex flex-row gap-5">
             <div className="flex-1 d-flex flex-row  align-items-baseline gap-1 justify-content-between">
-                <CustomSelection
-                    defaultName={'belum dipilih'}
-                    data={dataAkunBiaya}
-                    title={'Kode Akun'}
-                    label1={'account_code'}
-                    labelValue={'account_code'}
-                    label2={'account_description'}
-                    value={value.account_cost_account}
-                    onChangeHandler={handleChange('account_cost_account')}
-                />
+                <div>
+                    <CustomSelection
+                        defaultName={'belum dipilih'}
+                        data={dataAkunBiaya}
+                        title={'Kode Akun'}
+                        label1={'account_code'}
+                        labelValue={'account_id'}
+                        label2={'account_description'}
+                        value={value.account_cost_account}
+                        onChangeHandler={handleChange('account_cost_account')}
+                    />
+                    {error.account_cost_account && (
+                        <ErrorComponent
+                            text={error.account_cost_account}
+                            error={error.account_cost_account}
+                        />
+                    )}
+                </div>
                 <FormComponent
-                    name={'kredit_desc'}
-                    id={'kredit_desc'}
+                    name={`${type}_desc`}
+                    id={`${type}_desc`}
                     error={error}
-                    value={value.kredit_desc}
+                    value={value[`${type}_desc`]}
                     text={'Uraian'}
-                    handler={handleChange('kredit_desc')}
+                    handler={handleChange(`${type}_desc`)}
                 />
                 <FormComponent
-                    name={'kredit_value'}
-                    id={'kredit_value'}
+                    name={`${type}_value`}
+                    id={`${type}_value`}
                     error={error}
-                    value={value.kredit_value}
+                    value={value[`${type}_value`]}
                     text={'Nominal'}
-                    handler={handleChange('kredit_value')}
+                    handler={handleChange(`${type}_value`)}
                 />
                 <FormComponent
-                    name={'kredit_tax'}
+                    name={`${type}_tax`}
                     error={error}
-                    value={value.kredit_tax}
+                    value={value[`${type}_tax`]}
                     text={'Pajak (%)'}
-                    handler={handleChange('kredit_tax')}
+                    handler={handleChange(`${type}_tax`)}
                 />
                 {/* <CustomSelection
                     defaultName={'belum dipilih'}
@@ -55,9 +65,10 @@ export default function FormTambah({
                 /> */}
                 <Button
                     size="sm"
+                    onClick={onSubmit}
                     style={{ height: '40px', alignSelf: 'center' }}
                 >
-                    Submit
+                    Tambah
                 </Button>
             </div>
         </div>
