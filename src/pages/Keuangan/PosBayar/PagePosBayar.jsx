@@ -107,7 +107,6 @@ function PagePosPay() {
     useEffect(() => {
         getDataUnit(() => getAllUnitByUser(dataUser.token))
     }, [])
-    console.log(dataAccountCost)
     useEffect(() => {
         fetchPosPay()
     }, [queryFilter.unit_id])

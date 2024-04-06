@@ -3,8 +3,10 @@
 .pembayaran-siswa {
     padding: 10px;
     border-radius: 10px;
-    border-top: solid 5px rgb(225, 166, 240);
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-top: solid 5px var(--dark-content);
+    box-shadow:
+        rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     margin-bottom: 15px;
 }
 
@@ -22,8 +24,10 @@
     display: flex;
     padding: 10px;
     border-radius: 10px;
-    border-top: solid 5px rgb(225, 166, 240);
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-top: solid 5px var(--dark-content);
+    box-shadow:
+        rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     margin: auto;
 }
 
@@ -47,12 +51,12 @@
 .data-santri table tr {
     flex: 1;
     display: flex;
-    border-bottom: 1px solid rgb(225, 172, 244);
+    border-bottom: 1px solid var(--dark-content);
     font-size: 0.8rem;
 }
 .data-santri table td {
     flex: 1;
-    border-bottom: 1px solid rgb(225, 172, 244);
+    border-bottom: 1px solid var(--dark-content);
     font-size: 0.8rem;
 }
 .data-santri table td.colon {
@@ -75,8 +79,10 @@
     width: 100%;
     padding: 10px;
     border-radius: 10px;
-    border-top: solid 5px rgb(225, 166, 240);
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-top: solid 5px var(--dark-content);
+    box-shadow:
+        rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     margin-top: 20px;
 }
 
@@ -85,8 +91,10 @@
     width: 100%;
     padding: 10px;
     border-radius: 10px;
-    border-top: solid 5px rgb(225, 166, 240);
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-top: solid 5px var(--dark-content);
+    box-shadow:
+        rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     margin-top: 20px;
 }
 
@@ -98,7 +106,7 @@
 .no-refrensi {
     display: flex;
     width: 500px;
-    border-top: 1px solid rgb(225, 166, 240);
+    border-top: 1px solid var(--dark-content);
     padding: 10px;
     margin: 10px;
 }
@@ -108,7 +116,9 @@
     flex: 3;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow:
+        rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     margin-top: 20px;
 }
 
@@ -123,7 +133,7 @@
     flex: 1;
     margin: 1rem 0 0 1rem;
     border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
     padding: 5px;
 }
 .kalkulator h6 {
@@ -157,7 +167,7 @@
 .bukti-pembayaran {
     width: 100%;
     padding: 10px;
-    border-top: 1px solid rgb(225, 166, 240);
+    border-top: 1px solid var(--dark-content);
     margin-top: 40px;
 }
 .date {
@@ -203,6 +213,7 @@
 }
 .history-pembayaran-table tfoot td {
     font-weight: bold;
+    color: black;
 }
 
 table.history-pembayaran-table,

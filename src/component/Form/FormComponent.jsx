@@ -15,7 +15,9 @@ export default function FormComponent({
 }) {
     return (
         <FormGroup>
-            <Label for={id}>{text}</Label>
+            <Label style={{ fontSize: '0.8rem' }} for={id}>
+                {text}
+            </Label>
             <Input
                 id={id}
                 name={name}

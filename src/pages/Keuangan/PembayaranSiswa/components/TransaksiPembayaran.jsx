@@ -73,15 +73,21 @@ function TransaksiPembayaran({ data, isLoading, onClickSubmitHandler }) {
                     {data.total && rupiahConvert(data.total)}
                 </p>
             </div>
-            <ButtonWithLoader
-                isLoading={isLoading}
-                text={'Simpan Transaksi'}
-                disabled={isLoading}
-                color="success"
-                size="sm"
-                onClick={onClickSubmitHandler}
-                style={{ alignSelf: 'flex-end', marginRight: '0' }}
-            />
+            {data?.data_payment?.length > 0 && (
+                <ButtonWithLoader
+                    isLoading={isLoading}
+                    text={'Simpan Transaksi'}
+                    disabled={isLoading}
+                    color="success"
+                    size="sm"
+                    onClick={onClickSubmitHandler}
+                    style={{
+                        alignSelf: 'flex-end',
+                        marginRight: '0.6rem',
+                        marginBottom: '0.6rem',
+                    }}
+                />
+            )}
         </div>
     )
 }

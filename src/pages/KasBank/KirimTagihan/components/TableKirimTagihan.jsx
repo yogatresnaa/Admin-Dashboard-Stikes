@@ -2,7 +2,7 @@ import React from 'react'
 import DataTable from 'react-data-table-component'
 import { KirimTagihan } from '../../../../utils/dumyDataTransaksi'
 
-function TableKirimTagihan() {
+function TableKirimTagihan({ data, onSelectableChange }) {
     const columns = [
         {
             name: 'No',
@@ -13,31 +13,31 @@ function TableKirimTagihan() {
 
         {
             name: 'NIS',
-            selector: (row) => row.NIS,
+            selector: (row) => row.student_nis,
             sortable: true,
         },
 
         {
             name: 'Nama',
-            selector: (row) => row.Nama,
+            selector: (row) => row.student_full_name,
             sortable: true,
         },
 
         {
             name: 'Kelas',
-            selector: (row) => row.Kelas,
+            selector: (row) => row.class_name,
             sortable: true,
         },
 
         {
             name: 'Wa Orang Tua',
-            selector: (row) => row.WaOrtu,
+            selector: (row) => row.student_parent_phone,
             sortable: true,
         },
 
         {
             name: 'Total Tagihan',
-            selector: (row) => row.TotalTagihan,
+            selector: (row) => row.total_tagihan,
             sortable: true,
         },
     ]
@@ -46,8 +46,9 @@ function TableKirimTagihan() {
         <div>
             <DataTable
                 columns={columns}
-                data={KirimTagihan}
+                data={data}
                 selectableRows
+                onSelectedRowsChange={onSelectableChange}
                 pagination
             />
         </div>

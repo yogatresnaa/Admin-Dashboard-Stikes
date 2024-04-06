@@ -171,3 +171,21 @@ export const freePaymentSchema = Yup.object().shape({
     payment_rate_bebas_pay_bill: Yup.string().required('Nominal Dipilih'),
     payment_rate_bebas_pay_desc: Yup.string().required('Deskripsi harus diisi'),
 })
+export const kreditPaymentSchema = Yup.object().shape({
+    kredit_date: Yup.string().required('Harus diisi'),
+    kredit_information: Yup.string().required('Harus diisi'),
+    kredit_desc: Yup.string().required('Harus diisi'),
+    account_cash_account: Yup.string().required('Harus diisi'),
+    account_cost_account: Yup.string().required('Harus diisi'),
+    kredit_value: Yup.string().required('Harus diisi'),
+    kredit_tax: Yup.string().required('Harus diisi'),
+})
+export const debitPaymentSchema = Yup.object().shape({
+    debit_date: Yup.string().required('Harus diisi'),
+    debit_information: Yup.string().required('Harus diisi'),
+    debit_desc: Yup.string().required('Harus diisi'),
+    account_cash_account: Yup.string().required('Harus diisi'),
+    account_cost_account: Yup.string().required('Harus diisi'),
+    debit_value: Yup.string().required('Harus diisi'),
+    debit_tax: Yup.string().required('Harus diisi'),
+})

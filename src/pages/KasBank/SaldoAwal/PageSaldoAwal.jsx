@@ -2,10 +2,15 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import TableSaldoAwal from './component/TableSaldoAwal'
 import SelectUnitKelas from '../../../component/ActionButton/SelectUnitKelas'
 import useRequest from '../../../customHooks/useRequest'
-import { getAllKelas } from '../../../utils/http'
+import {
+    getAllDataSaldoAwal,
+    getAllKelas,
+    getAllUnitByUser,
+} from '../../../utils/http'
 import queryString from 'query-string'
 
 import { useSelector } from 'react-redux'
+import SelectUnit from '../../../component/ActionButton/SelectUnit'
 
 function PageSaldoAwal() {
     // const {
@@ -23,31 +28,40 @@ function PageSaldoAwal() {
     // } = useRequest();
 
     const {
-        data: dataKelas,
-        setData: setDataKelas,
-        getData: getDataKelas,
+        data: dataUnit,
+        setData: setDataUnit,
+        getData: getDataUnit,
+    } = useRequest()
+    const {
+        data: dataSaldo,
+        setData: setDataSaldo,
+        getData: getDataSaldo,
     } = useRequest()
     // const { data: dataProdi, setData: setDataProdi, getData: getDataProdi } = useRequest();
 
     const dataUser = useSelector(({ authState }) => authState.data)
     const [queryFilter, setQueryFilter] = useState({
-        class_id: '',
-        status: '',
-        majors_id: '',
+        unit_id: '',
     })
 
     useEffect(() => {
         // const query = queryString.stringify(queryFilter);
-        getDataKelas(() => getAllKelas(dataUser.token))
+        getDataUnit(() => getAllUnitByUser(dataUser.token))
     }, [])
 
+    useEffect(() => {
+        getDataSaldo(() =>
+            getAllDataSaldoAwal(dataUser.token, {
+                unit_unit_id: queryFilter.unit_id,
+            })
+        )
+    }, [queryFilter.unit_id])
     const onQueryFilterChange = (e) => {
         setQueryFilter((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
         }))
     }
-
     return (
         <div className="page-content">
             <h3>
@@ -56,13 +70,15 @@ function PageSaldoAwal() {
             </h3>
             <div className="table-content">
                 <div style={{ width: '200px' }}>
-                    <SelectUnitKelas
-                        data={dataKelas.data}
-                        onProdiFilterChange={onQueryFilterChange}
-                        value={queryFilter.class_id}
+                    <SelectUnit
+                        data={dataUnit.data}
+                        onFilterChange={onQueryFilterChange}
+                        value={queryFilter.unit_id}
                     />
                 </div>
-                <TableSaldoAwal />
+                {queryFilter.unit_id && (
+                    <TableSaldoAwal data={dataSaldo.data} />
+                )}
             </div>
         </div>
     )

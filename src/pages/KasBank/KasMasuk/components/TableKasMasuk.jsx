@@ -1,73 +1,129 @@
 import React from 'react'
+import { dateConvert, rupiahConvert } from '../../../../utils/helper'
+import { FaPrint, FaRegEdit, FaRegTrashAlt, FaTrash } from 'react-icons/fa'
+import { Button } from 'reactstrap'
 import DataTable from 'react-data-table-component'
-import { kasKeluar } from '../../../../utils/dumyDataTransaksi'
+import { Tooltip } from 'react-tooltip'
 
-function TableKasMasuk() {
+export default function TableKasMasuk({
+    data,
+    onClickDeleteHandler,
+    onCLickEditHandler,
+    subHeaderComponent,
+    resetPaginationToggle,
+    isLoading,
+}) {
+    const renderActionButton = (row) => (
+        <div className="d-flex gap-1">
+            <Button
+                color="warning"
+                size="sm"
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content="Ubah"
+                className="text-white"
+                onClick={() => {
+                    console.log('ubah')
+                    onCLickEditHandler(row)
+                }}
+                id={row.ID}
+            >
+                <FaRegEdit />
+            </Button>
+            <Button
+                variant="info"
+                className="text-white"
+                color="danger"
+                size="sm"
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content="Hapus"
+                onClick={() => {
+                    onClickDeleteHandler(row.debit_id)
+                }}
+                id={row.ID}
+            >
+                <FaRegTrashAlt />
+            </Button>
+            <Button
+                variant="light"
+                className="text-black"
+                color="light"
+                size="sm"
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content="Print"
+                onClick={() => {}}
+                id={row.ID}
+            >
+                <FaPrint />
+            </Button>
+        </div>
+    )
     const columns = [
         {
-            name: 'No',
+            name: 'NO',
             selector: (row, index) => index + 1,
             sortable: true,
-            width: '65px',
+        },
+        {
+            name: 'No. Ref',
+            selector: (row) => row.debit_no_ref,
+            sortable: true,
         },
         {
             name: 'Kas',
-            selector: (row) => row.Kas,
+            selector: (row) => `[${row.account_cash_account_desc}]`,
             sortable: true,
         },
-        {
-            name: 'No.Ref',
-            selector: (row) => row.NoRef,
-            sortable: true,
-        },
-
         {
             name: 'Tanggal',
-            selector: (row) => row.Tanggal,
+            selector: (row) => dateConvert(row?.debit_date),
             sortable: true,
         },
         {
-            name: 'Kode AKun',
-            selector: (row) => row.KodeAkun,
+            name: 'Kode Akun',
+            selector: (row) =>
+                `${row.account_cost_account_code}-${row.account_cost_account_desc}`,
             sortable: true,
         },
         {
             name: 'Keterangan',
-            selector: (row) => row.Keterangan,
+            selector: (row) => row.debit_information,
             sortable: true,
         },
         {
-            name: 'Nominal',
-            selector: (row) => row.Nominal,
+            name: 'Nominal (Rp. )',
+            selector: (row) => `${rupiahConvert(parseInt(row.debit_value))}`,
             sortable: true,
         },
         {
-            name: 'Pajak',
-            selector: (row) => row.Pajak,
+            name: 'Pajak (%)',
+            selector: (row) => `${row.debit_tax}`,
+            sortable: true,
+        },
+        {
+            name: 'Total',
+            selector: (row) => `${rupiahConvert(parseInt(row.debit_value))}`,
             sortable: true,
         },
 
         {
-            name: 'Unit Pos',
-            selector: (row) => row.UnitPos,
-            sortable: true,
-        },
-        {
-            name: 'Total(Rp)',
-            selector: (row) => row.Total,
-            sortable: true,
-        },
-        {
             name: 'Aksi',
-            selector: (row) => row.Kredit,
-            sortable: true,
+            cell: (row) => renderActionButton(row),
+            width: '200px',
         },
     ]
+
     return (
         <div>
-            <DataTable columns={columns} data={kasKeluar} pagination />
+            <DataTable
+                columns={columns}
+                data={data}
+                pagination
+                subHeader
+                subHeaderComponent={subHeaderComponent}
+                paginationResetDefaultPage={resetPaginationToggle}
+                progressPending={isLoading}
+            />
+            <Tooltip id="my-tooltip" />
         </div>
     )
 }
-
-export default TableKasMasuk

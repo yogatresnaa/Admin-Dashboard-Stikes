@@ -13,10 +13,12 @@ import {
     deletePaymentTransactionById,
     getAllAktivaAccountCostPay,
     getAllKelas,
+    getAllReferenceNumber,
     getAllSiswa,
     getAllTahunAjaran,
     getAllUnitByUser,
     getDetailFreePaymentRateByPaymentId,
+    getDokumenKwitansiPembayaran,
     getDokumenRincianPembayaran,
     getDokumenTagihanPembayaran,
     getHistoryPaymentTransactionByStudent,
@@ -54,6 +56,9 @@ import { downloadDocument } from '../../../utils/helper'
 import ButtonWithLoader from '../../../component/ActionButton/ButtonWithLoader'
 import SelectUnit from '../../../component/ActionButton/SelectUnit'
 import { useFetcher } from 'react-router-dom'
+import SelectBulan from '../../../component/ActionButton/SelectBulan'
+import moment from 'moment'
+import SelectDate from '../../../component/ActionButton/SelectDate'
 
 const pembayaranBulananInitialValues = {
     payment_rate_bill: '',
@@ -96,6 +101,11 @@ function PagePembayaranSiswa() {
         data: dataUnit,
         setData: setDataUnit,
         getData: getDataUnit,
+    } = useRequest()
+    const {
+        data: dataReferenceNumber,
+        setData: setDataataReferenceNumber,
+        getData: getDataReferenceNumber,
     } = useRequest()
     const {
         data: dataDetailFreePaymentTransaction,
@@ -162,6 +172,7 @@ function PagePembayaranSiswa() {
     const [dataDetailPembayaran, setDataDetailPembayaran] = useState({})
     const [dataDiscount, setDataDiscount] = useState({})
     const [filterTextModal, setFilterTextModal] = useState('')
+    const [selectedNoReferensi, setSelectNoReferensi] = useState('')
     const {
         data: TahunAjaran,
         setData: setDataTahunAjaran,
@@ -172,7 +183,7 @@ function PagePembayaranSiswa() {
         setData: setDataCode,
         getData: getDataCode,
     } = useRequest()
-
+    const [paymentDate, setPaymentDate] = useState(new Date())
     const {
         data: dataDokumenTagihanPembayaran,
         setData: setDataDokumentagihanPembayaran,
@@ -186,6 +197,18 @@ function PagePembayaranSiswa() {
         getData: getDataDokumenRincianPembayaran,
         setData: setDataDokumenRincianPembayaran,
     } = useRequest(true)
+    const {
+        data: dataKwitansiPembayaran,
+        isLoadingGenerate: isLoadingDokumenKwitansi,
+        getData: getDataKwitansi,
+        setData: setDataKwitansi,
+    } = useRequest(true)
+    // const {
+    //     data: dataDokumenRincianPembayaran,
+    //     isLoadingGenerate: isLoadngDokumenRincianPembayaran,
+    //     getData: getDataDokumenRincianPembayaran,
+    //     setData: setDataDokumenRincianPembayaran,
+    // } = useRequest(true)
 
     //   const onCLickFilterSubmit = () => {
     //   const query = queryString.stringify(queryFilter);
@@ -251,6 +274,15 @@ function PagePembayaranSiswa() {
                 {
                     ref_code: generateNoReferensi(data),
                     student_id: data.student_id,
+                },
+                dataUser.token
+            )
+        )
+        getDataReferenceNumber(() =>
+            getAllReferenceNumber(
+                {
+                    id: data.student_id,
+                    payment_date: moment(paymentDate).format('YYYY-MM-DD'),
                 },
                 dataUser.token
             )
@@ -352,6 +384,15 @@ function PagePembayaranSiswa() {
                 dataUser.token
             )
         )
+        getDataReferenceNumber(() =>
+            getAllReferenceNumber(
+                {
+                    id: dataDetailSiswa.student_id,
+                    payment_date: moment(paymentDate).format('YYYY-MM-DD'),
+                },
+                dataUser.token
+            )
+        )
         getDataTagihan(() =>
             getTagihanPaymentTransactionByStudent(
                 getSiswa.student_id,
@@ -363,7 +404,7 @@ function PagePembayaranSiswa() {
             period: `${tahunAjaranState.period_start}/${tahunAjaranState.period_end}`,
         }))
     }
-
+    console.log(dataDetailSiswa)
     const onChangeKelasHandler = (e) => {
         setKelas(e.target.value)
     }
@@ -587,6 +628,15 @@ function PagePembayaranSiswa() {
                 dataUser.token
             )
         )
+        getDataReferenceNumber(() =>
+            getAllReferenceNumber(
+                {
+                    id: dataDetailSiswa.student_id,
+                    payment_date: moment(paymentDate).format('YYYY-MM-DD'),
+                },
+                dataUser.token
+            )
+        )
     }
     const generateNoReferensi = (data = null) => {
         return `KWT${data.unit_unit_name || dataDetailSiswa.unit_unit_name}${
@@ -616,10 +666,6 @@ function PagePembayaranSiswa() {
                 dataUser.token
             )
         )
-        downloadDocument(
-            dataDokumenTagihanPembayaran.data.data,
-            `Tagihan Bayar ${dataDetailSiswa.student_full_name}.pdf`
-        )
     }
     const onClickCetakRincianPembayaranHandler = async () => {
         console.log(tahunAjaranState)
@@ -627,6 +673,20 @@ function PagePembayaranSiswa() {
             getDokumenRincianPembayaran(
                 dataDetailSiswa.student_id,
                 {
+                    period_start: tahunAjaranState.period_start,
+                    period_end: tahunAjaranState.period_end,
+                },
+                dataUser.token
+            )
+        )
+    }
+
+    const onClickCetakKwitansiHandler = async () => {
+        await getDataKwitansi(() =>
+            getDokumenKwitansiPembayaran(
+                {
+                    student_id: dataDetailSiswa.student_id,
+                    no_referensi: selectedNoReferensi,
                     period_start: tahunAjaranState.period_start,
                     period_end: tahunAjaranState.period_end,
                 },
@@ -642,6 +702,22 @@ function PagePembayaranSiswa() {
             )
         setDataDokumenRincianPembayaran(null)
     }, [dataDokumenRincianPembayaran?.data, dataDetailSiswa])
+    useEffect(() => {
+        if (dataKwitansiPembayaran?.data?.data && dataDetailSiswa)
+            downloadDocument(
+                dataKwitansiPembayaran.data.data,
+                `Kwitansi Bayar ${dataDetailSiswa.student_full_name}-${tahunAjaranState.period_start}/${tahunAjaranState.period_end}.pdf`
+            )
+        setDataKwitansi(null)
+    }, [dataKwitansiPembayaran?.data, dataDetailSiswa])
+    useEffect(() => {
+        if (dataDokumenTagihanPembayaran?.data?.data && dataDetailSiswa)
+            downloadDocument(
+                dataDokumenTagihanPembayaran.data.data,
+                `Tagihan Bayar ${dataDetailSiswa.student_full_name}.pdf`
+            )
+        setDataDokumentagihanPembayaran(null)
+    }, [dataDokumenTagihanPembayaran?.data, dataDetailSiswa])
 
     useEffect(() => {
         const query = queryString.stringify(queryFilter)
@@ -650,6 +726,7 @@ function PagePembayaranSiswa() {
         getDataKelas(() =>
             getAllKelas({ unit_unit_id: queryFilter.unit_id }, dataUser.token)
         )
+
         getDataAkunKas(() =>
             getAllAktivaAccountCostPay(
                 { unit_unit_id: queryFilter.unit_id },
@@ -663,8 +740,11 @@ function PagePembayaranSiswa() {
             async () => {
                 console.log(dataPaymentNotSubmit.data)
                 const formBody = {
+                    total: dataPaymentNotSubmit.data?.total,
                     data_payment: dataPaymentNotSubmit.data?.data_payment.map(
                         (item) => ({
+                            payment_rate_number_pay:
+                                item.payment_rate_number_pay,
                             data_payment: dataPaymentNotSubmit.data,
                             detail_payment_rate_id:
                                 item.payment_rate_bebas_pay_id ||
@@ -674,6 +754,8 @@ function PagePembayaranSiswa() {
                         })
                     ),
                     student_id: dataDetailSiswa.student_id,
+                    period_start: tahunAjaranState.period_start,
+                    period_end: tahunAjaranState.period_end,
                 }
                 await sendDataPaymentTransaction(
                     () => postSubmitPayment(formBody, dataUser.token),
@@ -683,6 +765,24 @@ function PagePembayaranSiswa() {
             null
         )
     }
+    const onDatePaymentChange = (date) => {
+        setPaymentDate(date)
+        getDataReferenceNumber(() =>
+            getAllReferenceNumber(
+                {
+                    id: dataDetailSiswa.student_id,
+                    payment_date: moment(date).format('YYYY-MM-DD'),
+                },
+                dataUser.token
+            )
+        )
+    }
+
+    const onChangeSelectReferensi = (e) => {
+        setSelectNoReferensi(e.target.value)
+    }
+
+    console.log(paymentDate)
     return (
         <div className="page-content">
             <ToastContainer />
@@ -818,7 +918,7 @@ function PagePembayaranSiswa() {
                                                     <div>
                                                         <TransaksiPembayaran
                                                             isLoading={
-                                                                isLoadingDataPaymentNotSubmit
+                                                                isLoadingPaymentTransaction
                                                             }
                                                             data={
                                                                 dataPaymentNotSubmit.data
@@ -858,10 +958,32 @@ function PagePembayaranSiswa() {
                                     <div className="kalkulator">
                                         <div className="bukti-pembayaran">
                                             <h6>Cetak Bukti Pembayaran</h6>
-                                            <NoRefrensi />
+                                            <SelectDate
+                                                date={paymentDate}
+                                                onDateChange={
+                                                    onDatePaymentChange
+                                                }
+                                            />
+                                            <NoRefrensi
+                                                value={selectedNoReferensi}
+                                                onChangeHandler={
+                                                    onChangeSelectReferensi
+                                                }
+                                                data={dataReferenceNumber.data}
+                                                onClickHandler={() => {}}
+                                            />
                                             <CetakButton
                                                 isLoading={
                                                     isLoadngDokumenRincianPembayaran
+                                                }
+                                                isDisabledKwitansi={
+                                                    selectedNoReferensi == ''
+                                                }
+                                                isLoadingKwitansi={
+                                                    isLoadingDokumenKwitansi
+                                                }
+                                                onClickCetakKwitansiHandler={
+                                                    onClickCetakKwitansiHandler
                                                 }
                                                 onClickCetakSemuaHandler={
                                                     onClickCetakRincianPembayaranHandler

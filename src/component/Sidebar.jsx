@@ -96,7 +96,7 @@ function Sidebar() {
 
     return (
         <div className="sidebar-text">
-            <div className="bg text-white min-vh-100 sidebar-wrapper">
+            <div className="min-vh-100 sidebar-wrapper">
                 <div className="brand-name">
                     <div className="brand-name__image-wrapper">
                         <img src={logo} className=" me-1 fs-1" />
@@ -108,7 +108,7 @@ function Sidebar() {
                     <hr className="text-white d-none d-sm-block"></hr>
                     <ul className="nav nav-pills flex" id="parentM">
                         <Link className="link" to="/admin">
-                            <li className="nav-item nav-link text-black  my-1">
+                            <li className="nav-item nav-link   my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
                                 >
@@ -116,8 +116,8 @@ function Sidebar() {
                                         style={{
                                             width: '30px',
                                             height: '30px',
-                                            background: '#E0F4FF',
                                             padding: '3px',
+                                            color: '#5B5DEE',
                                             boxShadow:
                                                 'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px',
                                         }}
@@ -131,7 +131,7 @@ function Sidebar() {
                         <li className="nav-item my-2" onClick={toggleNav}>
                             <a
                                 href="#submenu"
-                                className="nav-link text-black"
+                                className="nav-link "
                                 data-bs-toggle="collapse"
                                 aria-current="page"
                             >
@@ -142,7 +142,7 @@ function Sidebar() {
                                         style={{
                                             width: '30px',
                                             height: '30px',
-                                            background: '#E0F4FF',
+                                            color: '#5B5DEE',
                                             padding: '3px',
                                             borderradius: '50x',
                                             boxShadow:
@@ -176,7 +176,7 @@ function Sidebar() {
                                     >
                                         <li
                                             className="nav-item nav-link  m-1"
-                                            style={{ color: '#DC84F3' }}
+                                            style={{ color: '#5B5DEE' }}
                                         >
                                             <FaCircleMinus /> {item.name}
                                         </li>
@@ -191,7 +191,7 @@ function Sidebar() {
                         >
                             <a
                                 href="#submenu1"
-                                className="nav-link text-black"
+                                className="nav-link "
                                 data-bs-toggle="collapse"
                                 aria-current="page"
                             >
@@ -202,7 +202,7 @@ function Sidebar() {
                                         style={{
                                             width: '30px',
                                             height: '30px',
-                                            background: '#E0F4FF',
+                                            color: '#5B5DEE',
                                             padding: '3px',
                                             boxShadow:
                                                 'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px',
@@ -210,9 +210,7 @@ function Sidebar() {
                                     />
                                 </IconContext.Provider>
 
-                                <span className="ms-2 text-black">
-                                    Akademik
-                                </span>
+                                <span className="ms-2 ">Akademik</span>
                                 <Navbar.Toggle
                                     aria-controls="responsive-navbar-nav"
                                     className="ms-2"
@@ -225,7 +223,7 @@ function Sidebar() {
                                 </Navbar.Toggle>
                             </a>
                             <ul
-                                className="nav collapse ms-2 flex-column justify-content-end column-wrapper bg-ul "
+                                className="nav collapse ms-2 flex-column justify-content-end column-wrapper bg-ul"
                                 id="submenu1"
                                 data-bs-parent="#parentM"
                             >
@@ -235,9 +233,10 @@ function Sidebar() {
                                 >
                                     <li
                                         className="nav-item nav-link  m-1"
-                                        style={{ color: '#DC84F3' }}
+                                        style={{ color: '#5B5DEE' }}
                                     >
-                                        <FaCircleMinus /> Tahun Ajaran
+                                        <FaCircleMinus color="#5B5DEE" /> Tahun
+                                        Ajaran
                                     </li>
                                 </Link>
                                 <Link
@@ -246,9 +245,10 @@ function Sidebar() {
                                 >
                                     <li
                                         className="nav-item nav-link m-1"
-                                        style={{ color: '#DC84F3' }}
+                                        style={{ color: '#5B5DEE' }}
                                     >
-                                        <FaCircleMinus /> Kelulusan
+                                        <FaCircleMinus color="#5B5DEE" />{' '}
+                                        Kelulusan
                                     </li>
                                 </Link>
 
@@ -258,9 +258,9 @@ function Sidebar() {
                                 >
                                     <li
                                         className="nav-item nav-link m-1"
-                                        style={{ color: '#DC84F3' }}
+                                        style={{ color: '#5B5DEE' }}
                                     >
-                                        <FaCircleMinus /> Alumni
+                                        <FaCircleMinus color="#5B5DEE" /> Alumni
                                     </li>
                                 </Link>
                             </ul>
@@ -269,7 +269,7 @@ function Sidebar() {
                         <li className="nav-item text-white my-1">
                             <a
                                 href="#submenu3"
-                                className="nav-link text-black"
+                                className="nav-link "
                                 onClick={toggleNav3}
                                 data-bs-toggle="collapse"
                                 aria-current="page"
@@ -281,7 +281,7 @@ function Sidebar() {
                                         style={{
                                             width: '30px',
                                             height: '30px',
-                                            background: '#E0F4FF',
+                                            color: '#5B5DEE',
                                             padding: '3px',
                                             borderradius: '50x',
                                             boxShadow:
@@ -290,9 +290,7 @@ function Sidebar() {
                                     />
                                 </IconContext.Provider>
 
-                                <span className="ms-2 text-black">
-                                    Keuangan
-                                </span>
+                                <span className="ms-2 ">Keuangan</span>
                                 <Navbar.Toggle
                                     aria-controls="responsive-navbar-nav"
                                     className="ms-2"
@@ -305,7 +303,7 @@ function Sidebar() {
                                 </Navbar.Toggle>
                             </a>
                             <ul
-                                className="nav collapse ms-2  flex-column justify-content-end  column-wrapper  "
+                                className="nav collapse ms-2  flex-column justify-content-end  column-wrapper bg-ul "
                                 id="submenu3"
                                 data-bs-parent="#parentM"
                             >
@@ -315,9 +313,10 @@ function Sidebar() {
                                 >
                                     <li
                                         className="nav-item nav-link  m-1"
-                                        style={{ color: '#DC84F3' }}
+                                        style={{ color: '#5B5DEE' }}
                                     >
-                                        <FaCircleMinus /> Pembayaran Siswa
+                                        <FaCircleMinus color="#5B5DEE" />{' '}
+                                        Pembayaran Siswa
                                     </li>
                                 </Link>
                                 <li className="nav-item m-1">
@@ -328,7 +327,7 @@ function Sidebar() {
                                         onClick={toggleNav4}
                                         data-bs-toggle="collapse"
                                         aria-current="page"
-                                        style={{ color: '#DC84F3' }}
+                                        style={{ color: '#5B5DEE' }}
                                     >
                                         Seting Pembayaran
                                         <Navbar.Toggle
@@ -343,7 +342,7 @@ function Sidebar() {
                                         </Navbar.Toggle>
                                     </a>
                                     <ul
-                                        className="nav collapse multi-collapse ms-2 flex-column justify-content-end column-wrapper bg-ul "
+                                        className="nav collapse multi-collapse ms-2 flex-column justify-content-end column-wrapper bg-ul"
                                         id="submenu4"
                                         data-bs-parent="#submenu5"
                                     >
@@ -353,7 +352,7 @@ function Sidebar() {
                                         >
                                             <li
                                                 className="nav-item nav-link  m-1"
-                                                style={{ color: '#DC84F3' }}
+                                                style={{ color: '#5B5DEE' }}
                                             >
                                                 <FaCircleMinus /> Akun Biaya
                                             </li>
@@ -364,7 +363,7 @@ function Sidebar() {
                                         >
                                             <li
                                                 className="nav-item nav-link m-1"
-                                                style={{ color: '#DC84F3' }}
+                                                style={{ color: '#5B5DEE' }}
                                             >
                                                 <FaCircleMinus /> Pos Bayar
                                             </li>
@@ -376,7 +375,7 @@ function Sidebar() {
                                         >
                                             <li
                                                 className="nav-item nav-link m-1"
-                                                style={{ color: '#DC84F3' }}
+                                                style={{ color: '#5B5DEE' }}
                                             >
                                                 <FaCircleMinus /> Jenis Bayar
                                             </li>
@@ -387,7 +386,7 @@ function Sidebar() {
                                         >
                                             <li
                                                 className="nav-item nav-link m-1"
-                                                style={{ color: '#DC84F3' }}
+                                                style={{ color: '#5B5DEE' }}
                                             >
                                                 <FaCircleMinus /> Kirim Tagihan
                                             </li>
@@ -400,7 +399,7 @@ function Sidebar() {
                         <li className="nav-item text-white my-2">
                             <a
                                 href="#submenu6"
-                                className="nav-link text-black"
+                                className="nav-link "
                                 onClick={toggleNav5}
                                 data-bs-toggle="collapse"
                                 aria-current="page"
@@ -412,7 +411,7 @@ function Sidebar() {
                                         style={{
                                             width: '30px',
                                             height: '30px',
-                                            background: '#E0F4FF',
+                                            color: '#5B5DEE',
                                             padding: '3px',
                                             borderradius: '50x',
                                             boxShadow:
@@ -421,9 +420,7 @@ function Sidebar() {
                                     />
                                 </IconContext.Provider>
 
-                                <span className="ms-2 text-black">
-                                    Kas Bank&nbsp;
-                                </span>
+                                <span className="ms-2 ">Kas Bank&nbsp;</span>
                                 <Navbar.Toggle
                                     aria-controls="responsive-navbar-nav"
                                     className="ms-2"
@@ -446,7 +443,7 @@ function Sidebar() {
                                 >
                                     <li
                                         className="nav-item nav-link m-1"
-                                        style={{ color: '#DC84F3' }}
+                                        style={{ color: '#5B5DEE' }}
                                     >
                                         <FaCircleMinus /> Saldo Awal
                                     </li>
@@ -457,7 +454,7 @@ function Sidebar() {
                                 >
                                     <li
                                         className="nav-item nav-link m-1"
-                                        style={{ color: '#DC84F3' }}
+                                        style={{ color: '#5B5DEE' }}
                                     >
                                         <FaCircleMinus /> Kas Keluar
                                     </li>
@@ -469,7 +466,7 @@ function Sidebar() {
                                 >
                                     <li
                                         className="nav-item nav-link m-1"
-                                        style={{ color: '#DC84F3' }}
+                                        style={{ color: '#5B5DEE' }}
                                     >
                                         <FaCircleMinus /> Kas Masuk
                                     </li>
@@ -480,7 +477,7 @@ function Sidebar() {
                         <li className="nav-item text-white my-1">
                             <a
                                 href="#submenu7"
-                                className="nav-link text-black"
+                                className="nav-link "
                                 onClick={toggleNav6}
                                 data-bs-toggle="collapse"
                                 aria-current="page"
@@ -492,7 +489,7 @@ function Sidebar() {
                                         style={{
                                             width: '30px',
                                             height: '30px',
-                                            background: '#E0F4FF',
+                                            color: '#5B5DEE',
                                             padding: '3px',
                                             borderradius: '50x',
                                             boxShadow:
@@ -501,9 +498,7 @@ function Sidebar() {
                                     />
                                 </IconContext.Provider>
 
-                                <span className="ms-2 text-black">
-                                    Laporan &nbsp;
-                                </span>
+                                <span className="ms-2 ">Laporan &nbsp;</span>
                                 <Navbar.Toggle
                                     aria-controls="responsive-navbar-nav"
                                     className="ms-2"
@@ -516,7 +511,7 @@ function Sidebar() {
                                 </Navbar.Toggle>
                             </a>
                             <ul
-                                className="nav collapse ms-2  flex-column justify-content-end  column-wrapper "
+                                className="nav collapse ms-2  flex-column justify-content-end  column-wrapper bg-ul "
                                 id="submenu7"
                                 data-bs-parent="#parentM"
                             >
@@ -528,7 +523,7 @@ function Sidebar() {
                                         onClick={toggleNav7}
                                         data-bs-toggle="collapse"
                                         aria-current="page"
-                                        style={{ color: '#DC84F3' }}
+                                        style={{ color: '#5B5DEE' }}
                                     >
                                         Laporan Pembayaran
                                         <Navbar.Toggle
@@ -554,7 +549,7 @@ function Sidebar() {
                                         >
                                             <li
                                                 className="nav-item nav-link m-1"
-                                                style={{ color: '#DC84F3' }}
+                                                style={{ color: '#5B5DEE' }}
                                             >
                                                 <FaCircleMinus /> Per.Kelas
                                             </li>
@@ -565,7 +560,7 @@ function Sidebar() {
                                         >
                                             <li
                                                 className="nav-item nav-link m-1"
-                                                style={{ color: '#DC84F3' }}
+                                                style={{ color: '#5B5DEE' }}
                                             >
                                                 <FaCircleMinus /> Per.Tanggal
                                             </li>
@@ -577,7 +572,7 @@ function Sidebar() {
                                         >
                                             <li
                                                 className="nav-item nav-link m-1"
-                                                style={{ color: '#DC84F3' }}
+                                                style={{ color: '#5B5DEE' }}
                                             >
                                                 <FaCircleMinus /> Tagihan
                                                 Mahasiswa
@@ -590,7 +585,7 @@ function Sidebar() {
                                         >
                                             <li
                                                 className="nav-item nav-link m-1"
-                                                style={{ color: '#DC84F3' }}
+                                                style={{ color: '#5B5DEE' }}
                                             >
                                                 <FaCircleMinus /> Rekap
                                                 Pembayaran
@@ -607,7 +602,7 @@ function Sidebar() {
                                         onClick={toggleNav8}
                                         data-bs-toggle="collapse"
                                         aria-current="page"
-                                        style={{ color: '#DC84F3' }}
+                                        style={{ color: '#5B5DEE' }}
                                     >
                                         Laporan Keuangan
                                         <Navbar.Toggle
@@ -633,7 +628,7 @@ function Sidebar() {
                                         >
                                             <li
                                                 className="nav-item nav-link m-1"
-                                                style={{ color: '#DC84F3' }}
+                                                style={{ color: '#5B5DEE' }}
                                             >
                                                 <FaCircleMinus />
                                                 Jurnal Umum
@@ -645,7 +640,7 @@ function Sidebar() {
                                         >
                                             <li
                                                 className="nav-item nav-link m-1"
-                                                style={{ color: '#DC84F3' }}
+                                                style={{ color: '#5B5DEE' }}
                                             >
                                                 <FaCircleMinus /> Lap. Kas tunai
                                             </li>

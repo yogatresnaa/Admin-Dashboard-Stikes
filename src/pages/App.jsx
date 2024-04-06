@@ -1,7 +1,8 @@
-import React, { lazy, Suspense } from 'react'
-import { Routes, Route } from 'react-router-dom'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { lazy, Suspense, useEffect, useReducer } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 
-import { Provider } from 'react-redux'
+import { Provider, useDispatch, useSelector } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from '../redux/store'
 import 'react-toastify/dist/ReactToastify.css'
@@ -26,6 +27,9 @@ const PageSaldoAwal = lazy(() => import('./KasBank/SaldoAwal/PageSaldoAwal'))
 const PageKasKeluar = lazy(() => import('./KasBank/KasKeluar/PageKasKeluar'))
 
 const PageKasMasuk = lazy(() => import('./KasBank/KasMasuk/PageKasMasuk'))
+
+const DokumenTagihan = lazy(() => import('./Dokumen/TagihanPembayaran'))
+const DokumenPembayaran = lazy(() => import('./Dokumen/BuktiPembayaran'))
 
 const PageKirimTagihan = lazy(
     () => import('./KasBank/KirimTagihan/PageKirimTagihan')
@@ -68,6 +72,16 @@ const PageEditTarifTagihan = lazy(
             './Keuangan/JenisBayar/TarifTagihan/ManageTarifTagihan/EditTarifTagihan/PageEditTarifTagihan'
         )
 )
+const PageTambahKasKeluar = lazy(
+    () => import('./KasBank/KasKeluar/TambahKasKeluar')
+)
+const PageEditKasKeluar = lazy(
+    () => import('./KasBank/KasKeluar/EditKasKeluar')
+)
+const PageTambahKasMasuk = lazy(
+    () => import('./KasBank/KasMasuk/TambahKasMasuk')
+)
+const PageEditKasMasuk = lazy(() => import('./KasBank/KasMasuk/EditKasMasuk'))
 
 // Laporan
 
@@ -81,133 +95,231 @@ import PageKasTunai from './Laporan/LaporanKeuangan/LaporanKasTunai/PageKasTunai
 
 import PreLoader from '../component/Loader/PreLoader'
 import LoadingProvider from '../context/LoadingContext'
+import TagihanPembayaran from './Dokumen/TagihanPembayaran'
+import { checkAuthActionCreator } from '../redux/actions/authAction'
+import EditKasMasuk from './KasBank/KasMasuk/EditKasMasuk'
+
+const RouteWithAuth = ({ element: Component, ...rest }) => {
+    const dataUser = useSelector(({ authState }) => authState)
+    const location = useLocation()
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(checkAuthActionCreator(dataUser.data.token))
+    }, [location.pathname])
+    return <Component {...rest} />
+}
 function AppRoutes() {
     return (
         <Suspense fallback={<PreLoader />}>
-            <Provider store={store}>
-                <LoadingProvider>
-                    <PersistGate loading={null} persistor={persistor}>
-                        <Routes>
-                            <Route path="/" element={<MainPage />} />
-                            <Route path="/login" element={<LoginPage />} />
-                            <Route path="/admin" element={<Homepage />}>
-                                <Route path="kelas" element={<PageKelas />} />
-                                <Route
-                                    path="dashboard"
-                                    element={<PageKelas />}
-                                />
-                                <Route path="siswa" element={<PageSiswa />} />
-                                <Route path="alumni" element={<PageAlumni />} />
-                                <Route
-                                    path="kelulusan"
-                                    element={<PageKelulusan />}
-                                />
-                                <Route
-                                    path="program-studi"
-                                    element={<PageProgramStudi />}
-                                />
-                                <Route
-                                    path="tahun-ajaran"
-                                    element={<PageTahunAjaran />}
-                                />
-                                <Route
-                                    path="pembayaran-siswa"
-                                    element={<PagePembayaranSiswa />}
-                                />
+            <LoadingProvider>
+                <PersistGate loading={null} persistor={persistor}>
+                    <Routes>
+                        <Route path="/" element={<MainPage />} />
+                        <Route
+                            path="/tagihan"
+                            element={<TagihanPembayaran />}
+                        />
+                        <Route path="/tagihan" element={<DokumenTagihan />} />
+                        <Route
+                            path="/pembayaran"
+                            element={<DokumenPembayaran />}
+                        />
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/admin" element={<Homepage />}>
+                            <Route
+                                path="kelas"
+                                element={<RouteWithAuth element={PageKelas} />}
+                            />
+                            <Route
+                                path="dashboard"
+                                element={<RouteWithAuth element={PageKelas} />}
+                            />
+                            <Route
+                                path="siswa"
+                                element={<RouteWithAuth element={PageSiswa} />}
+                            />
+                            <Route
+                                path="alumni"
+                                element={<RouteWithAuth element={PageAlumni} />}
+                            />
+                            <Route
+                                path="kelulusan"
+                                element={
+                                    <RouteWithAuth element={PageKelulusan} />
+                                }
+                            />
+                            <Route
+                                path="program-studi"
+                                element={
+                                    <RouteWithAuth element={PageProgramStudi} />
+                                }
+                            />
+                            <Route
+                                path="tahun-ajaran"
+                                element={
+                                    <RouteWithAuth element={PageTahunAjaran} />
+                                }
+                            />
+                            <Route
+                                path="pembayaran-siswa"
+                                element={
+                                    <RouteWithAuth
+                                        element={PagePembayaranSiswa}
+                                    />
+                                }
+                            />
 
-                                <Route
-                                    path="pos-bayar"
-                                    element={<PagePosBayar />}
-                                />
-                                <Route
-                                    path="jenis-bayar"
-                                    element={<PageJenisBayar />}
-                                />
-                                <Route
-                                    path="akun-biaya"
-                                    element={<PageAkunBiaya />}
-                                />
-                                <Route
-                                    path="tarif-tagihan/:id"
-                                    element={<PageTarifTagihan />}
-                                />
-                                <Route
-                                    path="tarif-tagihan/:id/tambah"
-                                    element={<PageAddTarifTagihan />}
-                                />
-                                <Route
-                                    path="tarif-tagihan/:id/edit"
-                                    element={<PageEditTarifTagihan />}
-                                />
+                            <Route
+                                path="pos-bayar"
+                                element={
+                                    <RouteWithAuth element={PagePosBayar} />
+                                }
+                            />
+                            <Route
+                                path="jenis-bayar"
+                                element={
+                                    <RouteWithAuth element={PageJenisBayar} />
+                                }
+                            />
+                            <Route
+                                path="akun-biaya"
+                                element={
+                                    <RouteWithAuth element={PageAkunBiaya} />
+                                }
+                            />
+                            <Route
+                                path="tarif-tagihan/:id"
+                                element={
+                                    <PageTarifTagihan element={PageKelas} />
+                                }
+                            />
+                            <Route
+                                path="tarif-tagihan/:id/tambah"
+                                element={
+                                    <RouteWithAuth
+                                        element={PageAddTarifTagihan}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="tarif-tagihan/:id/edit"
+                                element={
+                                    <RouteWithAuth
+                                        element={PageEditTarifTagihan}
+                                    />
+                                }
+                            />
 
-                                <Route
-                                    path="laporan-pembayaran/kelas"
-                                    element={<PageLaporanPembayaranKelas />}
-                                />
+                            <Route
+                                path="laporan-pembayaran/kelas"
+                                element={PageLaporanPembayaranKelas}
+                            />
 
-                                <Route
-                                    path="laporan-pembayaran/tanggal"
-                                    element={<PageLaporanPembayaranTanggal />}
-                                />
+                            <Route
+                                path="laporan-pembayaran/tanggal"
+                                element={
+                                    <RouteWithAuth
+                                        element={PageLaporanPembayaranTanggal}
+                                    />
+                                }
+                            />
 
-                                <Route
-                                    path="laporan-pembayaran/tagihan-siswa"
-                                    element={<PageTagihanSiswa />}
-                                />
+                            <Route
+                                path="laporan-pembayaran/tagihan-siswa"
+                                element={
+                                    <RouteWithAuth element={PageTagihanSiswa} />
+                                }
+                            />
 
-                                <Route
-                                    path="lap-jurnal-umum"
-                                    element={<JurnalUmum />}
-                                ></Route>
+                            <Route
+                                path="laporan-pembayaran/rekap-pembayarn"
+                                element={
+                                    <RouteWithAuth
+                                        element={PageRekapPembayaran}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="not-found"
+                                element={<PageNotFound />}
+                            />
+                            <Route
+                                path="akun-biaya"
+                                element={
+                                    <RouteWithAuth element={PageAkunBiaya} />
+                                }
+                            />
+                            <Route
+                                path="pos-bayar"
+                                element={
+                                    <RouteWithAuth element={PagePosBayar} />
+                                }
+                            />
+                            <Route
+                                path="saldo-awal"
+                                element={
+                                    <RouteWithAuth element={PageSaldoAwal} />
+                                }
+                            />
+                            <Route
+                                path="kas-keluar"
+                                element={
+                                    <RouteWithAuth element={PageKasKeluar} />
+                                }
+                            />
+                            <Route
+                                path="kas-keluar/tambah"
+                                element={
+                                    <RouteWithAuth
+                                        element={PageTambahKasKeluar}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="kas-keluar/edit/:id"
+                                element={
+                                    <RouteWithAuth
+                                        element={PageEditKasKeluar}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="kas-masuk"
+                                element={
+                                    <RouteWithAuth element={PageKasMasuk} />
+                                }
+                            />
+                            <Route
+                                path="kas-masuk/tambah"
+                                element={
+                                    <RouteWithAuth
+                                        element={PageTambahKasMasuk}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="kas-masuk/edit/:id"
+                                element={
+                                    <RouteWithAuth element={EditKasMasuk} />
+                                }
+                            />
+                            <Route
+                                path="kirim-tagihan"
+                                element={
+                                    <RouteWithAuth element={PageKirimTagihan} />
+                                }
+                            />
 
-                                <Route
-                                    path="lap-kas-bank"
-                                    element={<PageKasBank />}
-                                ></Route>
-
-                                <Route
-                                    path="lap-kas-tunai"
-                                    element={<PageKasTunai />}
-                                ></Route>
-
-                                <Route
-                                    path="laporan-pembayaran/rekap-pembayarn"
-                                    element={<PageRekapPembayaran />}
-                                />
-                                <Route
-                                    path="not-found"
-                                    element={<PageNotFound />}
-                                />
-                                <Route
-                                    path="akun-biaya"
-                                    element={<PageAkunBiaya />}
-                                />
-                                <Route
-                                    path="pos-bayar"
-                                    element={<PagePosBayar />}
-                                />
-                                <Route
-                                    path="saldo-awal"
-                                    element={<PageSaldoAwal />}
-                                />
-                                <Route
-                                    path="kas-keluar"
-                                    element={<PageKasKeluar />}
-                                />
-                                <Route
-                                    path="kas-masuk"
-                                    element={<PageKasMasuk />}
-                                />
-                                <Route
-                                    path="kirim-tagihan"
-                                    element={<PageKirimTagihan />}
-                                />
-                                <Route path="" element={<PageDashboard />} />
-                            </Route>
-                        </Routes>
-                    </PersistGate>
-                </LoadingProvider>
-            </Provider>
+                            <Route
+                                path=""
+                                element={
+                                    <RouteWithAuth element={PageDashboard} />
+                                }
+                            />
+                        </Route>
+                    </Routes>
+                </PersistGate>
+            </LoadingProvider>
         </Suspense>
     )
 }

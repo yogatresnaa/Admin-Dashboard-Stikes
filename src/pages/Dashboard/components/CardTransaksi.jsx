@@ -5,10 +5,13 @@ function CardTransaksi({ title, toDay, thisMonth, thisYear, color, icon }) {
 
     return (
         <div
-            className="transaksi-item d-flex align-items-center gap-2"
-            style={{ borderLeft: `5px solid ${color}` }}
+            className="transaksi-item d-flex align-items-center gap-3"
+            style={{
+                borderLeft: `5px solid white`,
+                backgroundColor: `${color}`,
+            }}
         >
-            {icon}
+            <div className="flex-1">{icon}</div>
             <div className="transaksi-item__text w-100">
                 <h3 className="transaksi-item__title-transaksi">{title}</h3>
                 <div className="justify-content-center align-items-center">

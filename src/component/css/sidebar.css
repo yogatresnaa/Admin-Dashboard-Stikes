@@ -2,8 +2,9 @@
     background-color: white !important;
 }
 
-.nav-item {
+.sidebar .nav-item {
     cursor: pointer;
+    width: 100%;
 }
 
 .column-wrapper {
@@ -12,6 +13,7 @@
 
 .link {
     text-decoration: none;
+    width: 100%;
 }
 
 .color:hover {
@@ -25,10 +27,16 @@
 }
 
 .sidebar-wrapper {
-    background-color: aquamarine;
+    background-color: var(--dark-bg);
     height: 100px;
     z-index: 20;
     overflow-y: hidden;
+}
+.sidebar-wrapper p,
+.sidebar-wrapper span,
+.sidebar-wrapper a {
+    color: var(--light-bg);
+    font-size: 0.7rem;
 }
 
 .sidebar-wrapper::-webkit-scrollbar {
@@ -38,7 +46,6 @@
 .brand-name {
     display: flex;
     justify-content: center;
-
     align-items: center;
 }
 

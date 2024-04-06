@@ -22,6 +22,10 @@
 
 :root {
     --main: #39b699;
+    --dark-bg: #191d28;
+    --dark-content: #232b3e;
+    --light-bg: white;
+    --light-content: white;
 }
 
 * {
@@ -42,11 +46,10 @@
 }
 .sidebar {
     min-width: 210px;
-    background: white;
     width: 100%;
     box-shadow:
-        rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+        rgba(0, 0, 0, 0.16) 0px 3px 6px,
+        rgba(0, 0, 0, 0.23) 0px 3px 6px;
     z-index: 3;
     max-width: 220px;
     position: relative;
@@ -60,9 +63,11 @@
     font-size: 0.8rem;
 }
 .list-group.list-group-flush {
-    height: 80vh;
+    height: 80%;
+
     overflow-y: scroll;
 }
+
 ::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 7px;
@@ -103,4 +108,15 @@
 
 .flex-auto {
     flex: auto;
+}
+.react-datepicker-wrapper {
+    width: 100%;
+}
+.react-datepicker__input-container > input {
+    border: 0.5px solid gray;
+    padding: 0.3rem 0.2rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 0.8rem;
 }

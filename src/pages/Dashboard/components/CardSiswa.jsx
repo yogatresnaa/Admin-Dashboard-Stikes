@@ -5,21 +5,25 @@ function Cardsiswa({ title, data, color, icon }) {
 
     return (
         <div
-            className="transaksi-item d-flex align-items-center gap-2"
-            style={{ borderLeft: `5px solid ${color}` }}
+            className="transaksi-item d-flex flex-column align-items-center "
+            style={{ borderLeft: `5px solid white `, background: `${color}` }}
         >
-            {icon}
-            <div className="transaksi-item__text w-100">
-                <h3 className="transaksi-item__title-transaksi">{title}</h3>
-                <div className="justify-content-center align-items-center flex-1">
-                    <p className="transaksi-item__today">
-                        <span
-                            className="transaksi-item__value"
-                            style={{ fontSize: '1.2rem' }}
-                        >
-                            {data}
-                        </span>
-                    </p>
+            <div className=" d-flex flex-row justify-content-between align-items-center m-0 flex-1 w-100">
+                <div className="flex-1">{icon}</div>
+                <div className="transaksi-item__text w-100">
+                    <div className="justify-content-center align-items-center flex-1 d-flex flex-column">
+                        <h3 className="transaksi-item__title-transaksi">
+                            {title}
+                        </h3>
+                        <p className="transaksi-item__today text-center">
+                            <span
+                                className="transaksi-item__value"
+                                style={{ fontSize: '1.2rem' }}
+                            >
+                                {data}
+                            </span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

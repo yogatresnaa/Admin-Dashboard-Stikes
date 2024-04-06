@@ -2,12 +2,14 @@ import React from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { FaSearch } from 'react-icons/fa'
+import EachUnit from './EachUnit'
 
 function SelectUnit({
     data,
     onFilterChange,
     value,
     name = null,
+    disabled = false,
     firstValue = null,
     style,
     includeAll = true,
@@ -18,6 +20,7 @@ function SelectUnit({
             <Form.Select
                 id={name}
                 size="sm"
+                disabled={disabled}
                 onChange={onFilterChange}
                 value={value}
                 name={name || 'unit_id'}
@@ -29,12 +32,22 @@ function SelectUnit({
                 ) : (
                     <option value="">{firstValue ? firstValue : '-'}</option>
                 )}
-                {data.length > 0 &&
+                {/* {data.length > 0 &&
                     data.map((item, index) => (
                         <option value={item.unit_id} key={index}>
                             {item.unit_name}
                         </option>
-                    ))}
+                    ))} */}
+                {data.length > 0 && (
+                    <EachUnit
+                        items={data}
+                        render={(item, index) => (
+                            <option value={item.unit_id} key={index}>
+                                {item.unit_name}
+                            </option>
+                        )}
+                    />
+                )}
             </Form.Select>
         </div>
     )

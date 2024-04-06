@@ -60,7 +60,9 @@ function Header({ dispatch, dataUser }) {
                         <img src={logo} alt="" />
                         <p className="text-nama">{dataUser.user_full_name}</p>
                         <p className="text-role">
-                            {dataUser.user_description.toString().toUpperCase()}
+                            {dataUser?.user_description
+                                ?.toString()
+                                .toUpperCase()}
                         </p>
                         <p className="text-email">{dataUser.user_email}</p>
                     </div>
@@ -71,6 +73,7 @@ function Header({ dispatch, dataUser }) {
                         <Button
                             variant="dark"
                             size="sm"
+                            style={{ background: 'white', color: 'black' }}
                             onClick={onClickLogoutHandler}
                         >
                             {' '}
