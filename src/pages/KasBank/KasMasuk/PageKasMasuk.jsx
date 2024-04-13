@@ -7,6 +7,7 @@ import {
     getAllDebitSubmitted,
     getAllKreditSubmitted,
     getAllUnitByUser,
+    getDokumenDebit,
 } from '../../../utils/http'
 import AddAction from '../../../component/ActionButton/AcctionAddButoon'
 import queryString from 'query-string'
@@ -19,6 +20,7 @@ import { alertType } from '../../../utils/CONSTANT'
 import SelectUnit from '../../../component/ActionButton/SelectUnit'
 import useTable from '../../../customHooks/useTable'
 import SearchInput from '../../../component/ActionButton/SearchInput'
+import { downloadDocument } from '../../../utils/helper'
 
 function PageKasMasuk() {
     const navigate = useNavigate()
@@ -42,6 +44,12 @@ function PageKasMasuk() {
         isEdit,
         setIsEdit,
     } = useTable()
+    const {
+        data: dataDokumen,
+        getData: getDataDokumen,
+        setData: setDataDokumen,
+        isLoading: isLoadingDataDokumen,
+    } = useRequest()
 
     // const { data: dataProdi, setData: setDataProdi, getData: getDataProdi } = useRequest();
 
@@ -105,7 +113,15 @@ function PageKasMasuk() {
         })
     }
 
-    dataKasMasuk
+    const onClickPrintHandler = async (id) => {
+        await getDataDokumen(() => getDokumenDebit(id, dataUser.token))
+    }
+
+    useEffect(() => {
+        if (dataDokumen?.data?.data)
+            downloadDocument(dataDokumen.data.data, `kas masuk`)
+        setDataDokumen(null)
+    }, [dataDokumen?.data])
     return (
         <div className="page-content">
             <ToastContainer />
@@ -129,6 +145,7 @@ function PageKasMasuk() {
                     isLoading={isLoadingKasMasuk}
                     subHeaderComponent={subHeaderComponent}
                     onCLickEditHandler={onCLickEditHandler}
+                    onClickPrintHandler={onClickPrintHandler}
                     onClickDeleteHandler={onClickDeleteHandler}
                 />
             </div>
