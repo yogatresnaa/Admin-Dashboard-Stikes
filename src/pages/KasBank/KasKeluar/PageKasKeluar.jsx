@@ -6,6 +6,8 @@ import {
     deleteKredit,
     getAllKreditSubmitted,
     getAllUnitByUser,
+    getDokumenKredit,
+    getDokumenRincianPembayaran,
 } from '../../../utils/http'
 import AddAction from '../../../component/ActionButton/AcctionAddButoon'
 import queryString from 'query-string'
@@ -18,6 +20,7 @@ import { alertType } from '../../../utils/CONSTANT'
 import SelectUnit from '../../../component/ActionButton/SelectUnit'
 import useTable from '../../../customHooks/useTable'
 import SearchInput from '../../../component/ActionButton/SearchInput'
+import { downloadDocument } from '../../../utils/helper'
 
 function PageKasKeluar() {
     const navigate = useNavigate()
@@ -31,6 +34,12 @@ function PageKasKeluar() {
         isLoading: isLoadingKasKeluar,
     } = useRequest()
     const { data: dataUnit, getData: getDataUnit } = useRequest()
+    const {
+        data: dataDokumen,
+        getData: getDataDokumen,
+        setData: setDataDokumen,
+        isLoading: isLoadingDataDokumen,
+    } = useRequest()
 
     const {
         resetPaginationToggle,
@@ -103,6 +112,15 @@ function PageKasKeluar() {
             },
         })
     }
+    const onClickPrintHandler = async (id) => {
+        await getDataDokumen(() => getDokumenKredit(id, dataUser.token))
+    }
+
+    useEffect(() => {
+        if (dataDokumen?.data?.data)
+            downloadDocument(dataDokumen.data.data, `kas keluar`)
+        setDataDokumen(null)
+    }, [dataDokumen?.data])
     return (
         <div className="page-content">
             <ToastContainer />
@@ -125,6 +143,7 @@ function PageKasKeluar() {
                     resetPaginationToggle={resetPaginationToggle}
                     isLoading={isLoadingKasKeluar}
                     subHeaderComponent={subHeaderComponent}
+                    onClickPrintHandler={onClickPrintHandler}
                     onCLickEditHandler={onCLickEditHandler}
                     onClickDeleteHandler={onClickDeleteHandler}
                 />

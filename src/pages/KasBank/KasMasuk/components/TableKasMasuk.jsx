@@ -12,6 +12,7 @@ export default function TableKasMasuk({
     subHeaderComponent,
     resetPaginationToggle,
     isLoading,
+    onClickPrintHandler,
 }) {
     const renderActionButton = (row) => (
         <div className="d-flex gap-1">
@@ -50,7 +51,7 @@ export default function TableKasMasuk({
                 size="sm"
                 data-tooltip-id="my-tooltip"
                 data-tooltip-content="Print"
-                onClick={() => {}}
+                onClick={() => onClickPrintHandler(row.debit_id)}
                 id={row.ID}
             >
                 <FaPrint />

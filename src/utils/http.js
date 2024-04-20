@@ -301,6 +301,14 @@ export const getDokumenRincianPembayaran = (id, query, token) =>
         ...options(token),
         params: query,
     })
+export const getDokumenKredit = (id, token) =>
+    Axios.get(`${URL_BASE}/dokumen/kredit/${id}`, {
+        ...options(token),
+    })
+export const getDokumenDebit = (id, token) =>
+    Axios.get(`${URL_BASE}/dokumen/debit/${id}`, {
+        ...options(token),
+    })
 export const getDokumenKwitansiPembayaran = (body, token) =>
     Axios.post(`${URL_BASE}/dokumen/kwitansi-pembayaran`, body, {
         ...options(token),

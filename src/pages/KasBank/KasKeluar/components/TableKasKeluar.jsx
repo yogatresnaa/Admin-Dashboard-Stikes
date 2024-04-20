@@ -11,6 +11,7 @@ export default function TableKasKeluar({
     onCLickEditHandler,
     subHeaderComponent,
     resetPaginationToggle,
+    onClickPrintHandler,
     isLoading,
 }) {
     const renderActionButton = (row) => (
@@ -50,7 +51,7 @@ export default function TableKasKeluar({
                 size="sm"
                 data-tooltip-id="my-tooltip"
                 data-tooltip-content="Print"
-                onClick={() => {}}
+                onClick={() => onClickPrintHandler(row.kredit_id)}
                 id={row.ID}
             >
                 <FaPrint />
