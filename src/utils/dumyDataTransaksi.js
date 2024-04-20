@@ -377,6 +377,26 @@ const dataContoh = [
     },
     // tambahkan data lainnya sesuai kebutuhan
 ]
+
+const dataTagihanBulanan = [
+    {
+        id: 1,
+        NamaPembayaran: 'sam',
+        TotalTagihan: '200.000',
+        SudahDibyar: '100.000',
+        Kekurangan: '50.000',
+    },
+]
+
+const dataTagihanLainnya = [
+    {
+        id: 1,
+        JenisPembayaran: 'Rama',
+        TotalTagihan: '500.000',
+        Dibyar: '300.000',
+        Kekurangan: '660.000',
+    },
+]
 export {
     getDataTransaksi,
     dataPosBayar,
@@ -393,4 +413,6 @@ export {
     JurnalUmum,
     JurnalUmum1,
     dataContoh,
+    dataTagihanBulanan,
+    dataTagihanLainnya,
 }

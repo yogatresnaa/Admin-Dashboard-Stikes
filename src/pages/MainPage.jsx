@@ -26,6 +26,10 @@ function MainPage() {
         navigate('/admin')
     }
 
+    const navigateToDashboardCekDataPembayaranSiswa = () => {
+        navigate('/cek-data-pembayaran-siswa')
+    }
+
     return (
         <section>
             <Container fluid="xl" className="py-5 px-3">
@@ -50,6 +54,7 @@ function MainPage() {
                     />
                     <CardItem
                         text="Cek Pembayaran Siswa"
+                        onClick={navigateToDashboardCekDataPembayaranSiswa}
                         logo={<BsCreditCard2Back size={120} />}
                     />
                     <CardItem

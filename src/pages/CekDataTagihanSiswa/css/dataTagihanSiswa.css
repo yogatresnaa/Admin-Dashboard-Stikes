@@ -1,0 +1,63 @@
+.header-tagihan {
+    display: flex;
+    width: 100%;
+    background-color: rgb(245, 248, 248);
+    padding: 5px;
+    box-shadow:
+        rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    margin-bottom: 20px;
+}
+
+.header-tagihan h3 {
+    font-size: 14px;
+}
+.ket {
+    margin: 10px;
+}
+
+.header-tagihan p {
+    font-size: 12px;
+}
+
+.logo-sekolah {
+    width: 70px;
+    margin: 10px;
+}
+
+.logo-sekolah img {
+    width: 100%;
+    border-radius: 60px;
+}
+
+.data-pembayaran-siswa {
+    margin: 10px auto 20px auto;
+    width: 80%;
+    box-shadow:
+        rgba(0, 0, 0, 0.12) 0px 1px 3px,
+        rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.data-tagihan-info-siswa-smk {
+    margin: auto;
+    display: flex;
+    width: 90%;
+    gap: 10px;
+}
+
+.data-siswa-smk {
+    width: 100%;
+    display: flex;
+    padding: 5px;
+    border-radius: 10px;
+    border-top: solid 5px rgb(225, 166, 240);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin: auto;
+}
+
+.tagihan-lainnya {
+    width: 60%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
