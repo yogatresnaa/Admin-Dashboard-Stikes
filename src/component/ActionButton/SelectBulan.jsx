@@ -4,9 +4,9 @@ import Form from 'react-bootstrap/Form'
 function SelectBulan() {
     return (
         <div className="d-flex flex-column flex-grow-1 ">
-            <p style={{ fontSize: '0.8rem' }}>Dari Bulan</p>
+            <p style={{ fontSize: '0.8rem' }}></p>
             <Form.Select size="sm" onChange={''} value={''} name="status">
-                <option>Dari Bulan</option>
+                <option>===pilih bulan===</option>
                 <option value="1">Juli</option>
                 <option value="2">Agustus</option>
                 <option value="3">September</option>

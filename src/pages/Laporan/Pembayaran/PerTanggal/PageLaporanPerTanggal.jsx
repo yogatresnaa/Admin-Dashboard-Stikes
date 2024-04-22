@@ -257,8 +257,16 @@ function PageLaporanPembayaranTanggal() {
                                 value={queryFilter.class_id}
                             />
 
-                            <DateInput />
-                            <DateInput />
+                            <span
+                                style={{ fontSize: '0.8rem', width: '200px' }}
+                            >
+                                Tanggal Awal <DateInput />
+                            </span>
+                            <span
+                                style={{ fontSize: '0.8rem', width: '200px' }}
+                            >
+                                Tanggal Akhir <DateInput />
+                            </span>
 
                             <Button
                                 size="sm"
@@ -274,8 +282,12 @@ function PageLaporanPembayaranTanggal() {
                         <h6
                             style={{
                                 fontSize: '20px',
-                                color: 'gray',
+                                color: 'white',
                                 marginBottom: '30px',
+                                backgroundColor: 'lightblue',
+                                padding: '10px',
+                                marginTop: '-10px',
+                                borderRadius: '2px',
                             }}
                         >
                             Laporan Pembayaran Kelas 10

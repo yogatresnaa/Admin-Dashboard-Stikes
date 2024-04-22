@@ -170,6 +170,9 @@
     border-top: 1px solid var(--dark-content);
     margin-top: 40px;
 }
+.date {
+    margin-bottom: 20px;
+}
 
 .cetak-button {
     display: flex;

@@ -1,6 +1,7 @@
 @import '../../../src/component/ActionButton/css/SearchInput.css';
 @import '../Keuangan/PembayaranSiswa/css/pembayaranSiswa.css';
 @import '../KasBank/KirimTagihan/css/kirimTagihan.css';
+@import '../CekDataTagihanSiswa/css//dataTagihanSiswa.css';
 
 .page-content {
     padding: 5px;
@@ -29,4 +30,11 @@
     border-top: solid 5px rgb(225, 166, 240);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin: 20px;
+}
+
+.button-cetak {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    padding: 5px;
 }

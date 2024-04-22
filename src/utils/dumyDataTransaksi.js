@@ -318,6 +318,85 @@ const dataTagihanSiswa = [
         TotalTagihan: 'Rp. 1223',
     },
 ]
+
+const PembayaranPerkelas = [
+    {
+        id: 1,
+        NIS: '12',
+        Nama: 'susi',
+        Tagihan: 'Perawat',
+        SudahDibyar: 'Rp. 1223',
+        Kekurangan: 'Rp. 1223',
+        Keterangan: 'Belum Lunas',
+    },
+]
+
+const JurnalUmum = [
+    {
+        id: 1,
+        Tanggal: '12',
+        KodeAkun: '4-40105',
+        Keterangan: 'UAS SMT 3 - T.A 2023/2024',
+        NIS: '2023161023',
+        NamaSiswa: 'PIKLUL HASANATUN NISA',
+        Kelas: 'S1 BIDAN 22',
+        Penerimaan: 'Rp. 500.0000',
+        Pengeluaran: 'Rp. 100.000',
+    },
+]
+
+const JurnalUmum1 = [
+    {
+        id: 1,
+        Akun: 'Kas Tunai ST',
+        Tanggal: '2-3-2024',
+        KodeAkun: '4-40105',
+        Keterangan: 'UAS SMT 3 - T.A 2023/2024',
+        NIS: '2023161023',
+        NamaSiswa: 'PIKLUL HASANATUN NISA',
+        Kelas: 'S1 BIDAN 22',
+        Penerimaan: 'Rp. 500.0000',
+        Pengeluaran: 'Rp. 100.000',
+    },
+]
+
+const dataContoh = [
+    {
+        id: 1,
+        name: 'John Doe',
+        position: 'Software Engineer',
+        office: 'New York',
+        age: 30,
+    },
+    {
+        id: 2,
+        name: 'Jane Smith',
+        position: 'Data Scientist',
+        office: 'San Francisco',
+        age: 35,
+    },
+    // tambahkan data lainnya sesuai kebutuhan
+]
+
+const dataTagihanBulanan = [
+    {
+        id: 1,
+        NamaPembayaran: 'sam',
+        TotalTagihan: '200.000',
+        SudahDibyar: '100.000',
+        Kekurangan: '50.000',
+    },
+]
+
+const dataTagihanLainnya = [
+    {
+        id: 1,
+        JenisPembayaran: 'Rama',
+        TotalTagihan: '500.000',
+        Dibyar: '300.000',
+        Kekurangan: '660.000',
+    },
+]
 export {
     getDataTransaksi,
     dataPosBayar,
@@ -330,4 +409,10 @@ export {
     tagihanPembayaran,
     KirimTagihan,
     dataTagihanSiswa,
+    PembayaranPerkelas,
+    JurnalUmum,
+    JurnalUmum1,
+    dataContoh,
+    dataTagihanBulanan,
+    dataTagihanLainnya,
 }
