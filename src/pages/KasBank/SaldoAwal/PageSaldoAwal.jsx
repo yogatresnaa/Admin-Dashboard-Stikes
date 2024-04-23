@@ -89,7 +89,7 @@ function PageSaldoAwal() {
             ...prevState,
             data: {
                 ...prevState.data,
-                data: prevState.data.data.map((item) => ({
+                data: prevState.data?.data?.map((item) => ({
                     ...item,
                     debit: {
                         value: 0,

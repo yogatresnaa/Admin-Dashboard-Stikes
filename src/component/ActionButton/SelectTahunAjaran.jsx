@@ -6,7 +6,9 @@ import { FaSearch } from 'react-icons/fa'
 function SelectTahunAjaran({ data, onChange, value }) {
     return (
         <div className="d-flex flex-column flex-grow-1 ">
-            <p style={{ fontSize: '0.8rem' }}>Tahun Ajaran</p>
+            <p style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>
+                Tahun Ajaran
+            </p>
             <Form.Select
                 size="sm"
                 onChange={onChange}

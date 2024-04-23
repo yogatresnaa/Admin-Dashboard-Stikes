@@ -318,7 +318,7 @@ function PagePembayaranSiswa() {
             TahunAjaran.data.length > 0 &&
             dataPaymentTransaction.data.student_id
         ) {
-            if (tahunAjaranState == '') {
+            if (tahunAjaranState == '' || tahunAjaranState == undefined) {
                 console.log(TahunAjaran)
                 setTahunAjaran(TahunAjaran.data[0])
                 setDataDetailSiswa({
@@ -326,7 +326,7 @@ function PagePembayaranSiswa() {
                     period: `${TahunAjaran?.data[0]?.period_start}/${TahunAjaran?.data[0]?.period_end}`,
                 })
             } else {
-                console.log()
+                console.log(tahunAjaranState)
                 setDataDetailSiswa({
                     ...dataPaymentTransaction.data,
                     period: `${tahunAjaranState.period_start}/${tahunAjaranState.period_end}`,
@@ -782,7 +782,6 @@ function PagePembayaranSiswa() {
         setSelectNoReferensi(e.target.value)
     }
 
-    console.log(paymentDate)
     return (
         <div className="page-content">
             <ToastContainer />
