@@ -4,46 +4,60 @@ import { saldoAwal } from '../../../../utils/dumyDataTransaksi'
 import { currencyFormatter, rupiahConvert } from '../../../../utils/helper'
 import { Button } from 'reactstrap'
 
-function TableSaldoAwal({ data }) {
+function TableSaldoAwal({ data, setDataSaldo, onCLickEnterHandler }) {
     const [doubleClickItem, setDoubleClickItem] = useState(null)
-    const [stateValue, setStateValue] = useState({
-        debit: {
-            value: 0,
-            onClick: false,
-        },
-        kredit: {
-            value: 0,
-            onClick: false,
-        },
-    })
 
     const onSubmitHandler = () => {}
-    const onDoubleClickHandler = (item, type) => {
-        setStateValue((prevState) => ({
+    const onDoubleClickHandler = (selectedItem, type) => {
+        setDataSaldo((prevState) => ({
             ...prevState,
-            [type]: {
-                ...prevState[type],
-                onClick: true,
+            data: {
+                ...prevState.data,
+                data: prevState.data.data.map((item) =>
+                    item.cash_account_id == selectedItem.cash_account_id
+                        ? {
+                              ...item,
+                              [type]: {
+                                  ...item[type],
+                                  onClick: true,
+                              },
+                          }
+                        : item
+                ),
             },
         }))
         console.log(type)
     }
     const renderDebit = (row) => {
-        if (stateValue.debit.onClick) {
+        if (row.debit?.onClick) {
             return (
                 <input
                     style={{ border: 'none', width: '100%' }}
                     value={
-                        stateValue.debit.value !== 0
-                            ? stateValue.debit.value
+                        row.debit.value !== 0
+                            ? row.debit.value
                             : row.cash_account_debit
                     }
+                    defaultValue={row.cash_account_debit}
+                    onKeyDown={(e) => {
+                        onCLickEnterHandler(e, 'debit', row)
+                    }}
                     onChange={(e) =>
-                        setStateValue((prevState) => ({
+                        setDataSaldo((prevState) => ({
                             ...prevState,
-                            debit: {
-                                ...prevState.debit,
-                                value: currencyFormatter(e.target.value),
+                            data: {
+                                ...prevState.data,
+                                data: prevState.data.data.map((item) =>
+                                    item.cash_account_id == row.cash_account_id
+                                        ? {
+                                              ...item,
+                                              debit: {
+                                                  ...item.debit,
+                                                  value: e.target.value,
+                                              },
+                                          }
+                                        : item
+                                ),
                             },
                         }))
                     }
@@ -55,26 +69,40 @@ function TableSaldoAwal({ data }) {
                 style={{ cursor: 'pointer' }}
                 onDoubleClick={() => onDoubleClickHandler(row, 'debit')}
             >
-                {currencyFormatter(row?.cash_account_debit.toString())}
+                {rupiahConvert(row?.cash_account_debit)}
             </div>
         )
     }
     const renderKredit = (row) => {
-        if (stateValue.kredit.onClick) {
+        if (row.kredit?.onClick) {
             return (
                 <input
                     style={{ border: 'none', width: '100%' }}
                     value={
-                        stateValue.kredit.value !== 0
-                            ? stateValue.kredit.value
+                        row.kredit.value !== 0
+                            ? row.kredit.value
                             : row.cash_account_kredit
                     }
+                    defaultValue={row.cash_account_kredit}
+                    onKeyDown={(e) => {
+                        onCLickEnterHandler(e, 'kredit', row)
+                    }}
                     onChange={(e) =>
-                        setStateValue((prevState) => ({
+                        setDataSaldo((prevState) => ({
                             ...prevState,
-                            kredit: {
-                                ...prevState.kredit,
-                                value: currencyFormatter(e.target.value),
+                            data: {
+                                ...prevState.data,
+                                data: prevState.data.data.map((item) =>
+                                    item.cash_account_id == row.cash_account_id
+                                        ? {
+                                              ...item,
+                                              kredit: {
+                                                  ...item.kredit,
+                                                  value: e.target.value,
+                                              },
+                                          }
+                                        : item
+                                ),
                             },
                         }))
                     }
@@ -86,7 +114,7 @@ function TableSaldoAwal({ data }) {
                 style={{ cursor: 'pointer' }}
                 onDoubleClick={() => onDoubleClickHandler(row, 'kredit')}
             >
-                {currencyFormatter(row?.cash_account_kredit.toString())}
+                {rupiahConvert(row?.cash_account_kredit)}
             </div>
         )
     }
@@ -120,15 +148,33 @@ function TableSaldoAwal({ data }) {
     ]
     return (
         <div>
-            <DataTable columns={columns} data={data} pagination />
+            <DataTable columns={columns} data={data.data} pagination />
             <div className="w-100 justify-content-end d-flex">
-                <Button
-                    size="sm"
-                    variant="filled"
-                    className="flex bg-black w-25 rounded-3  justify-content-center align-items-center"
-                >
-                    Simpan
-                </Button>
+                <div className="flex-3">Total</div>
+                <div className="flex-1">
+                    <strong>{rupiahConvert(data.total_debit)}</strong>
+                </div>
+                <div className="flex-1">
+                    <strong>{rupiahConvert(data.total_kredit)}</strong>
+                </div>
+            </div>
+            <div
+                className={`w-100 mt-3 justify-content-end align-items-center text-white py-2 px-3 d-flex ${data.total_debit - data.total_kredit == 0 ? 'bg-success' : 'bg-danger'}`}
+            >
+                <div className="flex-3">
+                    Saldo Awal{' '}
+                    {data.total_debit - data.total_kredit == 0
+                        ? `(Benar, saldo awal sudah 0 (nol))`
+                        : 'Salah saldo tidak balance'}
+                </div>
+                <p className="flex-1 m-0">
+                    <strong>
+                        {rupiahConvert(data.total_debit - data.total_kredit)}
+                    </strong>
+                </p>
+                <div className="flex-1">
+                    <strong></strong>
+                </div>
             </div>
         </div>
     )

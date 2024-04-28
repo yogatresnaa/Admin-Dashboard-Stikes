@@ -6,6 +6,7 @@ import {
     getAllDataSaldoAwal,
     getAllKelas,
     getAllUnitByUser,
+    putSaldoAwal,
 } from '../../../utils/http'
 import queryString from 'query-string'
 
@@ -13,23 +14,10 @@ import { useSelector } from 'react-redux'
 import SelectUnit from '../../../component/ActionButton/SelectUnit'
 
 function PageSaldoAwal() {
-    // const {
-    //   data: dataSiswa,
-    //   setData: setDataSiswa,
-    //   sendData: sendDataSiswa,
-    //   setDataDetail: setDataDetailSiswa,
-    //   dataDetail: dataDetailSiswa,
-    //   getData: getDataSiswa,
-    //   isLoading: isLoadingSiswa,
-    //   setIsLoading: setIsLoadingSiswa,
-    //   isLoadingSendData: isLoadingSendDataSiswa,
-    //   filterText,
-    //   onChangeFilterText,
-    // } = useRequest();
-
     const {
         data: dataUnit,
         setData: setDataUnit,
+        sendData: sendDataSaldoAwal,
         getData: getDataUnit,
     } = useRequest()
     const {
@@ -44,17 +32,76 @@ function PageSaldoAwal() {
         unit_id: '',
     })
 
+    const fetchDataSaldo = () => {
+        getDataSaldo(() =>
+            getAllDataSaldoAwal(dataUser.token, {
+                unit_unit_id: queryFilter.unit_id,
+            })
+        )
+    }
+
+    const onClickEnterHandler = (e, type, row) => {
+        console.log(type)
+        if (e.key == 'Enter') {
+            setDataSaldo((prevState) => ({
+                ...prevState,
+                data: {
+                    ...prevState.data,
+                    data: prevState.data.data.map((item) =>
+                        item.cash_account_id == row.cash_account_id
+                            ? {
+                                  ...item,
+                                  [type]: {
+                                      value: 0,
+                                      onClick: false,
+                                  },
+                              }
+                            : item
+                    ),
+                },
+            }))
+            const data = dataSaldo.data.data.filter(
+                (item) => item.cash_account_id == row.cash_account_id
+            )
+
+            const body =
+                type == 'kredit'
+                    ? { cash_account_kredit: data[0].kredit.value }
+                    : { cash_account_debit: data[0].debit.value }
+            console.log(body)
+            sendDataSaldoAwal(
+                () => putSaldoAwal(row.cash_account_id, body, dataUser.token),
+                () => {
+                    fetchDataSaldo()
+                },
+                null
+            )
+        }
+    }
     useEffect(() => {
         // const query = queryString.stringify(queryFilter);
         getDataUnit(() => getAllUnitByUser(dataUser.token))
     }, [])
 
     useEffect(() => {
-        getDataSaldo(() =>
-            getAllDataSaldoAwal(dataUser.token, {
-                unit_unit_id: queryFilter.unit_id,
-            })
-        )
+        fetchDataSaldo()
+        setDataSaldo((prevState) => ({
+            ...prevState,
+            data: {
+                ...prevState.data,
+                data: prevState.data?.data?.map((item) => ({
+                    ...item,
+                    debit: {
+                        value: 0,
+                        onClick: false,
+                    },
+                    kredit: {
+                        value: 0,
+                        onClick: false,
+                    },
+                })),
+            },
+        }))
     }, [queryFilter.unit_id])
     const onQueryFilterChange = (e) => {
         setQueryFilter((prevState) => ({
@@ -62,6 +109,7 @@ function PageSaldoAwal() {
             [e.target.name]: e.target.value,
         }))
     }
+    console.log(dataSaldo)
     return (
         <div className="page-content">
             <h3>
@@ -77,7 +125,11 @@ function PageSaldoAwal() {
                     />
                 </div>
                 {queryFilter.unit_id && (
-                    <TableSaldoAwal data={dataSaldo.data} />
+                    <TableSaldoAwal
+                        data={dataSaldo.data}
+                        setDataSaldo={setDataSaldo}
+                        onCLickEnterHandler={onClickEnterHandler}
+                    />
                 )}
             </div>
         </div>

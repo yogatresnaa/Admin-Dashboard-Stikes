@@ -327,6 +327,9 @@ export const postSendWhatsapp = (body, token) =>
 export const getAllDataSaldoAwal = (token, query) =>
     Axios.get(`${URL_BASE}/cash-account`, { ...options(token), params: query })
 
+export const putSaldoAwal = (id, body, token) =>
+    Axios.put(`${URL_BASE}/cash-account/${id}`, body, { ...options(token) })
+
 //kredit
 
 export const postKreditNotSubmitted = (body, token) =>
