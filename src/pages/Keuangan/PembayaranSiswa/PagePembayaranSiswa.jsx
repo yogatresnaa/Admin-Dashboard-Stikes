@@ -269,6 +269,7 @@ function PagePembayaranSiswa() {
                 dataUser.token
             )
         )
+        console.log(data)
         await getDataCode(() =>
             getReferenceCode(
                 {
@@ -759,7 +760,19 @@ function PagePembayaranSiswa() {
                 }
                 await sendDataPaymentTransaction(
                     () => postSubmitPayment(formBody, dataUser.token),
-                    () => fetchDataPembayaran()
+                    () => {
+                        fetchDataPembayaran()
+                        getDataCode(() =>
+                            getReferenceCode(
+                                {
+                                    ref_code:
+                                        generateNoReferensi(dataDetailSiswa),
+                                    student_id: dataDetailSiswa.student_id,
+                                },
+                                dataUser.token
+                            )
+                        )
+                    }
                 )
             },
             null

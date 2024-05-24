@@ -220,7 +220,11 @@ function AppRoutes() {
 
                             <Route
                                 path="laporan-pembayaran/kelas"
-                                element={PageLaporanPembayaranKelas}
+                                element={
+                                    <RouteWithAuth
+                                        element={PageLaporanPembayaranKelas}
+                                    />
+                                }
                             />
 
                             <Route
