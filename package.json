@@ -1,6 +1,7 @@
 {
     "name": "dashboard-admin",
     "private": true,
+    "homepage": "https://appskeuangan.stikespid.ac.id/",
     "version": "0.0.0",
     "type": "module",
     "scripts": {
