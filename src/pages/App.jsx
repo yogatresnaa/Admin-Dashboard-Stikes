@@ -12,13 +12,23 @@ const CekTagihanSiswa = lazy(
 )
 
 const Homepage = lazy(() => import('./Homepage'))
+
+// Manajemen data
 const PageKelas = lazy(() => import('./ManajemenData/Kelas/PageKelas'))
 const PageSiswa = lazy(() => import('./ManajemenData/Siswa/PageSiswa'))
+const PageProgramStudi = lazy(
+    () => import('./ManajemenData/ProgramStudi/PageProgramStudi')
+)
+const PageManajemen = lazy(() => import('./ManajemenData/PageManajemenData'))
+
+// Akademik
 const PageAlumni = lazy(() => import('./Akademik/Alumni/PageAlumni'))
 const PageKelulusan = lazy(() => import('./Akademik/Kelulusan/PageKelulusan'))
 const PageTahunAjaran = lazy(
     () => import('./Akademik/TahunAjaran/PageTahunAjaran')
 )
+
+// Keuangan
 const PageNotFound = lazy(() => import('./NotFound/PageNoFound'))
 const PagePosBayar = lazy(() => import('./Keuangan/PosBayar/PagePosBayar'))
 const PageAkunBiaya = lazy(() => import('./Keuangan/AkunBiaya/PageAkunBiaya'))
@@ -26,23 +36,22 @@ const PagePembayaranSiswa = lazy(
     () => import('./Keuangan/PembayaranSiswa/PagePembayaranSiswa')
 )
 
+// Kas Bank
 const PageSaldoAwal = lazy(() => import('./KasBank/SaldoAwal/PageSaldoAwal'))
-
 const PageKasKeluar = lazy(() => import('./KasBank/KasKeluar/PageKasKeluar'))
-
 const PageKasMasuk = lazy(() => import('./KasBank/KasMasuk/PageKasMasuk'))
-
-const DokumenTagihan = lazy(() => import('./Dokumen/TagihanPembayaran'))
-const DokumenPembayaran = lazy(() => import('./Dokumen/BuktiPembayaran'))
-
 const PageKirimTagihan = lazy(
     () => import('./KasBank/KirimTagihan/PageKirimTagihan')
 )
 
+// Dokumen
+const DokumenTagihan = lazy(() => import('./Dokumen/TagihanPembayaran'))
+const DokumenPembayaran = lazy(() => import('./Dokumen/BuktiPembayaran'))
+
+// Laporan
 const PageLaporanPembayaranTanggal = lazy(
     () => import('./Laporan/Pembayaran/PerTanggal/PageLaporanPerTanggal')
 )
-
 const PageLaporanPembayaranKelas = lazy(
     () => import('./Laporan/Pembayaran/PerKelas/PageLaporanPembayaranKelas')
 )
@@ -52,11 +61,11 @@ const PageTagihanSiswa = lazy(
 const PageRekapPembayaran = lazy(
     () => import('./Laporan/Pembayaran/RekapPembayaran/PageRekapPembayaran')
 )
+
+//
 const LoginPage = lazy(() => import('./Login/Login'))
 const MainPage = lazy(() => import('./MainPage'))
-const PageProgramStudi = lazy(
-    () => import('./ManajemenData/ProgramStudi/PageProgramStudi')
-)
+
 const PageDashboard = lazy(() => import('./Dashboard/PageDashboard'))
 const PageJenisBayar = lazy(
     () => import('./Keuangan/JenisBayar/PageJenisBayar')
@@ -134,18 +143,35 @@ function AppRoutes() {
                         />
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/admin" element={<Homepage />}>
+                            {/* path dashboard */}
+                            <Route
+                                path="dashboard"
+                                element={<RouteWithAuth element={PageKelas} />}
+                            />
+
+                            {/* path manajemen data */}
                             <Route
                                 path="kelas"
                                 element={<RouteWithAuth element={PageKelas} />}
                             />
+
                             <Route
-                                path="dashboard"
-                                element={<RouteWithAuth element={PageKelas} />}
+                                path="program-studi"
+                                element={
+                                    <RouteWithAuth element={PageProgramStudi} />
+                                }
                             />
                             <Route
                                 path="siswa"
                                 element={<RouteWithAuth element={PageSiswa} />}
                             />
+
+                            <Route
+                                path="page-manajemen-data"
+                                element={<PageManajemen />}
+                            />
+
+                            {/* Path Akademik */}
                             <Route
                                 path="alumni"
                                 element={<RouteWithAuth element={PageAlumni} />}
@@ -156,12 +182,7 @@ function AppRoutes() {
                                     <RouteWithAuth element={PageKelulusan} />
                                 }
                             />
-                            <Route
-                                path="program-studi"
-                                element={
-                                    <RouteWithAuth element={PageProgramStudi} />
-                                }
-                            />
+
                             <Route
                                 path="tahun-ajaran"
                                 element={
