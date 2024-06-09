@@ -52,10 +52,12 @@ function HistoryPembayaran({ data }) {
                             <tr key={itemDetail.detail_payment_rate_id}>
                                 <td>
                                     {dateConvert(
-                                        itemDetail.payment_rate_date_pay
+                                        itemDetail.payment_rate_bebas_pay_updated_at
                                     )}
                                 </td>
-                                <td>{itemDetail.payment_rate_number_pay}</td>
+                                <td>
+                                    {itemDetail.payment_rate_bebas_pay_number}
+                                </td>
 
                                 <td>
                                     {item.pos_pay_name}-{item.period_start}/
@@ -64,7 +66,7 @@ function HistoryPembayaran({ data }) {
 
                                 <td>
                                     {rupiahConvert(
-                                        itemDetail.payment_rate_bill
+                                        itemDetail.payment_rate_bebas_pay_bill
                                     )}
                                 </td>
 

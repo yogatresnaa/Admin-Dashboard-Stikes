@@ -381,3 +381,10 @@ export const generateDebitNoRef = (body, token) =>
 
 export const deleteDebit = (id, token) =>
     Axios.delete(`${URL_BASE}/debit/not-submitted/${id}`, options(token))
+
+//laporan
+export const getLaporanPembayaranPerKelas = (params, token) =>
+    Axios.get(`${URL_BASE}/laporan/pembayaran-per-kelas`, {
+        ...options(token),
+        params: params,
+    })
