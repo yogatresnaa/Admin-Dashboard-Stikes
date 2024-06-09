@@ -144,7 +144,6 @@ function PageLaporanPembayaranKelas() {
     }
 
     const onCLickFilterSubmit = () => {
-        console.log(TahunAjaran.data[0].period_id)
         getDataLaporan(() =>
             getLaporanPembayaranPerKelas(
                 {
