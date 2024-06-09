@@ -28,6 +28,8 @@ const PageTahunAjaran = lazy(
     () => import('./Akademik/TahunAjaran/PageTahunAjaran')
 )
 
+const PageAkademik = lazy(() => import('./Akademik/PageAkademik'))
+
 // Keuangan
 const PageNotFound = lazy(() => import('./NotFound/PageNoFound'))
 const PagePosBayar = lazy(() => import('./Keuangan/PosBayar/PagePosBayar'))
@@ -172,6 +174,12 @@ function AppRoutes() {
                             />
 
                             {/* Path Akademik */}
+                            <Route
+                                path="page-akademik"
+                                element={
+                                    <RouteWithAuth element={PageAkademik} />
+                                }
+                            />
                             <Route
                                 path="alumni"
                                 element={<RouteWithAuth element={PageAlumni} />}
