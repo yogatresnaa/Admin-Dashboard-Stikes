@@ -129,7 +129,10 @@ function AppRoutes() {
             <LoadingProvider>
                 <PersistGate loading={null} persistor={persistor}>
                     <Routes>
-                        <Route path="/" element={<MainPage />} />
+                        <Route
+                            path="/"
+                            element={<RouteWithAuth element={MainPage} />}
+                        />
                         <Route
                             path="/cek-data-pembayaran-siswa"
                             element={<CekTagihanSiswa />}
