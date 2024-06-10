@@ -68,32 +68,17 @@ function PembayaranBebas({
         },
     ]
 
-    const renderDiscountComponent = (value, data, status) => (
-        <div className="d-flex justify-content-between flex-1 align-items-center">
-            <p>{value}</p>{' '}
-            {status == 0 && (
-                // <Button
-                //     size="sm"
-                //     color="warning"
-                //     onClick={() => onClickDiscountHandler(data)}
-                // >
-                //     <GrFormAdd size={20} color="white" />
-                //     <MdOutlineDiscount color="white" />
-                // </Button>
-                <></>
-            )}
-        </div>
-    )
     const renderButtonComponent = (data, status) => (
         <div className="d-flex justify-content-between flex-1 align-items-center">
             <Button
                 size="sm"
                 disabled={status === 1}
-                color="success"
-                onClick={() => onClickBayarHandler(data)}
+                color="dark"
+                onClick={() =>
+                    onClickItemDetailHandler(data.detail_payment_rate_id)
+                }
             >
-                <GrFormAdd size={20} color="white" />
-                Bayar
+                Detail
             </Button>
         </div>
     )
@@ -170,7 +155,7 @@ function PembayaranBebas({
             width: '300px',
         },
         {
-            name: 'Bayar',
+            name: 'Detail',
             cell: (row) => renderButtonComponent(row, row.payment_rate_status),
             sortable: true,
             width: '300px',
@@ -178,9 +163,6 @@ function PembayaranBebas({
     ]
     return (
         <div>
-            <Button className="mb-2" size="sm" onClick={onClickRefreshHandler}>
-                Refresh
-            </Button>
             <DataTable
                 columns={columns}
                 customStyles={customStyles}

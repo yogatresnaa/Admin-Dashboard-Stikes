@@ -64,7 +64,18 @@ const PageRekapPembayaran = lazy(
     () => import('./Laporan/Pembayaran/RekapPembayaran/PageRekapPembayaran')
 )
 
-//
+const PageJurnalUmum = lazy(
+    () => import('./Laporan/LaporanKeuangan/LaporanJurnalUmum/PageJurnalUmum')
+)
+
+const PageKasBank = lazy(
+    () => import('./Laporan/LaporanKeuangan/LaporanKasBank/PageKasBank')
+)
+
+const PageKasTunai = lazy(
+    () => import('./Laporan/LaporanKeuangan/LaporanKasTunai/PageKasTunai')
+)
+
 const LoginPage = lazy(() => import('./Login/Login'))
 const MainPage = lazy(() => import('./MainPage'))
 
@@ -97,14 +108,6 @@ const PageTambahKasMasuk = lazy(
     () => import('./KasBank/KasMasuk/TambahKasMasuk')
 )
 const PageEditKasMasuk = lazy(() => import('./KasBank/KasMasuk/EditKasMasuk'))
-
-// Laporan
-
-import JurnalUmum from './Laporan/LaporanKeuangan/LaporanJurnalUmum/PageJurnalUmum'
-import PageKasBank from './Laporan/LaporanKeuangan/LaporanKasBank/PageKasBank'
-import PageKasTunai from './Laporan/LaporanKeuangan/LaporanKasTunai/PageKasTunai'
-
-// Laporan
 
 // import PageDashboard from './Dashboard/PageDashboard';
 
@@ -250,9 +253,14 @@ function AppRoutes() {
                                 }
                             />
 
+                            {/*  LAPORAN */}
                             <Route
                                 path="laporan-pembayaran/kelas"
-                                element={PageLaporanPembayaranKelas}
+                                element={
+                                    <RouteWithAuth
+                                        element={PageLaporanPembayaranKelas}
+                                    />
+                                }
                             />
 
                             <Route
@@ -279,6 +287,29 @@ function AppRoutes() {
                                     />
                                 }
                             />
+
+                            <Route
+                                path="laporan-keuangan/jurnal-umum"
+                                element={
+                                    <RouteWithAuth element={PageJurnalUmum} />
+                                }
+                            />
+
+                            <Route
+                                path="laporan-keuangan/kas-bank"
+                                element={
+                                    <RouteWithAuth element={PageKasBank} />
+                                }
+                            />
+
+                            <Route
+                                path="laporan-keuangan/kas-tunai"
+                                element={
+                                    <RouteWithAuth element={PageKasTunai} />
+                                }
+                            />
+
+                            {/* LAPORAN */}
                             <Route
                                 path="not-found"
                                 element={<PageNotFound />}

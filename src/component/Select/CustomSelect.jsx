@@ -37,6 +37,8 @@ export default function CustomSelect({
                         style={{
                             minWidth: '100px',
                             width: '100%',
+                            marginBottom: '16px',
+                            fontSize: '0.8rem',
                             maxWidth: !isForm && '100px',
                         }}
                     >

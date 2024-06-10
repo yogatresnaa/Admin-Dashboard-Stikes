@@ -38,8 +38,8 @@ export const loginUser = (body) => Axios.post(`${URL_BASE}/auth/login`, body)
 export const logoutUser = (body) => Axios.post(`${URL_BASE}/auth/logout`, body)
 export const registerUser = (body) =>
     Axios.post(`${URL_BASE}/auth/register`, body)
-export const checkMe = (token) =>
-    Axios.post(`${URL_BASE}/auth/me`, token, options(token))
+export const checkMe = (value) =>
+    Axios.post(`${URL_BASE}/auth/me`, value, options(value?.token))
 
 export const getAllProdi = (query = {}, token) =>
     Axios.get(`${URL_BASE}/program-studi`, { ...options(token), params: query })
@@ -381,3 +381,10 @@ export const generateDebitNoRef = (body, token) =>
 
 export const deleteDebit = (id, token) =>
     Axios.delete(`${URL_BASE}/debit/not-submitted/${id}`, options(token))
+
+//laporan
+export const getLaporanPembayaranPerKelas = (params, token) =>
+    Axios.get(`${URL_BASE}/laporan/pembayaran-per-kelas`, {
+        ...options(token),
+        params: params,
+    })

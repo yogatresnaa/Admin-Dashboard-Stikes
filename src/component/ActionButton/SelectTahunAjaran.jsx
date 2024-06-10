@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { FaSearch } from 'react-icons/fa'
 
-function SelectTahunAjaran({ data, onChange, value }) {
+function SelectTahunAjaran({ data, onChange, value, includeAll = true }) {
     return (
         <div className="d-flex flex-column flex-grow-1 ">
             <p style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>
@@ -15,7 +15,7 @@ function SelectTahunAjaran({ data, onChange, value }) {
                 value={value}
                 name="period_id"
             >
-                <option value="">Semua</option>
+                {includeAll && <option value="">Semua</option>}
                 {data.length > 0 &&
                     data.map((item, index) => (
                         <option value={item.period_id} key={item.period_id}>
