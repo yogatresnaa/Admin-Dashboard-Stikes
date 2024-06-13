@@ -59,81 +59,51 @@ function PageDashboard() {
     }, [])
     return (
         <div className="page-content">
-            <Tabs
-                defaultActiveKey="home"
-                transition={false}
-                id="noanim-tab-example"
-                className="mb-3"
-            >
-                <Tab
-                    eventKey="Dashboard"
-                    title={
-                        <span>
-                            <FaRegKeyboard
-                                className="tabs-icon"
-                                style={{
-                                    width: '30px',
-                                    height: '30px',
-                                    padding: '3px',
-                                    color: '#5B5DEE',
-                                }}
-                            />
-                            <p>Dashboard </p>
-                        </span>
-                    }
-                >
-                    <h3>
-                        Dashboard{' '}
-                        <span style={{ fontSize: '0.8em', color: 'gray' }}>
-                            List
-                        </span>
-                    </h3>
-                    <div className="card-transaksi">
-                        <div className="list-data-transaksi">
-                            <CardTransaksi
-                                key={dataTransaksi[0].id}
-                                id={dataTransaksi[0].id}
-                                {...dataTransaksi[0]}
-                                color={color[0]}
-                                icon={
-                                    <BsFillCalculatorFill
-                                        color={'white'}
-                                        size={40}
-                                    />
-                                }
-                            />
-                            <CardTransaksi
-                                key={dataTransaksi[1].id}
-                                id={dataTransaksi[1].id}
-                                {...dataTransaksi[1]}
-                                color={color[1]}
-                                icon={<BiMoney color={'white'} size={40} />}
-                            />
-                            <CardTransaksi
-                                key={dataTransaksi[2].id}
-                                id={dataTransaksi[2].id}
-                                {...dataTransaksi[2]}
-                                color={color[2]}
-                                icon={<BiWallet color={'white'} size={40} />}
-                            />
-                            <Cardsiswa
-                                title={'Jumlah Siswa'}
-                                data={dataDashboard.data.jumlah_siswa_aktif}
-                                color={color[3]}
-                                icon={<BiUser color={'white'} size={40} />}
-                            />
-                        </div>
-                    </div>
-                    <div className="d-flex gap-2 w-100">
-                        <div className="custom-card flex-1">
-                            <BarChart />
-                        </div>
-                        <div className="custom-card flex-1">
-                            <LineChart />
-                        </div>
-                    </div>
-                </Tab>
-            </Tabs>
+            <h3>
+                Dashboard{' '}
+                <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>
+            </h3>
+            <div className="card-transaksi">
+                <div className="list-data-transaksi">
+                    <CardTransaksi
+                        key={dataTransaksi[0].id}
+                        id={dataTransaksi[0].id}
+                        {...dataTransaksi[0]}
+                        color={color[0]}
+                        icon={
+                            <BsFillCalculatorFill color={'white'} size={40} />
+                        }
+                    />
+                    <CardTransaksi
+                        key={dataTransaksi[1].id}
+                        id={dataTransaksi[1].id}
+                        {...dataTransaksi[1]}
+                        color={color[1]}
+                        icon={<BiMoney color={'white'} size={40} />}
+                    />
+                    <CardTransaksi
+                        key={dataTransaksi[2].id}
+                        id={dataTransaksi[2].id}
+                        {...dataTransaksi[2]}
+                        color={color[2]}
+                        icon={<BiWallet color={'white'} size={40} />}
+                    />
+                    <Cardsiswa
+                        title={'Jumlah Siswa'}
+                        data={dataDashboard.data.jumlah_siswa_aktif}
+                        color={color[3]}
+                        icon={<BiUser color={'white'} size={40} />}
+                    />
+                </div>
+            </div>
+            <div className="d-flex gap-2 w-100">
+                <div className="custom-card flex-1">
+                    <BarChart />
+                </div>
+                <div className="custom-card flex-1">
+                    <LineChart />
+                </div>
+            </div>
         </div>
     )
 }
