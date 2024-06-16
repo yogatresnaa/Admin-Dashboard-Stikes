@@ -1,16 +1,16 @@
 import React from 'react'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
-import { FaCalendarDays, FaPeopleRoof, FaPeopleLine } from 'react-icons/fa6'
-import PageTahunAjaran from './TahunAjaran/PageTahunAjaran'
-import PageAlumni from './Alumni/PageAlumni'
-import PageKelulusan from './Kelulusan/PageKelulusan'
+import PageAkunBiaya from './AkunBiaya/PageAkunBiaya'
+import { FaOrcid, FaFileInvoiceDollar, FaRegCreditCard } from 'react-icons/fa6'
+import PagePosPay from './PosBayar/PagePosBayar'
+import PageJenisBayar from './JenisBayar/PageJenisBayar'
 
-function PageAkademik() {
+function PageSettingPembayaran() {
     return (
         <div className="page">
             <Tabs
-                defaultActiveKey="Akademik"
+                defaultActiveKey="SettingPembayaran"
                 transition={false}
                 id="noanim-tab-example"
                 className="mb-3"
@@ -23,7 +23,7 @@ function PageAkademik() {
                 }}
             >
                 <Tab
-                    eventKey="Tahun Ajaran"
+                    eventKey="Akun Biaya"
                     title={
                         <span
                             style={{
@@ -32,18 +32,18 @@ function PageAkademik() {
                                 margin: '10px',
                             }}
                         >
-                            <FaCalendarDays className="tabs-icon" />
+                            <FaOrcid className="tabs-icon" />
                             <p style={{ fontSize: '25px', color: 'grey' }}>
-                                Page Tahun Ajaran{' '}
+                                Page Akun Biaya{' '}
                             </p>
                         </span>
                     }
                 >
-                    <PageTahunAjaran />
+                    <PageAkunBiaya />
                 </Tab>
 
                 <Tab
-                    eventKey="Alumni"
+                    eventKey="Pos Bayar"
                     title={
                         <span
                             style={{
@@ -52,18 +52,18 @@ function PageAkademik() {
                                 margin: '10px',
                             }}
                         >
-                            <FaPeopleRoof className="tabs-icon" />
+                            <FaFileInvoiceDollar className="tabs-icon" />
                             <p style={{ fontSize: '25px', color: 'grey' }}>
-                                Page Alumni{' '}
+                                Page Pos Bayar{' '}
                             </p>
                         </span>
                     }
                 >
-                    <PageAlumni />
+                    <PagePosPay />
                 </Tab>
 
                 <Tab
-                    eventKey="Kelulusan"
+                    eventKey="Jenis Bayar"
                     title={
                         <span
                             style={{
@@ -72,18 +72,18 @@ function PageAkademik() {
                                 margin: '10px',
                             }}
                         >
-                            <FaPeopleLine className="tabs-icon" />
+                            <FaRegCreditCard className="tabs-icon" />
                             <p style={{ fontSize: '25px', color: 'grey' }}>
-                                Page Kelulusan{' '}
+                                Page Jenis Bayar{' '}
                             </p>
                         </span>
                     }
                 >
-                    <PageKelulusan />
+                    <PageJenisBayar />
                 </Tab>
             </Tabs>
         </div>
     )
 }
 
-export default PageAkademik
+export default PageSettingPembayaran

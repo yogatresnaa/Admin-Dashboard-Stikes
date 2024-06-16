@@ -37,6 +37,9 @@ const PageAkunBiaya = lazy(() => import('./Keuangan/AkunBiaya/PageAkunBiaya'))
 const PagePembayaranSiswa = lazy(
     () => import('./Keuangan/PembayaranSiswa/PagePembayaranSiswa')
 )
+const PageSettingPembayaran = lazy(
+    () => import('./Keuangan/PageSettingPembayaran')
+)
 
 // Kas Bank
 const PageSaldoAwal = lazy(() => import('./KasBank/SaldoAwal/PageSaldoAwal'))
@@ -203,6 +206,8 @@ function AppRoutes() {
                                     <RouteWithAuth element={PageTahunAjaran} />
                                 }
                             />
+
+                            {/* keuangan */}
                             <Route
                                 path="pembayaran-siswa"
                                 element={
@@ -230,6 +235,15 @@ function AppRoutes() {
                                     <RouteWithAuth element={PageAkunBiaya} />
                                 }
                             />
+                            <Route
+                                path="setting-pembayaran"
+                                element={
+                                    <RouteWithAuth
+                                        element={PageSettingPembayaran}
+                                    />
+                                }
+                            />
+
                             <Route
                                 path="tarif-tagihan/:id"
                                 element={
@@ -310,11 +324,8 @@ function AppRoutes() {
                             />
 
                             {/* LAPORAN */}
-                            <Route
-                                path="not-found"
-                                element={<PageNotFound />}
-                            />
-                            <Route
+
+                            {/* <Route
                                 path="akun-biaya"
                                 element={
                                     <RouteWithAuth element={PageAkunBiaya} />
@@ -325,6 +336,11 @@ function AppRoutes() {
                                 element={
                                     <RouteWithAuth element={PagePosBayar} />
                                 }
+                            /> */}
+
+                            <Route
+                                path="not-found"
+                                element={<PageNotFound />}
                             />
                             <Route
                                 path="saldo-awal"

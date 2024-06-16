@@ -14,7 +14,12 @@ import {
     FaCcAmazonPay,
     FaServer,
 } from 'react-icons/fa'
-import { FaCircleMinus, FaMoneyCheckDollar, FaGear } from 'react-icons/fa6'
+import {
+    FaCircleMinus,
+    FaMoneyCheckDollar,
+    FaGear,
+    FaWallet,
+} from 'react-icons/fa6'
 import { BsFillMortarboardFill } from 'react-icons/bs'
 import { IconContext } from 'react-icons'
 import Navbar from 'react-bootstrap/Navbar'
@@ -271,12 +276,12 @@ function Sidebar() {
                             </li>
                         </Link>
 
-                        <Link className="link" to="/admin/page-akademik">
+                        <Link className="link" to="/admin/setting-pembayaran">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
                                 >
-                                    <BsFillMortarboardFill
+                                    <FaWallet
                                         style={{
                                             width: '30px',
                                             height: '30px',
@@ -289,6 +294,27 @@ function Sidebar() {
                                 </IconContext.Provider>
 
                                 <span className="ms-2">Seting Pembayaran</span>
+                            </li>
+                        </Link>
+
+                        <Link className="link" to="/admin/setting-pembayaran">
+                            <li className="nav-item nav-link text-black  my-1">
+                                <IconContext.Provider
+                                    value={{ color: '#DC84F3' }}
+                                >
+                                    <FaRegCreditCard
+                                        style={{
+                                            width: '30px',
+                                            height: '30px',
+                                            color: '#5B5DEE',
+                                            padding: '3px',
+                                            boxShadow:
+                                                'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px',
+                                        }}
+                                    />
+                                </IconContext.Provider>
+
+                                <span className="ms-2">Kas Bank</span>
                             </li>
                         </Link>
 
@@ -373,7 +399,7 @@ function Sidebar() {
                             </ul>
                         </li> */}
 
-                        {/* <li className="nav-item text-white my-1">
+                        <li className="nav-item text-white my-1">
                             <a
                                 href="#submenu3"
                                 className="nav-link "
@@ -501,9 +527,9 @@ function Sidebar() {
                                     </ul>
                                 </li>
                             </ul>
-                        </li> */}
+                        </li>
 
-                        {/* <li className="nav-item text-white my-2">
+                        <li className="nav-item text-white my-2">
                             <a
                                 href="#submenu6"
                                 className="nav-link "
@@ -579,7 +605,7 @@ function Sidebar() {
                                     </li>
                                 </Link>
                             </ul>
-                        </li> */}
+                        </li>
 
                         <li className="nav-item text-white my-1">
                             <a
