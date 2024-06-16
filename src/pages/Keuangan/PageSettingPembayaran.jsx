@@ -16,10 +16,12 @@ function PageSettingPembayaran() {
                 className="mb-3"
                 justify
                 style={{
-                    backgroundColor: 'lightblue',
+                    backgroundColor: '#F0FFFF',
                     borderRadius: '10px',
                     width: '95%',
                     margin: '10px auto ',
+                    boxShadow:
+                        'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px',
                 }}
             >
                 <Tab
@@ -33,7 +35,13 @@ function PageSettingPembayaran() {
                             }}
                         >
                             <FaOrcid className="tabs-icon" />
-                            <p style={{ fontSize: '25px', color: 'grey' }}>
+                            <p
+                                style={{
+                                    fontSize: '25px',
+                                    color: 'grey',
+                                    fontWeight: 'bold',
+                                }}
+                            >
                                 Page Akun Biaya{' '}
                             </p>
                         </span>
@@ -53,7 +61,13 @@ function PageSettingPembayaran() {
                             }}
                         >
                             <FaFileInvoiceDollar className="tabs-icon" />
-                            <p style={{ fontSize: '25px', color: 'grey' }}>
+                            <p
+                                style={{
+                                    fontSize: '25px',
+                                    color: 'grey',
+                                    fontWeight: 'bold',
+                                }}
+                            >
                                 Page Pos Bayar{' '}
                             </p>
                         </span>
@@ -73,7 +87,13 @@ function PageSettingPembayaran() {
                             }}
                         >
                             <FaRegCreditCard className="tabs-icon" />
-                            <p style={{ fontSize: '25px', color: 'grey' }}>
+                            <p
+                                style={{
+                                    fontSize: '25px',
+                                    color: 'grey',
+                                    fontWeight: 'bold',
+                                }}
+                            >
                                 Page Jenis Bayar{' '}
                             </p>
                         </span>

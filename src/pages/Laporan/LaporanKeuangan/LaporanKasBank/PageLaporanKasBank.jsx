@@ -11,7 +11,7 @@ import useRequest from '../../../../customHooks/useRequest'
 import { getAllKelas } from '../../../../utils/http'
 import TableKasBank from './component/TableKasbank'
 
-function PageKasBank() {
+function LaporanKasBank() {
     const {
         data: dataKelas,
         setData: setDataKelas,
@@ -138,4 +138,4 @@ function PageKasBank() {
     )
 }
 
-export default PageKasBank
+export default LaporanKasBank

@@ -297,7 +297,7 @@ function Sidebar() {
                             </li>
                         </Link>
 
-                        <Link className="link" to="/admin/setting-pembayaran">
+                        <Link className="link" to="/admin/page-kas-bank">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -399,7 +399,7 @@ function Sidebar() {
                             </ul>
                         </li> */}
 
-                        <li className="nav-item text-white my-1">
+                        {/* <li className="nav-item text-white my-1">
                             <a
                                 href="#submenu3"
                                 className="nav-link "
@@ -527,9 +527,9 @@ function Sidebar() {
                                     </ul>
                                 </li>
                             </ul>
-                        </li>
+                        </li> */}
 
-                        <li className="nav-item text-white my-2">
+                        {/* <li className="nav-item text-white my-2">
                             <a
                                 href="#submenu6"
                                 className="nav-link "
@@ -605,7 +605,7 @@ function Sidebar() {
                                     </li>
                                 </Link>
                             </ul>
-                        </li>
+                        </li> */}
 
                         <li className="nav-item text-white my-1">
                             <a

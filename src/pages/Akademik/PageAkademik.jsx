@@ -1,7 +1,12 @@
 import React from 'react'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
-import { FaCalendarDays, FaPeopleRoof, FaPeopleLine } from 'react-icons/fa6'
+import {
+    FaCalendarDays,
+    FaPeopleRoof,
+    FaPeopleLine,
+    FaUserGraduate,
+} from 'react-icons/fa6'
 import PageTahunAjaran from './TahunAjaran/PageTahunAjaran'
 import PageAlumni from './Alumni/PageAlumni'
 import PageKelulusan from './Kelulusan/PageKelulusan'
@@ -16,10 +21,12 @@ function PageAkademik() {
                 className="mb-3"
                 justify
                 style={{
-                    backgroundColor: 'lightblue',
+                    backgroundColor: '#F0FFFF',
                     borderRadius: '10px',
                     width: '95%',
                     margin: '10px auto ',
+                    boxShadow:
+                        'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px',
                 }}
             >
                 <Tab
@@ -33,7 +40,13 @@ function PageAkademik() {
                             }}
                         >
                             <FaCalendarDays className="tabs-icon" />
-                            <p style={{ fontSize: '25px', color: 'grey' }}>
+                            <p
+                                style={{
+                                    fontSize: '25px',
+                                    color: 'grey',
+                                    fontWeight: 'bold',
+                                }}
+                            >
                                 Page Tahun Ajaran{' '}
                             </p>
                         </span>
@@ -53,7 +66,13 @@ function PageAkademik() {
                             }}
                         >
                             <FaPeopleRoof className="tabs-icon" />
-                            <p style={{ fontSize: '25px', color: 'grey' }}>
+                            <p
+                                style={{
+                                    fontSize: '25px',
+                                    color: 'grey',
+                                    fontWeight: 'bold',
+                                }}
+                            >
                                 Page Alumni{' '}
                             </p>
                         </span>
@@ -72,8 +91,14 @@ function PageAkademik() {
                                 margin: '10px',
                             }}
                         >
-                            <FaPeopleLine className="tabs-icon" />
-                            <p style={{ fontSize: '25px', color: 'grey' }}>
+                            <FaUserGraduate className="tabs-icon" />
+                            <p
+                                style={{
+                                    fontSize: '25px',
+                                    color: 'grey',
+                                    fontWeight: 'bold',
+                                }}
+                            >
                                 Page Kelulusan{' '}
                             </p>
                         </span>

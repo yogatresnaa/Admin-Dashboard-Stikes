@@ -16,10 +16,12 @@ function PageManajemen() {
                 transition={false}
                 justify
                 style={{
-                    backgroundColor: 'lightblue',
+                    backgroundColor: '#F0FFFF',
                     borderRadius: '10px',
                     width: '95%',
                     margin: '10px auto ',
+                    boxShadow:
+                        'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px',
                 }}
             >
                 <Tab
@@ -33,7 +35,13 @@ function PageManajemen() {
                             }}
                         >
                             <FaCity className="tabs-icon" />
-                            <p style={{ fontSize: '25px', color: 'grey' }}>
+                            <p
+                                style={{
+                                    fontSize: '25px',
+                                    color: 'grey',
+                                    fontWeight: 'bold',
+                                }}
+                            >
                                 Page Kelas{' '}
                             </p>
                         </span>
@@ -53,7 +61,13 @@ function PageManajemen() {
                             }}
                         >
                             <FaBookOpenReader className="tabs-icon" />
-                            <p style={{ fontSize: '20px', color: 'grey' }}>
+                            <p
+                                style={{
+                                    fontSize: '25px',
+                                    color: 'grey',
+                                    fontWeight: 'bold',
+                                }}
+                            >
                                 Page Program Studi{' '}
                             </p>
                         </span>
@@ -73,7 +87,13 @@ function PageManajemen() {
                             }}
                         >
                             <FaUserGraduate className="tabs-icon" />
-                            <p style={{ fontSize: '20px', color: 'grey' }}>
+                            <p
+                                style={{
+                                    fontSize: '25px',
+                                    color: 'grey',
+                                    fontWeight: 'bold',
+                                }}
+                            >
                                 Page Siswa{' '}
                             </p>
                         </span>

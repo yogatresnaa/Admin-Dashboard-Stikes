@@ -48,6 +48,7 @@ const PageKasMasuk = lazy(() => import('./KasBank/KasMasuk/PageKasMasuk'))
 const PageKirimTagihan = lazy(
     () => import('./KasBank/KirimTagihan/PageKirimTagihan')
 )
+const PageKasBank = lazy(() => import('./KasBank/PageKasBank'))
 
 // Dokumen
 const DokumenTagihan = lazy(() => import('./Dokumen/TagihanPembayaran'))
@@ -71,8 +72,8 @@ const PageJurnalUmum = lazy(
     () => import('./Laporan/LaporanKeuangan/LaporanJurnalUmum/PageJurnalUmum')
 )
 
-const PageKasBank = lazy(
-    () => import('./Laporan/LaporanKeuangan/LaporanKasBank/PageKasBank')
+const LaporanKasBank = lazy(
+    () => import('./Laporan/LaporanKeuangan/LaporanKasBank/PageLaporanKasBank')
 )
 
 const PageKasTunai = lazy(
@@ -312,7 +313,7 @@ function AppRoutes() {
                             <Route
                                 path="laporan-keuangan/kas-bank"
                                 element={
-                                    <RouteWithAuth element={PageKasBank} />
+                                    <RouteWithAuth element={LaporanKasBank} />
                                 }
                             />
 
@@ -337,6 +338,8 @@ function AppRoutes() {
                                     <RouteWithAuth element={PagePosBayar} />
                                 }
                             /> */}
+
+                            {/* kas Bank */}
 
                             <Route
                                 path="not-found"
@@ -394,6 +397,13 @@ function AppRoutes() {
                                 path="kirim-tagihan"
                                 element={
                                     <RouteWithAuth element={PageKirimTagihan} />
+                                }
+                            />
+
+                            <Route
+                                path="page-kas-bank"
+                                element={
+                                    <RouteWithAuth element={PageKasBank} />
                                 }
                             />
 
