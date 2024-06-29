@@ -103,7 +103,7 @@ function PageKasKeluar() {
     ])
 
     const onCLickEditHandler = (row) => {
-        navigate(`edit/${row.kredit_id}`, {
+        navigate(`kas-keluar/edit/${row.kredit_id}`, {
             state: {
                 ...row,
                 unit_unit_name: dataUnit.data.filter(
@@ -112,6 +112,18 @@ function PageKasKeluar() {
             },
         })
     }
+
+    // const onCLickEditHandler = (row) => {
+    //     navigate(`edit/${row.kredit_id}`, {
+    //         state: {
+    //             ...row,
+    //             unit_unit_name: dataUnit.data.filter(
+    //                 (item) => item.unit_id == queryFilter.unit_id
+    //             )[0],
+    //         },
+    //     })
+    // }
+
     const onClickPrintHandler = async (id) => {
         await getDataDokumen(() => getDokumenKredit(id, dataUser.token))
     }

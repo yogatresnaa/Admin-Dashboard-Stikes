@@ -87,7 +87,7 @@ function EditKasMasuk() {
     }, [location.state.unit_unit_id])
 
     const fetchDataDebit = () => {
-        getDataDebitNotSubmit(() =>
+        getDatDebitNotSubmit(() =>
             getDebitNotSubmitted(
                 {
                     unit_id: queryFilter.unit_id,
@@ -133,7 +133,7 @@ function EditKasMasuk() {
 
             <div className="d-flex justify-content-between">
                 <h3>
-                    Edit Kas Keluar{' '}
+                    Edit Kas Masuk{' '}
                     <span style={{ fontSize: '0.8em', color: 'gray' }}>
                         List
                     </span>

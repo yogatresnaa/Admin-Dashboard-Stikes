@@ -26,8 +26,8 @@ import { kreditPaymentSchema } from '../../../utils/schema'
 
 const breadCrumbItems = [
     {
-        name: 'Kas Keluar',
-        linkTo: '/admin/kas-keluar',
+        name: 'Page Kas Bank',
+        linkTo: '/admin/page-kas-bank',
     },
     {
         name: 'Edit Kas',

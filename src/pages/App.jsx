@@ -400,12 +400,50 @@ function AppRoutes() {
                                 }
                             />
 
+                            {/* ========= */}
+
                             <Route
                                 path="page-kas-bank"
                                 element={
                                     <RouteWithAuth element={PageKasBank} />
                                 }
                             />
+
+                            <Route
+                                path="page-kas-bank/tambah"
+                                element={
+                                    <RouteWithAuth
+                                        element={PageTambahKasKeluar}
+                                    />
+                                }
+                            />
+
+                            <Route
+                                path="page-kas-bank/kas-keluar/edit/:id"
+                                element={
+                                    <RouteWithAuth
+                                        element={PageEditKasKeluar}
+                                    />
+                                }
+                            />
+
+                            <Route
+                                path="page-kas-bank/tambah"
+                                element={
+                                    <RouteWithAuth
+                                        element={PageTambahKasMasuk}
+                                    />
+                                }
+                            />
+
+                            <Route
+                                path="page-kas-bank/kas-masuk/edit/:id"
+                                element={
+                                    <RouteWithAuth element={EditKasMasuk} />
+                                }
+                            />
+
+                            {/* =========== */}
 
                             <Route
                                 path=""

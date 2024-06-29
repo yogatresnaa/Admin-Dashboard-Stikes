@@ -103,7 +103,7 @@ function PageKasMasuk() {
     ])
 
     const onCLickEditHandler = (row) => {
-        navigate(`edit/${row.debit_id}`, {
+        navigate(`kas-masuk/edit/${row.debit_id}`, {
             state: {
                 ...row,
                 unit_unit_name: dataUnit.data.filter(
@@ -112,6 +112,17 @@ function PageKasMasuk() {
             },
         })
     }
+
+    //   const onCLickEditHandler = (row) => {
+    //       navigate(`/edit/${row.debit_id}`, {
+    //           state: {
+    //               ...row,
+    //               unit_unit_name: dataUnit.data.filter(
+    //                   (item) => item.unit_id == queryFilter.unit_id
+    //               )[0],
+    //           },
+    //       })
+    //   }
 
     const onClickPrintHandler = async (id) => {
         await getDataDokumen(() => getDokumenDebit(id, dataUser.token))
