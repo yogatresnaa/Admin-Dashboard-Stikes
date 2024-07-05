@@ -10,6 +10,8 @@ export default function ModalPembayaranBulanan({
     isOpenModal,
     toggleModal,
     data,
+    dateData,
+    onChangeDate,
     headerName,
     onSubmit,
     initialValues,
@@ -52,18 +54,15 @@ export default function ModalPembayaranBulanan({
                             id="payment_rate_date_pay"
                             name="payment_rate_date_pay"
                             placeholder="Masukkan Tanggal"
-                            disabled
                             text="Tanggal Bayar"
-                            type="text"
+                            type="date"
                             error={errors}
-                            handler={handleChange('payment_rate_date_pay')}
-                            value={
-                                values.payment_rate_date_pay
-                                    ? new Date(
-                                          values.payment_rate_date_pay
-                                      ).toLocaleDateString('id')
-                                    : new Date().toLocaleDateString('id')
-                            }
+                            handler={(e) => {
+                                onChangeDate(e.target.value)
+                                console.log(e)
+                                console.log(dateData)
+                            }}
+                            value={dateData}
                         />
                         <FormComponent
                             id="tanggal_"

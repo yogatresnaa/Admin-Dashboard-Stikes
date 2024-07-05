@@ -87,27 +87,30 @@ export default function FormInputKelas({
                     />
                 </FormGroup>
             )}
-            {type.includes('siswa') && (
-                <FormGroup>
-                    <CustomSelect
-                        data={dataSiswa}
-                        isVertical={false}
-                        includeAll={false}
-                        isDisabled={type.includes('edit')}
-                        withLabel
-                        name={'class_id'}
-                        value={values.student_student_id}
-                        onChange={handleChange('student_student_id')}
-                        labelName={'Siswa'}
-                        optionName={'student_full_name'}
-                        optionValue={'student_id'}
-                    />
-                    <ErrorComponent
-                        text={errors.student_student_id}
-                        error={errors.student_student_id}
-                    />
-                </FormGroup>
-            )}
+            {type.includes('siswa') &&
+                locationState.data.payment_type
+                    .toLowerCase()
+                    .includes('bulanan') && (
+                    <FormGroup>
+                        <CustomSelect
+                            data={dataSiswa}
+                            isVertical={false}
+                            includeAll={false}
+                            isDisabled={type.includes('edit')}
+                            withLabel
+                            name={'class_id'}
+                            value={values.student_student_id}
+                            onChange={handleChange('student_student_id')}
+                            labelName={'Siswa'}
+                            optionName={'student_full_name'}
+                            optionValue={'student_id'}
+                        />
+                        <ErrorComponent
+                            text={errors.student_student_id}
+                            error={errors.student_student_id}
+                        />
+                    </FormGroup>
+                )}
         </>
     )
 }

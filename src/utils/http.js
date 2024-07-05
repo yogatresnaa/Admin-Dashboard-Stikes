@@ -388,3 +388,13 @@ export const getLaporanPembayaranPerKelas = (params, token) =>
         ...options(token),
         params: params,
     })
+export const getLaporanPembayaranPerTanggal = (params, token) =>
+    Axios.get(`${URL_BASE}/laporan/pembayaran-per-tanggal`, {
+        ...options(token),
+        params: params,
+    })
+export const getLaporanTagihanSiswa = (params, token) =>
+    Axios.get(`${URL_BASE}/laporan/tagihan-siswa`, {
+        ...options(token),
+        params: params,
+    })

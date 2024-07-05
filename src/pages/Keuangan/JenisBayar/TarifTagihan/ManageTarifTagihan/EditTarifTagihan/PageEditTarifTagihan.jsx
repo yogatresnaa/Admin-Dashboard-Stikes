@@ -57,6 +57,8 @@ import {
     putMonthlyPaymentRateModel,
     putFreePaymentRateByClassModel,
 } from '../../../../../../models/models'
+import * as Yup from 'yup'
+
 import { ToastContainer } from 'react-toastify'
 import FormInputBebasTagihan from '../components/FormInputBebasTagihan'
 import FormEditBulananKelas from '../components/FormEditBulananKelas'
@@ -235,6 +237,7 @@ export default function PageEditTarifTagihan() {
         formBody,
         { resetForm }
     ) => {
+        console.log('aaaa')
         const newFormBody = monthlyPaymentRateModel.objectToJSON(formBody)
         console.log(formBody)
         await sendDataPaymentRate(
@@ -327,6 +330,8 @@ export default function PageEditTarifTagihan() {
     }
 
     const submitHandler = (formBody, { resetForm, setErrors }) => {
+        console.log(location.state.data?.payment_type.toLowerCase())
+        console.log(searchParams.get('type'))
         if (
             location.state.data?.payment_type.toLowerCase().includes('bulanan')
         ) {
@@ -338,6 +343,7 @@ export default function PageEditTarifTagihan() {
                 // onAddPaymentRateByClassHandler(formBody, { resetForm })
                 console.log(formBody)
             } else if (searchParams.get('type').includes('edit-siswa')) {
+                console.log('aaaa')
                 onEditMonthlyPaymentRateByStudentHandler(formBody, {
                     resetForm,
                 })
@@ -353,7 +359,23 @@ export default function PageEditTarifTagihan() {
     // const monthSelectHandler = ({monthName,monthId}) => {
 
     // }
-
+    const validationSchema = () => {
+        if (
+            location.state.data?.payment_type.toLowerCase().includes('bulanan')
+        ) {
+            if (searchParams.get('type').includes('edit-siswa')) {
+                return Yup.object().shape({})
+            } else {
+                return editMonthlyPaymentRateSchema
+            }
+        } else {
+            if (searchParams.get('type').includes('edit-siswa')) {
+                return Yup.object().shape({})
+            } else {
+                return editFreePaymentRateSchema
+            }
+        }
+    }
     console.log(dataDetailPaymentRate)
     return (
         <>
@@ -361,19 +383,11 @@ export default function PageEditTarifTagihan() {
 
             <Formik
                 enableReinitialize
-                validateOnBlur={false}
+                validateOnBlur={true}
                 validateOnChange={false}
                 initialValues={{ ...dataDetailPaymentRate.data }}
                 onSubmit={submitHandler}
-                validationSchema={
-                    location.state.data?.payment_type
-                        .toLowerCase()
-                        .includes('bulanan')
-                        ? editMonthlyPaymentRateSchema
-                        : searchParams.get('type').includes('edit-siswa')
-                          ? freePaymentRateSchema
-                          : editFreePaymentRateSchema
-                }
+                validationSchema={validationSchema()}
             >
                 {({
                     handleChange,

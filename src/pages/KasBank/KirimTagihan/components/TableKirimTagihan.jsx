@@ -1,6 +1,7 @@
 import React from 'react'
 import DataTable from 'react-data-table-component'
 import { KirimTagihan } from '../../../../utils/dumyDataTransaksi'
+import { rupiahConvert } from '../../../../utils/helper'
 
 function TableKirimTagihan({ data, onSelectableChange }) {
     const columns = [
@@ -25,7 +26,7 @@ function TableKirimTagihan({ data, onSelectableChange }) {
 
         {
             name: 'Kelas',
-            selector: (row) => row.class_name,
+            selector: (row) => row.class_class_name,
             sortable: true,
         },
 
@@ -37,7 +38,7 @@ function TableKirimTagihan({ data, onSelectableChange }) {
 
         {
             name: 'Total Tagihan',
-            selector: (row) => row.total_tagihan,
+            selector: (row) => rupiahConvert(row.total_tagihan),
             sortable: true,
         },
     ]

@@ -62,7 +62,7 @@ import SelectDate from '../../../component/ActionButton/SelectDate'
 
 const pembayaranBulananInitialValues = {
     payment_rate_bill: '',
-    tanggal_pembayaran: '',
+    tanggal_pembayaran: new Date(),
 }
 function PagePembayaranSiswa() {
     const {
@@ -172,6 +172,7 @@ function PagePembayaranSiswa() {
     const [dataDetailPembayaran, setDataDetailPembayaran] = useState({})
     const [dataDiscount, setDataDiscount] = useState({})
     const [filterTextModal, setFilterTextModal] = useState('')
+    const [dateBayarBulanan, setDateBayarBulanan] = useState(new Date())
     const [selectedNoReferensi, setSelectNoReferensi] = useState('')
     const {
         data: TahunAjaran,
@@ -442,6 +443,7 @@ function PagePembayaranSiswa() {
         const formData = {
             student_student_id: dataDetailSiswa?.student_id,
             payment_rate_via: paymentRateVia,
+            payment_rate_date_pay: dateBayarBulanan,
             payment_rate_number_pay: dataCode?.data?.code,
         }
 
@@ -1012,6 +1014,8 @@ function PagePembayaranSiswa() {
             <ModalPembayaranBulanan
                 data={dataDetailPembayaran}
                 headerName={'Data Bayar'}
+                dateDate={dateBayarBulanan}
+                onChangeDate={setDateBayarBulanan}
                 onSubmit={onClickSubmitButtonModal}
                 initialValues={pembayaranBulananInitialValues}
                 isOpenModal={isOpenModalPembayaran}
