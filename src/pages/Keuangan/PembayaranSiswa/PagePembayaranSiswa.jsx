@@ -412,10 +412,14 @@ function PagePembayaranSiswa() {
     }
     const newDataSiswa = dataSiswa.data.filter(
         (item) =>
-            item.student_nis
+            (item.student_nis
                 .toString()
                 .toLowerCase()
-                .includes(filterTextModal.toLocaleLowerCase()) &&
+                .includes(filterTextModal.toLocaleLowerCase()) ||
+                item.student_full_name
+                    .toString()
+                    .toLowerCase()
+                    .includes(filterTextModal.toLocaleLowerCase())) &&
             (kelas !== '' ? item.class_class_id == kelas : true)
     )
     const onClickItemPembayaranHandler = (data) => {
