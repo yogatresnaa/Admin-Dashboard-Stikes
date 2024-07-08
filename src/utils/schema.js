@@ -16,10 +16,10 @@ export const siswaSchema = Yup.object().shape({
     student_nis: Yup.string().required('NIS Siswa Harus Diisi'),
     student_nisn: Yup.string().required('NISN Siswa Harus Diisi'),
     majors_majors_id: Yup.string().required('Prodi Harus Diisi'),
-    student_born_date: Yup.string().required('Tanggal Lahir Harus Diisi'),
-    student_born_place: Yup.string().required('Tempat Lahir Harus Diisi'),
+    // student_born_date: Yup.string().required('Tanggal Lahir Harus Diisi'),
+    // student_born_place: Yup.string().required('Tempat Lahir Harus Diisi'),
     class_class_id: Yup.string().required('Kelas Harus Diisi'),
-    student_parent_phone: Yup.string().required('Nomor Telp Orang Tua Diisi'),
+    // student_parent_phone: Yup.string().required('Nomor Telp Orang Tua Diisi'),
     student_status: Yup.string().required('Status Siswa Harus Diisi'),
     unit_unit_id: Yup.string().required('Unit Harus Diisi'),
     // majors_short_name:Yup.string().required("Field Harus Diisi"),
@@ -27,23 +27,23 @@ export const siswaSchema = Yup.object().shape({
 export const accountCostSchema = (isCategory) =>
     isCategory
         ? Yup.object().shape({
-              account_code: Yup.string().required('Kode  Harus Diisi'),
-              account_description: Yup.string().required(
-                  'Description Harus Diisi'
-              ),
-              account_category: Yup.string().required('Kategori Harus Diisi'),
+            account_code: Yup.string().required('Kode  Harus Diisi'),
+            account_description: Yup.string().required(
+                'Description Harus Diisi'
+            ),
+            account_category: Yup.string().required('Kategori Harus Diisi'),
 
-              // majors_short_name:Yup.string().required("Field Harus Diisi"),
-          })
+            // majors_short_name:Yup.string().required("Field Harus Diisi"),
+        })
         : Yup.object().shape({
-              account_code: Yup.string().required('Kode  Harus Diisi'),
-              account_description: Yup.string().required(
-                  'Description Harus Diisi'
-              ),
-              unit_unit_id: Yup.string().required('Unit Harus Diisi'),
+            account_code: Yup.string().required('Kode  Harus Diisi'),
+            account_description: Yup.string().required(
+                'Description Harus Diisi'
+            ),
+            unit_unit_id: Yup.string().required('Unit Harus Diisi'),
 
-              // majors_short_name:Yup.string().required("Field Harus Diisi"),
-          })
+            // majors_short_name:Yup.string().required("Field Harus Diisi"),
+        })
 
 export const posPaySchema = Yup.object().shape({
     account_account_code: Yup.string().required('Kode Akun Harus Dipilih'),
