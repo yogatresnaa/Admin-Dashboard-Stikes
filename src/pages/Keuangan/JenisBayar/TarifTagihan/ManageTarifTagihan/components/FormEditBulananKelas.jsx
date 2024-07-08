@@ -58,7 +58,7 @@ export default function FormEditBulananKelas({
                                     onChange={(e) => {
                                         if (e.target.checked)
                                             setFieldValue(
-                                                `month.month_${e.target.value}`,
+                                                `month.month_change.month_${e.target.value.toLowerCase()}`,
                                                 item.month_id
                                             )
                                         else

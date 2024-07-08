@@ -2,7 +2,7 @@ import Axios from 'axios'
 import { logoutUserAction } from '../redux/actions/actionsTypes'
 import { logoutUserActionCreator } from '../redux/actions/authAction'
 
-const URL_BASE = 'http://localhost:5000'
+const URL_BASE = import.meta.env.VITE_BASE_API
 const options = (token) => ({
     headers: { Authorization: `Bearer ${token}` },
     timeout: 15000,
@@ -385,6 +385,16 @@ export const deleteDebit = (id, token) =>
 //laporan
 export const getLaporanPembayaranPerKelas = (params, token) =>
     Axios.get(`${URL_BASE}/laporan/pembayaran-per-kelas`, {
+        ...options(token),
+        params: params,
+    })
+export const getLaporanPembayaranPerTanggal = (params, token) =>
+    Axios.get(`${URL_BASE}/laporan/pembayaran-per-tanggal`, {
+        ...options(token),
+        params: params,
+    })
+export const getLaporanTagihanSiswa = (params, token) =>
+    Axios.get(`${URL_BASE}/laporan/tagihan-siswa`, {
         ...options(token),
         params: params,
     })

@@ -37,6 +37,7 @@ import SelectTahunAjaran from '../../../../component/ActionButton/SelectTahunAja
 import DateInput from '../../../../component/ActionButton/InputDate'
 import CustomSelect from '../../../../component/Select/CustomSelect'
 import SelectUnit from '../../../../component/ActionButton/SelectUnit'
+import TablePembayaranPerKelas from './components/TablePembayaranPerKelas'
 // import TablePembayaran from './component/TablePembayaran'
 
 function PageLaporanPembayaranKelas() {
@@ -76,6 +77,7 @@ function PageLaporanPembayaranKelas() {
     } = useRequest()
     const {
         data: dataLaporan,
+        isLoading: isLoadingLaporan,
         setData: setDataLaporan,
         getData: getDataLaporan,
     } = useRequest()
@@ -113,6 +115,13 @@ function PageLaporanPembayaranKelas() {
 
         getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token))
     }, [])
+    useEffect(() => {
+        const selectedPeriod = TahunAjaran.data[0]
+        setQueryFilter((prevState) => ({
+            ...prevState,
+            period_id: selectedPeriod?.period_id,
+        }))
+    }, [TahunAjaran.data])
 
     useEffect(() => {
         fetchAll()
@@ -123,12 +132,6 @@ function PageLaporanPembayaranKelas() {
         )
         getDataKelas(() =>
             getAllKelas({ unit_unit_id: queryFilter.unit_id }, dataUser.token)
-        )
-        getDataPaymentType(() =>
-            getAllPaymentType(
-                { unit_unit_id: queryFilter.unit_id },
-                dataUser.token
-            )
         )
     }
     const onPeriodChange = (e) => {
@@ -185,11 +188,23 @@ function PageLaporanPembayaranKelas() {
             [e.target.name]: e.target.value,
         }))
     }
-
+    useEffect(() => {
+        if (queryFilter.unit_id !== '') {
+            getDataPaymentType(() =>
+                getAllPaymentType(
+                    {
+                        unit_unit_id: queryFilter.unit_id,
+                        period_period_id: queryFilter.period_id,
+                    },
+                    dataUser.token
+                )
+            )
+        }
+    }, [queryFilter.period_id, queryFilter.unit_id])
     console.log(dataSiswa)
     const dataFiltered = useMemo(
         () =>
-            dataSiswa.data.filter(
+            dataLaporan.data.filter(
                 (item) =>
                     item.student_nis
                         .toString()
@@ -198,15 +213,10 @@ function PageLaporanPembayaranKelas() {
                     item.student_full_name
                         .toString()
                         .toLowerCase()
-                        .includes(filterText.toLocaleLowerCase()) ||
-                    item.majors_majors_name
-                        .toString()
-                        .toLowerCase()
                         .includes(filterText.toLocaleLowerCase())
             ),
-        [filterText, dataSiswa.data]
+        [filterText, dataLaporan.data]
     )
-
     return (
         <>
             <ToastContainer />
@@ -250,7 +260,7 @@ function PageLaporanPembayaranKelas() {
                                 labelName={'Pembayaran'}
                                 optionName={'pos_pay_name'}
                                 name={'payment_type'}
-                                optionValue={'payment_id'}
+                                optionValue={'pos_pos_id'}
                                 onChange={onQueryFilterChange}
                                 value={queryFilter.payment_type}
                             />
@@ -271,7 +281,16 @@ function PageLaporanPembayaranKelas() {
                         >
                             Laporan Pembayaran
                         </h6>
-                        {/* <TablePembayaran /> */}
+                        <TablePembayaranPerKelas
+                            data={
+                                filterText.length > 0
+                                    ? dataFiltered
+                                    : dataLaporan.data
+                            }
+                            subHeaderComponent={subHeaderComponent}
+                            resetPaginationToggle={resetPaginationToggle}
+                            isLoading={isLoadingLaporan}
+                        />
                     </div>
                 </div>
 

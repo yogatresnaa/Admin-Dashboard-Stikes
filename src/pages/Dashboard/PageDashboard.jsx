@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import BarChart from './components/BarChart'
 import LineChart from './components/LineChart'
 import './css/Dashboard.css'
-import CardTransaksi from './Components/CardTransaksi'
+import CardTransaksi from './components/CardTransaksi'
 import { getDataTransaksi } from '../../utils/dumyDataTransaksi'
 import {
     BsFillCalculatorFill,

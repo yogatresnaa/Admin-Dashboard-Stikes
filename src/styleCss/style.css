@@ -120,3 +120,9 @@
     width: 100%;
     font-size: 0.8rem;
 }
+
+.datepicker_without_gutter > .react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+    margin: 0;
+}
