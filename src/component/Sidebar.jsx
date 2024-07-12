@@ -136,7 +136,8 @@ function Sidebar() {
                             </li>
                         </Link>
 
-                        {/* <Link className="link" to="/admin/pembayaran-siswa">
+                        {/* baru=================== */}
+                        <Link className="link" to="/admin/pembayaran-siswa">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -197,9 +198,11 @@ function Sidebar() {
 
                                 <span className="ms-2">Manajemen Data</span>
                             </li>
-                        </Link> */}
+                        </Link>
+                        {/* baru=================== */}
 
-                        <li className="nav-item my-2" onClick={toggleNav}>
+                        {/* lama ========================== */}
+                        {/* <li className="nav-item my-2" onClick={toggleNav}>
                             <a
                                 href="#submenu"
                                 className="nav-link "
@@ -254,9 +257,12 @@ function Sidebar() {
                                     </Link>
                                 ))}
                             </ul>
-                        </li>
+                        </li> */}
 
-                        {/* <Link className="link" to="/admin/page-akademik">
+                        {/* lama ========================== */}
+
+                        {/* baru=================== */}
+                        <Link className="link" to="/admin/page-akademik">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -319,7 +325,7 @@ function Sidebar() {
                             </li>
                         </Link>
 
-                        <Link className="link" to="/admin/page-kas-bank">
+                        {/* <Link className="link" to="">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -340,7 +346,7 @@ function Sidebar() {
                             </li>
                         </Link>
 
-                        <Link className="link" to="/admin/page-kas-bank">
+                        <Link className="link" to="">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -360,10 +366,10 @@ function Sidebar() {
                                 <span className="ms-2">Lap. Pembayaran</span>
                             </li>
                         </Link> */}
+                        {/* baru=================== */}
 
-                        {/* ============================================================= */}
-
-                        <li
+                        {/* lama ========================== */}
+                        {/* <li
                             className="nav-item text-white my-1 column-wrapper "
                             onClick={toggleNav2}
                         >
@@ -442,9 +448,9 @@ function Sidebar() {
                                     </li>
                                 </Link>
                             </ul>
-                        </li>
+                        </li> */}
 
-                        <li className="nav-item text-white my-1">
+                        {/* <li className="nav-item text-white my-1">
                             <a
                                 href="#submenu3"
                                 className="nav-link "
@@ -572,9 +578,9 @@ function Sidebar() {
                                     </ul>
                                 </li>
                             </ul>
-                        </li>
+                        </li> */}
 
-                        <li className="nav-item text-white my-2">
+                        {/* <li className="nav-item text-white my-2">
                             <a
                                 href="#submenu6"
                                 className="nav-link "
@@ -650,7 +656,9 @@ function Sidebar() {
                                     </li>
                                 </Link>
                             </ul>
-                        </li>
+                        </li> */}
+
+                        {/* lama ========================== */}
 
                         <li className="nav-item text-white my-1">
                             <a
