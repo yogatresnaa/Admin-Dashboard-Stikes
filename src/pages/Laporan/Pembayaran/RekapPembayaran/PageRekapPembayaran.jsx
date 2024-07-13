@@ -5,15 +5,18 @@ import _ from 'lodash'
 import useRequest from '../../../../customHooks/useRequest'
 import {
     getAllProdi,
-    putProdi,
-    deleteProdi,
-    postProdi,
     getAllTahunAjaran,
     getAllSiswa,
     putSiswa,
     deleteSiswa,
     postSiswa,
     getAllKelas,
+    getLaporanPembayaranPerKelas,
+    getAllUnitByUser,
+    getAllPaymentType,
+    getLaporanPembayaranPerTanggal,
+    getLaporanTagihanSiswa,
+    getLaporanRekapPembayaran,
 } from '../../../../utils/http'
 // import "./css/page-laporan-pembayaran-kelas.css";
 import { useSelector } from 'react-redux'
@@ -34,20 +37,33 @@ import { dateConvert, dateConvertForDb } from '../../../../utils/helper'
 import ReactToPrint, { useReactToPrint } from 'react-to-print'
 // import PrintTableSiswaComponent from "./components/PrintTableSiswaTemplate";
 import SelectTahunAjaran from '../../../../component/ActionButton/SelectTahunAjaran'
+import DateInput from '../../../../component/ActionButton/InputDate'
+import CustomSelect from '../../../../component/Select/CustomSelect'
+import SelectUnit from '../../../../component/ActionButton/SelectUnit'
+import SelectDate from '../../../../component/ActionButton/SelectDate'
+import moment from 'moment'
+// import TableTagihanSiswa from './component/TableTagihanSiswa'
+// import DetailModal from './component/DetailModal'
+// import TablePembayaran from './component/TablePembayaran'
 
 function PageRekapPembayaran() {
     const {
         data: dataSiswa,
-        setData: setDataSiswa,
-        sendData: sendDataSiswa,
-        setDataDetail: setDataDetailSiswa,
-        dataDetail: dataDetailSiswa,
-        getData: getDataSiswa,
-        isLoading: isLoadingSiswa,
-        setIsLoading: setIsLoadingSiswa,
-        isLoadingSendData: isLoadingSendDataSiswa,
+
         filterText,
         onChangeFilterText,
+    } = useRequest()
+
+    const {
+        data: dataUnit,
+        setData: setDataUnit,
+        getData: getDataUnit,
+    } = useRequest()
+
+    const {
+        data: dataKelas,
+        setData: setDataKelas,
+        getData: getDataKelas,
     } = useRequest()
     const {
         data: dataProdi,
@@ -55,9 +71,10 @@ function PageRekapPembayaran() {
         getData: getDataProdi,
     } = useRequest()
     const {
-        data: dataKelas,
-        setData: setDataKelas,
-        getData: getDataKelas,
+        data: dataLaporan,
+        setData: setDataLaporan,
+        isLoading: isLoadingLaporan,
+        getData: getDataLaporan,
     } = useRequest()
     const {
         resetPaginationToggle,
@@ -73,8 +90,14 @@ function PageRekapPembayaran() {
     const [queryFilter, setQueryFilter] = useState({
         class_id: '',
         status: '',
+        payment_type: '',
         majors_id: '',
+        period_id: '',
+        unit_id: '',
+        tanggal_awal: new Date(),
+        tanggal_akhir: new Date(),
     })
+    const [dataDetail, setDataDetail] = useState()
     const [isOpenDetailModal, setIsOpenDetailModal] = useState(false)
     const [tahunAjaranState, setTahunAjaran] = useState('')
     const {
@@ -82,48 +105,66 @@ function PageRekapPembayaran() {
         setData: setDataTahunAjaran,
         getData: getDataTahunAjaran,
     } = useRequest()
-
+    const [modalDetail, setModalDetail] = useState(false)
     const printComponent = useRef()
     useEffect(() => {
         const query = queryString.stringify(queryFilter)
-        getDataSiswa(() => getAllSiswa(query, dataUser.token))
-        getDataProdi(() => getAllProdi(dataUser.token))
-        getDataKelas(() => getAllKelas(dataUser.token))
+        getDataUnit(() => getAllUnitByUser(dataUser.token))
+
         getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token))
     }, [])
+    useEffect(() => {
+        const selectedPeriod = TahunAjaran.data[0]
+        setQueryFilter((prevState) => ({
+            ...prevState,
+            period_id: selectedPeriod?.period_id,
+        }))
+    }, [TahunAjaran.data])
 
+    useEffect(() => {
+        fetchAll()
+    }, [queryFilter.unit_id])
+    const fetchAll = () => {
+        getDataProdi(() =>
+            getAllProdi({ unit_unit_id: queryFilter.unit_id }, dataUser.token)
+        )
+        getDataKelas(() =>
+            getAllKelas({ unit_unit_id: queryFilter.unit_id }, dataUser.token)
+        )
+    }
     const onPeriodChange = (e) => {
         console.log(TahunAjaran)
         const selectedPeriod = TahunAjaran.data.filter(
             (item) => item.period_id == parseInt(e.target.value, 10)
         )[0]
-
+        setQueryFilter((prevState) => ({
+            ...prevState,
+            period_id: e.target.value,
+        }))
         setTahunAjaran(selectedPeriod)
     }
 
     const onCLickFilterSubmit = () => {
-        const query = queryString.stringify(queryFilter)
-        getDataSiswa(() => getAllSiswa(query, dataUser.token))
+        getDataLaporan(() =>
+            getLaporanRekapPembayaran(
+                {
+                    ...queryFilter,
+                    tanggal_awal: moment(queryFilter.tanggal_awal).format(
+                        'YYYY-MM-DD'
+                    ),
+                    tanggal_akhir: moment(queryFilter.tanggal_akhirl).format(
+                        'YYYY-MM-DD'
+                    ),
+                    period_id:
+                        queryFilter.period_id == ''
+                            ? TahunAjaran.data[0].period_id
+                            : queryFilter.period_id,
+                },
+                dataUser.token
+            )
+        )
     }
 
-    const onClickTambahHandler = () => {
-        setIsOpenModalForm(!isOpenModalForm)
-        setIsEdit(false)
-    }
-    const onClickEditHandler = (item) => {
-        console.log(item)
-        setDataDetailSiswa((prevState) => ({
-            ...prevState,
-            ...item,
-            student_born_date:
-                item.student_born_date == '0000-00-00'
-                    ? item.student_born_date
-                    : dateConvertForDb(item.student_born_date),
-        }))
-        setIsEdit(true)
-        setIsOpenModalForm(!isOpenModalForm)
-    }
-    console.log('render')
     const subHeaderComponent = useMemo(() => {
         const onClearHandler = () => {
             if (filterText) {
@@ -144,64 +185,19 @@ function PageRekapPembayaran() {
         resetPaginationToggle,
         setResetPaginationToggle,
     ])
-    const handlePrint = useReactToPrint({
-        content: () => printComponent.current,
-    })
-    const onClickDetailSiswaHandler = (dataDetail) => {
-        setDataDetailSiswa(dataDetail)
-        setIsOpenDetailModal(true)
-    }
-    const onSubmitTambahHandler = async (formBody, { resetForm }) => {
-        const query = queryString.stringify(queryFilter)
-        await sendDataSiswa(
-            () => postSiswa(siswaModel.objectToJSON(formBody), dataUser.token),
-            () => {
-                getDataSiswa(() => getAllSiswa(query, dataUser.token))
-                setIsOpenModalForm(!isOpenModalForm)
-            },
-            null
-        )
-    }
-
-    const onSubmitEditHandler = async (formBody, { resetForm }) => {
-        console.log(formBody)
-        const query = queryString.stringify(queryFilter)
-
-        await sendDataSiswa(
-            () =>
-                putSiswa(
-                    formBody.student_id,
-                    siswaModel.objectToJSON(formBody),
-                    dataUser.token
-                ),
-            () => {
-                getDataSiswa(() => getAllSiswa(query, dataUser.token))
-                setIsOpenModalForm(!isOpenModalForm)
-            },
-            null
-        )
-    }
-    const onSubmitDeleteHandler = async (formBody) => {
-        console.log(formBody)
-        const query = queryString.stringify(queryFilter)
-
-        alertConfirmation(alertType.delete, async () => {
-            await sendDataSiswa(
-                () => deleteSiswa(formBody.student_id, dataUser.token),
-                () => {
-                    getDataSiswa(() => getAllSiswa(query, dataUser.token))
-                    setIsOpenModalForm(!isOpenModalForm)
-                },
-                null
-            )
-        })
-    }
 
     const onQueryFilterChange = (e) => {
         setQueryFilter((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
         }))
+    }
+    const onCLickDetailHandler = (data) => {
+        setDataDetail(data)
+        toggleModal()
+    }
+    const toggleModal = () => {
+        setModalDetail(!modalDetail)
     }
 
     console.log(dataSiswa)
@@ -224,87 +220,110 @@ function PageRekapPembayaran() {
             ),
         [filterText, dataSiswa.data]
     )
-
     return (
         <>
             <ToastContainer />
             <div className="page-content">
                 <h3>
-                    Rekapitulasi{' '}
-                    <span style={{ fontSize: '0.8em', color: 'gray' }}>
-                        List
-                    </span>
+                    Laporan Tagihan Siswa{' '}
+                    <span style={{ fontSize: '0.8em', color: 'gray' }}></span>
                 </h3>
 
                 <div className="table-content">
-                    <div className="d-flex flex-row gap-1 justify-content-start align-items-center mt-2">
-                        <SelectTahunAjaran
-                            data={TahunAjaran.data}
-                            onChange={onPeriodChange}
-                            value={tahunAjaranState?.period_id ?? ''}
-                        />
-                        <SelectProdi
-                            data={dataProdi.data}
-                            onProdiFilterChange={onQueryFilterChange}
-                            value={queryFilter.majors_id}
-                        />
-                        <SelectUnitKelas
-                            data={dataKelas.data}
-                            onProdiFilterChange={onQueryFilterChange}
-                            value={queryFilter.class_id}
-                        />
+                    <div className="sub-content">
+                        <div className="d-flex flex-row gap-1 justify-content-start align-items-center mt-2">
+                            <SelectUnit
+                                data={dataUnit.data}
+                                includeAll={false}
+                                onFilterChange={onQueryFilterChange}
+                                value={queryFilter.unit_id}
+                                name={'unit_id'}
+                            />
+                            <SelectTahunAjaran
+                                data={TahunAjaran.data}
+                                includeAll={false}
+                                onChange={onPeriodChange}
+                                value={tahunAjaranState?.period_id ?? ''}
+                            />
+                            {/* <SelectProdi
+                                data={dataProdi.data}
+                                onProdiFilterChange={onQueryFilterChange}
+                                value={queryFilter.unit_id}
+                                name={'majors_id'}
+                            /> */}
 
-                        <Button
-                            size="sm"
-                            className="align-self-end"
-                            onClick={onCLickFilterSubmit}
-                        >
-                            Filter
-                        </Button>
+                            <SelectUnitKelas
+                                data={dataKelas.data}
+                                onProdiFilterChange={onQueryFilterChange}
+                                value={queryFilter.class_id}
+                                name={'class_id'}
+                                firstValue={'-'}
+                            />
+                            <SelectDate
+                                disabled={isEdit}
+                                title="Awal"
+                                noGutter
+                                date={queryFilter.tanggal_awal || new Date()}
+                                onDateChange={(e) =>
+                                    setQueryFilter((prevState) => ({
+                                        ...prevState,
+                                        tanggal_awal: e,
+                                    }))
+                                }
+                            />
+                            <SelectDate
+                                disabled={isEdit}
+                                title="Akhir"
+                                noGutter
+                                date={queryFilter.tanggal_akhir || new Date()}
+                                onDateChange={(e) =>
+                                    setQueryFilter((prevState) => ({
+                                        ...prevState,
+                                        tanggal_akhir: e,
+                                    }))
+                                }
+                            />
+                            <Button
+                                size="md"
+                                className="align-self-end w-auto"
+                                onClick={onCLickFilterSubmit}
+                                disabled={
+                                    queryFilter.unit_id == '' ||
+                                    queryFilter.class_id == '' ||
+                                    queryFilter.tanggal_awal == '' ||
+                                    queryFilter.tanggal_akhir == ''
+                                }
+                            >
+                                Cari
+                            </Button>
+                        </div>
                     </div>
 
-                    {/* <TableSiswa
-            data={filterText.length > 0 ? dataFiltered : dataSiswa.data}
-            subHeaderComponent={subHeaderComponent}
-            resetPaginationToggle={resetPaginationToggle}
-            isLoading={isLoadingSiswa}
-            onClickEditHandler={onClickEditHandler}
-            onClickDetailHandler={onClickDetailSiswaHandler}
-            onClickDeleteHandler={onSubmitDeleteHandler}
-          /> */}
+                    <div className="sub-content">
+                        <h6
+                            className="p-2 w-100 bg-black text-white"
+                            style={{ borderRadius: '5px' }}
+                        >
+                            Laporan Pembayaran
+                        </h6>
+                        {/* <TableTagihanSiswa
+                        data={dataLaporan.data}
+                        onClickDetailHandler={onCLickDetailHandler}
+                        subHeaderComponent={subHeaderComponent}
+                        resetPaginationToggle={resetPaginationToggle}
+                        isLoading={isLoadingLaporan}
+                        /> */}
+                    </div>
                 </div>
-                {/* <ModalForm
-          initialValues={isEdit ? dataDetailSiswa : siswaInitialValues}
-          schema={siswaSchema}
-          toggle={() => setIsOpenModalForm(!isOpenModalForm)}
-          isOpen={isOpenModalForm}
-          btnName={isEdit ? "Edit" : "Tambah"}
-          dataProdi={dataProdi.data}
-          dataKelas={dataKelas.data}
-          isLoadingSendData={isLoadingSendDataSiswa}
-          headerName={isEdit ? "Edit Siswa" : "Tambah Siswa"}
-          onSubmitHandler={isEdit ? onSubmitEditHandler : onSubmitTambahHandler}
-        /> */}
-                {/* <DetailModal
-          data={dataDetailSiswa}
-          isOpen={isOpenDetailModal}
-          toggle={() => setIsOpenDetailModal(!isOpenDetailModal)}
-          headerName={"Detail"}
-        /> */}
-                {/* <ModalForm
-          initialValues={
-            dataDetailKelas !== null ? dataDetailKelas : kelasInitialValues
-          }
-          schema={kelasSchema}
-          toggle={() => setIsOpenModalEdit(!isOpenModalEdit)}
-          isOpen={isOpenModalEdit}
-          btnName="Edit"
-          headerName="Edit Kelas"
-          onSubmitHandler={onSubmitEditHandler}
-        /> */}
 
                 {/* <PrintTableSiswaComponent data={dataSiswa.data} ref={printComponent} /> */}
             </div>
+            {/* <DetailModal
+                data={dataDetail}
+                headerName={'Rincian'}
+                isOpen={modalDetail}
+                toggle={toggleModal}
+            /> */}
         </>
     )
 }

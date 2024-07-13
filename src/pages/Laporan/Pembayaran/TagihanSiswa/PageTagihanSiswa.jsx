@@ -16,6 +16,7 @@ import {
     getAllPaymentType,
     getLaporanPembayaranPerTanggal,
     getLaporanTagihanSiswa,
+    getDokumenTagihanPembayaran,
 } from '../../../../utils/http'
 // import "./css/page-laporan-pembayaran-kelas.css";
 import { useSelector } from 'react-redux'
@@ -32,7 +33,11 @@ import { Button } from 'reactstrap'
 import queryString from 'query-string'
 import SelectStatusMahasiswa from '../../../../component/ActionButton/SelectStatusMahasiswa'
 // import DetailModal from "./components/DetailModal";
-import { dateConvert, dateConvertForDb } from '../../../../utils/helper'
+import {
+    dateConvert,
+    dateConvertForDb,
+    downloadDocument,
+} from '../../../../utils/helper'
 import ReactToPrint, { useReactToPrint } from 'react-to-print'
 // import PrintTableSiswaComponent from "./components/PrintTableSiswaTemplate";
 import SelectTahunAjaran from '../../../../component/ActionButton/SelectTahunAjaran'
@@ -42,6 +47,7 @@ import SelectUnit from '../../../../component/ActionButton/SelectUnit'
 import SelectDate from '../../../../component/ActionButton/SelectDate'
 import moment from 'moment'
 import TableTagihanSiswa from './component/TableTagihanSiswa'
+import DetailModal from './component/DetailModal'
 // import TablePembayaran from './component/TablePembayaran'
 
 function PageLaporanTagihanSiswa() {
@@ -92,9 +98,17 @@ function PageLaporanTagihanSiswa() {
         majors_id: '',
         period_id: '',
         unit_id: '',
-        tanggal_awal: '',
-        tanggal_akhir: '',
+        tanggal_awal: new Date(),
+        tanggal_akhir: new Date(),
     })
+    const {
+        data: dataPrintLaporan,
+        isLoadingGenerate: isLoadingDataPrintLaporan,
+        getData: getDataPrintLaporan,
+        setData: setDataPrintLaporan,
+    } = useRequest(true)
+    const [dataDetail, setDataDetail] = useState()
+    const [selectedStudent, setSelectedStudent] = useState()
     const [isOpenDetailModal, setIsOpenDetailModal] = useState(false)
     const [tahunAjaranState, setTahunAjaran] = useState('')
     const {
@@ -102,7 +116,7 @@ function PageLaporanTagihanSiswa() {
         setData: setDataTahunAjaran,
         getData: getDataTahunAjaran,
     } = useRequest()
-
+    const [modalDetail, setModalDetail] = useState(false)
     const printComponent = useRef()
     useEffect(() => {
         const query = queryString.stringify(queryFilter)
@@ -189,8 +203,28 @@ function PageLaporanTagihanSiswa() {
             [e.target.name]: e.target.value,
         }))
     }
+    const onCLickDetailHandler = (data) => {
+        setDataDetail(data)
+        toggleModal()
+    }
+    const toggleModal = () => {
+        setModalDetail(!modalDetail)
+    }
 
-    console.log(dataSiswa)
+    const onClickPrintHandler = (row) => {
+        setSelectedStudent(row.student_nis)
+        getDataPrintLaporan(() =>
+            getDokumenTagihanPembayaran(row.student_id, dataUser.token)
+        )
+    }
+    useEffect(() => {
+        if (dataPrintLaporan?.data?.data)
+            downloadDocument(
+                dataPrintLaporan.data.data,
+                `Tagihan_${selectedStudent}.pdf`
+            )
+        setDataPrintLaporan(null)
+    }, [dataPrintLaporan?.data])
     const dataFiltered = useMemo(
         () =>
             dataSiswa.data.filter(
@@ -247,6 +281,7 @@ function PageLaporanTagihanSiswa() {
                                 onProdiFilterChange={onQueryFilterChange}
                                 value={queryFilter.class_id}
                                 name={'class_id'}
+                                firstValue={'-'}
                             />
                             <SelectDate
                                 disabled={isEdit}
@@ -276,6 +311,12 @@ function PageLaporanTagihanSiswa() {
                                 size="md"
                                 className="align-self-end w-auto"
                                 onClick={onCLickFilterSubmit}
+                                disabled={
+                                    queryFilter.unit_id == '' ||
+                                    queryFilter.class_id == '' ||
+                                    queryFilter.tanggal_awal == '' ||
+                                    queryFilter.tanggal_akhir == ''
+                                }
                             >
                                 Cari
                             </Button>
@@ -291,6 +332,8 @@ function PageLaporanTagihanSiswa() {
                         </h6>
                         <TableTagihanSiswa
                             data={dataLaporan.data}
+                            onClickDetailHandler={onCLickDetailHandler}
+                            onClickPrintHandler={onClickPrintHandler}
                             subHeaderComponent={subHeaderComponent}
                             resetPaginationToggle={resetPaginationToggle}
                             isLoading={isLoadingLaporan}
@@ -300,6 +343,12 @@ function PageLaporanTagihanSiswa() {
 
                 {/* <PrintTableSiswaComponent data={dataSiswa.data} ref={printComponent} /> */}
             </div>
+            <DetailModal
+                data={dataDetail}
+                headerName={'Rincian'}
+                isOpen={modalDetail}
+                toggle={toggleModal}
+            />
         </>
     )
 }
