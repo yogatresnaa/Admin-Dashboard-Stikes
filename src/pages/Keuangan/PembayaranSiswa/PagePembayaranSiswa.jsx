@@ -264,8 +264,12 @@ function PagePembayaranSiswa() {
             getPaymentTransactionByStudent(
                 data.student_id,
                 {
-                    period_start: TahunAjaran.data[0].period_start,
-                    period_end: TahunAjaran.data[0].period_end,
+                    period_start: TahunAjaran.data.filter(
+                        (item) => item.period_status == 1
+                    )[0]?.period_start,
+                    period_end: TahunAjaran.data.filter(
+                        (item) => item.period_status == 1
+                    )[0]?.period_end,
                 },
                 dataUser.token
             )
@@ -321,11 +325,14 @@ function PagePembayaranSiswa() {
             dataPaymentTransaction.data.student_id
         ) {
             if (tahunAjaranState == '' || tahunAjaranState == undefined) {
-                console.log(TahunAjaran)
-                setTahunAjaran(TahunAjaran.data[0])
+                const tahuAjaranAktif = TahunAjaran.data.filter(
+                    (item) => item.period_status == 1
+                )[0]
+                console.log(tahuAjaranAktif)
+                setTahunAjaran(tahuAjaranAktif)
                 setDataDetailSiswa({
                     ...dataPaymentTransaction.data,
-                    period: `${TahunAjaran?.data[0]?.period_start}/${TahunAjaran?.data[0]?.period_end}`,
+                    period: `${tahuAjaranAktif?.period_start}/${tahuAjaranAktif?.period_end}`,
                 })
             } else {
                 console.log(tahunAjaranState)

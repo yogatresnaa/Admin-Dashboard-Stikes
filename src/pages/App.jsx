@@ -252,6 +252,19 @@ function AppRoutes() {
                                 }
                             />
                             <Route
+                                path="laporan/kas-tunai"
+                                element={
+                                    <RouteWithAuth element={PageKasTunai} />
+                                }
+                            />
+                            <Route
+                                path="laporan/kas-bank"
+                                element={
+                                    <RouteWithAuth element={PageKasBank} />
+                                }
+                            />
+
+                            <Route
                                 path="not-found"
                                 element={<PageNotFound />}
                             />
