@@ -14,21 +14,19 @@ function TableTagihanSiswa({
     subHeaderComponent,
     resetPaginationToggle,
     isLoading,
-    onClickEditHandler,
+    onClickPrintHandler,
     onClickDeleteHandler,
+    onClickDetailHandler,
 }) {
     const renderActionButton = (row) => (
         <div className="d-flex gap-1">
             <Button
-                color="warning"
                 size="sm"
                 data-tooltip-id="my-tooltip"
                 data-tooltip-content="Detail"
                 onClick={() => {
-                    console.log('ubah')
-                    onClickEditHandler(row)
+                    onClickDetailHandler(row)
                 }}
-                id={row.ID}
             >
                 <FaInfo /> Detail
             </Button>
@@ -38,11 +36,10 @@ function TableTagihanSiswa({
                 color="danger"
                 size="sm"
                 data-tooltip-id="my-tooltip"
-                data-tooltip-content="Hapus"
+                data-tooltip-content="Detail"
                 onClick={() => {
-                    onClickDeleteHandler(row)
+                    onClickPrintHandler(row)
                 }}
-                id={row.ID}
             >
                 <FaPrint /> Cetak
             </Button>
@@ -84,11 +81,6 @@ function TableTagihanSiswa({
             cell: (row) => renderActionButton(row),
             width: '200px',
         },
-        // {
-        //     name: 'Sisa',
-        //     selector: (row) => rupiahConvert(row.sisa_tagihan),
-        //     sortable: true,
-        // },
     ]
 
     return (
@@ -98,6 +90,7 @@ function TableTagihanSiswa({
                 data={data}
                 pagination
                 subHeader
+                selectableRows
                 subHeaderComponent={subHeaderComponent}
                 paginationResetDefaultPage={resetPaginationToggle}
                 progressPending={isLoading}

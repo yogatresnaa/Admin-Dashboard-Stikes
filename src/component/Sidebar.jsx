@@ -637,6 +637,8 @@ function Sidebar() {
                                         <Link
                                             className="link color"
                                             to="/admin/laporan-keuangan/kas-tunai"
+
+                                            //    to="/admin/laporan/kas-tunai"
                                         >
                                             <li
                                                 className="nav-item nav-link m-1"
@@ -649,6 +651,7 @@ function Sidebar() {
                                         <Link
                                             className="link color"
                                             to="/admin/laporan-keuangan/kas-bank"
+                                            // to="/admin/laporan/kas-bank"
                                         >
                                             <li
                                                 className="nav-item nav-link m-1"

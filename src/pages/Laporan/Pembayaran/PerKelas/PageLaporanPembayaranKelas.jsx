@@ -14,6 +14,7 @@ import {
     getLaporanPembayaranPerKelas,
     getAllUnitByUser,
     getAllPaymentType,
+    getDokumenLaporanPerKelas,
 } from '../../../../utils/http'
 // import "./css/page-laporan-pembayaran-kelas.css";
 import { useSelector } from 'react-redux'
@@ -30,7 +31,11 @@ import { Button } from 'reactstrap'
 import queryString from 'query-string'
 import SelectStatusMahasiswa from '../../../../component/ActionButton/SelectStatusMahasiswa'
 // import DetailModal from "./components/DetailModal";
-import { dateConvert, dateConvertForDb } from '../../../../utils/helper'
+import {
+    dateConvert,
+    dateConvertForDb,
+    downloadDocument,
+} from '../../../../utils/helper'
 import ReactToPrint, { useReactToPrint } from 'react-to-print'
 // import PrintTableSiswaComponent from "./components/PrintTableSiswaTemplate";
 import SelectTahunAjaran from '../../../../component/ActionButton/SelectTahunAjaran'
@@ -81,6 +86,12 @@ function PageLaporanPembayaranKelas() {
         setData: setDataLaporan,
         getData: getDataLaporan,
     } = useRequest()
+    const {
+        data: dataPrintLaporan,
+        isLoading: isLoadingDataPrintLaporan,
+        getData: getDataPrintLaporan,
+        setData: setDataPrintLaporan,
+    } = useRequest(true)
     const {
         resetPaginationToggle,
         setResetPaginationToggle,
@@ -188,6 +199,29 @@ function PageLaporanPembayaranKelas() {
             [e.target.name]: e.target.value,
         }))
     }
+
+    const onClickCetakPdfHandler = () => {
+        getDataPrintLaporan(() =>
+            getDokumenLaporanPerKelas(
+                {
+                    ...queryFilter,
+                    period_id:
+                        queryFilter.period_id == ''
+                            ? TahunAjaran.data[0].period_id
+                            : queryFilter.period_id,
+                },
+                dataUser.token
+            )
+        )
+    }
+    useEffect(() => {
+        if (dataPrintLaporan?.data?.data)
+            downloadDocument(
+                dataPrintLaporan.data.data,
+                `Laporan Pembayaran ${dataPaymentType.data.filter((item) => queryFilter.payment_type == item.pos_pos_id)[0]?.pos_pay_name}_T.A ${tahunAjaranState.period_start ?? TahunAjaran.data[0].period_start}/${tahunAjaranState.period_end ?? TahunAjaran.data[0].period_end}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}.pdf`
+            )
+        setDataPrintLaporan(null)
+    }, [dataPrintLaporan?.data])
     useEffect(() => {
         if (queryFilter.unit_id !== '') {
             getDataPaymentType(() =>
@@ -291,6 +325,17 @@ function PageLaporanPembayaranKelas() {
                             resetPaginationToggle={resetPaginationToggle}
                             isLoading={isLoadingLaporan}
                         />
+                        <div className="d-flex justify-content-between">
+                            <div></div>
+                            <Button
+                                size="sm"
+                                color="danger"
+                                disabled={dataLaporan?.data?.length < 1}
+                                onClick={onClickCetakPdfHandler}
+                            >
+                                Cetak PDF
+                            </Button>
+                        </div>
                     </div>
                 </div>
 
