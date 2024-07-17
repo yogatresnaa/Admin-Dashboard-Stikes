@@ -325,8 +325,24 @@ function AppRoutes() {
                             />
 
                             {/* LAPORAN */}
+                            <Route
+                                path="laporan/kas-tunai"
+                                element={
+                                    <RouteWithAuth element={PageKasTunai} />
+                                }
+                            />
+                            <Route
+                                path="laporan/kas-bank"
+                                element={
+                                    <RouteWithAuth element={PageKasBank} />
+                                }
+                            />
 
-                            {/* <Route
+                            <Route
+                                path="not-found"
+                                element={<PageNotFound />}
+                            />
+                            <Route
                                 path="akun-biaya"
                                 element={
                                     <RouteWithAuth element={PageAkunBiaya} />
@@ -337,7 +353,7 @@ function AppRoutes() {
                                 element={
                                     <RouteWithAuth element={PagePosBayar} />
                                 }
-                            /> */}
+                            />
 
                             {/* kas Bank */}
 

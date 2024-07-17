@@ -282,6 +282,8 @@ export const deleteDetailFreePaymentRateByPaymentId = (id, body, token) =>
         body,
         options(token)
     )
+
+//dokumen
 export const getDokumenTagihanPembayaran = (id, token = null) =>
     Axios.get(`${URL_BASE}/dokumen/tagihan-pembayaran/${id}`, {
         ...options(token),
@@ -312,6 +314,16 @@ export const getDokumenDebit = (id, token) =>
 export const getDokumenKwitansiPembayaran = (body, token) =>
     Axios.post(`${URL_BASE}/dokumen/kwitansi-pembayaran`, body, {
         ...options(token),
+    })
+export const getDokumenLaporanPerKelas = (query, token) =>
+    Axios.get(`${URL_BASE}/dokumen/report/pembayaran-per-kelas`, {
+        ...options(token),
+        params: query,
+    })
+export const getDokumenLaporanPerTanggal = (query, token) =>
+    Axios.get(`${URL_BASE}/dokumen/report/pembayaran-per-tanggal`, {
+        ...options(token),
+        params: query,
     })
 
 //dashboard
@@ -395,6 +407,11 @@ export const getLaporanPembayaranPerTanggal = (params, token) =>
     })
 export const getLaporanTagihanSiswa = (params, token) =>
     Axios.get(`${URL_BASE}/laporan/tagihan-siswa`, {
+        ...options(token),
+        params: params,
+    })
+export const getLaporanRekapPembayaran = (params, token) =>
+    Axios.get(`${URL_BASE}/laporan/rekap-pembayaran`, {
         ...options(token),
         params: params,
     })

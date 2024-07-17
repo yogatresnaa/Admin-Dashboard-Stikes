@@ -9,7 +9,7 @@ import {
     rupiahConvert,
 } from '../../../../../utils/helper'
 import moment from 'moment'
-function TableKasBank({
+function TablePembayaranPerTanggal({
     data,
     subHeaderComponent,
     resetPaginationToggle,
@@ -86,4 +86,4 @@ function TableKasBank({
     )
 }
 
-export default TableKasBank
+export default TablePembayaranPerTanggal
