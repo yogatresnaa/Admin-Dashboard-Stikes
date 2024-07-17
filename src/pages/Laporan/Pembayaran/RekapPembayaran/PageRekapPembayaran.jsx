@@ -225,7 +225,7 @@ function PageRekapPembayaran() {
             <ToastContainer />
             <div className="page-content">
                 <h3>
-                    Laporan Tagihan Siswa{' '}
+                    Rekap Pembayaran{' '}
                     <span style={{ fontSize: '0.8em', color: 'gray' }}></span>
                 </h3>
 
