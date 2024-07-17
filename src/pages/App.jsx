@@ -55,6 +55,10 @@ const DokumenTagihan = lazy(() => import('./Dokumen/TagihanPembayaran'))
 const DokumenPembayaran = lazy(() => import('./Dokumen/BuktiPembayaran'))
 
 // Laporan
+const PageLaporanPembayaran = lazy(
+    () => import('./Laporan/Pembayaran/PageLaporanPembayaran')
+)
+
 const PageLaporanPembayaranTanggal = lazy(
     () => import('./Laporan/Pembayaran/PerTanggal/PageLaporanPerTanggal')
 )
@@ -269,6 +273,15 @@ function AppRoutes() {
                             />
 
                             {/*  LAPORAN */}
+                            <Route
+                                path="laporan-pembayaran"
+                                element={
+                                    <RouteWithAuth
+                                        element={PageLaporanPembayaran}
+                                    />
+                                }
+                            />
+
                             <Route
                                 path="laporan-pembayaran/kelas"
                                 element={

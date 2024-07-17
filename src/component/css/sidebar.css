@@ -68,3 +68,13 @@
     color: white;
     /*will change color of text within the element on hover */
 }
+
+.link:hover .nav-item {
+    background-color: #077cf9; /* Warna latar belakang saat hover */
+}
+
+.link:hover .nav-item .icons-sidebar {
+    color: white; /* Warna ikon saat hover */
+    background-color: white;
+    border-radius: 5px;
+}
