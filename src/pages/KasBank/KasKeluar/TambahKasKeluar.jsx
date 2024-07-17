@@ -4,7 +4,7 @@ import useRequest from '../../../customHooks/useRequest'
 import {
     deleteKredit,
     generateCreditNoRef,
-    getAllAccountBiaya,
+    getAllAccountBiayaKeluar,
     getAllAktivaAccountCostPay,
     getAllUnitByUser,
     getKreditNotSubmitted,
@@ -91,7 +91,7 @@ function TambahKasKeluar() {
                 )
             )
             getDataAkunBiaya(() =>
-                getAllAccountBiaya(
+                getAllAccountBiayaKeluar(
                     { unit_unit_id: queryFilter.unit_id },
                     dataUser.token
                 )

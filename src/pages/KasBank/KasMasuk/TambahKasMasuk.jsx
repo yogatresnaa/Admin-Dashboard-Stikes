@@ -5,7 +5,7 @@ import {
     deleteDebit,
     generateCreditNoRef,
     generateDebitNoRef,
-    getAllAccountBiaya,
+    getAllAccountBiayaMasuk,
     getAllAktivaAccountCostPay,
     getAllUnitByUser,
     getDebitNotSubmitted,
@@ -89,7 +89,7 @@ function TambahKasMasuk() {
                 )
             )
             getDataAkunBiaya(() =>
-                getAllAccountBiaya(
+                getAllAccountBiayaMasuk(
                     { unit_unit_id: queryFilter.unit_id },
                     dataUser.token
                 )

@@ -20,54 +20,53 @@ function TableKasBank({
     const renderActionButton = (row) => <div className="d-flex gap-1"></div>
     const columns = [
         {
-            name: 'NO',
-            selector: (row, index) => index + 1,
-            sortable: true,
-            width: '80px',
-        },
-        {
             name: 'Tanggal',
-            selector: (row) =>
-                row.payment_rate_date_pay
-                    ? moment(row.payment_rate_date_pay).format('YYYY-MM-DD')
-                    : moment(row.payment_rate_bebas_pay_created_at).format(
-                          'YYYY-MM-DD'
-                      ),
+            selector: (row) => moment(row.date_pay).format('YYYY-MM-DD'),
             width: '150px',
             sortable: true,
         },
         {
+            name: 'Kode Akun',
+            selector: (row) =>
+                row.account_cost_account_code ?? row.account_code,
+            sortable: true,
+            width: '120px',
+        },
+        {
+            name: 'Keterangan',
+            selector: (row) =>
+                row.account_cost_account_desc ?? row.account_description,
+            sortable: true,
+            width: '120px',
+        },
+        {
             name: 'NIS',
-            selector: (row) => row.student_nis,
+            selector: (row) => row.student_nis ?? '-',
             sortable: true,
             width: '120px',
         },
         {
             name: 'Nama',
-            selector: (row) => row.student_full_name,
+            selector: (row) => row.student_full_name ?? '-',
+            sortable: true,
+        },
+        {
+            name: 'Kelas',
+            selector: (row) => row.class_name ?? '-',
             sortable: true,
         },
 
         {
-            name: 'nominal',
-            selector: (row) =>
-                rupiahConvert(
-                    row.payment_rate_bebas_pay_bill ||
-                        parseInt(row.payment_rate_bill, 10)
-                ),
+            name: 'Penerimaan',
+            selector: (row) => rupiahConvert(parseInt(row?.total, 10) || '-'),
             sortable: true,
         },
         {
-            name: 'Keterangan',
+            name: 'Pengeluaran',
             selector: (row) =>
-                row.payment_rate_bebas_pay_desc ?? row.month_name,
+                rupiahConvert(parseInt(row?.total_keluar, 10) || '-'),
             sortable: true,
         },
-        // {
-        //     name: 'Sisa',
-        //     selector: (row) => rupiahConvert(row.sisa_tagihan),
-        //     sortable: true,
-        // },
     ]
 
     return (
