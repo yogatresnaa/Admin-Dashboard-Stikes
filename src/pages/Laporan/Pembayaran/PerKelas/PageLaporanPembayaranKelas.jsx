@@ -257,7 +257,12 @@ function PageLaporanPembayaranKelas() {
             <div className="page-content">
                 <h3>
                     Laporan Per Kelas{' '}
-                    <span style={{ fontSize: '0.8em', color: 'gray' }}></span>
+                    <span
+                        style={{
+                            fontSize: '0.8em',
+                            color: 'red',
+                        }}
+                    ></span>
                 </h3>
 
                 <div className="table-content">

@@ -5,7 +5,8 @@
 
 .page-content {
     padding: 5px;
-    margin: 10px;
+    margin: 40px;
+    width: 95%;
     flex: auto;
     flex-direction: column;
 }
@@ -15,7 +16,7 @@
     height: 50px;
     background-color: #e0f4ff;
     padding: 3px;
-    color: #dc84f3;
+    color: white;
     border-radius: 5px;
 }
 
