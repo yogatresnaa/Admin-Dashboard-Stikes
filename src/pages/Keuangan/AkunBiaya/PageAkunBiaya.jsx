@@ -111,6 +111,7 @@ function PageAkunBiaya() {
         const body = {
             account_code: row.account_code,
             account_type: row.account_type + 1,
+            unit_unit_id: queryFilter.unit_id,
         }
         setAccountType(row.account_type)
         setAccountUnitId(row.unit_unit_id)

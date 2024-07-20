@@ -252,6 +252,10 @@ function AppRoutes() {
                                 }
                             />
                             <Route
+                                path="laporan/jurnal-umum"
+                                element={<RouteWithAuth element={JurnalUmum} />}
+                            />
+                            <Route
                                 path="laporan/kas-tunai"
                                 element={
                                     <RouteWithAuth element={PageKasTunai} />
@@ -336,9 +340,9 @@ function AppRoutes() {
                             />
 
                             <Route
-                                path=""
+                                path="*"
                                 element={
-                                    <RouteWithAuth element={PageDashboard} />
+                                    <RouteWithAuth element={PageNotFound} />
                                 }
                             />
                         </Route>

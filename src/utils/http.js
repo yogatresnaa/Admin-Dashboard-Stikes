@@ -330,6 +330,21 @@ export const getDokumenLaporanPerTanggal = (query, token) =>
         ...options(token),
         params: query,
     })
+export const getDokumenLaporanKasBank = (query, token) =>
+    Axios.get(`${URL_BASE}/dokumen/report/laporan-kas-bank`, {
+        ...options(token),
+        params: query,
+    })
+export const getDokumenLaporanKasTunai = (query, token) =>
+    Axios.get(`${URL_BASE}/dokumen/report/laporan-kas-tunai`, {
+        ...options(token),
+        params: query,
+    })
+export const getDokumenLaporanKJurnalUmum = (query, token) =>
+    Axios.get(`${URL_BASE}/dokumen/report/laporan-jurnal-umum`, {
+        ...options(token),
+        params: query,
+    })
 
 //dashboard
 export const getAllDataDashboard = (token) =>
@@ -427,6 +442,11 @@ export const getLaporanKasBank = (params, token) =>
     })
 export const getLaporanKasTunai = (params, token) =>
     Axios.get(`${URL_BASE}/laporan/kas-tunai`, {
+        ...options(token),
+        params: params,
+    })
+export const getLaporanJurnalUmum = (params, token) =>
+    Axios.get(`${URL_BASE}/laporan/jurnal-umum`, {
         ...options(token),
         params: params,
     })

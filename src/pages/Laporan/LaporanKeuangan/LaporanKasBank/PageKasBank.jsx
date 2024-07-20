@@ -9,6 +9,7 @@ import {
     getAllUnitByUser,
     getDokumenLaporanPerTanggal,
     getLaporanKasBank,
+    getDokumenLaporanKasBank,
 } from '../../../../utils/http'
 // import "./css/page-laporan-pembayaran-kelas.css";
 import { useSelector } from 'react-redux'
@@ -181,7 +182,7 @@ function PageLaporanKasBank() {
     }
     const onClickCetakPdfHandler = () => {
         getDataPrintLaporan(() =>
-            getDokumenLaporanPerTanggal(
+            getDokumenLaporanKasBank(
                 {
                     ...queryFilter,
                     tanggal_awal: moment(queryFilter.tanggal_awal).format(
@@ -203,13 +204,13 @@ function PageLaporanKasBank() {
         if (dataPrintLaporan?.data?.data)
             downloadDocument(
                 dataPrintLaporan.data.data,
-                `Laporan Pembayaran Per Tanggal ${moment(
+                `Laporan Kas Bank Per Tanggal ${moment(
                     queryFilter.tanggal_awal
                 ).format('YYYY-MM-DD')}-${moment(
                     queryFilter.tanggal_akhir
                 ).format(
                     'YYYY-MM-DD'
-                )}_T.A ${tahunAjaranState.period_start ?? TahunAjaran.data[0].period_start}/${tahunAjaranState.period_end ?? TahunAjaran.data[0].period_end}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}.pdf`
+                )}_T.A ${tahunAjaranState.period_start ?? TahunAjaran.data[0].period_start}/${tahunAjaranState.period_end ?? TahunAjaran.data[0].period_end}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}`
             )
         setDataPrintLaporan(null)
     }, [dataPrintLaporan?.data])
@@ -312,7 +313,7 @@ function PageLaporanKasBank() {
                             resetPaginationToggle={resetPaginationToggle}
                             isLoading={isLoadingLaporan}
                         />
-                        <div className="mt-3">
+                        <div className="my-3">
                             <FooterTable
                                 title={'Subtotal'}
                                 color={'#d8d5e5'}

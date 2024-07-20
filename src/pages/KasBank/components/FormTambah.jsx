@@ -56,6 +56,7 @@ export default function FormTambah({
                     error={error}
                     value={value[`${type}_tax`]}
                     text={'Pajak (%)'}
+                    disabled
                     handler={handleChange(`${type}_tax`)}
                 />
                 {/* <CustomSelection

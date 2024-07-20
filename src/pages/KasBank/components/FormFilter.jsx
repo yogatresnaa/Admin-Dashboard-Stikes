@@ -22,7 +22,7 @@ export default function FormFilter({
     type,
     isEdit = false,
 }) {
-    console.log(dataAkunKas)
+    console.log(value)
     return (
         <div className=" table-content d-flex flex-row gap-5">
             <div className="flex-1 d-flex flex-column">
@@ -54,7 +54,9 @@ export default function FormFilter({
                     <SelectDate
                         disabled={isEdit}
                         date={value[`${type}_date`]}
-                        onDateChange={(e) => setFieldValue(`${type}_date`, e)}
+                        onDateChange={(e) => {
+                            setFieldValue(`${type}_date`, e)
+                        }}
                     />
                     {error[`${type}_date`] && (
                         <ErrorComponent

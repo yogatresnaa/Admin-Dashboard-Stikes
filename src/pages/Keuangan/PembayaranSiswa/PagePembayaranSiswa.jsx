@@ -712,7 +712,7 @@ function PagePembayaranSiswa() {
         if (dataDokumenRincianPembayaran?.data?.data && dataDetailSiswa)
             downloadDocument(
                 dataDokumenRincianPembayaran.data.data,
-                `Rincian Bayar ${dataDetailSiswa.student_full_name}-${tahunAjaranState.period_start}/${tahunAjaranState.period_end}.pdf`
+                `Rincian Bayar ${dataDetailSiswa.student_full_name}-${tahunAjaranState.period_start}/${tahunAjaranState.period_end}`
             )
         setDataDokumenRincianPembayaran(null)
     }, [dataDokumenRincianPembayaran?.data, dataDetailSiswa])
@@ -720,7 +720,7 @@ function PagePembayaranSiswa() {
         if (dataKwitansiPembayaran?.data?.data && dataDetailSiswa)
             downloadDocument(
                 dataKwitansiPembayaran.data.data,
-                `Kwitansi Bayar ${dataDetailSiswa.student_full_name}-${tahunAjaranState.period_start}/${tahunAjaranState.period_end}.pdf`
+                `Kwitansi Bayar ${dataDetailSiswa.student_full_name}-${tahunAjaranState.period_start}/${tahunAjaranState.period_end}`
             )
         setDataKwitansi(null)
     }, [dataKwitansiPembayaran?.data, dataDetailSiswa])
@@ -728,7 +728,7 @@ function PagePembayaranSiswa() {
         if (dataDokumenTagihanPembayaran?.data?.data && dataDetailSiswa)
             downloadDocument(
                 dataDokumenTagihanPembayaran.data.data,
-                `Tagihan Bayar ${dataDetailSiswa.student_full_name}.pdf`
+                `Tagihan Bayar ${dataDetailSiswa.student_full_name}`
             )
         setDataDokumentagihanPembayaran(null)
     }, [dataDokumenTagihanPembayaran?.data, dataDetailSiswa])
