@@ -13,6 +13,7 @@ import {
     FaRegEdit,
     FaCcAmazonPay,
     FaServer,
+    FaCoins,
 } from 'react-icons/fa'
 import {
     FaCircleMinus,
@@ -332,7 +333,7 @@ function Sidebar() {
                             </li>
                         </Link>
 
-                        <Link className="link" to="">
+                        <Link className="link" to="/admin/laporan-keuangan">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -373,6 +374,28 @@ function Sidebar() {
                                 </IconContext.Provider>
 
                                 <span className="ms-2">Lap. Pembayaran</span>
+                            </li>
+                        </Link>
+
+                        <Link className="link" to="/admin/backup-data">
+                            <li className="nav-item nav-link text-black  my-1">
+                                <IconContext.Provider
+                                    value={{ color: '#DC84F3' }}
+                                >
+                                    <FaCoins
+                                        className="icons-sidebar"
+                                        style={{
+                                            width: '30px',
+                                            height: '30px',
+                                            color: '#5B5DEE',
+                                            padding: '3px',
+                                            boxShadow:
+                                                'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px',
+                                        }}
+                                    />
+                                </IconContext.Provider>
+
+                                <span className="ms-2">Backup Data</span>
                             </li>
                         </Link>
                         {/* baru=================== */}

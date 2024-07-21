@@ -59,6 +59,10 @@ const PageLaporanPembayaran = lazy(
     () => import('./Laporan/Pembayaran/PageLaporanPembayaran')
 )
 
+const PageLaporanKeuangan = lazy(
+    () => import('./Laporan/LaporanKeuangan/PageLaporanKeuangan')
+)
+
 const PageLaporanPembayaranTanggal = lazy(
     () => import('./Laporan/Pembayaran/PerTanggal/PageLaporanPerTanggal')
 )
@@ -124,6 +128,8 @@ import LoadingProvider from '../context/LoadingContext'
 import TagihanPembayaran from './Dokumen/TagihanPembayaran'
 import { checkAuthActionCreator } from '../redux/actions/authAction'
 import EditKasMasuk from './KasBank/KasMasuk/EditKasMasuk'
+
+const BackUpData = lazy(() => import('./BackUpData'))
 
 const RouteWithAuth = ({ element: Component, ...rest }) => {
     const dataUser = useSelector(({ authState }) => authState)
@@ -278,6 +284,15 @@ function AppRoutes() {
                                 element={
                                     <RouteWithAuth
                                         element={PageLaporanPembayaran}
+                                    />
+                                }
+                            />
+
+                            <Route
+                                path="laporan-keuangan"
+                                element={
+                                    <RouteWithAuth
+                                        element={PageLaporanKeuangan}
                                     />
                                 }
                             />
@@ -479,6 +494,11 @@ function AppRoutes() {
                                 element={
                                     <RouteWithAuth element={PageDashboard} />
                                 }
+                            />
+
+                            <Route
+                                path="backup-data"
+                                element={<RouteWithAuth element={BackUpData} />}
                             />
                         </Route>
                     </Routes>
