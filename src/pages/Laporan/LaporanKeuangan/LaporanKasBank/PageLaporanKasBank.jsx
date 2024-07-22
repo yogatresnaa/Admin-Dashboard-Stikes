@@ -1,52 +1,31 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import SelectProdi from '../../../../component/ActionButton/SelectProdi'
 import SearchInput from '../../../../component/ActionButton/SearchInput'
 import _ from 'lodash'
 import useRequest from '../../../../customHooks/useRequest'
 import {
     getAllProdi,
     getAllTahunAjaran,
-    getAllSiswa,
-    putSiswa,
-    deleteSiswa,
-    postSiswa,
     getAllKelas,
-    getLaporanPembayaranPerKelas,
     getAllUnitByUser,
-    getAllPaymentType,
-    getLaporanPembayaranPerTanggal,
     getDokumenLaporanPerTanggal,
+    getLaporanKasBank,
 } from '../../../../utils/http'
 // import "./css/page-laporan-pembayaran-kelas.css";
 import { useSelector } from 'react-redux'
 // import ModalForm from "../PerKelas/components/";
-import { siswaInitialValues } from '../../../../utils/initialValues'
-import { siswaSchema } from '../../../../utils/schema'
 import { ToastContainer } from 'react-toastify'
-import { prodiModel, siswaModel } from '../../../../models/models'
 import useTable from '../../../../customHooks/useTable'
-import { alertConfirmation } from '../../../../component/Alert/swalConfirmation'
-import { alertType, statusSiswa } from '../../../../utils/CONSTANT'
-import SelectUnitKelas from '../../../../component/ActionButton/SelectUnitKelas'
 import { Button } from 'reactstrap'
 import queryString from 'query-string'
-import SelectStatusMahasiswa from '../../../../component/ActionButton/SelectStatusMahasiswa'
 // import DetailModal from "./components/DetailModal";
-import {
-    dateConvert,
-    dateConvertForDb,
-    downloadDocument,
-    rupiahConvert,
-} from '../../../../utils/helper'
-import ReactToPrint, { useReactToPrint } from 'react-to-print'
+import { downloadDocument } from '../../../../utils/helper'
 // import PrintTableSiswaComponent from "./components/PrintTableSiswaTemplate";
 import SelectTahunAjaran from '../../../../component/ActionButton/SelectTahunAjaran'
-import DateInput from '../../../../component/ActionButton/InputDate'
-import CustomSelect from '../../../../component/Select/CustomSelect'
 import SelectUnit from '../../../../component/ActionButton/SelectUnit'
 import SelectDate from '../../../../component/ActionButton/SelectDate'
 import moment from 'moment'
-import TablePembayaranPerTanggal from './component/TablePembayaran'
+import TableKasBank from './component/TableKasbank'
+import FooterTable from '../../Components/FooterTable'
 // import TablePembayaran from './component/TablePembayaran'
 
 function PageLaporanKasBank() {
@@ -154,7 +133,7 @@ function PageLaporanKasBank() {
 
     const onCLickFilterSubmit = () => {
         getDataLaporan(() =>
-            getLaporanPembayaranPerTanggal(
+            getLaporanKasBank(
                 {
                     ...queryFilter,
                     tanggal_awal: moment(queryFilter.tanggal_awal).format(
@@ -267,7 +246,7 @@ function PageLaporanKasBank() {
                         <div className="d-flex flex-row gap-1 justify-content-start align-items-center mt-2">
                             <SelectUnit
                                 data={dataUnit.data}
-                                includeAll={false}
+                                includeAll
                                 onFilterChange={onQueryFilterChange}
                                 value={queryFilter.unit_id}
                                 name={'unit_id'}
@@ -285,12 +264,6 @@ function PageLaporanKasBank() {
                                 name={'majors_id'}
                             /> */}
 
-                            <SelectUnitKelas
-                                data={dataKelas.data}
-                                onProdiFilterChange={onQueryFilterChange}
-                                value={queryFilter.class_id}
-                                name={'class_id'}
-                            />
                             <SelectDate
                                 disabled={isEdit}
                                 title="Awal"
@@ -330,38 +303,46 @@ function PageLaporanKasBank() {
                             className="p-2 w-100 bg-black text-white"
                             style={{ borderRadius: '5px' }}
                         >
-                            Laporan Pembayaran
+                            Laporan Kas Bank
                         </h6>
-                        {dataLaporan.data?.map((item, index) => (
-                            <div
-                                className="mb-1 border-bottom border-4 p-2 pb-4"
-                                key={index}
-                            >
-                                <h3>
-                                    {item?.pos_pay_name} T.A{' '}
-                                    {item?.period_start}/{item?.period_end}
-                                </h3>
-                                <TablePembayaranPerTanggal
-                                    data={item?.payment}
-                                    subHeaderComponent={subHeaderComponent}
-                                    resetPaginationToggle={
-                                        resetPaginationToggle
-                                    }
-                                    isLoading={isLoadingLaporan}
-                                />
-                                <div className="d-flex justify-content-between">
-                                    <span className="flex-1 fw-bold">
-                                        Total:
-                                    </span>
-                                    <span
-                                        className="flex-1 fw-bold"
-                                        style={{ marginLeft: '4rem' }}
-                                    >
-                                        {rupiahConvert(item.total)}
-                                    </span>
-                                </div>
-                            </div>
-                        ))}
+
+                        <TableKasBank
+                            data={dataLaporan?.data?.data_payment}
+                            subHeaderComponent={subHeaderComponent}
+                            resetPaginationToggle={resetPaginationToggle}
+                            isLoading={isLoadingLaporan}
+                        />
+                        <div className="mt-3">
+                            <FooterTable
+                                title={'Subtotal'}
+                                color={'#d8d5e5'}
+                                valueMasuk={dataLaporan?.data?.sub_total_masuk}
+                                valueKeluar={
+                                    dataLaporan?.data?.sub_total_keluar
+                                }
+                            />
+                            <FooterTable
+                                title={'Saldo Awal'}
+                                color={'#dfccc4'}
+                                valueMasuk={dataLaporan?.data?.saldo_awal_debit}
+                                valueKeluar={
+                                    dataLaporan?.data?.saldo_awal_kredit
+                                }
+                            />
+
+                            <FooterTable
+                                title={'Total(Sub Total +Saldo Awal)'}
+                                color={'#fefbc8'}
+                                valueMasuk={dataLaporan?.data?.total_masuk}
+                                valueKeluar={dataLaporan?.data?.total_keluar}
+                            />
+                            <FooterTable
+                                title={'SaldoA Akhir'}
+                                color={'#feaac2'}
+                                valueMasuk={dataLaporan?.data?.saldo_akhir}
+                                valueKeluar={'-'}
+                            />
+                        </div>
                         <div className="d-flex justify-content-between">
                             <div></div>
                             <Button

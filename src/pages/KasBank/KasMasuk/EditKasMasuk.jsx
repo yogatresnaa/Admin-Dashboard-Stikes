@@ -4,7 +4,7 @@ import useRequest from '../../../customHooks/useRequest'
 import {
     deleteKredit,
     generateCreditNoRef,
-    getAllAccountBiaya,
+    getAllAccountBiayaMasuk,
     getAllAktivaAccountCostPay,
     getAllUnitByUser,
     getDebitNotSubmitted,
@@ -44,7 +44,7 @@ function EditKasMasuk() {
         setData: setDataUnit,
         getData: getDataUnit,
     } = useRequest()
-    const { data: dataDebitNotSubmit, getData: getDatDebitNotSubmit } =
+    const { data: dataDebitNotSubmit, getData: getDataDebitNotSubmit } =
         useRequest()
     const {
         data: dataNoRef,
@@ -79,7 +79,7 @@ function EditKasMasuk() {
             )
         )
         getDataAkunBiaya(() =>
-            getAllAccountBiaya(
+            getAllAccountBiayaMasuk(
                 { unit_unit_id: location.state.unit_unit_id },
                 dataUser.token
             )

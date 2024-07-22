@@ -129,8 +129,13 @@ export const getAllAktivaAccountCostPay = (query, token) =>
         ...options(token),
         params: query,
     })
-export const getAllAccountBiaya = (query, token) =>
-    Axios.get(`${URL_BASE}/account-cost/biaya`, {
+export const getAllAccountBiayaMasuk = (query, token) =>
+    Axios.get(`${URL_BASE}/account-cost/biaya-masuk`, {
+        ...options(token),
+        params: query,
+    })
+export const getAllAccountBiayaKeluar = (query, token) =>
+    Axios.get(`${URL_BASE}/account-cost/biaya-keluar`, {
         ...options(token),
         params: query,
     })
@@ -412,6 +417,16 @@ export const getLaporanTagihanSiswa = (params, token) =>
     })
 export const getLaporanRekapPembayaran = (params, token) =>
     Axios.get(`${URL_BASE}/laporan/rekap-pembayaran`, {
+        ...options(token),
+        params: params,
+    })
+export const getLaporanKasBank = (params, token) =>
+    Axios.get(`${URL_BASE}/laporan/kas-bank`, {
+        ...options(token),
+        params: params,
+    })
+export const getLaporanKasTunai = (params, token) =>
+    Axios.get(`${URL_BASE}/laporan/kas-tunai`, {
         ...options(token),
         params: params,
     })
