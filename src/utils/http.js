@@ -335,13 +335,28 @@ export const getDokumenLaporanKasBank = (query, token) =>
         ...options(token),
         params: query,
     })
+export const getDokumenLaporanKasBankPerAnggaran = (query, token) =>
+    Axios.get(`${URL_BASE}/dokumen/report/laporan-kas-bank/anggaran`, {
+        ...options(token),
+        params: query,
+    })
 export const getDokumenLaporanKasTunai = (query, token) =>
     Axios.get(`${URL_BASE}/dokumen/report/laporan-kas-tunai`, {
         ...options(token),
         params: query,
     })
+export const getDokumenLaporanKasTunaiPerAnggaran = (query, token) =>
+    Axios.get(`${URL_BASE}/dokumen/report/laporan-kas-tunai/anggaran`, {
+        ...options(token),
+        params: query,
+    })
 export const getDokumenLaporanKJurnalUmum = (query, token) =>
     Axios.get(`${URL_BASE}/dokumen/report/laporan-jurnal-umum`, {
+        ...options(token),
+        params: query,
+    })
+export const getDokumenLaporanJurnalUmumPerAnggaran = (query, token) =>
+    Axios.get(`${URL_BASE}/dokumen/report/laporan-jurnal-umum/anggaran`, {
         ...options(token),
         params: query,
     })
