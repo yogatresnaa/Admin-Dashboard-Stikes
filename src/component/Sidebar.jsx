@@ -139,7 +139,7 @@ function Sidebar() {
                         </Link>
 
                         {/* baru=================== */}
-                        {/* <Link className="link" to="/admin/pembayaran-siswa">
+                        <Link className="link" to="/admin/pembayaran-siswa">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -159,9 +159,9 @@ function Sidebar() {
 
                                 <span className="ms-2">Pembayaran Siswa</span>
                             </li>
-                        </Link> */}
+                        </Link>
 
-                        {/* <Link className="link" to="/admin/kirim-tagihan">
+                        <Link className="link" to="/admin/kirim-tagihan">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -181,9 +181,9 @@ function Sidebar() {
 
                                 <span className="ms-2">Kirim Tagihan</span>
                             </li>
-                        </Link> */}
+                        </Link>
 
-                        {/* <Link className="link" to="/admin/page-manajemen-data">
+                        <Link className="link" to="/admin/page-manajemen-data">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -203,12 +203,12 @@ function Sidebar() {
 
                                 <span className="ms-2">Manajemen Data</span>
                             </li>
-                        </Link> */}
+                        </Link>
                         {/* baru=================== */}
 
                         {/* lama ========================== */}
 
-                        <li className="nav-item my-2" onClick={toggleNav}>
+                        {/* <li className="nav-item my-2" onClick={toggleNav}>
                             <a
                                 href="#submenu"
                                 className="nav-link "
@@ -263,13 +263,13 @@ function Sidebar() {
                                     </Link>
                                 ))}
                             </ul>
-                        </li>
+                        </li> */}
 
                         {/* lama ========================== */}
 
                         {/* baru=================== */}
 
-                        {/* <Link className="link" to="/admin/page-akademik">
+                        <Link className="link" to="/admin/page-akademik">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -289,9 +289,9 @@ function Sidebar() {
 
                                 <span className="ms-2">Akademik</span>
                             </li>
-                        </Link> */}
+                        </Link>
 
-                        {/* <Link className="link" to="/admin/setting-pembayaran">
+                        <Link className="link" to="/admin/setting-pembayaran">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -311,9 +311,9 @@ function Sidebar() {
 
                                 <span className="ms-2">Seting Pembayaran</span>
                             </li>
-                        </Link> */}
+                        </Link>
 
-                        {/* <Link className="link" to="/admin/page-kas-bank">
+                        <Link className="link" to="/admin/page-kas-bank">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -333,9 +333,9 @@ function Sidebar() {
 
                                 <span className="ms-2">Kas Bank</span>
                             </li>
-                        </Link> */}
+                        </Link>
 
-                        {/* <Link className="link" to="/admin/laporan-keuangan">
+                        <Link className="link" to="/admin/laporan-keuangan">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -355,9 +355,9 @@ function Sidebar() {
 
                                 <span className="ms-2">Lap. Keuangan</span>
                             </li>
-                        </Link> */}
+                        </Link>
 
-                        {/* <Link className="link" to="/admin/laporan-pembayaran">
+                        <Link className="link" to="/admin/laporan-pembayaran">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -377,9 +377,9 @@ function Sidebar() {
 
                                 <span className="ms-2">Lap. Pembayaran</span>
                             </li>
-                        </Link> */}
+                        </Link>
 
-                        {/* <Link className="link" to="/admin/backup-data">
+                        <Link className="link" to="/admin/backup-data">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -399,13 +399,13 @@ function Sidebar() {
 
                                 <span className="ms-2">Backup Data</span>
                             </li>
-                        </Link> */}
+                        </Link>
 
                         {/* baru=================== */}
 
                         {/* lama ========================== */}
 
-                        <li
+                        {/* <li
                             className="nav-item text-white my-1 column-wrapper "
                             onClick={toggleNav2}
                         >
@@ -484,9 +484,9 @@ function Sidebar() {
                                     </li>
                                 </Link>
                             </ul>
-                        </li>
+                        </li> */}
 
-                        <li className="nav-item text-white my-1">
+                        {/* <li className="nav-item text-white my-1">
                             <a
                                 href="#submenu3"
                                 className="nav-link "
@@ -614,9 +614,9 @@ function Sidebar() {
                                     </ul>
                                 </li>
                             </ul>
-                        </li>
+                        </li> */}
 
-                        <li className="nav-item text-white my-2">
+                        {/* <li className="nav-item text-white my-2">
                             <a
                                 href="#submenu6"
                                 className="nav-link "
@@ -692,11 +692,11 @@ function Sidebar() {
                                     </li>
                                 </Link>
                             </ul>
-                        </li>
+                        </li> */}
 
                         {/* lama ========================== */}
 
-                        <li className="nav-item text-white my-1">
+                        {/* <li className="nav-item text-white my-1">
                             <a
                                 href="#submenu7"
                                 className="nav-link "
@@ -884,7 +884,7 @@ function Sidebar() {
                                     </ul>
                                 </li>
                             </ul>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </div>

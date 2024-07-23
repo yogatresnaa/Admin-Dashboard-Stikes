@@ -7,6 +7,10 @@ import {
     FaFileCircleCheck,
 } from 'react-icons/fa6'
 
+import PageLaporanKasBank from './LaporanKasBank/PageLaporanKasBank'
+import PageLaporanKasTunai from './LaporanKasTunai/PageKasTunai'
+import PageLaporanJurnalUmum from './LaporanJurnalUmum/PageJurnalUmum'
+
 function PageLaporanKeuangan() {
     return (
         <div className="page">
@@ -64,7 +68,7 @@ function PageLaporanKeuangan() {
                         </span>
                     }
                 >
-                    <h1>Lpaoran Kas Bank masih tahap Development</h1>
+                    <PageLaporanKasBank />
                 </Tab>
 
                 <Tab
@@ -102,7 +106,7 @@ function PageLaporanKeuangan() {
                         </span>
                     }
                 >
-                    <h1>laporan Kas Tunai masih tahap Development</h1>
+                    <PageLaporanKasTunai />
                 </Tab>
 
                 <Tab
@@ -140,7 +144,7 @@ function PageLaporanKeuangan() {
                         </span>
                     }
                 >
-                    <h1>Jurnal umum masih tahap Development</h1>
+                    <PageLaporanJurnalUmum />
                 </Tab>
             </Tabs>
         </div>

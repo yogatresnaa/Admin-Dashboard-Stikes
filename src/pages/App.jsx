@@ -168,7 +168,9 @@ function AppRoutes() {
                             {/* path dashboard */}
                             <Route
                                 path="dashboard"
-                                element={<RouteWithAuth element={PageKelas} />}
+                                element={
+                                    <RouteWithAuth element={PageDashboard} />
+                                }
                             />
 
                             {/* path manajemen data */}
@@ -348,23 +350,23 @@ function AppRoutes() {
                             <Route
                                 path="laporan-keuangan/kas-bank"
                                 element={
-                                    <RouteWithAuth element={PageKasBank} />
+                                    <RouteWithAuth element={LaporanKasBank} />
                                 }
                             />
 
                             {/* LAPORAN */}
-                            <Route
+                            {/* <Route
                                 path="laporan/kas-tunai"
                                 element={
                                     <RouteWithAuth element={PageKasTunai} />
                                 }
-                            />
-                            <Route
+                            /> */}
+                            {/* <Route
                                 path="laporan/kas-bank"
                                 element={
                                     <RouteWithAuth element={PageKasBank} />
                                 }
-                            />
+                            /> */}
 
                             <Route
                                 path="not-found"
