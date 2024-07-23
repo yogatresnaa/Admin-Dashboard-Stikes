@@ -102,7 +102,7 @@ export default function TableKasMasuk({
         },
         {
             name: 'Total',
-            selector: (row) => `${rupiahConvert(parseInt(row.debit_value))}`,
+            selector: (row) => `${rupiahConvert(parseInt(row.debit_total))}`,
             sortable: true,
         },
 

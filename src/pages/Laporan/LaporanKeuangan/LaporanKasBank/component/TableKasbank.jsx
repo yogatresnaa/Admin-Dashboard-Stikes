@@ -27,15 +27,13 @@ function TableKasBank({
         },
         {
             name: 'Kode Akun',
-            selector: (row) =>
-                row.account_cost_account_code ?? row.account_code,
+            selector: (row) => row.account_code,
             sortable: true,
             width: '120px',
         },
         {
             name: 'Keterangan',
-            selector: (row) =>
-                row.account_cost_account_desc ?? row.account_description,
+            selector: (row) => row.account_description,
             sortable: true,
             width: '120px',
         },

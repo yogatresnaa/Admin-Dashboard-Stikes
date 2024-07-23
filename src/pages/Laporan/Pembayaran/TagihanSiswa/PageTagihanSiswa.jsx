@@ -221,7 +221,7 @@ function PageLaporanTagihanSiswa() {
         if (dataPrintLaporan?.data?.data)
             downloadDocument(
                 dataPrintLaporan.data.data,
-                `Tagihan_${selectedStudent}.pdf`
+                `Tagihan_${selectedStudent}`
             )
         setDataPrintLaporan(null)
     }, [dataPrintLaporan?.data])

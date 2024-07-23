@@ -339,16 +339,16 @@ function AppRoutes() {
                             />
 
                             <Route
-                                path="laporan-keuangan/kas-bank"
+                                path="laporan-keuangan/kas-tunai"
                                 element={
-                                    <RouteWithAuth element={LaporanKasBank} />
+                                    <RouteWithAuth element={PageKasTunai} />
                                 }
                             />
 
                             <Route
-                                path="laporan-keuangan/kas-tunai"
+                                path="laporan-keuangan/kas-bank"
                                 element={
-                                    <RouteWithAuth element={PageKasTunai} />
+                                    <RouteWithAuth element={PageKasBank} />
                                 }
                             />
 
@@ -490,9 +490,9 @@ function AppRoutes() {
                             {/* =========== */}
 
                             <Route
-                                path=""
+                                path="*"
                                 element={
-                                    <RouteWithAuth element={PageDashboard} />
+                                    <RouteWithAuth element={PageNotFound} />
                                 }
                             />
 

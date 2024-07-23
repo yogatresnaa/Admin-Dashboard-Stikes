@@ -194,7 +194,7 @@ function TambahKasKeluar() {
                     account_cash_account: '',
                     account_cost_account: '',
                     pos_pos_pay_id: '',
-                    kredit_tax: '',
+                    kredit_tax: 0,
                     kredit_information: '',
                     unit_unit_id: '',
                 }}
