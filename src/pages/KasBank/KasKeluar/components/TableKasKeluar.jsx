@@ -102,7 +102,7 @@ export default function TableKasKeluar({
         },
         {
             name: 'Total',
-            selector: (row) => `${rupiahConvert(parseInt(row.kredit_value))}`,
+            selector: (row) => `${rupiahConvert(parseInt(row.kredit_total))}`,
             sortable: true,
         },
 

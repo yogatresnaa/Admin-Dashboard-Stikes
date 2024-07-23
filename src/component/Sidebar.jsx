@@ -630,8 +630,7 @@ function Sidebar() {
                                                 className="nav-item nav-link m-1"
                                                 style={{ color: '#5B5DEE' }}
                                             >
-                                                <FaCircleMinus />
-                                                Jurnal Umum
+                                                <FaCircleMinus /> Jurnal Umum
                                             </li>
                                         </Link>
                                         <Link

@@ -9,6 +9,8 @@ import {
     getAllUnitByUser,
     getDokumenLaporanPerTanggal,
     getLaporanKasBank,
+    getDokumenLaporanKasBank,
+    getDokumenLaporanKasBankPerAnggaran,
 } from '../../../../utils/http'
 // import "./css/page-laporan-pembayaran-kelas.css";
 import { useSelector } from 'react-redux'
@@ -26,6 +28,7 @@ import SelectDate from '../../../../component/ActionButton/SelectDate'
 import moment from 'moment'
 import TableKasBank from './component/TableKasbank'
 import FooterTable from '../../Components/FooterTable'
+import ButtonWithLoader from '../../../../component/ActionButton/ButtonWithLoader'
 // import TablePembayaran from './component/TablePembayaran'
 
 function PageLaporanKasBank() {
@@ -87,6 +90,7 @@ function PageLaporanKasBank() {
     })
     const [isOpenDetailModal, setIsOpenDetailModal] = useState(false)
     const [tahunAjaranState, setTahunAjaran] = useState('')
+    const [titleDokumen, setTitleDokumen] = useState('')
     const {
         data: TahunAjaran,
         setData: setDataTahunAjaran,
@@ -180,8 +184,42 @@ function PageLaporanKasBank() {
         }))
     }
     const onClickCetakPdfHandler = () => {
+        setTitleDokumen(
+            `Laporan Kas Bank Per Tanggal ${moment(
+                queryFilter.tanggal_awal
+            ).format('YYYY-MM-DD')}-${moment(queryFilter.tanggal_akhir).format(
+                'YYYY-MM-DD'
+            )}_T.A ${tahunAjaranState.period_start ?? TahunAjaran.data[0].period_start}/${tahunAjaranState.period_end ?? TahunAjaran.data[0].period_end}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}`
+        )
         getDataPrintLaporan(() =>
-            getDokumenLaporanPerTanggal(
+            getDokumenLaporanKasBank(
+                {
+                    ...queryFilter,
+                    tanggal_awal: moment(queryFilter.tanggal_awal).format(
+                        'YYYY-MM-DD'
+                    ),
+                    tanggal_akhir: moment(queryFilter.tanggal_akhirl).format(
+                        'YYYY-MM-DD'
+                    ),
+                    period_id:
+                        queryFilter.period_id == ''
+                            ? TahunAjaran.data[0].period_id
+                            : queryFilter.period_id,
+                },
+                dataUser.token
+            )
+        )
+    }
+    const onClickCetakPdfPerAnggaranHandler = () => {
+        setTitleDokumen(
+            `Laporan Per anggaran Kas Bank Per Tanggal ${moment(
+                queryFilter.tanggal_awal
+            ).format('YYYY-MM-DD')}-${moment(queryFilter.tanggal_akhir).format(
+                'YYYY-MM-DD'
+            )}_T.A ${tahunAjaranState.period_start ?? TahunAjaran.data[0].period_start}/${tahunAjaranState.period_end ?? TahunAjaran.data[0].period_end}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}`
+        )
+        getDataPrintLaporan(() =>
+            getDokumenLaporanKasBankPerAnggaran(
                 {
                     ...queryFilter,
                     tanggal_awal: moment(queryFilter.tanggal_awal).format(
@@ -201,16 +239,7 @@ function PageLaporanKasBank() {
     }
     useEffect(() => {
         if (dataPrintLaporan?.data?.data)
-            downloadDocument(
-                dataPrintLaporan.data.data,
-                `Laporan Pembayaran Per Tanggal ${moment(
-                    queryFilter.tanggal_awal
-                ).format('YYYY-MM-DD')}-${moment(
-                    queryFilter.tanggal_akhir
-                ).format(
-                    'YYYY-MM-DD'
-                )}_T.A ${tahunAjaranState.period_start ?? TahunAjaran.data[0].period_start}/${tahunAjaranState.period_end ?? TahunAjaran.data[0].period_end}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}.pdf`
-            )
+            downloadDocument(dataPrintLaporan.data.data, titleDokumen)
         setDataPrintLaporan(null)
     }, [dataPrintLaporan?.data])
     const dataFiltered = useMemo(
@@ -312,7 +341,7 @@ function PageLaporanKasBank() {
                             resetPaginationToggle={resetPaginationToggle}
                             isLoading={isLoadingLaporan}
                         />
-                        <div className="mt-3">
+                        <div className="my-3">
                             <FooterTable
                                 title={'Subtotal'}
                                 color={'#d8d5e5'}
@@ -344,15 +373,36 @@ function PageLaporanKasBank() {
                             />
                         </div>
                         <div className="d-flex justify-content-between">
-                            <div></div>
-                            <Button
-                                size="sm"
+                            <ButtonWithLoader
+                                isLoading={isLoadingDataPrintLaporan}
+                                text={' Cetak PDF Per Anggaran'}
+                                disabled={
+                                    isLoadingDataPrintLaporan ||
+                                    dataLaporan?.data?.length < 1
+                                }
                                 color="danger"
-                                disabled={dataLaporan?.data?.length < 1}
+                                size="sm"
+                                onClick={onClickCetakPdfPerAnggaranHandler}
+                                style={{
+                                    alignSelf: 'flex-end',
+                                    marginRight: '1rem',
+                                }}
+                            />
+                            <ButtonWithLoader
+                                isLoading={isLoadingDataPrintLaporan}
+                                text={'Cetak PDF Rekap Laporan'}
+                                disabled={
+                                    isLoadingDataPrintLaporan ||
+                                    dataLaporan?.data?.length < 1
+                                }
+                                color="danger"
+                                size="sm"
                                 onClick={onClickCetakPdfHandler}
-                            >
-                                Cetak PDF
-                            </Button>
+                                style={{
+                                    alignSelf: 'flex-end',
+                                    marginRight: '1rem',
+                                }}
+                            />
                         </div>
                     </div>
                 </div>

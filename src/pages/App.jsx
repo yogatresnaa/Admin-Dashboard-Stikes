@@ -268,21 +268,24 @@ function AppRoutes() {
                             />
 
                             <Route
-                                path="laporan-keuangan/kas-bank"
-                                element={
-                                    <RouteWithAuth element={PageKasBank} />
-                                }
-                            />
-
-                            <Route
                                 path="laporan-keuangan/kas-tunai"
                                 element={
                                     <RouteWithAuth element={PageKasTunai} />
                                 }
                             />
 
-                            {/* LAPORAN */}
+                            <Route
+                                path="laporan-keuangan/kas-bank"
+                                element={
+                                    <RouteWithAuth element={PageKasBank} />
+                                }
+                            />
+
                             {/* <Route
+                                path="laporan/jurnal-umum"
+                                element={<RouteWithAuth element={JurnalUmum} />}
+                            /> */}
+                            <Route
                                 path="laporan/kas-tunai"
                                 element={
                                     <RouteWithAuth element={PageKasTunai} />
@@ -293,7 +296,7 @@ function AppRoutes() {
                                 element={
                                     <RouteWithAuth element={PageKasBank} />
                                 }
-                            /> */}
+                            />
 
                             <Route
                                 path="not-found"
@@ -367,9 +370,9 @@ function AppRoutes() {
                             />
 
                             <Route
-                                path=""
+                                path="*"
                                 element={
-                                    <RouteWithAuth element={PageDashboard} />
+                                    <RouteWithAuth element={PageNotFound} />
                                 }
                             />
                         </Route>

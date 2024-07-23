@@ -192,7 +192,7 @@ function TambahKasMasuk() {
                     account_cash_account: '',
                     account_cost_account: '',
                     pos_pos_pay_id: '',
-                    debit_tax: '',
+                    debit_tax: 0,
                     debit_information: '',
                     unit_unit_id: '',
                 }}

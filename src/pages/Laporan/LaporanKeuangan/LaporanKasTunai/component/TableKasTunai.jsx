@@ -33,15 +33,13 @@ function TableKasTunai({
         },
         {
             name: 'Kode Akun',
-            selector: (row) =>
-                row.account_cost_account_code ?? row.account_code,
+            selector: (row) => row.account_code,
             sortable: true,
             width: '120px',
         },
         {
             name: 'Keterangan',
-            selector: (row) =>
-                row.account_cost_account_desc ?? row.account_description,
+            selector: (row) => row.account_description,
             sortable: true,
             width: '120px',
         },
@@ -57,7 +55,7 @@ function TableKasTunai({
             sortable: true,
         },
         {
-            name: 'Nama',
+            name: 'Kelas',
             selector: (row) => row.class_name ?? '-',
             sortable: true,
         },
