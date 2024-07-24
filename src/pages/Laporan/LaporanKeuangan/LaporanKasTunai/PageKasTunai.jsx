@@ -39,6 +39,7 @@ import SelectStatusMahasiswa from '../../../../component/ActionButton/SelectStat
 import {
     dateConvert,
     dateConvertForDb,
+    downloadCSV,
     downloadDocument,
     rupiahConvert,
 } from '../../../../utils/helper'
@@ -53,6 +54,7 @@ import moment from 'moment'
 import TableKasBank from './component/TableKasTunai'
 import FooterTable from '../../Components/FooterTable'
 import ButtonWithLoader from '../../../../component/ActionButton/ButtonWithLoader'
+import SearchButton from '../../../../component/ActionButton/SearchButton'
 // import TablePembayaran from './component/TablePembayaran'
 
 function PageLaporanKasTunai() {
@@ -266,6 +268,17 @@ function PageLaporanKasTunai() {
             downloadDocument(dataPrintLaporan.data.data, titleDokumen)
         setDataPrintLaporan(null)
     }, [dataPrintLaporan?.data])
+
+    const onClickExportCSVHandler = () => {
+        downloadCSV(
+            dataLaporan?.data?.data_payment,
+            `Laporan Per anggaran Kas Tunai Per Tanggal ${moment(
+                queryFilter.tanggal_awal
+            ).format('YYYY-MM-DD')}-${moment(queryFilter.tanggal_akhir).format(
+                'YYYY-MM-DD'
+            )}_T.A ${tahunAjaranState.period_start ?? TahunAjaran.data[0].period_start}/${tahunAjaranState.period_end ?? TahunAjaran.data[0].period_end}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}`
+        )
+    }
     const dataFiltered = useMemo(
         () =>
             dataSiswa.data.filter(
@@ -341,13 +354,9 @@ function PageLaporanKasTunai() {
                                     }))
                                 }
                             />
-                            <Button
-                                size="md"
-                                className="align-self-end w-auto"
-                                onClick={onCLickFilterSubmit}
-                            >
+                            <SearchButton onClickHandler={onCLickFilterSubmit}>
                                 Cari
-                            </Button>
+                            </SearchButton>
                         </div>
                     </div>
 
@@ -412,21 +421,38 @@ function PageLaporanKasTunai() {
                                     marginRight: '1rem',
                                 }}
                             />
-                            <ButtonWithLoader
-                                isLoading={isLoadingDataPrintLaporan}
-                                text={'Cetak PDF Rekap Laporan'}
-                                disabled={
-                                    isLoadingDataPrintLaporan ||
-                                    dataLaporan?.data?.length < 1
-                                }
-                                color="danger"
-                                size="sm"
-                                onClick={onClickCetakPdfHandler}
-                                style={{
-                                    alignSelf: 'flex-end',
-                                    marginRight: '1rem',
-                                }}
-                            />
+                            <div className="d-flex gap-2">
+                                <ButtonWithLoader
+                                    isLoading={isLoadingDataPrintLaporan}
+                                    text={'Export CSV'}
+                                    disabled={
+                                        isLoadingDataPrintLaporan ||
+                                        dataLaporan?.data?.length < 1
+                                    }
+                                    color="success"
+                                    size="sm"
+                                    onClick={onClickExportCSVHandler}
+                                    style={{
+                                        alignSelf: 'flex-end',
+                                        marginRight: '1rem',
+                                    }}
+                                />
+                                <ButtonWithLoader
+                                    isLoading={isLoadingDataPrintLaporan}
+                                    text={'Cetak PDF Rekap Laporan'}
+                                    disabled={
+                                        isLoadingDataPrintLaporan ||
+                                        dataLaporan?.data?.length < 1
+                                    }
+                                    color="danger"
+                                    size="sm"
+                                    onClick={onClickCetakPdfHandler}
+                                    style={{
+                                        alignSelf: 'flex-end',
+                                        marginRight: '1rem',
+                                    }}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

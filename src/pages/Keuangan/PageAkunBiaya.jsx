@@ -19,6 +19,7 @@ import useRequest from '../../customHooks/useRequest'
 import queryString from 'query-string'
 import { useSelector } from 'react-redux'
 import useTable from '../../customHooks/useTable'
+import SearchButton from '../../component/ActionButton/SearchButton'
 
 function PageAkunBiaya() {
     const {
@@ -151,10 +152,9 @@ function PageAkunBiaya() {
                         onProdiFilterChange={onQueryFilterChange}
                         value={queryFilter.class_id}
                     />
-                    <Button size="sm" className="align-self-end">
-                        {' '}
-                        Cari{' '}
-                    </Button>
+                    <SearchButton onClickHandler={onCLickFilterSubmit}>
+                        Cari
+                    </SearchButton>
                 </div>
                 <SearchInput />
                 <TableAkunBiaya

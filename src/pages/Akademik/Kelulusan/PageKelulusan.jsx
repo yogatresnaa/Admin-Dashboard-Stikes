@@ -39,6 +39,7 @@ import { dateConvert, dateConvertForDb } from '../../../utils/helper'
 import ReactToPrint, { useReactToPrint } from 'react-to-print'
 import PrintTableSiswaComponent from './components/PrintTableSiswaTemplate'
 import SelectUnit from '../../../component/ActionButton/SelectUnit'
+import SearchButton from '../../../component/ActionButton/SearchButton'
 
 function PageKelulusan() {
     const {
@@ -325,13 +326,9 @@ function PageKelulusan() {
                             onProdiFilterChange={onQueryFilterChange}
                             value={queryFilter.status}
                         />
-                        <Button
-                            size="sm"
-                            className="align-self-end"
-                            onClick={onCLickFilterSubmit}
-                        >
+                        <SearchButton onClickHandler={onCLickFilterSubmit}>
                             Cari
-                        </Button>
+                        </SearchButton>
                     </div>
                     <Row className="mt-4">
                         <Col>

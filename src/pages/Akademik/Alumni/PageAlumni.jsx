@@ -37,6 +37,7 @@ import { dateConvert, dateConvertForDb } from '../../../utils/helper'
 import ReactToPrint, { useReactToPrint } from 'react-to-print'
 import PrintTableAlumniComponent from './components/PrintTableAlumniTemplate'
 import SelectUnit from '../../../component/ActionButton/SelectUnit'
+import SearchButton from '../../../component/ActionButton/SearchButton'
 
 function PageAlumni() {
     const {
@@ -264,13 +265,9 @@ function PageAlumni() {
               onProdiFilterChange={onQueryFilterChange}
               value={queryFilter.status}
             /> */}
-                        <Button
-                            size="sm"
-                            className="align-self-end"
-                            onClick={onCLickFilterSubmit}
-                        >
+                        <SearchButton onClickHandler={onCLickFilterSubmit}>
                             Cari
-                        </Button>
+                        </SearchButton>
                     </div>
 
                     <TableAlumni
