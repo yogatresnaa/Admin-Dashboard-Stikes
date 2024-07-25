@@ -335,28 +335,6 @@ function Sidebar() {
                             </li>
                         </Link>
 
-                        <Link className="link" to="/admin/laporan-keuangan">
-                            <li className="nav-item nav-link text-black  my-1">
-                                <IconContext.Provider
-                                    value={{ color: '#DC84F3' }}
-                                >
-                                    <FaFileInvoiceDollar
-                                        className="icons-sidebar"
-                                        style={{
-                                            width: '30px',
-                                            height: '30px',
-                                            color: '#5B5DEE',
-                                            padding: '3px',
-                                            boxShadow:
-                                                'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px',
-                                        }}
-                                    />
-                                </IconContext.Provider>
-
-                                <span className="ms-2">Lap. Keuangan</span>
-                            </li>
-                        </Link>
-
                         <Link className="link" to="/admin/laporan-pembayaran">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
@@ -376,6 +354,28 @@ function Sidebar() {
                                 </IconContext.Provider>
 
                                 <span className="ms-2">Lap. Pembayaran</span>
+                            </li>
+                        </Link>
+
+                        <Link className="link" to="/admin/laporan-keuangan">
+                            <li className="nav-item nav-link text-black  my-1">
+                                <IconContext.Provider
+                                    value={{ color: '#DC84F3' }}
+                                >
+                                    <FaFileInvoiceDollar
+                                        className="icons-sidebar"
+                                        style={{
+                                            width: '30px',
+                                            height: '30px',
+                                            color: '#5B5DEE',
+                                            padding: '3px',
+                                            boxShadow:
+                                                'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px',
+                                        }}
+                                    />
+                                </IconContext.Provider>
+
+                                <span className="ms-2">Lap. Keuangan</span>
                             </li>
                         </Link>
 
