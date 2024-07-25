@@ -71,7 +71,7 @@ function PageAkademik() {
                     <PageTahunAjaran />
                 </Tab>
 
-                <Tab
+                {/* <Tab
                     eventKey="Kenaikan kelas"
                     title={
                         <span
@@ -107,7 +107,7 @@ function PageAkademik() {
                     }
                 >
                     <h1>Page Kenaikan kelas masih tahap Development</h1>
-                </Tab>
+                </Tab> */}
 
                 <Tab
                     eventKey="Alumni"

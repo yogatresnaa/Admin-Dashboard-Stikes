@@ -165,20 +165,23 @@ function AppRoutes() {
                         />
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/admin" element={<Homepage />}>
-                            {/* path dashboard */}
+                            {' '}
+                            /{/* path dashboard */}
                             <Route
-                                path="dashboard"
+                                path="kelas"
+                                element={<RouteWithAuth element={PageKelas} />}
+                            />
+                            <Route
+                                path="/admin"
                                 element={
                                     <RouteWithAuth element={PageDashboard} />
                                 }
                             />
-
                             {/* path manajemen data */}
                             <Route
                                 path="kelas"
                                 element={<RouteWithAuth element={PageKelas} />}
                             />
-
                             <Route
                                 path="program-studi"
                                 element={
@@ -189,12 +192,10 @@ function AppRoutes() {
                                 path="siswa"
                                 element={<RouteWithAuth element={PageSiswa} />}
                             />
-
                             <Route
                                 path="page-manajemen-data"
                                 element={<PageManajemen />}
                             />
-
                             {/* Path Akademik */}
                             <Route
                                 path="page-akademik"
@@ -212,14 +213,12 @@ function AppRoutes() {
                                     <RouteWithAuth element={PageKelulusan} />
                                 }
                             />
-
                             <Route
                                 path="tahun-ajaran"
                                 element={
                                     <RouteWithAuth element={PageTahunAjaran} />
                                 }
                             />
-
                             {/* keuangan */}
                             <Route
                                 path="pembayaran-siswa"
@@ -229,7 +228,6 @@ function AppRoutes() {
                                     />
                                 }
                             />
-
                             <Route
                                 path="pos-bayar"
                                 element={
@@ -256,7 +254,6 @@ function AppRoutes() {
                                     />
                                 }
                             />
-
                             <Route
                                 path="tarif-tagihan/:id"
                                 element={
@@ -279,7 +276,6 @@ function AppRoutes() {
                                     />
                                 }
                             />
-
                             {/*  LAPORAN */}
                             <Route
                                 path="laporan-pembayaran"
@@ -289,7 +285,6 @@ function AppRoutes() {
                                     />
                                 }
                             />
-
                             <Route
                                 path="laporan-keuangan"
                                 element={
@@ -298,7 +293,6 @@ function AppRoutes() {
                                     />
                                 }
                             />
-
                             <Route
                                 path="laporan-pembayaran/kelas"
                                 element={
@@ -307,7 +301,6 @@ function AppRoutes() {
                                     />
                                 }
                             />
-
                             <Route
                                 path="laporan-pembayaran/tanggal"
                                 element={
@@ -316,14 +309,12 @@ function AppRoutes() {
                                     />
                                 }
                             />
-
                             <Route
                                 path="laporan-pembayaran/tagihan-siswa"
                                 element={
                                     <RouteWithAuth element={PageTagihanSiswa} />
                                 }
                             />
-
                             <Route
                                 path="laporan-pembayaran/rekap-pembayarn"
                                 element={
@@ -332,28 +323,24 @@ function AppRoutes() {
                                     />
                                 }
                             />
-
                             <Route
                                 path="laporan-keuangan/jurnal-umum"
                                 element={
                                     <RouteWithAuth element={PageJurnalUmum} />
                                 }
                             />
-
                             <Route
                                 path="laporan-keuangan/kas-tunai"
                                 element={
                                     <RouteWithAuth element={PageKasTunai} />
                                 }
                             />
-
                             <Route
                                 path="laporan-keuangan/kas-bank"
                                 element={
                                     <RouteWithAuth element={LaporanKasBank} />
                                 }
                             />
-
                             {/* LAPORAN */}
                             {/* <Route
                                 path="laporan/kas-tunai"
@@ -367,7 +354,6 @@ function AppRoutes() {
                                     <RouteWithAuth element={PageKasBank} />
                                 }
                             /> */}
-
                             <Route
                                 path="not-found"
                                 element={<PageNotFound />}
@@ -384,9 +370,7 @@ function AppRoutes() {
                                     <RouteWithAuth element={PagePosBayar} />
                                 }
                             />
-
                             {/* kas Bank */}
-
                             <Route
                                 path="not-found"
                                 element={<PageNotFound />}
@@ -445,16 +429,13 @@ function AppRoutes() {
                                     <RouteWithAuth element={PageKirimTagihan} />
                                 }
                             />
-
                             {/* ========= */}
-
                             <Route
                                 path="page-kas-bank"
                                 element={
                                     <RouteWithAuth element={PageKasBank} />
                                 }
                             />
-
                             <Route
                                 path="page-kas-bank/tambah"
                                 element={
@@ -463,7 +444,6 @@ function AppRoutes() {
                                     />
                                 }
                             />
-
                             <Route
                                 path="page-kas-bank/kas-keluar/edit/:id"
                                 element={
@@ -472,7 +452,6 @@ function AppRoutes() {
                                     />
                                 }
                             />
-
                             <Route
                                 path="page-kas-bank/tambah"
                                 element={
@@ -481,23 +460,19 @@ function AppRoutes() {
                                     />
                                 }
                             />
-
                             <Route
                                 path="page-kas-bank/kas-masuk/edit/:id"
                                 element={
                                     <RouteWithAuth element={EditKasMasuk} />
                                 }
                             />
-
                             {/* =========== */}
-
                             <Route
                                 path="*"
                                 element={
                                     <RouteWithAuth element={PageNotFound} />
                                 }
                             />
-
                             <Route
                                 path="backup-data"
                                 element={<RouteWithAuth element={BackUpData} />}
