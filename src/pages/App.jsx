@@ -146,8 +146,10 @@ function AppRoutes() {
                                 element={<RouteWithAuth element={PageKelas} />}
                             />
                             <Route
-                                path="dashboard"
-                                element={<RouteWithAuth element={PageKelas} />}
+                                path="/admin"
+                                element={
+                                    <RouteWithAuth element={PageDashboard} />
+                                }
                             />
                             <Route
                                 path="siswa"
