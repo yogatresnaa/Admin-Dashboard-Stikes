@@ -146,7 +146,7 @@ function Sidebar() {
                         </Link>
 
                         {/* baru=================== */}
-                        {/* <Link className="link" to="/admin/pembayaran-siswa">
+                        <Link className="link" to="/admin/pembayaran-siswa">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -210,12 +210,12 @@ function Sidebar() {
 
                                 <span className="ms-2">Manajemen Data</span>
                             </li>
-                        </Link> */}
+                        </Link>
                         {/* baru=================== */}
 
                         {/* lama ========================== */}
 
-                        <li className="nav-item my-2" onClick={toggleNav}>
+                        {/* <li className="nav-item my-2" onClick={toggleNav}>
                             <a
                                 href="#submenu"
                                 className="nav-link "
@@ -270,13 +270,13 @@ function Sidebar() {
                                     </Link>
                                 ))}
                             </ul>
-                        </li>
+                        </li> */}
 
                         {/* lama ========================== */}
 
                         {/* baru=================== */}
 
-                        {/* <Link className="link" to="/admin/page-akademik">
+                        <Link className="link" to="/admin/page-akademik">
                             <li className="nav-item nav-link text-black  my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
@@ -406,13 +406,34 @@ function Sidebar() {
 
                                 <span className="ms-2">Backup Data</span>
                             </li>
-                        </Link> */}
+                        </Link>
+
+                        <Link className="link" to="/admin/export-db">
+                            <li className="nav-item nav-link   my-1">
+                                <IconContext.Provider
+                                    value={{ color: '#DC84F3' }}
+                                >
+                                    <FaRegKeyboard
+                                        style={{
+                                            width: '30px',
+                                            height: '30px',
+                                            padding: '3px',
+                                            color: '#5B5DEE',
+                                            boxShadow:
+                                                'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px',
+                                        }}
+                                    />
+                                </IconContext.Provider>
+
+                                <span className="ms-2">Export DB</span>
+                            </li>
+                        </Link>
 
                         {/* baru=================== */}
 
                         {/* lama ========================== */}
 
-                        <li
+                        {/* <li
                             className="nav-item text-white my-1 column-wrapper "
                             onClick={toggleNav2}
                         >
@@ -491,9 +512,9 @@ function Sidebar() {
                                     </li>
                                 </Link>
                             </ul>
-                        </li>
+                        </li> */}
 
-                        <li className="nav-item text-white my-1">
+                        {/* <li className="nav-item text-white my-1">
                             <a
                                 href="#submenu3"
                                 className="nav-link "
@@ -621,9 +642,9 @@ function Sidebar() {
                                     </ul>
                                 </li>
                             </ul>
-                        </li>
+                        </li> */}
 
-                        <li className="nav-item text-white my-2">
+                        {/* <li className="nav-item text-white my-2">
                             <a
                                 href="#submenu6"
                                 className="nav-link "
@@ -699,11 +720,11 @@ function Sidebar() {
                                     </li>
                                 </Link>
                             </ul>
-                        </li>
+                        </li> */}
 
                         {/* lama ========================== */}
 
-                        <li className="nav-item text-white my-1">
+                        {/* <li className="nav-item text-white my-1">
                             <a
                                 href="#submenu7"
                                 className="nav-link "
@@ -911,7 +932,7 @@ function Sidebar() {
                                     <span className="ms-2">Export DB</span>
                                 </li>
                             </Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </div>
