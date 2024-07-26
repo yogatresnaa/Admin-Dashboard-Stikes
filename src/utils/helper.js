@@ -154,7 +154,7 @@ export const convertArrayOfObjectsToCSV = array => {
             if (ctr > 0) result += columnDelimiter;
 
             // Check if the key exists in the current item, if not, use an empty string
-            result += item[key] !== undefined ? item[key] : ''; cari
+            result += item[key] !== undefined ? item[key] : '';
 
             ctr++;
         });
