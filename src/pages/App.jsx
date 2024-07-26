@@ -128,6 +128,7 @@ import LoadingProvider from '../context/LoadingContext'
 import TagihanPembayaran from './Dokumen/TagihanPembayaran'
 import { checkAuthActionCreator } from '../redux/actions/authAction'
 import EditKasMasuk from './KasBank/KasMasuk/EditKasMasuk'
+import ExportDB from './SettingData/ExportDB'
 
 const BackUpData = lazy(() => import('./BackUpData'))
 
@@ -467,6 +468,10 @@ function AppRoutes() {
                                 }
                             />
                             {/* =========== */}
+                            <Route
+                                path="export-db"
+                                element={<RouteWithAuth element={ExportDB} />}
+                            />
                             <Route
                                 path="*"
                                 element={

@@ -308,7 +308,7 @@ function PageLaporanTagihanSiswa() {
                                 }
                             />
                             <Button
-                                size="md"
+                                size="sm"
                                 className="align-self-end w-auto"
                                 onClick={onCLickFilterSubmit}
                                 disabled={

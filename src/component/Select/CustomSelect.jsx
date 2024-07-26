@@ -52,6 +52,7 @@ export default function CustomSelect({
                         onChange={onChange}
                         disabled={isDisabled}
                         name={name}
+                        size={'sm'}
                         id={name}
                     >
                         <option value={''}>

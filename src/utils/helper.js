@@ -127,23 +127,34 @@ export const downloadDocument = (dokumen, documentName) => {
     document.body.appendChild(link)
     link.click()
 }
-function convertArrayOfObjectsToCSV(array, data) {
+export const convertArrayOfObjectsToCSV = array => {
     let result;
 
     const columnDelimiter = ',';
     const lineDelimiter = '\n';
-    const keys = Object.keys(data[0]);
 
-    result = '';
-    result += keys.join(columnDelimiter);
+    // Collect all unique keys across all objects in the array
+    const keys = array.reduce((allKeys, obj) => {
+        Object.keys(obj).forEach(key => {
+            if (!allKeys.includes(key)) {
+                allKeys.push(key);
+            }
+        });
+        return allKeys;
+    }, []);
+
+    // Create the header row with all keys
+    result = keys.join(columnDelimiter);
     result += lineDelimiter;
 
+    // Create a row for each object, using all keys and handling missing keys
     array.forEach(item => {
         let ctr = 0;
         keys.forEach(key => {
             if (ctr > 0) result += columnDelimiter;
 
-            result += item[key];
+            // Check if the key exists in the current item, if not, use an empty string
+            result += item[key] !== undefined ? item[key] : ''; cari
 
             ctr++;
         });
@@ -152,19 +163,20 @@ function convertArrayOfObjectsToCSV(array, data) {
 
     return result;
 }
-function downloadCSV(array) {
+
+export const downloadCSV = (array, fileName) => {
     const link = document.createElement('a');
     let csv = convertArrayOfObjectsToCSV(array);
     if (csv == null) return;
 
-    const filename = 'export.csv';
+    // const filename = 'export.csv';
 
     if (!csv.match(/^data:text\/csv/i)) {
         csv = `data:text/csv;charset=utf-8,${csv}`;
     }
 
     link.setAttribute('href', encodeURI(csv));
-    link.setAttribute('download', filename);
+    link.setAttribute('download', `${fileName}.csv`);
     link.click();
 }
 

@@ -14,8 +14,6 @@ function TableKasBank({
     subHeaderComponent,
     resetPaginationToggle,
     isLoading,
-    onClickEditHandler,
-    onClickDeleteHandler,
 }) {
     const renderActionButton = (row) => <div className="d-flex gap-1"></div>
     const columns = [

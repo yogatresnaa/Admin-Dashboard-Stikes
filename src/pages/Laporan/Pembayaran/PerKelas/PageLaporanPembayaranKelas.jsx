@@ -43,6 +43,7 @@ import DateInput from '../../../../component/ActionButton/InputDate'
 import CustomSelect from '../../../../component/Select/CustomSelect'
 import SelectUnit from '../../../../component/ActionButton/SelectUnit'
 import TablePembayaranPerKelas from './components/TablePembayaranPerKelas'
+import SearchButton from '../../../../component/ActionButton/SearchButton'
 // import TablePembayaran from './component/TablePembayaran'
 
 function PageLaporanPembayaranKelas() {
@@ -303,13 +304,9 @@ function PageLaporanPembayaranKelas() {
                                 onChange={onQueryFilterChange}
                                 value={queryFilter.payment_type}
                             />
-                            <Button
-                                size="md"
-                                className="align-self-end w-25"
-                                onClick={onCLickFilterSubmit}
-                            >
+                            <SearchButton onClickHandler={onCLickFilterSubmit}>
                                 Cari
-                            </Button>
+                            </SearchButton>
                         </div>
                     </div>
 

@@ -13,6 +13,7 @@ import {
     FaRegEdit,
     FaCcAmazonPay,
     FaServer,
+    FaFileExport,
     FaCoins,
 } from 'react-icons/fa'
 import {
@@ -54,6 +55,7 @@ function Sidebar() {
     const [toggle6, setToggle6] = React.useState(false)
     const [toggle7, setToggle7] = React.useState(false)
     const [toggle8, setToggle8] = React.useState(false)
+    const [toggle9, setToggle9] = React.useState(false)
 
     const toggleNav = () => {
         setToggle1((prevToggle) => {
@@ -99,6 +101,11 @@ function Sidebar() {
 
     const toggleNav8 = () => {
         setToggle8((prevToggle) => {
+            return prevToggle === false ? true : false
+        })
+    }
+    const toggleNav9 = () => {
+        setToggle9((prevToggle) => {
             return prevToggle === false ? true : false
         })
     }
@@ -884,6 +891,26 @@ function Sidebar() {
                                     </ul>
                                 </li>
                             </ul>
+                            <Link className="link" to="/admin/export-db">
+                                <li className="nav-item nav-link   my-1">
+                                    <IconContext.Provider
+                                        value={{ color: '#DC84F3' }}
+                                    >
+                                        <FaRegKeyboard
+                                            style={{
+                                                width: '30px',
+                                                height: '30px',
+                                                padding: '3px',
+                                                color: '#5B5DEE',
+                                                boxShadow:
+                                                    'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px',
+                                            }}
+                                        />
+                                    </IconContext.Provider>
+
+                                    <span className="ms-2">Export DB</span>
+                                </li>
+                            </Link>
                         </li>
                     </ul>
                 </div>

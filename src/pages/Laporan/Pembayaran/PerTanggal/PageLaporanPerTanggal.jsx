@@ -47,6 +47,7 @@ import SelectUnit from '../../../../component/ActionButton/SelectUnit'
 import SelectDate from '../../../../component/ActionButton/SelectDate'
 import moment from 'moment'
 import TablePembayaranPerTanggal from './component/TablePembayaran'
+import SearchButton from '../../../../component/ActionButton/SearchButton'
 // import TablePembayaran from './component/TablePembayaran'
 
 function PageLaporanPembayaranPerTanggal() {
@@ -315,13 +316,9 @@ function PageLaporanPembayaranPerTanggal() {
                                     }))
                                 }
                             />
-                            <Button
-                                size="md"
-                                className="align-self-end w-auto"
-                                onClick={onCLickFilterSubmit}
-                            >
+                            <SearchButton onClickHandler={onCLickFilterSubmit}>
                                 Cari
-                            </Button>
+                            </SearchButton>
                         </div>
                     </div>
 

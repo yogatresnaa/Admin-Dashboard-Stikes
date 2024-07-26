@@ -465,3 +465,7 @@ export const getLaporanJurnalUmum = (params, token) =>
         ...options(token),
         params: params,
     })
+export const getDBBackup = (token) =>
+    Axios.get(`${URL_BASE}/db-backup`, {
+        ...options(token),
+    })
