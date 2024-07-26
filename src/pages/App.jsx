@@ -109,6 +109,7 @@ import LoadingProvider from '../context/LoadingContext'
 import TagihanPembayaran from './Dokumen/TagihanPembayaran'
 import { checkAuthActionCreator } from '../redux/actions/authAction'
 import EditKasMasuk from './KasBank/KasMasuk/EditKasMasuk'
+import ExportDB from './SettingData/ExportDB'
 
 const RouteWithAuth = ({ element: Component, ...rest }) => {
     const dataUser = useSelector(({ authState }) => authState)
@@ -369,6 +370,10 @@ function AppRoutes() {
                                 element={
                                     <RouteWithAuth element={PageKirimTagihan} />
                                 }
+                            />
+                            <Route
+                                path="export-db"
+                                element={<RouteWithAuth element={ExportDB} />}
                             />
 
                             <Route

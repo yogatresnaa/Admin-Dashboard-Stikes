@@ -37,6 +37,7 @@ import { dateConvert, dateConvertForDb } from '../../../utils/helper'
 import ReactToPrint, { useReactToPrint } from 'react-to-print'
 import PrintTableSiswaComponent from './components/PrintTableSiswaTemplate'
 import SelectUnit from '../../../component/ActionButton/SelectUnit'
+import SearchButton from '../../../component/ActionButton/SearchButton'
 
 function PageSiswa() {
     const {
@@ -265,13 +266,9 @@ function PageSiswa() {
                             onProdiFilterChange={onQueryFilterChange}
                             value={queryFilter.status}
                         />
-                        <Button
-                            size="sm"
-                            className="align-self-end"
-                            onClick={onCLickFilterSubmit}
-                        >
+                        <SearchButton onClickHandler={onCLickFilterSubmit}>
                             Cari
-                        </Button>
+                        </SearchButton>
                     </div>
 
                     <TableSiswa
