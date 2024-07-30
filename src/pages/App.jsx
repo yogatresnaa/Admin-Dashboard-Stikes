@@ -15,6 +15,9 @@ const Homepage = lazy(() => import('./Homepage'))
 const PageKelas = lazy(() => import('./ManajemenData/Kelas/PageKelas'))
 const PageSiswa = lazy(() => import('./ManajemenData/Siswa/PageSiswa'))
 const PageAlumni = lazy(() => import('./Akademik/Alumni/PageAlumni'))
+const PageKenaikanKelas = lazy(
+    () => import('./Akademik/kenaikanKelas/PageKenaikanKelas')
+)
 const PageKelulusan = lazy(() => import('./Akademik/Kelulusan/PageKelulusan'))
 const PageTahunAjaran = lazy(
     () => import('./Akademik/TahunAjaran/PageTahunAjaran')
@@ -164,6 +167,14 @@ function AppRoutes() {
                                 path="kelulusan"
                                 element={
                                     <RouteWithAuth element={PageKelulusan} />
+                                }
+                            />
+                            <Route
+                                path="kenaikan-kelas"
+                                element={
+                                    <RouteWithAuth
+                                        element={PageKenaikanKelas}
+                                    />
                                 }
                             />
                             <Route

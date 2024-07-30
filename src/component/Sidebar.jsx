@@ -246,6 +246,19 @@ function Sidebar() {
                                         Ajaran
                                     </li>
                                 </Link>
+
+                                <Link
+                                    className="link link color"
+                                    to="/admin/kenaikan-kelas"
+                                >
+                                    <li
+                                        className="nav-item nav-link m-1"
+                                        style={{ color: '#5B5DEE' }}
+                                    >
+                                        <FaCircleMinus color="#5B5DEE" />{' '}
+                                        Kenaikan Kelas
+                                    </li>
+                                </Link>
                                 <Link
                                     className="link link color"
                                     to="/admin/kelulusan"

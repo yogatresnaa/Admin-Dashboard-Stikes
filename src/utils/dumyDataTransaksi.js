@@ -397,6 +397,18 @@ const dataTagihanLainnya = [
         Kekurangan: '660.000',
     },
 ]
+
+const KenaikanKelas = [
+    {
+        id: 1,
+        Nis: '09990012',
+        Nama: 'Ridwan',
+        Kelas: 'S1 BIDAN 22',
+        StatusPembayaran: 'Lunas',
+        Kekurangan: 'Rp. 100.000',
+    },
+]
+
 export {
     getDataTransaksi,
     dataPosBayar,
@@ -415,4 +427,5 @@ export {
     dataContoh,
     dataTagihanBulanan,
     dataTagihanLainnya,
+    KenaikanKelas,
 }
