@@ -22,24 +22,29 @@ function TableKenaikanKelas({ data, onSelectableChange }) {
             name: 'Nama',
             selector: (row) => row.student_full_name,
             sortable: true,
+            width: '150px',
         },
 
         {
             name: 'Kelas',
             selector: (row) => row.class_class_name,
             sortable: true,
+            width: '90px',
         },
 
         {
-            name: 'Status Pemabayaran',
-            // selector: (row) => row.student_parent_phone,
-            // sortable: true,
+            name: 'Pemabayaran',
+            selector: (row) =>
+                row.rotal_tagihan == 0 ? 'lunas' : 'belum lunas',
+            sortable: true,
+            width: '200px',
         },
 
         {
             name: 'Kekurangan',
             selector: (row) => rupiahConvert(row.total_tagihan),
             sortable: true,
+            width: '200px',
         },
     ]
 
