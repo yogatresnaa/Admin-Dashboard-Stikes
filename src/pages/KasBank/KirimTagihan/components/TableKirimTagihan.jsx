@@ -31,7 +31,7 @@ function TableKirimTagihan({ data, onSelectableChange }) {
         },
 
         {
-            name: 'Wa Orang Tua',
+            name: 'Status Pembayaran',
             selector: (row) => row.student_parent_phone,
             sortable: true,
         },
