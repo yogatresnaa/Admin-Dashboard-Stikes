@@ -130,13 +130,13 @@ function PageLaporanKasTunai() {
 
         getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token))
     }, [])
-    useEffect(() => {
-        const selectedPeriod = TahunAjaran.data[0]
-        setQueryFilter((prevState) => ({
-            ...prevState,
-            period_id: selectedPeriod?.period_id,
-        }))
-    }, [TahunAjaran.data])
+    // useEffect(() => {
+    //     const selectedPeriod = TahunAjaran.data[0]
+    //     setQueryFilter((prevState) => ({
+    //         ...prevState,
+    //         period_id: selectedPeriod?.period_id,
+    //     }))
+    // }, [TahunAjaran.data])
 
     useEffect(() => {
         fetchAll()
@@ -172,10 +172,10 @@ function PageLaporanKasTunai() {
                     tanggal_akhir: moment(queryFilter.tanggal_akhirl).format(
                         'YYYY-MM-DD'
                     ),
-                    period_id:
-                        queryFilter.period_id == ''
-                            ? TahunAjaran.data[0].period_id
-                            : queryFilter.period_id,
+                    // period_id:
+                    //     queryFilter.period_id == ''
+                    //         ? TahunAjaran.data[0].period_id
+                    //         : queryFilter.period_id,
                 },
                 dataUser.token
             )
@@ -215,7 +215,7 @@ function PageLaporanKasTunai() {
                 queryFilter.tanggal_awal
             ).format('YYYY-MM-DD')}-${moment(queryFilter.tanggal_akhir).format(
                 'YYYY-MM-DD'
-            )}_T.A ${tahunAjaranState.period_start ?? TahunAjaran.data[0].period_start}/${tahunAjaranState.period_end ?? TahunAjaran.data[0].period_end}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}`
+            )}_T.A ${queryFilter.period_id !== '' ? `${tahunAjaranState.period_start}/${tahunAjaranState.period_end}` : 'Semua'}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}`
         )
         getDataPrintLaporan(() =>
             getDokumenLaporanKasTunai(
@@ -227,10 +227,10 @@ function PageLaporanKasTunai() {
                     tanggal_akhir: moment(queryFilter.tanggal_akhirl).format(
                         'YYYY-MM-DD'
                     ),
-                    period_id:
-                        queryFilter.period_id == ''
-                            ? TahunAjaran.data[0].period_id
-                            : queryFilter.period_id,
+                    // period_id:
+                    //     queryFilter.period_id == ''
+                    //         ? TahunAjaran.data[0].period_id
+                    //         : queryFilter.period_id,
                 },
                 dataUser.token
             )
@@ -254,10 +254,10 @@ function PageLaporanKasTunai() {
                     tanggal_akhir: moment(queryFilter.tanggal_akhirl).format(
                         'YYYY-MM-DD'
                     ),
-                    period_id:
-                        queryFilter.period_id == ''
-                            ? TahunAjaran.data[0].period_id
-                            : queryFilter.period_id,
+                    // period_id:
+                    //     queryFilter.period_id == ''
+                    //         ? TahunAjaran.data[0].period_id
+                    //         : queryFilter.period_id,
                 },
                 dataUser.token
             )
@@ -319,7 +319,7 @@ function PageLaporanKasTunai() {
                             />
                             <SelectTahunAjaran
                                 data={TahunAjaran.data}
-                                includeAll={false}
+                                includeAll
                                 onChange={onPeriodChange}
                                 value={tahunAjaranState?.period_id ?? ''}
                             />
