@@ -20,6 +20,9 @@ export const statusSiswa = [
     'Pindah Sekolah',
     'Drop Out',
 ]
+
+export const statusPembayaran = ['Belum lunas', ' lunas']
+
 export const accountType = ['Akun Utama', 'Sub Akun 1', 'Sub Akun 2']
 export const accountCategory = ['#', 'Pembayaran', 'Keuangan']
 

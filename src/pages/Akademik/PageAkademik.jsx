@@ -10,6 +10,7 @@ import {
 import PageTahunAjaran from './TahunAjaran/PageTahunAjaran'
 import PageAlumni from './Alumni/PageAlumni'
 import PageKelulusan from './Kelulusan/PageKelulusan'
+import PageKenaikanKelas from './kenaikanKelas/PageKenaikanKelas'
 
 function PageAkademik() {
     return (
@@ -71,7 +72,7 @@ function PageAkademik() {
                     <PageTahunAjaran />
                 </Tab>
 
-                {/* <Tab
+                <Tab
                     eventKey="Kenaikan kelas"
                     title={
                         <span
@@ -101,13 +102,13 @@ function PageAkademik() {
                                     fontWeight: 'bold',
                                 }}
                             >
-                                Page Kenaikan kelas{' '}
+                                Page Kenaikan{' '}
                             </p>
                         </span>
                     }
                 >
-                    <h1>Page Kenaikan kelas masih tahap Development</h1>
-                </Tab> */}
+                    <PageKenaikanKelas />
+                </Tab>
 
                 <Tab
                     eventKey="Alumni"
