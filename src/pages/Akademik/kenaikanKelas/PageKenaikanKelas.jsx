@@ -16,11 +16,12 @@ import {
     deleteSiswa,
     postSiswa,
     getAllKelas,
-    putStatusSiswa,
+    putSiswaKenaikanKelas,
     getTagihanPaymentTransactionAllStudent,
     getAllUnitByUser,
 } from '../../../utils/http'
 import { useSelector } from 'react-redux'
+import { ToastContainer } from 'react-toastify'
 
 function PageKenaikanKelas() {
     const {
@@ -49,11 +50,10 @@ function PageKenaikanKelas() {
         getData: getDataProdi,
     } = useRequest()
 
-    const {
-        data: dataKelas,
-        setData: setDataKelas,
-        getData: getDataKelas,
-    } = useRequest()
+    const { data: dataKelas, getData: getDataKelas } = useRequest()
+    const { data: dataKelasTujuan, getData: getDataKelasTujuan } = useRequest()
+    const { data: dataKenaikanKelas, sendData: sendDataKenaikanKelas } =
+        useRequest()
 
     const dataUser = useSelector(({ authState }) => authState.data)
 
@@ -68,16 +68,19 @@ function PageKenaikanKelas() {
         status: '',
         majors_id: '',
         unit_id: '',
+        class_id_tujuan: '',
+        unit_id_tujuan: '',
     })
 
     const [isSubmit, setIsSubmit] = useState(false)
+    const [toggleCleared, setToggleCleared] = useState(false)
     const [selectedStudent, setSelectedStudent] = useState([])
 
     useEffect(() => {
         getDataUnit(() => getAllUnitByUser(dataUser.token))
-        getDataKelas(() =>
-            getAllKelas({ unit_unit_id: queryFilter.unit_id }, dataUser.token)
-        )
+        // getDataKelas(() =>
+        //     getAllKelas({ unit_unit_id: queryFilter.unit_id }, dataUser.token)
+        // )
 
         getDataTahunAjaran(() => getAllTahunAjaran(dataUser.token))
     }, [])
@@ -87,9 +90,9 @@ function PageKenaikanKelas() {
             getDataProdi(() =>
                 getAllProdi({ unit_id: queryFilter.unit_id }, dataUser.token)
             )
-            getDataKelas(() =>
-                getAllKelas({ unit_id: queryFilter.unit_id }, dataUser.token)
-            )
+            // getDataKelas(() =>
+            //     getAllKelas({ unit_id: queryFilter.unit_id }, dataUser.token)
+            // )
         }
     }, [queryFilter])
 
@@ -111,15 +114,48 @@ function PageKenaikanKelas() {
         setIsSubmit(true)
     }
 
+    const onCLickSubmitKenaikanKelas = async () =>
+        await sendDataKenaikanKelas(
+            () =>
+                putSiswaKenaikanKelas(
+                    {
+                        ids: selectedStudent.map((item) => item.student_id),
+                        class_id: queryFilter.class_id_tujuan,
+                        unit_id: queryFilter.unit_id_tujuan,
+                    },
+                    dataUser.token
+                ),
+            () => {
+                onCLickFilterSubmit()
+                setSelectedStudent([])
+                setToggleCleared(!toggleCleared)
+            }
+        )
+
     const onQueryFilterChange = (e) => {
         setQueryFilter((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
         }))
     }
+    useEffect(() => {
+        getDataKelas(() =>
+            getAllKelas({ unit_unit_id: queryFilter.unit_id }, dataUser.token)
+        )
+    }, [queryFilter.unit_id])
+    useEffect(() => {
+        getDataKelasTujuan(() =>
+            getAllKelas(
+                { unit_unit_id: queryFilter.unit_id_tujuan },
+                dataUser.token
+            )
+        )
+    }, [queryFilter.unit_id_tujuan])
 
     return (
         <div className="page-content">
+            <ToastContainer />
+
             <h3>
                 Kenaikan Kelas{' '}
                 <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>
@@ -149,10 +185,12 @@ function PageKenaikanKelas() {
                             name={'unit_id'}
                             onFilterChange={onQueryFilterChange}
                             value={queryFilter.unit_id}
+                            includeAll={false}
                         />
                         <SelectUnitKelas
                             data={dataKelas.data}
                             name={'class_id'}
+                            firstValue={'-'}
                             onProdiFilterChange={onQueryFilterChange}
                             value={queryFilter.class_id}
                         />
@@ -173,6 +211,7 @@ function PageKenaikanKelas() {
                         <div className="table-kirim-tagihan">
                             <TableKenaikanKelas
                                 data={dataSiswa.data}
+                                clearSelectedRows={toggleCleared}
                                 onSelectableChange={onSelectableChange}
                             />
                         </div>
@@ -188,13 +227,16 @@ function PageKenaikanKelas() {
                 >
                     <SelectUnit
                         data={dataUnit.data}
+                        name={'unit_id_tujuan'}
                         onFilterChange={onQueryFilterChange}
-                        value={queryFilter.unit_id}
+                        value={queryFilter.unit_id_tujuan}
                     />
                     <SelectUnitKelas
-                        data={dataKelas.data}
+                        data={dataKelasTujuan.data}
+                        firstValue={'-'}
                         onProdiFilterChange={onQueryFilterChange}
-                        value={queryFilter.class_id}
+                        name={'class_id_tujuan'}
+                        value={queryFilter.class_id_tujuan}
                     />
                     <Button
                         style={{
@@ -202,6 +244,7 @@ function PageKenaikanKelas() {
                             width: '100%',
                             maxHeight: '200px',
                         }}
+                        onClick={onCLickSubmitKenaikanKelas}
                     >
                         Proses Pindah/Naik Kelas
                     </Button>

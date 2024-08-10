@@ -3,13 +3,13 @@ import DataTable from 'react-data-table-component'
 import { rupiahConvert } from '../../../../utils/helper'
 import { statusPembayaran } from '../../../../utils/CONSTANT'
 
-function TableKenaikanKelas({ data, onSelectableChange }) {
+function TableKenaikanKelas({ data, onSelectableChange, clearSelectedRows }) {
     const renderStatus = (row) => (
         <div className="d-flex align-items-center justify-content-center">
             <div
-                className={`status ${row.total_tagihan == 0 ? 'not-active' : 'active'} `}
+                className={`status ${row.total_tagihan == 0 ? 'active' : 'not-active'} `}
             >
-                {statusPembayaran[row.total_tagihan]}
+                {statusPembayaran[row.total_tagihan == 0 ? 1 : 0]}
             </div>
         </div>
     )
@@ -41,7 +41,7 @@ function TableKenaikanKelas({ data, onSelectableChange }) {
         },
 
         {
-            name: 'Pemabayaran',
+            name: 'Pembayaran',
             cell: (row) => renderStatus(row),
             sortable: true,
             width: '200px',
@@ -61,6 +61,7 @@ function TableKenaikanKelas({ data, onSelectableChange }) {
                 columns={columns}
                 data={data}
                 selectableRows
+                clearSelectedRows={clearSelectedRows}
                 onSelectedRowsChange={onSelectableChange}
                 pagination
             />

@@ -100,6 +100,8 @@ export const putSiswa = (id, body, token) =>
     Axios.put(`${URL_BASE}/siswa/${id}`, body, options(token))
 export const putStatusSiswa = (id, body, token) =>
     Axios.put(`${URL_BASE}/siswa/status/${id}`, body, options(token))
+export const putSiswaKenaikanKelas = (body, token) =>
+    Axios.put(`${URL_BASE}/siswa/kenaikan-kelas/bulk`, body, options(token))
 export const deleteSiswa = (id, token) =>
     Axios.delete(`${URL_BASE}/siswa/${id}`, options(token))
 
