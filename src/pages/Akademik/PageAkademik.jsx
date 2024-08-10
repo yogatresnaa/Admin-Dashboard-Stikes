@@ -16,7 +16,7 @@ function PageAkademik() {
     return (
         <div className="page">
             <Tabs
-                defaultActiveKey="Akademik"
+                defaultActiveKey="Tahun Ajaran"
                 transition={false}
                 id="noanim-tab-example"
                 className="mb-3"

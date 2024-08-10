@@ -10,7 +10,7 @@ function PageSettingPembayaran() {
     return (
         <div className="page">
             <Tabs
-                defaultActiveKey="SettingPembayaran"
+                defaultActiveKey="Akun Biaya"
                 transition={false}
                 id="noanim-tab-example"
                 className="mb-3"

@@ -10,7 +10,7 @@ function PageKasBank() {
     return (
         <div className="page">
             <Tabs
-                defaultActiveKey="Kas Bank"
+                defaultActiveKey="kas-keluar"
                 transition={false}
                 id="noanim-tab-example"
                 className="mb-3"

@@ -81,7 +81,7 @@ function PageKasMasuk() {
     }
 
     const onClickAddHandler = () => {
-        navigate('tambah')
+        navigate('kas-masuk/tambah')
     }
 
     const onClickDeleteHandler = (id) => {

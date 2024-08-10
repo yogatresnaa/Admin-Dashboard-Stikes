@@ -438,7 +438,7 @@ function AppRoutes() {
                                 }
                             />
                             <Route
-                                path="page-kas-bank/tambah"
+                                path="page-kas-bank/kas-keluar/tambah"
                                 element={
                                     <RouteWithAuth
                                         element={PageTambahKasKeluar}
@@ -454,7 +454,7 @@ function AppRoutes() {
                                 }
                             />
                             <Route
-                                path="page-kas-bank/tambah"
+                                path="page-kas-bank/kas-masuk/tambah"
                                 element={
                                     <RouteWithAuth
                                         element={PageTambahKasMasuk}

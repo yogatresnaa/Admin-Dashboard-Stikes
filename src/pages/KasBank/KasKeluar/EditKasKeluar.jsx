@@ -119,7 +119,7 @@ function EditKasKeluar() {
                         dataUser.token
                     ),
                 () => {
-                    setTimeout(() => navigate('/admin/kas-keluar'), 2000)
+                    setTimeout(() => navigate('/admin/page-kas-bank'), 2000)
                 }
             )
         })

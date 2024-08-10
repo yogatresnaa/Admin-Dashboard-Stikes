@@ -81,7 +81,7 @@ function PageKasKeluar() {
     }
 
     const onClickAddHandler = () => {
-        navigate('tambah')
+        navigate('kas-keluar/tambah')
     }
 
     const onClickDeleteHandler = (id) => {

@@ -87,7 +87,7 @@ function EditKasMasuk() {
     }, [location.state.unit_unit_id])
 
     const fetchDataDebit = () => {
-        getDatDebitNotSubmit(() =>
+        getDataDebitNotSubmit(() =>
             getDebitNotSubmitted(
                 {
                     unit_id: queryFilter.unit_id,
@@ -121,7 +121,7 @@ function EditKasMasuk() {
                         dataUser.token
                     ),
                 () => {
-                    setTimeout(() => navigate('/admin/kas-masuk'), 2000)
+                    setTimeout(() => navigate('/admin/page-kas-bank'), 2000)
                 }
             )
         })

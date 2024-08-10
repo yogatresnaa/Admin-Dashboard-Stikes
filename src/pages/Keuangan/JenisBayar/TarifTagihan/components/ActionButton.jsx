@@ -72,7 +72,7 @@ export default function ActionButton({ onBackHandler, data }) {
                 >
                     <Button
                         size="sm"
-                        className="button-setting-tarif d-flex align-items-center text-white justify-content-center "
+                        className="button-setting-tarif d-flex align-items-center text-white justify-content-center"
                         color="warning"
                     >
                         <AiFillEdit size={15} color="white" /> Edit Tarif Bebas

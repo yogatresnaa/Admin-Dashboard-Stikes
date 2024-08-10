@@ -10,7 +10,7 @@ function PageManajemen() {
     return (
         <div className="page">
             <Tabs
-                defaultActiveKey="profile"
+                defaultActiveKey="Kelas"
                 id="uncontrolled-tab-example"
                 className="mb-3"
                 transition={false}

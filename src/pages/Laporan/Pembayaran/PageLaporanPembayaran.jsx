@@ -17,7 +17,7 @@ function PageLaporanPembayaran() {
     return (
         <div className="page">
             <Tabs
-                defaultActiveKey="Page Laporan Pembayaran"
+                defaultActiveKey="laporan pembayaran kelas"
                 transition={false}
                 id="noanim-tab-example"
                 className="mb-3"
