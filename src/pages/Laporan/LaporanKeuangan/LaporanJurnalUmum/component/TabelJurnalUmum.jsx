@@ -39,7 +39,8 @@ function TabelJurnalUmum({
         },
         {
             name: 'Keterangan',
-            selector: (row) => row.account_description,
+            selector: (row) =>
+                `${row.account_description}${row.period_start ? ` T.A ${row.period_start}/${row.period_end}` : ''}`,
             sortable: true,
             width: '120px',
         },

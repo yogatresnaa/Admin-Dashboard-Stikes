@@ -51,7 +51,7 @@ import CustomSelect from '../../../../component/Select/CustomSelect'
 import SelectUnit from '../../../../component/ActionButton/SelectUnit'
 import SelectDate from '../../../../component/ActionButton/SelectDate'
 import moment from 'moment'
-import TableKasBank from './component/TableKasTunai'
+import TableKasTunai from './component/TableKasTunai'
 import FooterTable from '../../Components/FooterTable'
 import ButtonWithLoader from '../../../../component/ActionButton/ButtonWithLoader'
 import SearchButton from '../../../../component/ActionButton/SearchButton'
@@ -368,7 +368,7 @@ function PageLaporanKasTunai() {
                             Laporan Kas Tunai
                         </h6>
 
-                        <TableKasBank
+                        <TableKasTunai
                             data={dataLaporan?.data?.data_payment}
                             subHeaderComponent={subHeaderComponent}
                             resetPaginationToggle={resetPaginationToggle}
