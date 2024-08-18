@@ -15,6 +15,7 @@ import {
     getAllUnitByUser,
     getAllPaymentType,
     getDokumenLaporanPerKelas,
+    getDokumenLaporanExcelPerKelas,
 } from '../../../../utils/http'
 // import "./css/page-laporan-pembayaran-kelas.css";
 import { useSelector } from 'react-redux'
@@ -35,6 +36,7 @@ import {
     dateConvert,
     dateConvertForDb,
     downloadDocument,
+    downloadExcelDocument,
 } from '../../../../utils/helper'
 import ReactToPrint, { useReactToPrint } from 'react-to-print'
 // import PrintTableSiswaComponent from "./components/PrintTableSiswaTemplate";
@@ -44,6 +46,7 @@ import CustomSelect from '../../../../component/Select/CustomSelect'
 import SelectUnit from '../../../../component/ActionButton/SelectUnit'
 import TablePembayaranPerKelas from './components/TablePembayaranPerKelas'
 import SearchButton from '../../../../component/ActionButton/SearchButton'
+import ButtonWithLoader from '../../../../component/ActionButton/ButtonWithLoader'
 // import TablePembayaran from './component/TablePembayaran'
 
 function PageLaporanPembayaranKelas() {
@@ -89,9 +92,15 @@ function PageLaporanPembayaranKelas() {
     } = useRequest()
     const {
         data: dataPrintLaporan,
-        isLoading: isLoadingDataPrintLaporan,
+        isLoadingGenerate: isLoadingDataPrintLaporan,
         getData: getDataPrintLaporan,
         setData: setDataPrintLaporan,
+    } = useRequest(true)
+    const {
+        data: dataPrintLaporanExcel,
+        isLoadingGenerate: isLoadingDataPrintLaporanExcel,
+        getData: getDataPrintLaporanExcel,
+        setData: setDataPrintLaporanExcel,
     } = useRequest(true)
     const {
         resetPaginationToggle,
@@ -215,6 +224,20 @@ function PageLaporanPembayaranKelas() {
             )
         )
     }
+    const onClickCetakExcelHandler = () => {
+        getDataPrintLaporanExcel(() =>
+            getDokumenLaporanExcelPerKelas(
+                {
+                    ...queryFilter,
+                    period_id:
+                        queryFilter.period_id == ''
+                            ? TahunAjaran.data[0].period_id
+                            : queryFilter.period_id,
+                },
+                dataUser.token
+            )
+        )
+    }
     useEffect(() => {
         if (dataPrintLaporan?.data?.data)
             downloadDocument(
@@ -223,6 +246,14 @@ function PageLaporanPembayaranKelas() {
             )
         setDataPrintLaporan(null)
     }, [dataPrintLaporan?.data])
+    useEffect(() => {
+        if (dataPrintLaporanExcel?.data?.data)
+            downloadExcelDocument(
+                dataPrintLaporanExcel.data.data,
+                `Laporan Pembayaran ${dataPaymentType.data.filter((item) => queryFilter.payment_type == item.pos_pos_id)[0]?.pos_pay_name}_T.A ${tahunAjaranState.period_start ?? TahunAjaran.data[0].period_start}/${tahunAjaranState.period_end ?? TahunAjaran.data[0].period_end}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}`
+            )
+        setDataPrintLaporanExcel(null)
+    }, [dataPrintLaporanExcel?.data])
     useEffect(() => {
         if (queryFilter.unit_id !== '') {
             getDataPaymentType(() =>
@@ -328,11 +359,18 @@ function PageLaporanPembayaranKelas() {
                             isLoading={isLoadingLaporan}
                         />
                         <div className="d-flex justify-content-between">
-                            <div></div>
+                            <ButtonWithLoader
+                                size="sm"
+                                isLoading={isLoadingDataPrintLaporanExcel}
+                                color="success"
+                                // disabled={dataLaporan?.data?.length < 1}
+                                text={'Export Excel'}
+                                onClick={onClickCetakExcelHandler}
+                            />
                             <Button
                                 size="sm"
                                 color="danger"
-                                disabled={dataLaporan?.data?.length < 1}
+                                // disabled={dataLaporan?.data?.length < 1}
                                 onClick={onClickCetakPdfHandler}
                             >
                                 Cetak PDF

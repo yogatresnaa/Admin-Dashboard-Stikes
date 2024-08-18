@@ -20,6 +20,7 @@ import {
     getLaporanKasTunai,
     getDokumenLaporanKasTunai,
     getDokumenLaporanKasTunaiPerAnggaran,
+    getDokumenLaporanExcelKasTunai,
 } from '../../../../utils/http'
 // import "./css/page-laporan-pembayaran-kelas.css";
 import { useSelector } from 'react-redux'
@@ -41,6 +42,7 @@ import {
     dateConvertForDb,
     downloadCSV,
     downloadDocument,
+    downloadExcelDocument,
     rupiahConvert,
 } from '../../../../utils/helper'
 import ReactToPrint, { useReactToPrint } from 'react-to-print'
@@ -92,6 +94,12 @@ function PageLaporanKasTunai() {
         isLoadingGenerate: isLoadingDataPrintLaporan,
         getData: getDataPrintLaporan,
         setData: setDataPrintLaporan,
+    } = useRequest(true)
+    const {
+        data: dataPrintLaporanExcel,
+        isLoadingGenerate: isLoadingDataPrintLaporanExcel,
+        getData: getDataPrintLaporanExcel,
+        setData: setDataPrintLaporanExcel,
     } = useRequest(true)
     const {
         resetPaginationToggle,
@@ -298,9 +306,38 @@ function PageLaporanKasTunai() {
             ),
         [filterText, dataSiswa.data]
     )
+
+    const onClickCetakExcelHandler = () => {
+        getDataPrintLaporanExcel(() =>
+            getDokumenLaporanExcelKasTunai(
+                {
+                    ...queryFilter,
+                    // period_id:
+                    //     queryFilter.period_id == ''
+                    //         ? TahunAjaran.data[0].period_id
+                    //         : queryFilter.period_id,
+                },
+                dataUser.token
+            )
+        )
+    }
+
+    useEffect(() => {
+        if (dataPrintLaporanExcel?.data?.data)
+            downloadExcelDocument(
+                dataPrintLaporanExcel.data.data,
+                `Laporan Kas Tunai Per Tanggal ${moment(
+                    queryFilter.tanggal_awal
+                ).format('YYYY-MM-DD')}-${moment(
+                    queryFilter.tanggal_akhir
+                ).format(
+                    'YYYY-MM-DD'
+                )}_T.A ${queryFilter.period_id !== '' ? `${tahunAjaranState.period_start}/${tahunAjaranState.period_end}` : 'Semua'}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}`
+            )
+        setDataPrintLaporanExcel(null)
+    }, [dataPrintLaporanExcel?.data])
     return (
         <>
-            <ToastContainer />
             <div className="page-content">
                 <h3>
                     Laporan Kas Tunai{' '}
@@ -423,15 +460,12 @@ function PageLaporanKasTunai() {
                             />
                             <div className="d-flex gap-2">
                                 <ButtonWithLoader
-                                    isLoading={isLoadingDataPrintLaporan}
-                                    text={'Export CSV'}
-                                    disabled={
-                                        isLoadingDataPrintLaporan ||
-                                        dataLaporan?.data?.length < 1
-                                    }
+                                    isLoading={isLoadingDataPrintLaporanExcel}
+                                    text={'Export Excel'}
+                                    disabled={isLoadingDataPrintLaporanExcel}
                                     color="success"
                                     size="sm"
-                                    onClick={onClickExportCSVHandler}
+                                    onClick={onClickCetakExcelHandler}
                                     style={{
                                         alignSelf: 'flex-end',
                                         marginRight: '1rem',

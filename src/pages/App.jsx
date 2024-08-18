@@ -129,6 +129,7 @@ import TagihanPembayaran from './Dokumen/TagihanPembayaran'
 import { checkAuthActionCreator } from '../redux/actions/authAction'
 import EditKasMasuk from './KasBank/KasMasuk/EditKasMasuk'
 import ExportDB from './SettingData/ExportDB'
+import BulkSiswa from './Bulk/BulkSiswa'
 
 const BackUpData = lazy(() => import('./BackUpData'))
 
@@ -481,6 +482,10 @@ function AppRoutes() {
                             <Route
                                 path="backup-data"
                                 element={<RouteWithAuth element={BackUpData} />}
+                            />
+                            <Route
+                                path="bulk/siswa"
+                                element={<RouteWithAuth element={BulkSiswa} />}
                             />
                         </Route>
                     </Routes>

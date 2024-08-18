@@ -12,6 +12,8 @@ import {
     getLaporanJurnalUmum,
     getDokumenLaporanKJurnalUmum,
     getDokumenLaporanJurnalUmumPerAnggaran,
+    getDokumenLaporanExcelKasBank,
+    getDokumenLaporanExcelJurnalUmum,
 } from '../../../../utils/http'
 // import "./css/page-laporan-pembayaran-kelas.css";
 import { useSelector } from 'react-redux'
@@ -21,7 +23,11 @@ import useTable from '../../../../customHooks/useTable'
 import { Button } from 'reactstrap'
 import queryString from 'query-string'
 // import DetailModal from "./components/DetailModal";
-import { downloadCSV, downloadDocument } from '../../../../utils/helper'
+import {
+    downloadCSV,
+    downloadDocument,
+    downloadExcelDocument,
+} from '../../../../utils/helper'
 // import PrintTableSiswaComponent from "./components/PrintTableSiswaTemplate";
 import SelectTahunAjaran from '../../../../component/ActionButton/SelectTahunAjaran'
 import SelectUnit from '../../../../component/ActionButton/SelectUnit'
@@ -68,6 +74,12 @@ function PageLaporanJurnalUmum() {
         isLoadingGenerate: isLoadingDataPrintLaporan,
         getData: getDataPrintLaporan,
         setData: setDataPrintLaporan,
+    } = useRequest(true)
+    const {
+        data: dataPrintLaporanExcel,
+        isLoadingGenerate: isLoadingDataPrintLaporanExcel,
+        getData: getDataPrintLaporanExcel,
+        setData: setDataPrintLaporanExcel,
     } = useRequest(true)
     const {
         resetPaginationToggle,
@@ -248,11 +260,11 @@ function PageLaporanJurnalUmum() {
     const onClickExportCSVHandler = () => {
         downloadCSV(
             dataLaporan?.data?.data_payment,
-            `Laporan Per anggaran Kas Bank Per Tanggal ${moment(
+            `Laporan Jurnal Umum Per Tanggal ${moment(
                 queryFilter.tanggal_awal
             ).format('YYYY-MM-DD')}-${moment(queryFilter.tanggal_akhir).format(
                 'YYYY-MM-DD'
-            )}_T.A ${tahunAjaranState.period_start ?? TahunAjaran.data[0].period_start}/${tahunAjaranState.period_end ?? TahunAjaran.data[0].period_end}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}`
+            )}_T.A ${queryFilter.period_id !== '' ? `${tahunAjaranState.period_start}/${tahunAjaranState.period_end}` : 'Semua'}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}`
         )
     }
     const dataFiltered = useMemo(
@@ -274,9 +286,39 @@ function PageLaporanJurnalUmum() {
             ),
         [filterText, dataSiswa.data]
     )
+
+    const onClickCetakExcelHandler = () => {
+        getDataPrintLaporanExcel(() =>
+            getDokumenLaporanExcelJurnalUmum(
+                {
+                    ...queryFilter,
+                    // period_id:
+                    //     queryFilter.period_id == ''
+                    //         ? TahunAjaran.data[0].period_id
+                    //         : queryFilter.period_id,
+                },
+                dataUser.token
+            )
+        )
+    }
+
+    useEffect(() => {
+        if (dataPrintLaporanExcel?.data?.data) {
+            downloadExcelDocument(
+                dataPrintLaporanExcel.data.data,
+                `Laporan Per anggaran Kas Bank Per Tanggal ${moment(
+                    queryFilter.tanggal_awal
+                ).format('YYYY-MM-DD')}-${moment(
+                    queryFilter.tanggal_akhir
+                ).format(
+                    'YYYY-MM-DD'
+                )}_T.A ${tahunAjaranState.period_start ?? TahunAjaran.data[0].period_start}/${tahunAjaranState.period_end ?? TahunAjaran.data[0].period_end}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}`
+            )
+            setDataPrintLaporanExcel(null)
+        }
+    }, [dataPrintLaporanExcel?.data])
     return (
         <>
-            <ToastContainer />
             <div className="page-content">
                 <h3>
                     Laporan Jurnal Umum{' '}
@@ -399,20 +441,18 @@ function PageLaporanJurnalUmum() {
                             />
                             <div className="d-flex gap-2">
                                 <ButtonWithLoader
-                                    isLoading={isLoadingDataPrintLaporan}
-                                    text={'Export CSV'}
-                                    disabled={
-                                        isLoadingDataPrintLaporan ||
-                                        dataLaporan?.data?.length < 1
-                                    }
+                                    isLoading={isLoadingDataPrintLaporanExcel}
+                                    text={'Export Excel'}
+                                    disabled={isLoadingDataPrintLaporanExcel}
                                     color="success"
                                     size="sm"
-                                    onClick={onClickExportCSVHandler}
+                                    onClick={onClickCetakExcelHandler}
                                     style={{
                                         alignSelf: 'flex-end',
                                         marginRight: '1rem',
                                     }}
                                 />
+
                                 <ButtonWithLoader
                                     isLoading={isLoadingDataPrintLaporan}
                                     text={'Cetak PDF Rekap Laporan'}

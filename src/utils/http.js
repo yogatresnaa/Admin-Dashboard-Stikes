@@ -327,6 +327,11 @@ export const getDokumenLaporanPerKelas = (query, token) =>
         ...options(token),
         params: query,
     })
+export const getDokumenLaporanExcelPerKelas = (query, token) =>
+    Axios.get(`${URL_BASE}/dokumen/report/excel/pembayaran-per-kelas`, {
+        ...options(token),
+        params: query,
+    })
 export const getDokumenLaporanPerTanggal = (query, token) =>
     Axios.get(`${URL_BASE}/dokumen/report/pembayaran-per-tanggal`, {
         ...options(token),
@@ -334,6 +339,11 @@ export const getDokumenLaporanPerTanggal = (query, token) =>
     })
 export const getDokumenLaporanKasBank = (query, token) =>
     Axios.get(`${URL_BASE}/dokumen/report/laporan-kas-bank`, {
+        ...options(token),
+        params: query,
+    })
+export const getDokumenLaporanExcelKasBank = (query, token) =>
+    Axios.get(`${URL_BASE}/dokumen/report/excel/laporan-kas-bank`, {
         ...options(token),
         params: query,
     })
@@ -347,6 +357,11 @@ export const getDokumenLaporanKasTunai = (query, token) =>
         ...options(token),
         params: query,
     })
+export const getDokumenLaporanExcelKasTunai = (query, token) =>
+    Axios.get(`${URL_BASE}/dokumen/report/excel/laporan-kas-tunai`, {
+        ...options(token),
+        params: query,
+    })
 export const getDokumenLaporanKasTunaiPerAnggaran = (query, token) =>
     Axios.get(`${URL_BASE}/dokumen/report/laporan-kas-tunai/anggaran`, {
         ...options(token),
@@ -354,6 +369,11 @@ export const getDokumenLaporanKasTunaiPerAnggaran = (query, token) =>
     })
 export const getDokumenLaporanKJurnalUmum = (query, token) =>
     Axios.get(`${URL_BASE}/dokumen/report/laporan-jurnal-umum`, {
+        ...options(token),
+        params: query,
+    })
+export const getDokumenLaporanExcelJurnalUmum = (query, token) =>
+    Axios.get(`${URL_BASE}/dokumen/report/excel/laporan-jurnal-umum`, {
         ...options(token),
         params: query,
     })
@@ -470,4 +490,12 @@ export const getLaporanJurnalUmum = (params, token) =>
 export const getDBBackup = (token) =>
     Axios.get(`${URL_BASE}/db-backup`, {
         ...options(token),
+    })
+export const postBulkSiswa = (body, token) =>
+    Axios.post(`${URL_BASE}/bulk/siswa`, body, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'content-type': 'multipart/form-data',
+        },
+        timeout: 15000,
     })

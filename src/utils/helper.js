@@ -70,15 +70,15 @@ export const requestWrapper = async (
 
 export const requestOnlyWrapper =
     (fn, toast, navigate = null) =>
-        async () => {
-            try {
-                const response = await fn()
-            } catch (error) {
-                toast.error(error.response.data.message, {
-                    theme: 'colored',
-                })
-            }
+    async () => {
+        try {
+            const response = await fn()
+        } catch (error) {
+            toast.error(error.response.data.message, {
+                theme: 'colored',
+            })
         }
+    }
 
 export const dateConvert = (data) => {
     const date = new Date(data)
@@ -88,10 +88,11 @@ export const dateConvert = (data) => {
 }
 export const dateConvertForDb = (data) => {
     const date = new Date(data)
-    return `${date.getFullYear()}-${(date.getMonth() + 1).toString().length < 2
-        ? `0${date.getMonth() + 1}`
-        : date.getMonth() + 1
-        }-${date.getDate()}`
+    return `${date.getFullYear()}-${
+        (date.getMonth() + 1).toString().length < 2
+            ? `0${date.getMonth() + 1}`
+            : date.getMonth() + 1
+    }-${date.getDate()}`
 }
 export const rupiahConvert = (data) => {
     return `${data.toLocaleString('id-ID', {
@@ -127,56 +128,67 @@ export const downloadDocument = (dokumen, documentName) => {
     document.body.appendChild(link)
     link.click()
 }
-export const convertArrayOfObjectsToCSV = array => {
-    let result;
+export const downloadExcelDocument = (dokumen, documentName) => {
+    const url = window.URL.createObjectURL(
+        new Blob([new Uint8Array(dokumen).buffer], {
+            type: 'application/xls',
+        })
+    )
+    var link = document.createElement('a')
+    link.href = url
+    link.setAttribute('download', `${documentName}.xls`)
+    document.body.appendChild(link)
+    link.click()
+}
+export const convertArrayOfObjectsToCSV = (array) => {
+    let result
 
-    const columnDelimiter = ',';
-    const lineDelimiter = '\n';
+    const columnDelimiter = ','
+    const lineDelimiter = '\n'
 
     // Collect all unique keys across all objects in the array
     const keys = array.reduce((allKeys, obj) => {
-        Object.keys(obj).forEach(key => {
+        Object.keys(obj).forEach((key) => {
             if (!allKeys.includes(key)) {
-                allKeys.push(key);
+                allKeys.push(key)
             }
-        });
-        return allKeys;
-    }, []);
+        })
+        return allKeys
+    }, [])
 
     // Create the header row with all keys
-    result = keys.join(columnDelimiter);
-    result += lineDelimiter;
+    result = keys.join(columnDelimiter)
+    result += lineDelimiter
 
     // Create a row for each object, using all keys and handling missing keys
-    array.forEach(item => {
-        let ctr = 0;
-        keys.forEach(key => {
-            if (ctr > 0) result += columnDelimiter;
+    array.forEach((item) => {
+        let ctr = 0
+        keys.forEach((key) => {
+            if (ctr > 0) result += columnDelimiter
 
             // Check if the key exists in the current item, if not, use an empty string
-            result += item[key] !== undefined ? item[key] : ''; 
+            result += item[key] !== undefined ? item[key] : ''
 
-            ctr++;
-        });
-        result += lineDelimiter;
-    });
+            ctr++
+        })
+        result += lineDelimiter
+    })
 
-    return result;
+    return result
 }
 
 export const downloadCSV = (array, fileName) => {
-    const link = document.createElement('a');
-    let csv = convertArrayOfObjectsToCSV(array);
-    if (csv == null) return;
+    const link = document.createElement('a')
+    let csv = convertArrayOfObjectsToCSV(array)
+    if (csv == null) return
 
     // const filename = 'export.csv';
 
     if (!csv.match(/^data:text\/csv/i)) {
-        csv = `data:text/csv;charset=utf-8,${csv}`;
+        csv = `data:text/csv;charset=utf-8,${csv}`
     }
 
-    link.setAttribute('href', encodeURI(csv));
-    link.setAttribute('download', `${fileName}.csv`);
-    link.click();
+    link.setAttribute('href', encodeURI(csv))
+    link.setAttribute('download', `${fileName}.csv`)
+    link.click()
 }
-

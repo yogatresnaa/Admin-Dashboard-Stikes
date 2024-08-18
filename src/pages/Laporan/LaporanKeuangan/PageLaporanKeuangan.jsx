@@ -10,10 +10,13 @@ import {
 import PageLaporanKasBank from './LaporanKasBank/PageLaporanKasBank'
 import PageLaporanKasTunai from './LaporanKasTunai/PageKasTunai'
 import PageLaporanJurnalUmum from './LaporanJurnalUmum/PageJurnalUmum'
+import { ToastContainer } from 'react-toastify'
 
 function PageLaporanKeuangan() {
     return (
         <div className="page">
+            <ToastContainer />
+
             <Tabs
                 defaultActiveKey="Page Laporan Keuangan"
                 transition={false}
