@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import FormComponent from '../../../../component/Form/FormComponent'
+import FormComponent from '../../../component/Form/FormComponent'
 import { Formik } from 'formik'
 
 export default function ModalDiscount({

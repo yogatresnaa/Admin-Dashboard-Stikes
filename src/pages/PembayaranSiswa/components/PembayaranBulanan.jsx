@@ -1,8 +1,8 @@
 import React from 'react'
 import DataTable from 'react-data-table-component'
-import { pembayaran1 } from '../../../../utils/dumyDataTransaksi'
+import { pembayaran1 } from '../../../utils/dumyDataTransaksi'
 import { Button } from 'reactstrap'
-import { dateConvert, rupiahConvert } from '../../../../utils/helper'
+import { dateConvert, rupiahConvert } from '../../../utils/helper'
 
 function PembayaranBulanan({ data, onClickHandler }) {
     console.log(data)

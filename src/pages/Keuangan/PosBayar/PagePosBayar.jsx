@@ -245,7 +245,6 @@ function PagePosPay() {
     )
     return (
         <div className="page-content">
-            <ToastContainer />
             <h3>
                 Pos Bayar{' '}
                 <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>

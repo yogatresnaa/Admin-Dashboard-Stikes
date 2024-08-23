@@ -1,7 +1,7 @@
 import React from 'react'
 import DataTable from 'react-data-table-component'
-import { historyPembayaran } from '../../../../utils/dumyDataTransaksi'
-import { dateConvert, rupiahConvert } from '../../../../utils/helper'
+import { historyPembayaran } from '../../../utils/dumyDataTransaksi'
+import { dateConvert, rupiahConvert } from '../../../utils/helper'
 
 function HistoryPembayaran({ data }) {
     console.log(data)

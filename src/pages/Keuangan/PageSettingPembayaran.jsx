@@ -5,10 +5,13 @@ import PageAkunBiaya from './AkunBiaya/PageAkunBiaya'
 import { FaOrcid, FaFileInvoiceDollar, FaRegCreditCard } from 'react-icons/fa6'
 import PagePosPay from './PosBayar/PagePosBayar'
 import PageJenisBayar from './JenisBayar/PageJenisBayar'
+import { ToastContainer } from 'react-toastify'
 
 function PageSettingPembayaran() {
     return (
         <div className="page">
+            <ToastContainer />
+
             <Tabs
                 defaultActiveKey="Akun Biaya"
                 transition={false}

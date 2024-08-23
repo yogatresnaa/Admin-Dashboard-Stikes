@@ -1,5 +1,5 @@
 import React from 'react'
-import { rupiahConvert } from '../../../../../utils/helper'
+import { rupiahConvert } from '../../../../utils/helper'
 
 export default function DetailPembayaranFooter({ data }) {
     console.log(data)

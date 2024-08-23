@@ -1,8 +1,8 @@
 import React from 'react'
 import DataTable from 'react-data-table-component'
-import { pembayaran1 } from '../../../../utils/dumyDataTransaksi'
+import { pembayaran1 } from '../../../utils/dumyDataTransaksi'
 import { Button } from 'reactstrap'
-import { dateConvert, rupiahConvert } from '../../../../utils/helper'
+import { dateConvert, rupiahConvert } from '../../../utils/helper'
 import { MdOutlineDiscount } from 'react-icons/md'
 import { GrFormAdd } from 'react-icons/gr'
 function PembayaranBebas({

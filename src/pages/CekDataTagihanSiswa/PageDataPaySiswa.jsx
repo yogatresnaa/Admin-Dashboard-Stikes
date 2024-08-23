@@ -21,7 +21,7 @@ import {
     getAllSiswa,
     getDetailFreePaymentRateByPaymentId,
 } from '../../utils/http'
-import ItemImageSiswa from '../Keuangan/PembayaranSiswa/components/ImageSiswa'
+import ItemImageSiswa from '../PembayaranSiswa/components/ImageSiswa'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
 import SelectUnit from '../../component/ActionButton/SelectUnit'

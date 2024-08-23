@@ -1,10 +1,10 @@
 import React from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import TableSiswa from './TabelSiswa'
-import SelectTahunAjaran from '../../../../component/ActionButton/SelectTahunAjaran'
-import SelectUnitKelas from '../../../../component/ActionButton/SelectUnitKelas'
+import SelectTahunAjaran from '../../../component/ActionButton/SelectTahunAjaran'
+import SelectUnitKelas from '../../../component/ActionButton/SelectUnitKelas'
 import { Formik } from 'formik'
-import FormComponent from '../../../../component/Form/FormComponent'
+import FormComponent from '../../../component/Form/FormComponent'
 
 export default function ModalPembayaranBulanan({
     isOpenModal,

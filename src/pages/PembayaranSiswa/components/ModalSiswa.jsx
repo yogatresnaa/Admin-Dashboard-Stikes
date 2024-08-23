@@ -1,8 +1,8 @@
 import React from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import TableSiswa from './TabelSiswa'
-import SelectTahunAjaran from '../../../../component/ActionButton/SelectTahunAjaran'
-import SelectUnitKelas from '../../../../component/ActionButton/SelectUnitKelas'
+import SelectTahunAjaran from '../../../component/ActionButton/SelectTahunAjaran'
+import SelectUnitKelas from '../../../component/ActionButton/SelectUnitKelas'
 
 export default function ModalSiswa({
     isOpenModal,

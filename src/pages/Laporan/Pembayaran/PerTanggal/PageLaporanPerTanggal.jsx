@@ -16,6 +16,8 @@ import {
     getAllPaymentType,
     getLaporanPembayaranPerTanggal,
     getDokumenLaporanPerTanggal,
+    getDokumenLaporanExcelPerKelas,
+    getDokumenLaporanExcelPerTanggal,
 } from '../../../../utils/http'
 // import "./css/page-laporan-pembayaran-kelas.css";
 import { useSelector } from 'react-redux'
@@ -36,6 +38,7 @@ import {
     dateConvert,
     dateConvertForDb,
     downloadDocument,
+    downloadExcelDocument,
     rupiahConvert,
 } from '../../../../utils/helper'
 import ReactToPrint, { useReactToPrint } from 'react-to-print'
@@ -48,6 +51,7 @@ import SelectDate from '../../../../component/ActionButton/SelectDate'
 import moment from 'moment'
 import TablePembayaranPerTanggal from './component/TablePembayaran'
 import SearchButton from '../../../../component/ActionButton/SearchButton'
+import ButtonWithLoader from '../../../../component/ActionButton/ButtonWithLoader'
 // import TablePembayaran from './component/TablePembayaran'
 
 function PageLaporanPembayaranPerTanggal() {
@@ -85,6 +89,12 @@ function PageLaporanPembayaranPerTanggal() {
         isLoadingGenerate: isLoadingDataPrintLaporan,
         getData: getDataPrintLaporan,
         setData: setDataPrintLaporan,
+    } = useRequest(true)
+    const {
+        data: dataPrintLaporanExcel,
+        isLoadingGenerate: isLoadingDataPrintLaporanExcel,
+        getData: getDataPrintLaporanExcel,
+        setData: setDataPrintLaporanExcel,
     } = useRequest(true)
     const {
         resetPaginationToggle,
@@ -221,6 +231,42 @@ function PageLaporanPembayaranPerTanggal() {
             )
         )
     }
+    const onClickCetakExcelHandler = () => {
+        getDataPrintLaporanExcel(() =>
+            getDokumenLaporanExcelPerTanggal(
+                {
+                    ...queryFilter,
+                    tanggal_awal: moment(queryFilter.tanggal_awal).format(
+                        'YYYY-MM-DD'
+                    ),
+                    tanggal_akhir: moment(queryFilter.tanggal_akhirl).format(
+                        'YYYY-MM-DD'
+                    ),
+                    period_id:
+                        queryFilter.period_id == ''
+                            ? TahunAjaran.data[0].period_id
+                            : queryFilter.period_id,
+                },
+                dataUser.token
+            )
+        )
+    }
+
+    useEffect(() => {
+        if (dataPrintLaporanExcel?.data?.data)
+            downloadExcelDocument(
+                dataPrintLaporanExcel.data.data,
+                `Laporan Pembayaran Per Tanggal ${moment(
+                    queryFilter.tanggal_awal
+                ).format('YYYY-MM-DD')}-${moment(
+                    queryFilter.tanggal_akhir
+                ).format(
+                    'YYYY-MM-DD'
+                )}_T.A ${tahunAjaranState.period_start ?? TahunAjaran.data[0].period_start}/${tahunAjaranState.period_end ?? TahunAjaran.data[0].period_end}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}`
+            )
+        setDataPrintLaporanExcel(null)
+    }, [dataPrintLaporanExcel?.data])
+
     useEffect(() => {
         if (dataPrintLaporan?.data?.data)
             downloadDocument(
@@ -360,7 +406,14 @@ function PageLaporanPembayaranPerTanggal() {
                             </div>
                         ))}
                         <div className="d-flex justify-content-between">
-                            <div></div>
+                            <ButtonWithLoader
+                                size="sm"
+                                isLoading={isLoadingDataPrintLaporanExcel}
+                                color="success"
+                                // disabled={dataLaporan?.data?.length < 1}
+                                text={'Export Excel'}
+                                onClick={onClickCetakExcelHandler}
+                            />
                             <Button
                                 size="sm"
                                 color="danger"

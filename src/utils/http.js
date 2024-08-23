@@ -337,6 +337,11 @@ export const getDokumenLaporanPerTanggal = (query, token) =>
         ...options(token),
         params: query,
     })
+    export const getDokumenLaporanExcelPerTanggal = (query, token) =>
+    Axios.get(`${URL_BASE}/dokumen/report/excel/pembayaran-per-tanggal`, {
+        ...options(token),
+        params: query,
+    })
 export const getDokumenLaporanKasBank = (query, token) =>
     Axios.get(`${URL_BASE}/dokumen/report/laporan-kas-bank`, {
         ...options(token),

@@ -1,9 +1,9 @@
 import React from 'react'
 import DataTable from 'react-data-table-component'
-import { tagihanPembayaran } from '../../../../utils/dumyDataTransaksi'
-import { dateConvert, rupiahConvert } from '../../../../utils/helper'
+import { tagihanPembayaran } from '../../../utils/dumyDataTransaksi'
+import { dateConvert, rupiahConvert } from '../../../utils/helper'
 import { Button } from 'reactstrap'
-import ButtonWithLoader from '../../../../component/ActionButton/ButtonWithLoader'
+import ButtonWithLoader from '../../../component/ActionButton/ButtonWithLoader'
 
 function TagihanPembayaran({
     isLoading,

@@ -331,6 +331,7 @@ function PageLaporanPembayaranKelas() {
                                 labelName={'Pembayaran'}
                                 optionName={'pos_pay_name'}
                                 name={'payment_type'}
+                                isForm
                                 optionValue={'pos_pos_id'}
                                 onChange={onQueryFilterChange}
                                 value={queryFilter.payment_type}

@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
-import ButtonWithLoader from '../../../../component/ActionButton/ButtonWithLoader'
+import ButtonWithLoader from '../../../component/ActionButton/ButtonWithLoader'
 
 function CetakButton({
     onClickCetakSemuaHandler,

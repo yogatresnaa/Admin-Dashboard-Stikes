@@ -231,7 +231,6 @@ function PageJenisBayar() {
     }, [queryFilter.unit_id])
     return (
         <div className="page-content">
-            <ToastContainer />
             <h3>
                 Jenis Bayar{' '}
                 <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>

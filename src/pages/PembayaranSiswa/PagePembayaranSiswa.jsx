@@ -5,9 +5,9 @@ import { ToastContainer } from 'react-toastify'
 import ItemImageSiswa from './components/ImageSiswa'
 import PembayaranBulanan from './components/PembayaranBulanan'
 import PembayaranBebas from './components/PembayaranBebas'
-import SelectTahunAjaran from '../../../component/ActionButton/SelectTahunAjaran'
-import SearchInput from '../../../component/ActionButton/SearchInput'
-import useRequest from '../../../customHooks/useRequest'
+import SelectTahunAjaran from '../../component/ActionButton/SelectTahunAjaran'
+import SearchInput from '../../component/ActionButton/SearchInput'
+import useRequest from '../../customHooks/useRequest'
 import {
     deleteDetailFreePaymentRateByPaymentId,
     deletePaymentTransactionById,
@@ -30,7 +30,7 @@ import {
     putDiscountFreePaymentTransactionById,
     putFreePaymentTransactionById,
     putPaymentTransactionById,
-} from '../../../utils/http'
+} from '../../utils/http'
 import { useSelector } from 'react-redux'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
@@ -43,22 +43,22 @@ import Kalkulator from './components/Kalkulator'
 import NoRefrensi from './components/cetakBuktiPembayaran'
 import CetakButton from './components/ButtonCetak'
 import ModalSiswa from './components/ModalSiswa'
-import useTable from '../../../customHooks/useTable'
+import useTable from '../../customHooks/useTable'
 import ModalPembayaranBulanan from './components/ModalPembayaranBulanan'
 import ModalDiscount from './components/ModalDiscount'
 import ModalPembayaranBebas from './components/ModalPembayaranBebas'
 import ModalDetailPembayaran from './components/ModalDetailPembayaran'
-import { alertConfirmation } from '../../../component/Alert/swalConfirmation'
-import { alertType } from '../../../utils/CONSTANT'
+import { alertConfirmation } from '../../component/Alert/swalConfirmation'
+import { alertType } from '../../utils/CONSTANT'
 import AkunKas from './components/AkunKas'
 import NoRef from './components/NoRefrensi'
-import { downloadDocument } from '../../../utils/helper'
-import ButtonWithLoader from '../../../component/ActionButton/ButtonWithLoader'
-import SelectUnit from '../../../component/ActionButton/SelectUnit'
+import { downloadDocument } from '../../utils/helper'
+import ButtonWithLoader from '../../component/ActionButton/ButtonWithLoader'
+import SelectUnit from '../../component/ActionButton/SelectUnit'
 import { useFetcher } from 'react-router-dom'
-import SelectBulan from '../../../component/ActionButton/SelectBulan'
+import SelectBulan from '../../component/ActionButton/SelectBulan'
 import moment from 'moment'
-import SelectDate from '../../../component/ActionButton/SelectDate'
+import SelectDate from '../../component/ActionButton/SelectDate'
 
 const pembayaranBulananInitialValues = {
     payment_rate_bill: '',

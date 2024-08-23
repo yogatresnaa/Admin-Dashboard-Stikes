@@ -11,10 +11,13 @@ import PageTahunAjaran from './TahunAjaran/PageTahunAjaran'
 import PageAlumni from './Alumni/PageAlumni'
 import PageKelulusan from './Kelulusan/PageKelulusan'
 import PageKenaikanKelas from './kenaikanKelas/PageKenaikanKelas'
+import { ToastContainer } from 'react-toastify'
 
 function PageAkademik() {
     return (
         <div className="page">
+            <ToastContainer />
+
             <Tabs
                 defaultActiveKey="Tahun Ajaran"
                 transition={false}

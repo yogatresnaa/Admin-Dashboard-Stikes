@@ -154,8 +154,6 @@ function PageKenaikanKelas() {
 
     return (
         <div className="page-content">
-            <ToastContainer />
-
             <h3>
                 Kenaikan Kelas{' '}
                 <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>

@@ -5,10 +5,13 @@ import { FaUserGraduate, FaCity, FaBookOpenReader } from 'react-icons/fa6'
 import PageKelas from './Kelas/PageKelas'
 import PageProgramStudi from './ProgramStudi/PageProgramStudi'
 import PageSiswa from './Siswa/PageSiswa'
+import { ToastContainer } from 'react-toastify'
 
 function PageManajemen() {
     return (
         <div className="page">
+            <ToastContainer />
+
             <Tabs
                 defaultActiveKey="Kelas"
                 id="uncontrolled-tab-example"

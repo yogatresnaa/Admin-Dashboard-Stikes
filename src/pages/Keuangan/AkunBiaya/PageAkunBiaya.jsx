@@ -250,7 +250,6 @@ function PageAkunBiaya() {
 
     return (
         <div className="page-content">
-            <ToastContainer />
             <h3>
                 Akun Biaya{' '}
                 <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>

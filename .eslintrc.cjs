@@ -15,8 +15,8 @@ module.exports = {
             jsx: true,
         },
     },
-    settings: { react: { version: '18.2' } },
-    plugins: ['react', 'react-hooks', 'react-refresh'],
+  settings: { react: { version: 'detect' } },
+   plugins: ['react', 'react-hooks', 'react-refresh'],
     rules: {
         'react-refresh/only-export-components': 'warn',
         'no-unused-vars': 'off',

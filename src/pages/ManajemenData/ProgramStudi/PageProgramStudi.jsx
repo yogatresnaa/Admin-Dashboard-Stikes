@@ -177,7 +177,6 @@ function PageProgramStudi() {
     }, [queryFilter.unit_id])
     return (
         <>
-            <ToastContainer />
             <div className="page-content">
                 <h3>
                     Program Studi{' '}

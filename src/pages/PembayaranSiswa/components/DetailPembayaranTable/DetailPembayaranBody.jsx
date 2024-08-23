@@ -1,6 +1,6 @@
 import React from 'react'
 import DetailPembayaranFooter from './DetailPembayaranFooter'
-import { dateConvert, rupiahConvert } from '../../../../../utils/helper'
+import { dateConvert, rupiahConvert } from '../../../../utils/helper'
 import { FaTrashAlt } from 'react-icons/fa'
 
 export default function DetailPembayaranBody({ data, onClickDeleteDetail }) {

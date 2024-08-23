@@ -35,7 +35,7 @@ const PageNotFound = lazy(() => import('./NotFound/PageNoFound'))
 const PagePosBayar = lazy(() => import('./Keuangan/PosBayar/PagePosBayar'))
 const PageAkunBiaya = lazy(() => import('./Keuangan/AkunBiaya/PageAkunBiaya'))
 const PagePembayaranSiswa = lazy(
-    () => import('./Keuangan/PembayaranSiswa/PagePembayaranSiswa')
+    () => import('./PembayaranSiswa/PagePembayaranSiswa')
 )
 const PageSettingPembayaran = lazy(
     () => import('./Keuangan/PageSettingPembayaran')

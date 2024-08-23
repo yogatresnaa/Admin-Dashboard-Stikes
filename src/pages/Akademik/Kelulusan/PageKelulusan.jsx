@@ -295,7 +295,6 @@ function PageKelulusan() {
 
     return (
         <>
-            <ToastContainer />
             <div className="page-content">
                 <h3>
                     Kelulusan{' '}

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import FormComponent from '../../../../component/Form/FormComponent'
+import FormComponent from '../../../component/Form/FormComponent'
 import { Formik } from 'formik'
-import { freePaymentInitialValues } from '../../../../utils/initialValues'
-import { freePaymentSchema } from '../../../../utils/schema'
+import { freePaymentInitialValues } from '../../../utils/initialValues'
+import { freePaymentSchema } from '../../../utils/schema'
 import * as Yup from 'yup'
 
 export default function ModalPembayaranBebas({

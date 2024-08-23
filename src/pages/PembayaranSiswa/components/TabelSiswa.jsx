@@ -1,12 +1,12 @@
 import React from 'react'
 import DataTable from 'react-data-table-component'
-import { dataAkunBiaya } from '../../../../utils/dumyDataTransaksi'
+import { dataAkunBiaya } from '../../../utils/dumyDataTransaksi'
 import { Button } from 'reactstrap'
 import { Tooltip } from 'react-tooltip'
 import { Link } from 'react-router-dom'
 import { FaRegEdit, FaRegTrashAlt, FaRegPlusSquare } from 'react-icons/fa'
-import { accountCategory, accountType } from '../../../../utils/CONSTANT'
-import { upperCaseFirstChar } from '../../../../utils/helper'
+import { accountCategory, accountType } from '../../../utils/CONSTANT'
+import { upperCaseFirstChar } from '../../../utils/helper'
 
 function TableSiswa({
     data,
