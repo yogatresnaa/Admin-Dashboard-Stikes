@@ -39,6 +39,12 @@ export default function BulkSiswa() {
         <div className="page-content ">
             <ToastContainer />
             <h3>Upload Data Siswa</h3>
+            <p>
+                Untuk format .xls/.xlsx gunakan{' '}
+                <a href="https://aswindo.click/?download=12&tmstv=1724766019">
+                    Template bulk siswa
+                </a>
+            </p>
             <div className="d-flex gap-2  mt-3 justify-content-center align-items-end">
                 <div className="m-0">
                     <Label for="exampleFile">
