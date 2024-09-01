@@ -7,7 +7,7 @@ import {
     getAllKreditSubmitted,
     getAllUnitByUser,
     getDokumenKredit,
-    getDokumenRincianPembayaran,
+    // getDokumenRincianPembayaran,
 } from '../../../utils/http'
 import AddAction from '../../../component/ActionButton/AcctionAddButoon'
 import queryString from 'query-string'
@@ -125,7 +125,13 @@ function PageKasKeluar() {
     // }
 
     const onClickPrintHandler = async (id) => {
-        await getDataDokumen(() => getDokumenKredit(id, dataUser.token))
+        await getDataDokumen(() =>
+            getDokumenKredit(
+                id,
+                { unit_id: queryFilter.unit_id },
+                dataUser.token
+            )
+        )
     }
 
     useEffect(() => {

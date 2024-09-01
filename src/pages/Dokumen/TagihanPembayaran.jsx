@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react'
 import useRequest from '../../customHooks/useRequest'
-import {
-    getDokumenTagihanPembayaran,
-    getPublicDokumenTagihanPembayaran,
-} from '../../utils/http'
+import { getPublicDokumenTagihanPembayaran } from '../../utils/http'
 import { useSearchParams } from 'react-router-dom'
 import Loader from '../../component/Loader/Loader'
 import PdfViewer from '../../component/pdf-viewer/PdfViewer'

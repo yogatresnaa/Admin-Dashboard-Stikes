@@ -677,6 +677,8 @@ function PagePembayaranSiswa() {
         await getDataDokumentagihanPembayaran(() =>
             getDokumenTagihanPembayaran(
                 dataDetailSiswa.student_id,
+                { unit_id: queryFilter.unit_id },
+
                 dataUser.token
             )
         )
@@ -687,6 +689,7 @@ function PagePembayaranSiswa() {
             getDokumenRincianPembayaran(
                 dataDetailSiswa.student_id,
                 {
+                    unit_id: queryFilter.unit_id,
                     period_start: tahunAjaranState.period_start,
                     period_end: tahunAjaranState.period_end,
                 },
@@ -701,6 +704,7 @@ function PagePembayaranSiswa() {
                 {
                     student_id: dataDetailSiswa.student_id,
                     no_referensi: selectedNoReferensi,
+                    unit_id: queryFilter.unit_id,
                     period_start: tahunAjaranState.period_start,
                     period_end: tahunAjaranState.period_end,
                 },

@@ -214,7 +214,11 @@ function PageLaporanTagihanSiswa() {
     const onClickPrintHandler = (row) => {
         setSelectedStudent(row.student_nis)
         getDataPrintLaporan(() =>
-            getDokumenTagihanPembayaran(row.student_id, dataUser.token)
+            getDokumenTagihanPembayaran(
+                row.student_id,
+                { unit_id: queryFilter.unit_id },
+                dataUser.token
+            )
         )
     }
     useEffect(() => {

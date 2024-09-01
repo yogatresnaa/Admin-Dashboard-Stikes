@@ -125,7 +125,13 @@ function PageKasMasuk() {
     //   }
 
     const onClickPrintHandler = async (id) => {
-        await getDataDokumen(() => getDokumenDebit(id, dataUser.token))
+        await getDataDokumen(() =>
+            getDokumenDebit(
+                id,
+                { unit_id: queryFilter.unit_id },
+                dataUser.token
+            )
+        )
     }
 
     useEffect(() => {

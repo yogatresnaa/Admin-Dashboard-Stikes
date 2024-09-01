@@ -291,8 +291,9 @@ export const deleteDetailFreePaymentRateByPaymentId = (id, body, token) =>
     )
 
 //dokumen
-export const getDokumenTagihanPembayaran = (id, token = null) =>
+export const getDokumenTagihanPembayaran = (id,query, token = null) =>
     Axios.get(`${URL_BASE}/dokumen/tagihan-pembayaran/${id}`, {
+        params:query,
         ...options(token),
     })
 export const getPublicDokumenTagihanPembayaran = (query, token = null) =>
@@ -310,12 +311,14 @@ export const getDokumenRincianPembayaran = (id, query, token) =>
         ...options(token),
         params: query,
     })
-export const getDokumenKredit = (id, token) =>
+export const getDokumenKredit = (id,query, token) =>
     Axios.get(`${URL_BASE}/dokumen/kredit/${id}`, {
+        params:query,
         ...options(token),
     })
-export const getDokumenDebit = (id, token) =>
+export const getDokumenDebit = (id,query, token) =>
     Axios.get(`${URL_BASE}/dokumen/debit/${id}`, {
+        params:query,
         ...options(token),
     })
 export const getDokumenKwitansiPembayaran = (body, token) =>
