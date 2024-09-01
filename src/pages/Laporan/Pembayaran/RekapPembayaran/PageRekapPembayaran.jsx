@@ -42,6 +42,8 @@ import CustomSelect from '../../../../component/Select/CustomSelect'
 import SelectUnit from '../../../../component/ActionButton/SelectUnit'
 import SelectDate from '../../../../component/ActionButton/SelectDate'
 import moment from 'moment'
+import TablePembayaranRekapPembayaran from './components/TablePembayaran'
+import TablenRekapPembayaran from './components/TablePembayaran'
 // import TableTagihanSiswa from './component/TableTagihanSiswa'
 // import DetailModal from './component/DetailModal'
 // import TablePembayaran from './component/TablePembayaran'
@@ -306,13 +308,12 @@ function PageRekapPembayaran() {
                         >
                             Laporan Pembayaran
                         </h6>
-                        {/* <TableTagihanSiswa
-                        data={dataLaporan.data}
-                        onClickDetailHandler={onCLickDetailHandler}
-                        subHeaderComponent={subHeaderComponent}
-                        resetPaginationToggle={resetPaginationToggle}
-                        isLoading={isLoadingLaporan}
-                        /> */}
+                        <TablenRekapPembayaran
+                            data={dataLaporan.data}
+                            subHeaderComponent={subHeaderComponent}
+                            resetPaginationToggle={resetPaginationToggle}
+                            isLoading={isLoadingLaporan}
+                        />
                     </div>
                 </div>
 

@@ -1,0 +1,26 @@
+table * {
+    padding: 0.2rem 0.8rem;
+    font-size: 0.7rem;
+     border-collapse: collapse;
+
+}
+table{
+    border-spacing: 0;
+border-collapse: collapse;
+    overflow-x: scroll;
+
+}
+
+
+table td {
+    display: table-cell;
+    box-sizing: border-box;
+    vertical-align: bottom;
+    vertical-align: top; /* add vertical align top to fix this issue */
+    display: table-cell;
+    padding: 0.5rem 0.5rem;
+    margin: 0;
+    border: solid 0.1px gray;
+    text-align: center;       /* Centers text horizontally */
+    vertical-align: middle;   /* Centers content vertically */
+}
