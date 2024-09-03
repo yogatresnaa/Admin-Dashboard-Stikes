@@ -22,53 +22,27 @@ function PageAkademik() {
                 defaultActiveKey="Tahun Ajaran"
                 transition={false}
                 id="noanim-tab-example"
-                className="mb-3"
+                className="mb-3 style-tabs"
                 justify
-                style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    gap: '20px',
-                    backgroundColor: '#F6F5F5',
-                    borderRadius: '10px',
-                    width: '90%',
-                    height: '80px',
-                    margin: '40px auto ',
-                    boxShadow:
-                        'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px',
-                }}
+                // style={{
+                //     display: 'flex',
+                //     justifyContent: 'space-between',
+                //     gap: '20px',
+                //     backgroundColor: '#F6F5F5',
+                //     borderRadius: '10px',
+                //     width: '90%',
+                //     height: '80px',
+                //     margin: '40px auto ',
+                //     boxShadow:
+                //         'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px',
+                // }}
             >
                 <Tab
                     eventKey="Tahun Ajaran"
                     title={
-                        <span
-                            style={{
-                                display: 'flex',
-                                margin: '10px',
-                                backgroundColor: '#232b3e',
-                                width: '100%',
-                                height: '50px',
-                                padding: '10px',
-                                borderRadius: '5px',
-                            }}
-                        >
-                            <FaCalendarDays
-                                className="tabs-icon"
-                                style={{
-                                    marginRight: '10px',
-                                    width: '35px',
-                                    height: '35px',
-                                    backgroundColor: '#077cf9',
-                                }}
-                            />
-                            <p
-                                style={{
-                                    fontSize: '15px',
-                                    color: 'white',
-                                    fontWeight: 'bold',
-                                }}
-                            >
-                                Page Tahun Ajaran{' '}
-                            </p>
+                        <span className="tab-style">
+                            <FaCalendarDays className="tabs-icon tabs-icon-background" />
+                            <p className="tag-tab-style">Tahun Ajaran </p>
                         </span>
                     }
                 >
@@ -78,35 +52,9 @@ function PageAkademik() {
                 <Tab
                     eventKey="Kenaikan kelas"
                     title={
-                        <span
-                            style={{
-                                display: 'flex',
-                                margin: '10px',
-                                backgroundColor: '#232b3e',
-                                width: '100%',
-                                height: '50px',
-                                padding: '10px',
-                                borderRadius: '5px',
-                            }}
-                        >
-                            <FaCalendarDays
-                                className="tabs-icon"
-                                style={{
-                                    marginRight: '10px',
-                                    width: '35px',
-                                    height: '35px',
-                                    backgroundColor: '#077cf9',
-                                }}
-                            />
-                            <p
-                                style={{
-                                    fontSize: '15px',
-                                    color: 'white',
-                                    fontWeight: 'bold',
-                                }}
-                            >
-                                Page Kenaikan{' '}
-                            </p>
+                        <span className="tab-style">
+                            <FaPeopleRoof className="tabs-icon tabs-icon-background" />
+                            <p className="tag-tab-style">Kenaikan kelas</p>
                         </span>
                     }
                 >
@@ -116,35 +64,9 @@ function PageAkademik() {
                 <Tab
                     eventKey="Alumni"
                     title={
-                        <span
-                            style={{
-                                display: 'flex',
-                                margin: '10px',
-                                backgroundColor: '#232b3e',
-                                width: '100%',
-                                height: '50px',
-                                padding: '10px',
-                                borderRadius: '5px',
-                            }}
-                        >
-                            <FaPeopleRoof
-                                className="tabs-icon"
-                                style={{
-                                    marginRight: '10px',
-                                    width: '35px',
-                                    height: '35px',
-                                    backgroundColor: '#077cf9',
-                                }}
-                            />
-                            <p
-                                style={{
-                                    fontSize: '15px',
-                                    color: 'white',
-                                    fontWeight: 'bold',
-                                }}
-                            >
-                                Page Alumni{' '}
-                            </p>
+                        <span className="tab-style">
+                            <FaPeopleLine className="tabs-icon tabs-icon-background" />
+                            <p className="tag-tab-style">Alumni</p>
                         </span>
                     }
                 >
@@ -154,35 +76,9 @@ function PageAkademik() {
                 <Tab
                     eventKey="Kelulusan"
                     title={
-                        <span
-                            style={{
-                                display: 'flex',
-                                margin: '10px',
-                                backgroundColor: '#232b3e',
-                                width: '100%',
-                                height: '50px',
-                                padding: '10px',
-                                borderRadius: '5px',
-                            }}
-                        >
-                            <FaUserGraduate
-                                className="tabs-icon"
-                                style={{
-                                    marginRight: '10px',
-                                    width: '35px',
-                                    height: '35px',
-                                    backgroundColor: '#077cf9',
-                                }}
-                            />
-                            <p
-                                style={{
-                                    fontSize: '15px',
-                                    color: 'white',
-                                    fontWeight: 'bold',
-                                }}
-                            >
-                                Page Kelulusan{' '}
-                            </p>
+                        <span className="tab-style">
+                            <FaUserGraduate className="tabs-icon tabs-icon-background" />
+                            <p className="tag-tab-style">Kelulusan</p>
                         </span>
                     }
                 >
