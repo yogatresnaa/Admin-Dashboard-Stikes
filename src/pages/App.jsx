@@ -133,6 +133,8 @@ import BulkSiswa from './Bulk/BulkSiswa'
 
 const BackUpData = lazy(() => import('./BackUpData'))
 
+const PagePengaturan = lazy(() => import('./Pengaturan/PagePengaturan'))
+
 const RouteWithAuth = ({ element: Component, ...rest }) => {
     const dataUser = useSelector(({ authState }) => authState)
     const location = useLocation()
@@ -486,6 +488,12 @@ function AppRoutes() {
                             <Route
                                 path="bulk/siswa"
                                 element={<RouteWithAuth element={BulkSiswa} />}
+                            />
+                            <Route
+                                path="pengaturan/lembaga"
+                                element={
+                                    <RouteWithAuth element={PagePengaturan} />
+                                }
                             />
                         </Route>
                     </Routes>

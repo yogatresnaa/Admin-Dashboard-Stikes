@@ -22,6 +22,8 @@ import {
     FaWallet,
     FaFileInvoiceDollar,
     FaGears,
+    FaFileImport,
+    FaAddressCard,
 } from 'react-icons/fa6'
 import { BsFillMortarboardFill } from 'react-icons/bs'
 import { IconContext } from 'react-icons'
@@ -413,7 +415,8 @@ function Sidebar() {
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
                                 >
-                                    <FaRegKeyboard
+                                    <FaFileImport
+                                        className="icons-sidebar"
                                         style={{
                                             width: '30px',
                                             height: '30px',
@@ -428,12 +431,14 @@ function Sidebar() {
                                 <span className="ms-2">Export DB</span>
                             </li>
                         </Link>
+
                         <Link className="link" to="/admin/bulk/siswa">
                             <li className="nav-item nav-link   my-1">
                                 <IconContext.Provider
                                     value={{ color: '#DC84F3' }}
                                 >
-                                    <FaRegKeyboard
+                                    <FaAddressCard
+                                        className="icons-sidebar"
                                         style={{
                                             width: '30px',
                                             height: '30px',
@@ -446,6 +451,28 @@ function Sidebar() {
                                 </IconContext.Provider>
 
                                 <span className="ms-2">Bulk Data Siswa</span>
+                            </li>
+                        </Link>
+
+                        <Link className="link" to="/admin/pengaturan/lembaga">
+                            <li className="nav-item nav-link   my-1">
+                                <IconContext.Provider
+                                    value={{ color: '#DC84F3' }}
+                                >
+                                    <FaGears
+                                        className="icons-sidebar"
+                                        style={{
+                                            width: '30px',
+                                            height: '30px',
+                                            padding: '3px',
+                                            color: '#5B5DEE',
+                                            boxShadow:
+                                                'rgba(215, 12, 12, 0.15) 1.95px 1.95px 2.6px',
+                                        }}
+                                    />
+                                </IconContext.Provider>
+
+                                <span className="ms-2">Pengaturan</span>
                             </li>
                         </Link>
 
