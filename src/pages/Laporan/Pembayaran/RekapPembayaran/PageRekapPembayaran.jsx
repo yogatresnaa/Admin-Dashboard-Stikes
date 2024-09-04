@@ -17,6 +17,8 @@ import {
     getLaporanPembayaranPerTanggal,
     getLaporanTagihanSiswa,
     getLaporanRekapPembayaran,
+    getDokumenLaporanExcelPerTanggal,
+    getDokumenLaporanExcelRekapPembayaran,
 } from '../../../../utils/http'
 // import "./css/page-laporan-pembayaran-kelas.css";
 import { useSelector } from 'react-redux'
@@ -33,7 +35,11 @@ import { Button } from 'reactstrap'
 import queryString from 'query-string'
 import SelectStatusMahasiswa from '../../../../component/ActionButton/SelectStatusMahasiswa'
 // import DetailModal from "./components/DetailModal";
-import { dateConvert, dateConvertForDb } from '../../../../utils/helper'
+import {
+    dateConvert,
+    dateConvertForDb,
+    downloadExcelDocument,
+} from '../../../../utils/helper'
 import ReactToPrint, { useReactToPrint } from 'react-to-print'
 // import PrintTableSiswaComponent from "./components/PrintTableSiswaTemplate";
 import SelectTahunAjaran from '../../../../component/ActionButton/SelectTahunAjaran'
@@ -77,6 +83,12 @@ function PageRekapPembayaran() {
         setData: setDataLaporan,
         isLoading: isLoadingLaporan,
         getData: getDataLaporan,
+    } = useRequest()
+    const {
+        data: dataPrintLaporanExcel,
+        setData: setDataPrintLaporanExcel,
+        isLoading: isLoadingLaporanExcel,
+        getData: getDataPrintLaporanExcel,
     } = useRequest()
     const {
         resetPaginationToggle,
@@ -145,6 +157,42 @@ function PageRekapPembayaran() {
         }))
         setTahunAjaran(selectedPeriod)
     }
+
+    const onClickExportDocumentHandler = () => {
+        getDataPrintLaporanExcel(() =>
+            getDokumenLaporanExcelRekapPembayaran(
+                {
+                    ...queryFilter,
+                    tanggal_awal: moment(queryFilter.tanggal_awal).format(
+                        'YYYY-MM-DD'
+                    ),
+                    tanggal_akhir: moment(queryFilter.tanggal_akhirl).format(
+                        'YYYY-MM-DD'
+                    ),
+                    period_id:
+                        queryFilter.period_id == ''
+                            ? TahunAjaran.data[0].period_id
+                            : queryFilter.period_id,
+                },
+                dataUser.token
+            )
+        )
+    }
+
+    useEffect(() => {
+        if (dataPrintLaporanExcel?.data?.data)
+            downloadExcelDocument(
+                dataPrintLaporanExcel.data.data,
+                `Laporan Rekap Pembayaran ${moment(
+                    queryFilter.tanggal_awal
+                ).format('YYYY-MM-DD')}-${moment(
+                    queryFilter.tanggal_akhir
+                ).format(
+                    'YYYY-MM-DD'
+                )}_T.A ${tahunAjaranState.period_start ?? TahunAjaran.data[0].period_start}/${tahunAjaranState.period_end ?? TahunAjaran.data[0].period_end}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}`
+            )
+        setDataPrintLaporanExcel(null)
+    }, [dataPrintLaporanExcel?.data])
 
     const onCLickFilterSubmit = () => {
         getDataLaporan(() =>
@@ -308,6 +356,16 @@ function PageRekapPembayaran() {
                         >
                             Laporan Pembayaran
                         </h6>
+                        {dataLaporan.data && (
+                            <Button
+                                onClick={onClickExportDocumentHandler}
+                                className="my-3"
+                                size="sm"
+                                color="success"
+                            >
+                                Export excel
+                            </Button>
+                        )}
                         <TablenRekapPembayaran
                             data={dataLaporan.data}
                             subHeaderComponent={subHeaderComponent}
