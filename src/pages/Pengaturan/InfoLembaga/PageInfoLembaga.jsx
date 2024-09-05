@@ -9,7 +9,7 @@ function PageInfoLembaga() {
     return (
         <div className="page-content">
             <h3>
-                Pengaturan Sekolah{' '}
+                Pengaturan Unit{' '}
                 <span style={{ fontSize: '0.8em', color: 'gray' }}>List</span>
             </h3>
 
@@ -19,15 +19,15 @@ function PageInfoLembaga() {
                     id="uncontrolled-tab-example"
                     className="mb-3"
                 >
-                    <Tab eventKey="Info Lembaga" title="Info Lembaga">
+                    <Tab eventKey="Info Unit" title="Info Lembaga">
                         <SchoolInfoForm />
                     </Tab>
-                    <Tab eventKey="media " title="Media Sosial">
+                    {/* <Tab eventKey="media " title="Media Sosial">
                         <MediaSosial />
                     </Tab>
                     <Tab eventKey="Upload Logo" title="Upload Logo">
                         <UploadLogo />
-                    </Tab>
+                    </Tab> */}
                 </Tabs>
             </div>
         </div>

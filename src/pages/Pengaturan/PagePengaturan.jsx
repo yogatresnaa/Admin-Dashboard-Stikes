@@ -15,7 +15,7 @@ function PagePengaturan() {
         <div className="page">
             <ToastContainer />
             <Tabs
-                defaultActiveKey="Pengaturan"
+                defaultActiveKey="Info Lembaga"
                 transition={false}
                 id="noanim-tab-example"
                 className="mb-3 style-tabs"

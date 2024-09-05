@@ -78,7 +78,16 @@ function TablenRekapPembayaran({
                     <tr>
                         <td></td>
                         <td></td>
-                        <td colSpan={9}>SPP 2023/2024</td>
+                        {data?.headers?.map((item) => {
+                            return item.detail.monthly != null ? (
+                                <td colSpan={item.detail?.monthly?.length}>
+                                    {item.pos_pay_name} {item.period_start}/
+                                    {item.period_end}
+                                </td>
+                            ) : (
+                                <td></td>
+                            )
+                        })}
                     </tr>
                     <tr>
                         <td>Kelas</td>

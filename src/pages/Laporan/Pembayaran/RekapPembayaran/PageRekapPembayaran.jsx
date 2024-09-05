@@ -250,7 +250,7 @@ function PageRekapPembayaran() {
         setModalDetail(!modalDetail)
     }
 
-    console.log(dataSiswa)
+    console.log(dataLaporan.data)
     const dataFiltered = useMemo(
         () =>
             dataSiswa.data.filter(
@@ -356,22 +356,31 @@ function PageRekapPembayaran() {
                         >
                             Laporan Pembayaran
                         </h6>
-                        {dataLaporan.data && (
-                            <Button
-                                onClick={onClickExportDocumentHandler}
-                                className="my-3"
-                                size="sm"
-                                color="success"
-                            >
-                                Export excel
-                            </Button>
+                        {dataLaporan.data.length > 0 ||
+                        (dataLaporan.data && dataLaporan.data?.students) ? (
+                            <>
+                                <Button
+                                    onClick={onClickExportDocumentHandler}
+                                    className="my-3"
+                                    size="sm"
+                                    color="success"
+                                >
+                                    Export excel
+                                </Button>
+                                <TablenRekapPembayaran
+                                    data={dataLaporan.data}
+                                    subHeaderComponent={subHeaderComponent}
+                                    resetPaginationToggle={
+                                        resetPaginationToggle
+                                    }
+                                    isLoading={isLoadingLaporan}
+                                />
+                            </>
+                        ) : (
+                            <div className="d-flex justify-content-center align-items-center p-5">
+                                Tidak ada data
+                            </div>
                         )}
-                        <TablenRekapPembayaran
-                            data={dataLaporan.data}
-                            subHeaderComponent={subHeaderComponent}
-                            resetPaginationToggle={resetPaginationToggle}
-                            isLoading={isLoadingLaporan}
-                        />
                     </div>
                 </div>
 
