@@ -87,11 +87,8 @@
     font-size: 0.8rem;
     margin-bottom: 0.4rem;
 }
-.transaksi-item span {
-    font-size: 0.5rem;
-}
+
 .transaksi-item p {
-    font-size: 0.6rem;
     display: flex;
     justify-content: space-between;
 }
@@ -104,12 +101,14 @@
 
 .transaksi-item__key {
     flex: 0.5;
+        font-size: 0.6rem;
+
 }
 
 .transaksi-item__value {
     flex: 1;
     font-weight: 600;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
 }
 
 .transaksi-item__title-transaksi {

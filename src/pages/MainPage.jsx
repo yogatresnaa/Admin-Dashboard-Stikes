@@ -57,10 +57,10 @@ function MainPage() {
                         onClick={navigateToDashboardCekDataPembayaranSiswa}
                         logo={<BsCreditCard2Back size={120} />}
                     />
-                    <CardItem
+                    {/* <CardItem
                         text="LMS"
                         logo={<BsCreditCard2Back size={120} />}
-                    />
+                    /> */}
                 </Row>
             </Container>
         </section>

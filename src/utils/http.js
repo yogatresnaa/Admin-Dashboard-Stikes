@@ -409,8 +409,8 @@ export const getDokumenLaporanJurnalUmumPerAnggaran = (query, token) =>
     })
 
 //dashboard
-export const getAllDataDashboard = (token) =>
-    Axios.get(`${URL_BASE}/dashboard`, options())
+export const getAllDataDashboard = (query,token) =>
+    Axios.get(`${URL_BASE}/dashboard`, {...options(),params: query})
 
 //whatsapp
 export const postSendWhatsapp = (body, token) =>

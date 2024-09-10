@@ -11,7 +11,7 @@ function Cardsiswa({ title, data, color, icon }) {
             <div className=" d-flex flex-row justify-content-between align-items-center m-0 flex-1 w-100">
                 <div className="flex-1">{icon}</div>
                 <div className="transaksi-item__text w-100">
-                    <div className="justify-content-center align-items-center flex-1 d-flex flex-column">
+                    <div className="justify-content-start align-items-center flex-1 d-flex flex-column">
                         <h3 className="transaksi-item__title-transaksi">
                             {title}
                         </h3>

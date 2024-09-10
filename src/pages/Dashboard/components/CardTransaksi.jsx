@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CardTransaksi({ title, toDay, thisMonth, thisYear, color, icon }) {
+function CardTransaksi({ title, today, thisMonth, thisYear, color, icon }) {
     // console.log(IconComponent)
 
     return (
@@ -18,7 +18,7 @@ function CardTransaksi({ title, toDay, thisMonth, thisYear, color, icon }) {
                     <p className="transaksi-item__today">
                         <span className="transaksi-item__key">Hari ini</span>
                         <span className="transaksi-item__colon"> : </span>
-                        <span className="transaksi-item__value"> {toDay} </span>
+                        <span className="transaksi-item__value"> {today} </span>
                     </p>
                     <p className="transaksi-item__this-mounth">
                         <span className="transaksi-item__key">Bulan ini</span>
