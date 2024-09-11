@@ -74,7 +74,10 @@ function PageDashboard() {
     }, [])
 
     useEffect(() => {
-        getDataDashboard(() => getAllDataDashboard(queryFilter, dataUser.token))
+        if (queryFilter.unit_id !== '')
+            getDataDashboard(() =>
+                getAllDataDashboard(queryFilter, dataUser.token)
+            )
     }, [queryFilter.unit_id])
 
     const onQueryFilterChange = (e) => {
