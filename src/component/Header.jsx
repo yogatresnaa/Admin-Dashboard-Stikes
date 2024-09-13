@@ -4,6 +4,7 @@ import logo from '../assets/images/avatar.png' // with import
 import Button from 'react-bootstrap/Button'
 import { AiOutlineLogout } from 'react-icons/ai'
 import { logoutUserActionCreator } from '../redux/actions/authAction'
+import { Link } from 'react-router-dom'
 function Header({ dispatch, dataUser }) {
     const dropdownRef = useRef()
     const [isShow, setIsShow] = useState(false)
@@ -42,6 +43,9 @@ function Header({ dispatch, dataUser }) {
     const onClickLogoutHandler = () => {
         dispatch(logoutUserActionCreator(dataUser.token))
     }
+    const onClickProfileHandler = () => {
+        setIsShow(false)
+    }
     return (
         <>
             <header className="header-wrapper" disabled={isShow}>
@@ -67,9 +71,16 @@ function Header({ dispatch, dataUser }) {
                         <p className="text-email">{dataUser.user_email}</p>
                     </div>
                     <div className="dropdown__button-wrapper">
-                        <Button variant="light" size="sm">
-                            Profile
-                        </Button>
+                        <div></div>
+                        {/* <Link to={'/admin/pengaturan/lembaga'}>
+                            <Button
+                                variant="light"
+                                size="sm"
+                                onClick={onClickProfileHandler}
+                            >
+                                Profile
+                            </Button>
+                        </Link> */}
                         <Button
                             variant="dark"
                             size="sm"

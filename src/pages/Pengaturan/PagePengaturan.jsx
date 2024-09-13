@@ -33,7 +33,7 @@ function PagePengaturan() {
                     <PageInfoLembaga />
                 </Tab>
 
-                <Tab
+                {/* <Tab
                     eventKey="Kepengurusan"
                     title={
                         <span className="tab-style">
@@ -51,7 +51,7 @@ function PagePengaturan() {
                             <p className="tag-tab-style">Manajemen Pengguna </p>
                         </span>
                     }
-                ></Tab>
+                ></Tab> */}
             </Tabs>
         </div>
     )

@@ -158,10 +158,10 @@ function AppRoutes() {
                             path="/cek-data-pembayaran-siswa"
                             element={<CekTagihanSiswa />}
                         />
-                        <Route
+                        {/* <Route
                             path="/tagihan"
                             element={<TagihanPembayaran />}
-                        />
+                        /> */}
                         <Route path="/tagihan" element={<DokumenTagihan />} />
                         <Route
                             path="/pembayaran"
