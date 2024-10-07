@@ -180,6 +180,8 @@ function PembayaranBebas({
             width: '300px',
         },
     ]
+
+    console.log(data.free_type)
     return (
         <div>
             <Button className="mb-2" size="sm" onClick={onClickRefreshHandler}>
@@ -188,9 +190,7 @@ function PembayaranBebas({
             <DataTable
                 columns={columns}
                 customStyles={customStyles}
-                data={
-                    data?.free_type[0]?.payment_rate_bill ? data?.free_type : []
-                }
+                data={data?.free_type ?? []}
                 conditionalRowStyles={conditionalRowStyles}
             />
         </div>

@@ -162,7 +162,7 @@ function PembayaranBulanan({ data, onClickHandler }) {
             <DataTable
                 columns={columns}
                 customStyles={customStyles}
-                data={data?.monthly_type.filter(
+                data={data?.monthly_type?.filter(
                     (item) => item?.monthly_payment?.length > 0
                 )}
                 dense

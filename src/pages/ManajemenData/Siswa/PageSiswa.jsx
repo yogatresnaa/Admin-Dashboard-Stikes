@@ -207,11 +207,11 @@ function PageSiswa() {
                     item.student_full_name
                         .toString()
                         .toLowerCase()
-                        .includes(filterText.toLocaleLowerCase()) ||
-                    item.majors_majors_name
-                        .toString()
-                        .toLowerCase()
                         .includes(filterText.toLocaleLowerCase())
+                // item.majors_majors_name
+                //     .toString()
+                //     .toLowerCase()
+                //     .includes(filterText.toLocaleLowerCase())
             ),
         [filterText, dataSiswa.data]
     )

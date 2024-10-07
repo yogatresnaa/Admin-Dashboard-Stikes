@@ -292,6 +292,12 @@ function PageLaporanJurnalUmum() {
             getDokumenLaporanExcelJurnalUmum(
                 {
                     ...queryFilter,
+                    tanggal_awal: moment(queryFilter.tanggal_awal).format(
+                        'YYYY-MM-DD'
+                    ),
+                    tanggal_akhir: moment(queryFilter.tanggal_akhirl).format(
+                        'YYYY-MM-DD'
+                    ),
                     // period_id:
                     //     queryFilter.period_id == ''
                     //         ? TahunAjaran.data[0].period_id
@@ -306,7 +312,7 @@ function PageLaporanJurnalUmum() {
         if (dataPrintLaporanExcel?.data?.data) {
             downloadExcelDocument(
                 dataPrintLaporanExcel.data.data,
-                `Laporan Per anggaran Kas Bank Per Tanggal ${moment(
+                `Laporan Per anggaran Jurnal Umum Per Tanggal ${moment(
                     queryFilter.tanggal_awal
                 ).format('YYYY-MM-DD')}-${moment(
                     queryFilter.tanggal_akhir
