@@ -16,21 +16,27 @@ export const axiosInterceptorDispatch = (useDispatch) => {
 export const injectStore = (state) => {
     userState = state
 }
-Axios.interceptors.request.use((config)=>{
-    const token=store.getState().authState.data?.token;
-    if(token){
-        config.headers.Authorization=`Bearer ${token}`;
+Axios.interceptors.request.use(
+    (config) => {
+        const token = store.getState().authState.data?.token
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`
+        }
+        return config
+    },
+    (error) => {
+        return Promise.reject(error)
     }
-return config
-},error=>{
-    return Promise.reject(error);
-})
+)
 Axios.interceptors.response.use(
     (response) => response,
     (error) => {
         console.log(error)
         if (error.response.data.status == 401) {
-            if (error.response.data.message == 'JsonWebTokenError') {
+            if (
+                error.response.data.message == 'JsonWebTokenError' ||
+                error.response.data.message == 'Invalid Token'
+            ) {
                 return dispatch(logoutUserActionCreator(userState.token))
             }
             return Promise.reject(error)
@@ -60,12 +66,11 @@ export const putProdi = (id, body, token) =>
 export const deleteProdi = (id, body, token) =>
     Axios.delete(`${URL_BASE}/program-studi/${id}`, options())
 
-
 //unit
 export const getAllUnitByUser = (token) =>
     Axios.get(`${URL_BASE}/unit`, { ...options() })
-export const updateUnit = (body,unitId,token) =>
-    Axios.put(`${URL_BASE}/unit/${unitId}`,body, { ...options() })
+export const updateUnit = (body, unitId, token) =>
+    Axios.put(`${URL_BASE}/unit/${unitId}`, body, { ...options() })
 
 export const getAllKelas = (query = {}, token) =>
     Axios.get(`${URL_BASE}/kelas`, { ...options(), params: query })
@@ -201,25 +206,13 @@ export const postFreePaymentRateByStudent = (body, token) =>
     Axios.post(`${URL_BASE}/payment-rate/free/student`, body, options())
 
 export const putMonthlyPaymentRateByStudent = (id, body, token) =>
-    Axios.put(
-        `${URL_BASE}/payment-rate/month/student/${id}`,
-        body,
-        options()
-    )
+    Axios.put(`${URL_BASE}/payment-rate/month/student/${id}`, body, options())
 export const putFreePaymentRateByStudent = (id, body, token) =>
-    Axios.put(
-        `${URL_BASE}/payment-rate/free/student/${id}`,
-        body,
-        options()
-    )
+    Axios.put(`${URL_BASE}/payment-rate/free/student/${id}`, body, options())
 export const putFreePaymentRateByClass = (id, body, token) =>
     Axios.put(`${URL_BASE}/payment-rate/free/class/${id}`, body, options())
 export const putMonthlyPaymentRateByClass = (id, body, token) =>
-    Axios.put(
-        `${URL_BASE}/payment-rate/month/class/${id}`,
-        body,
-        options()
-    )
+    Axios.put(`${URL_BASE}/payment-rate/month/class/${id}`, body, options())
 export const deletePaymentRate = (id, token) =>
     Axios.delete(`${URL_BASE}/payment-rate/${id}`, options())
 
@@ -267,28 +260,16 @@ export const getTagihanPaymentTransactionAllStudent = (query, token) =>
 export const putPaymentTransactionById = (id, body, token) =>
     Axios.put(`${URL_BASE}/payment-transaction/${id}`, body, options())
 export const deletePaymentTransactionById = (id, body, token) =>
-    Axios.put(
-        `${URL_BASE}/payment-transaction/delete/${id}`,
-        body,
-        options()
-    )
+    Axios.put(`${URL_BASE}/payment-transaction/delete/${id}`, body, options())
 
 export const putDiscountFreePaymentTransactionById = (id, body, token) =>
-    Axios.put(
-        `${URL_BASE}/payment-transaction/discount/${id}`,
-        body,
-        options()
-    )
+    Axios.put(`${URL_BASE}/payment-transaction/discount/${id}`, body, options())
 
 export const putFreePaymentTransactionById = (id, body, token) =>
     Axios.put(`${URL_BASE}/payment-transaction/pay/${id}`, body, options())
 
 export const postSubmitPayment = (body, token) =>
-    Axios.post(
-        `${URL_BASE}/payment-transaction/submit-pay`,
-        body,
-        options()
-    )
+    Axios.post(`${URL_BASE}/payment-transaction/submit-pay`, body, options())
 
 export const getDetailFreePaymentRateByPaymentId = (id, token) =>
     Axios.get(
@@ -296,16 +277,12 @@ export const getDetailFreePaymentRateByPaymentId = (id, token) =>
         options()
     )
 export const deleteDetailFreePaymentRateByPaymentId = (id, body, token) =>
-    Axios.put(
-        `${URL_BASE}/detail-free-payment-rate/${id}`,
-        body,
-        options()
-    )
+    Axios.put(`${URL_BASE}/detail-free-payment-rate/${id}`, body, options())
 
 //dokumen
-export const getDokumenTagihanPembayaran = (id,query, token = null) =>
+export const getDokumenTagihanPembayaran = (id, query, token = null) =>
     Axios.get(`${URL_BASE}/dokumen/tagihan-pembayaran/${id}`, {
-        params:query,
+        params: query,
         ...options(),
     })
 export const getPublicDokumenTagihanPembayaran = (query, token = null) =>
@@ -323,14 +300,14 @@ export const getDokumenRincianPembayaran = (id, query, token) =>
         ...options(),
         params: query,
     })
-export const getDokumenKredit = (id,query, token) =>
+export const getDokumenKredit = (id, query, token) =>
     Axios.get(`${URL_BASE}/dokumen/kredit/${id}`, {
-        params:query,
+        params: query,
         ...options(),
     })
-export const getDokumenDebit = (id,query, token) =>
+export const getDokumenDebit = (id, query, token) =>
     Axios.get(`${URL_BASE}/dokumen/debit/${id}`, {
-        params:query,
+        params: query,
         ...options(),
     })
 export const getDokumenKwitansiPembayaran = (body, token) =>
@@ -352,12 +329,12 @@ export const getDokumenLaporanPerTanggal = (query, token) =>
         ...options(),
         params: query,
     })
-    export const getDokumenLaporanExcelPerTanggal = (query, token) =>
+export const getDokumenLaporanExcelPerTanggal = (query, token) =>
     Axios.get(`${URL_BASE}/dokumen/report/excel/pembayaran-per-tanggal`, {
         ...options(),
         params: query,
     })
-    export const getDokumenLaporanExcelRekapPembayaran = (query, token) =>
+export const getDokumenLaporanExcelRekapPembayaran = (query, token) =>
     Axios.get(`${URL_BASE}/dokumen/report/excel/rekap-pembayaran`, {
         ...options(),
         params: query,
@@ -409,8 +386,8 @@ export const getDokumenLaporanJurnalUmumPerAnggaran = (query, token) =>
     })
 
 //dashboard
-export const getAllDataDashboard = (query,token) =>
-    Axios.get(`${URL_BASE}/dashboard`, {...options(),params: query})
+export const getAllDataDashboard = (query, token) =>
+    Axios.get(`${URL_BASE}/dashboard`, { ...options(), params: query })
 
 //whatsapp
 export const postSendWhatsapp = (body, token) =>
