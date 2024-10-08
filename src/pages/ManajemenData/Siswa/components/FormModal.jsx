@@ -15,6 +15,7 @@ export default function ModalForm({
     schema,
     dataProdi,
     dataKelas,
+    refetchKelasForm,
     dataUnit,
     btnName,
     headerName,
@@ -77,7 +78,9 @@ export default function ModalForm({
                                     isLoadingSendData: isLoadingSendData,
                                     handleChange: handleChange,
                                     dataProdi,
+                                    refetchKelasForm,
                                     dataKelas,
+                                    setFieldValue,
                                     dataUnit,
                                     handleSubmit: handleSubmit,
                                 })}

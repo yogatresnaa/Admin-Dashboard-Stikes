@@ -136,9 +136,10 @@ function TableAkunBiaya({
         },
 
         {
-            name: 'Unit Sekolah',
-            selector: (row) => row.UnitSekolah,
+            name: 'Unit',
+            selector: (row) => row.unit_name,
             width: '120px',
+            sortable: true,
         },
 
         {

@@ -64,10 +64,20 @@ function PageSiswa() {
         getData: getDataKelas,
     } = useRequest()
     const {
+        data: dataKelasForm,
+        setData: setDataKelasForm,
+        getData: getDataKelasForm,
+    } = useRequest(true)
+    const {
         data: dataUnit,
         setData: setDataUnit,
         getData: getDataUnit,
     } = useRequest()
+    const {
+        data: dataUnitForm,
+        setData: setDataUnitForm,
+        getData: getDataUnitForm,
+    } = useRequest(true)
     const {
         resetPaginationToggle,
         setResetPaginationToggle,
@@ -91,6 +101,7 @@ function PageSiswa() {
         const query = queryString.stringify(queryFilter)
         getDataSiswa(() => getAllSiswa(query, dataUser.token))
         getDataUnit(() => getAllUnitByUser(dataUser.token))
+        getDataUnitForm(() => getAllUnitByUser(dataUser.token))
     }, [])
 
     const onCLickFilterSubmit = () => {
@@ -195,7 +206,6 @@ function PageSiswa() {
         }))
     }
 
-    console.log(dataSiswa)
     const dataFiltered = useMemo(
         () =>
             dataSiswa.data.filter(
@@ -225,6 +235,12 @@ function PageSiswa() {
         )
     }, [queryFilter.unit_id])
 
+    const refetchKelasForm = (unit_id) => {
+        console.log(unit_id)
+        getDataKelasForm(() =>
+            getAllKelas({ unit_unit_id: unit_id }, dataUser.token)
+        )
+    }
     return (
         <>
             <div className="page-content">
@@ -293,8 +309,9 @@ function PageSiswa() {
                     isOpen={isOpenModalForm}
                     btnName={isEdit ? 'Edit' : 'Tambah'}
                     dataProdi={dataProdi.data}
-                    dataUnit={dataUnit.data}
-                    dataKelas={dataKelas.data}
+                    dataUnit={dataUnitForm.data}
+                    refetchKelasForm={refetchKelasForm}
+                    dataKelas={dataKelasForm.data}
                     isLoadingSendData={isLoadingSendDataSiswa}
                     headerName={isEdit ? 'Edit Siswa' : 'Tambah Siswa'}
                     onSubmitHandler={

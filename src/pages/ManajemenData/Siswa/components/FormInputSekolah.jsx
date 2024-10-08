@@ -16,6 +16,8 @@ export default function FormInputSekolah({
     handleChange,
     btnName,
     dataProdi,
+    refetchKelasForm,
+    setFieldValue,
     dataKelas,
     dataUnit,
     isLoadingSendData,
@@ -62,7 +64,23 @@ export default function FormInputSekolah({
                     error={errors.majors_majors_id}
                 />
             </FormGroup>
-
+            <FormGroup>
+                <SelectUnit
+                    data={dataUnit}
+                    onFilterChange={(e) => {
+                        console.log(e.target.value)
+                        setFieldValue('unit_unit_id', e.target.value)
+                        refetchKelasForm(e.target.value)
+                    }}
+                    value={values.unit_unit_id}
+                    name="unit_unit_id"
+                    firstValue="Belum Dipilih"
+                />
+                <ErrorComponent
+                    text={errors.unit_unit_id}
+                    error={errors.unit_unit_id}
+                />
+            </FormGroup>
             <FormGroup>
                 <SelectUnitKelas
                     data={dataKelas}
@@ -76,19 +94,7 @@ export default function FormInputSekolah({
                     error={errors.class_class_id}
                 />
             </FormGroup>
-            <FormGroup>
-                <SelectUnit
-                    data={dataUnit}
-                    onFilterChange={handleChange('unit_unit_id')}
-                    value={values.unit_unit_id}
-                    name="unit_unit_id"
-                    firstValue="Belum Dipilih"
-                />
-                <ErrorComponent
-                    text={errors.unit_unit_id}
-                    error={errors.unit_unit_id}
-                />
-            </FormGroup>
+
             <FormGroup>
                 <SelectStatusSiswa
                     data={statusSiswa}
