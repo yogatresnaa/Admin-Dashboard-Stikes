@@ -32,6 +32,8 @@ export default function FormInput({
                 <CustomSelect
                     data={dataPosPay}
                     labelName="POS"
+                    optionNameOptional={'unit_name'}
+                    symbol="-"
                     optionName="pos_pay_name"
                     optionValue={'pos_pay_id'}
                     onChange={handleChange('pos_pos_id')}

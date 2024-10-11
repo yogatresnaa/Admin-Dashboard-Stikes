@@ -16,6 +16,8 @@ export default function FormInput({
 
     isLoadingSendData,
 }) {
+    console.log(values)
+
     return (
         <Form
             onSubmit={handleSubmit}
@@ -30,19 +32,19 @@ export default function FormInput({
                     data={dataAccountCost}
                     labelName="Kode Akun"
                     optionName="account_code"
-                    optionValue={'account_code'}
+                    optionValue={'account_id'}
                     optionNameOptional="account_description"
-                    onChange={handleChange('account_account_code')}
+                    onChange={handleChange('account_account_id')}
                     value={
-                        values.account_account_code == null
+                        values.account_account_id == null
                             ? ''
-                            : values.account_account_code
+                            : values.account_account_id
                     }
-                    name="account_account_code"
+                    name="account_account_id"
                 />
                 <ErrorComponent
-                    text={errors.account_account_code}
-                    error={errors.account_account_code}
+                    text={errors.account_account_id}
+                    error={errors.account_account_id}
                 />
             </FormGroup>
             <FormGroup>

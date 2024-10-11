@@ -161,6 +161,7 @@ function PagePosPay() {
     //     setIsOpenModalForm(!isOpenModalForm);
     //   };
     const onSubmitTambahHandler = async (formBody, { resetForm }) => {
+        console.log(formBody)
         const newFormBody = {
             ...formBody,
             unit_unit_id: queryFilter.unit_id,
@@ -286,9 +287,7 @@ function PagePosPay() {
                 dataPiutang={dataPiutang.data}
                 isLoadingSendData={isLoadingSendDataPosPay}
                 btnName={isEdit ? 'Edit' : 'Tambah'}
-                headerName={
-                    isEdit ? 'Edit Tahun Ajaran' : 'Tambah Tahun Ajaran'
-                }
+                headerName={isEdit ? 'Edit Pos Bayar' : 'Tambah Pos Bayar'}
                 onSubmitHandler={
                     isEdit ? onSubmitEditHandler : onSubmitTambahHandler
                 }

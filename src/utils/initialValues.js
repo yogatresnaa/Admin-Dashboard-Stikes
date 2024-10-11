@@ -36,7 +36,7 @@ export const accountCostInitialValues = {
 }
 export const posPayInitialValues = {
     pos_pay_id: '',
-    account_account_code: '',
+    account_account_id: '',
     account_account_credit: '',
     pos_pay_name: '',
     pos_pay_description: '',

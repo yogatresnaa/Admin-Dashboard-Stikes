@@ -50,7 +50,8 @@ export const siswaModel = {
 
 export const posPayModel = {
     objectToJSON: (body) => ({
-        account_account_code: body.account_account_code,
+        // account_account_code: body.account_account_code,
+        account_account_id: body.account_account_id,
         account_account_credit: body.account_account_credit,
         pos_pay_name: body.pos_pay_name,
         pos_pay_description: body.pos_pay_description,

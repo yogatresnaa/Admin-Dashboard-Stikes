@@ -27,26 +27,26 @@ export const siswaSchema = Yup.object().shape({
 export const accountCostSchema = (isCategory) =>
     isCategory
         ? Yup.object().shape({
-            account_code: Yup.string().required('Kode  Harus Diisi'),
-            account_description: Yup.string().required(
-                'Description Harus Diisi'
-            ),
-            account_category: Yup.string().required('Kategori Harus Diisi'),
+              account_code: Yup.string().required('Kode  Harus Diisi'),
+              account_description: Yup.string().required(
+                  'Description Harus Diisi'
+              ),
+              account_category: Yup.string().required('Kategori Harus Diisi'),
 
-            // majors_short_name:Yup.string().required("Field Harus Diisi"),
-        })
+              // majors_short_name:Yup.string().required("Field Harus Diisi"),
+          })
         : Yup.object().shape({
-            account_code: Yup.string().required('Kode  Harus Diisi'),
-            account_description: Yup.string().required(
-                'Description Harus Diisi'
-            ),
-            unit_unit_id: Yup.string().required('Unit Harus Diisi'),
+              account_code: Yup.string().required('Kode  Harus Diisi'),
+              account_description: Yup.string().required(
+                  'Description Harus Diisi'
+              ),
+              unit_unit_id: Yup.string().required('Unit Harus Diisi'),
 
-            // majors_short_name:Yup.string().required("Field Harus Diisi"),
-        })
+              // majors_short_name:Yup.string().required("Field Harus Diisi"),
+          })
 
 export const posPaySchema = Yup.object().shape({
-    account_account_code: Yup.string().required('Kode Akun Harus Dipilih'),
+    account_account_id: Yup.string().required('Kode Akun Harus Dipilih'),
     account_account_credit: Yup.string().required('Akun Piutang Harus Diisi'),
     pos_pay_name: Yup.string().required('Nama POS Harus Diisi'),
     pos_pay_description: Yup.string().required('Keterangan POS Harus Diisi'),
