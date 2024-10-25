@@ -478,7 +478,15 @@ export default function PageEditTarifTagihan() {
                                         >
                                             Simpan
                                         </Button>
-                                        <Button color="light">Cancel</Button>
+                                        <Button
+                                            color="light"
+                                            onClick={() => {
+                                                navigate(-1)
+                                                console.log('aaa')
+                                            }}
+                                        >
+                                            Cancel
+                                        </Button>
                                     </div>
                                 </div>
                             ) : (
@@ -505,7 +513,13 @@ export default function PageEditTarifTagihan() {
                                                     >
                                                         Simpan
                                                     </Button>
-                                                    <Button color="light">
+                                                    <Button
+                                                        color="light"
+                                                        onClick={() => {
+                                                            navigate(-1)
+                                                            console.log('aaa')
+                                                        }}
+                                                    >
                                                         Cancel
                                                     </Button>
                                                 </div>
