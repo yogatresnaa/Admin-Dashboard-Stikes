@@ -31,15 +31,31 @@ function Homepage() {
 
         dispatch(checkAuthActionCreator(dataUser.data.token))
     }, [])
+    console.log(dataUser)
     return (
-        <div className="containerApp">
+        <div className="containerApp ">
             <aside className="sidebar">
                 <Sidebar />
             </aside>
-            <Header dispatch={dispatch} dataUser={dataUser.data} />
-            <div className="content">
-                {isLoading && <FixedLoader />}
-                <Outlet />
+            <div className="position-relative flex-1 w-100">
+                <Header dispatch={dispatch} dataUser={dataUser.data} />
+                <div
+                    className="  w-100 position-absolute z-1 d-flex justify-content-center align-items-center flex-1"
+                    style={{
+                        height: '30px',
+                        top: '60px',
+                        background: '#D0312D',
+                    }}
+                >
+                    <p className="text-white m-0" style={{ fontSize: '12px' }}>
+                        Sisa Akun trial anda adalah{' '}
+                        {dataUser.data?.accountInfo?.days} Hari Lagi
+                    </p>
+                </div>
+                <div className="content">
+                    {isLoading && <FixedLoader />}
+                    <Outlet />
+                </div>
             </div>
         </div>
     )

@@ -5,8 +5,7 @@
 @import '../Pengaturan//styleCss/PengaturanStyle.css';
 
 .page-content {
-    padding: 5px;
-    margin: 40px;
+    padding: 45px;
     width: 95%;
     flex: auto;
     flex-direction: column;

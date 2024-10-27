@@ -170,7 +170,7 @@ function AppRoutes() {
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/admin" element={<Homepage />}>
                             {' '}
-                            /{/* path dashboard */}
+                            {/* path dashboard */}
                             <Route
                                 path="kelas"
                                 element={<RouteWithAuth element={PageKelas} />}
