@@ -31,7 +31,6 @@ function Homepage() {
 
         dispatch(checkAuthActionCreator(dataUser.data.token))
     }, [])
-    console.log(dataUser)
     return (
         <div className="containerApp ">
             <aside className="sidebar">
