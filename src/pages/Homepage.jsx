@@ -36,7 +36,7 @@ function Homepage() {
             <aside className="sidebar">
                 <Sidebar />
             </aside>
-            <div className="position-relative flex-1 w-100">
+            <div className="position-relative flex-1 w-100 overflow-scroll">
                 <Header dispatch={dispatch} dataUser={dataUser.data} />
                 <div
                     className="  w-100 position-absolute z-1 d-flex justify-content-center align-items-center flex-1"
