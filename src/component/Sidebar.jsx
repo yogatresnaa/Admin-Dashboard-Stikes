@@ -28,7 +28,7 @@ import {
 import { BsFillMortarboardFill } from 'react-icons/bs'
 import { IconContext } from 'react-icons'
 import Navbar from 'react-bootstrap/Navbar'
-import logo from '../assets/images/logo.png' // with import
+import logo from '../assets/images/logo-adfinku-no-border.png' // with import
 import './css/sidebar.css'
 
 const ManajmenData = [

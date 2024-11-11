@@ -3,7 +3,7 @@ import { Col, Row, Form, FormGroup, Label, Input, Button } from 'reactstrap'
 import './styles/login.css'
 
 import AutoTyping from '../../component/Text/AutoTyping'
-import logo from '../../assets/images/logo.jpeg'
+import logo from '../../assets/images/logo-adfinku-no-border.png'
 import ErrorComponent from '../../component/Form/ErrorComponent'
 import FormComponent from '../../component/Form/FormComponent'
 import { Formik } from 'formik'
