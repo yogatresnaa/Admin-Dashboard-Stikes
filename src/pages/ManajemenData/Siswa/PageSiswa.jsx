@@ -241,6 +241,8 @@ function PageSiswa() {
             getAllKelas({ unit_unit_id: unit_id }, dataUser.token)
         )
     }
+    console.log(dataKelasForm)
+    console.log(dataKelas)
     return (
         <>
             <div className="page-content">
@@ -311,7 +313,7 @@ function PageSiswa() {
                     dataProdi={dataProdi.data}
                     dataUnit={dataUnitForm.data}
                     refetchKelasForm={refetchKelasForm}
-                    dataKelas={dataKelasForm.data}
+                    dataKelas={dataKelas.data}
                     isLoadingSendData={isLoadingSendDataSiswa}
                     headerName={isEdit ? 'Edit Siswa' : 'Tambah Siswa'}
                     onSubmitHandler={

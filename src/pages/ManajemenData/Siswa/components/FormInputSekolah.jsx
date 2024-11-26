@@ -22,6 +22,7 @@ export default function FormInputSekolah({
     dataUnit,
     isLoadingSendData,
 }) {
+    console.log(dataKelas)
     return (
         <Form
             onSubmit={handleSubmit}
