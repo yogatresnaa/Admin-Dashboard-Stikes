@@ -29,8 +29,14 @@ export default function TagihanPembayaran() {
 
     return (
         <>
-            {dataDokumenBuktiPembayaran.data?.data ? (
-                <PdfViewer pdfBuffer={dataDokumenBuktiPembayaran.data.data} />
+            {dataDokumenBuktiPembayaran.data ? (
+                <PdfViewer
+                    pdfBuffer={
+                        new Uint8Array(
+                            Object.values(dataDokumenBuktiPembayaran.data)
+                        )
+                    }
+                />
             ) : (
                 <div
                     style={{ height: '100vh' }}
