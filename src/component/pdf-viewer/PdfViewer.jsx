@@ -69,6 +69,9 @@ const PdfViewer = ({ pdfBuffer }) => {
                 <Document
                     file={{ data: pdfBuffer }}
                     onLoadSuccess={onDocumentLoadSuccess}
+                    onLoadError={(error) =>
+                        console.error('Error loading PDF:', error)
+                    }
                 >
                     {Array.apply(null, Array(numPages))
                         .map((x, i) => i + 1)
