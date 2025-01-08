@@ -117,8 +117,11 @@ export const upperCaseFirstChar = (word) => {
 }
 
 export const downloadDocument = (dokumen, documentName) => {
+    console.log(documentName)
+    const binaryData = Array.isArray(dokumen) ? dokumen : Object.values(dokumen)
+
     const url = window.URL.createObjectURL(
-        new Blob([new Uint8Array(dokumen).buffer], {
+        new Blob([new Uint8Array(binaryData).buffer], {
             type: 'application/pdf',
         })
     )

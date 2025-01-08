@@ -713,20 +713,24 @@ function PagePembayaranSiswa() {
         )
     }
     useEffect(() => {
-        if (dataDokumenRincianPembayaran?.data?.data && dataDetailSiswa)
+        if (dataDokumenRincianPembayaran?.data && dataDetailSiswa)
             downloadDocument(
-                dataDokumenRincianPembayaran.data.data,
+                dataDokumenRincianPembayaran.data,
                 `Rincian Bayar ${dataDetailSiswa.student_full_name}-${tahunAjaranState.period_start}/${tahunAjaranState.period_end}`
             )
         setDataDokumenRincianPembayaran(null)
     }, [dataDokumenRincianPembayaran?.data, dataDetailSiswa])
     useEffect(() => {
-        if (dataKwitansiPembayaran?.data?.data && dataDetailSiswa)
+        console.log(dataKwitansiPembayaran?.data)
+        if (dataKwitansiPembayaran?.data && dataDetailSiswa) {
+            console.log('print masuk')
+
             downloadDocument(
-                dataKwitansiPembayaran.data.data,
+                dataKwitansiPembayaran.data,
                 `Kwitansi Bayar ${dataDetailSiswa.student_full_name}-${tahunAjaranState.period_start}/${tahunAjaranState.period_end}`
             )
-        setDataKwitansi(null)
+            setDataKwitansi(null)
+        }
     }, [dataKwitansiPembayaran?.data, dataDetailSiswa])
     useEffect(() => {
         if (dataDokumenTagihanPembayaran?.data?.data && dataDetailSiswa)
