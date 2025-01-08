@@ -1,17 +1,11 @@
 import React from 'react'
+import logo from '../../../assets/images/logo-adfinku-no-border.png' // with import
 
 function HeaderTagihanSiswa() {
     return (
         <div className="header-tagihan">
             <div className="logo-sekolah">
-                <img src="/images/sekolah-logo.png" alt="contact avatar" />
-            </div>
-            <div className="ket">
-                <h3>Admin Sekolah Pelita Ilmu</h3>
-                <p>
-                    Jl. Bojongsari No. 34 Kec. Bojongsari - Depok <br />
-                    Telp. 021 7409559
-                </p>
+                <img src={logo} className=" me-1 fs-1" />
             </div>
         </div>
     )

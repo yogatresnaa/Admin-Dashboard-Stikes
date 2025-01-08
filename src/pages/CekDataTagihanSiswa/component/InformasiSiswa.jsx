@@ -23,7 +23,9 @@ function InformasiSiswa({ dataValue }) {
                 <tr>
                     <td>Unit Sekolah</td>
                     <td className="colon">:</td>
-                    <td>SMK</td>
+                    <td>
+                        {dataValue?.unit_unit_name} {dataValue?.unit_full_name}
+                    </td>
                 </tr>
                 <tr>
                     <td>Kelas</td>
