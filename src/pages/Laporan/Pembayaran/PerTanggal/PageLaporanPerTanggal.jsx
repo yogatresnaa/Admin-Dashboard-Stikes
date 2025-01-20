@@ -268,9 +268,9 @@ function PageLaporanPembayaranPerTanggal() {
     }, [dataPrintLaporanExcel?.data])
 
     useEffect(() => {
-        if (dataPrintLaporan?.data?.data)
+        if (dataPrintLaporan?.data && dataPrintLaporan?.data['0'] != undefined)
             downloadDocument(
-                dataPrintLaporan.data.data,
+                dataPrintLaporan?.data,
                 `Laporan Pembayaran Per Tanggal ${moment(
                     queryFilter.tanggal_awal
                 ).format('YYYY-MM-DD')}-${moment(

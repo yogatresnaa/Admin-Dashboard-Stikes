@@ -239,11 +239,15 @@ function PageLaporanPembayaranKelas() {
         )
     }
     useEffect(() => {
-        if (dataPrintLaporan?.data?.data)
+        if (
+            dataPrintLaporan?.data &&
+            dataPrintLaporan?.data['0'] != undefined
+        ) {
             downloadDocument(
-                dataPrintLaporan.data.data,
+                dataPrintLaporan?.data,
                 `Laporan Pembayaran ${dataPaymentType.data.filter((item) => queryFilter.payment_type == item.pos_pos_id)[0]?.pos_pay_name}_T.A ${tahunAjaranState.period_start ?? TahunAjaran.data[0].period_start}/${tahunAjaranState.period_end ?? TahunAjaran.data[0].period_end}_${queryFilter.class_id == '' ? 'Semua' : `Kelas ${dataKelas.data?.filter((item) => item.class_id == queryFilter.class_id)[0].class_name}`}`
             )
+        }
         setDataPrintLaporan(null)
     }, [dataPrintLaporan?.data])
     useEffect(() => {

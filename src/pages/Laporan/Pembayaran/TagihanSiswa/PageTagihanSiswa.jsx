@@ -222,7 +222,7 @@ function PageLaporanTagihanSiswa() {
         )
     }
     useEffect(() => {
-        if (dataPrintLaporan?.data?.data)
+        if (dataPrintLaporan?.data && dataPrintLaporan?.data['0'] != undefined)
             downloadDocument(
                 dataPrintLaporan.data.data,
                 `Tagihan_${selectedStudent}`

@@ -272,8 +272,8 @@ function PageLaporanKasTunai() {
         )
     }
     useEffect(() => {
-        if (dataPrintLaporan?.data?.data)
-            downloadDocument(dataPrintLaporan.data.data, titleDokumen)
+        if (dataPrintLaporan?.data && dataPrintLaporan?.data['0'] != undefined)
+            downloadDocument(dataPrintLaporan.data, titleDokumen)
         setDataPrintLaporan(null)
     }, [dataPrintLaporan?.data])
 
