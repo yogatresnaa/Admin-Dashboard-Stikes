@@ -10,7 +10,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     import.meta.url
 ).toString()
 
-const PdfViewer = ({ pdfBuffer }) => {
+const PdfViewer = ({ pdfBuffer, isTagihan = false }) => {
     const [numPages, setNumPages] = useState(null)
     const [isPrinting, setIsPrinting] = useState(false)
     const [pageNumber, setPageNumber] = useState(1)
@@ -35,6 +35,10 @@ const PdfViewer = ({ pdfBuffer }) => {
             setIsPrinting(false)
         }
     }, [isPrinting])
+    const pdfData =
+        pdfBuffer instanceof Uint8Array
+            ? pdfBuffer
+            : new Uint8Array(Object.values(pdfBuffer))
 
     return (
         <div className="bg-dark w-100 d-flex flex-column position-relative align-items-center justify-content-center">
@@ -62,7 +66,9 @@ const PdfViewer = ({ pdfBuffer }) => {
                 ref={docRef}
             >
                 <Document
-                    file={{ data: pdfBuffer.slice(0) }}
+                    file={{
+                        data: isTagihan ? pdfData : pdfBuffer.slice(0),
+                    }}
                     onLoadSuccess={onDocumentLoadSuccess}
                     onLoadError={(error) =>
                         console.error('Error loading PDF:', error)

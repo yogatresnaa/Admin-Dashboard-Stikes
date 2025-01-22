@@ -28,7 +28,7 @@ export default function useRequest(isGenerate = false) {
             if (response.data.status == 200 || response.data.status == 201) {
                 setData((prevState) => ({
                     ...prevState,
-                    data: response.data.data,
+                    data: response?.data?.data,
                 }))
             }
         } catch (error) {

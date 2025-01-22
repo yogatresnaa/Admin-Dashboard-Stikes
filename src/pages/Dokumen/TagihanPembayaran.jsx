@@ -27,6 +27,10 @@ export default function TagihanPembayaran() {
         getDokumen()
     }, [])
 
+    useEffect(() => {
+        console.log(dataDokumenTagihanPembayaran)
+    }, [dataDokumenTagihanPembayaran.data])
+
     // useEffect(() => {
     //     if (dataDokumenTagihanPembayaran?.data) {
     //         console.log(dataDokumenTagihanPembayaran.data.data)
@@ -39,10 +43,15 @@ export default function TagihanPembayaran() {
     //         // setDataDokumentagihanPembayaran(null)
     //     }
     // }, [dataDokumenTagihanPembayaran])
+    console.log(dataDokumenTagihanPembayaran)
+
     return (
         <>
-            {dataDokumenTagihanPembayaran.data?.data ? (
-                <PdfViewer pdfBuffer={dataDokumenTagihanPembayaran.data.data} />
+            {dataDokumenTagihanPembayaran?.data[0] != undefined ? (
+                <PdfViewer
+                    pdfBuffer={dataDokumenTagihanPembayaran.data}
+                    isTagihan
+                />
             ) : (
                 <div
                     style={{ height: '100vh' }}
